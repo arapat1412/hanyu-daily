@@ -25,6 +25,16 @@ export const Footer: React.FC = () => {
               <p className="text-xs text-white/70 leading-relaxed">
                 Hệ thống học tiếng Trung New HSK 3.0 trực quan, giúp bạn chinh phục Hán tự, ngữ pháp và giao tiếp mỗi ngày một cách tự nhiên và bền bỉ.
               </p>
+              <div className="text-xs text-white/80 space-y-1.5 pt-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-amber-300 font-bold">Hotline:</span>
+                  <a href="tel:0328480588" className="hover:text-white transition-colors font-medium">0328 480 588</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-amber-300 font-bold">Zalo:</span>
+                  <a href="https://zalo.me/0772550044" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-medium">0772 550 044</a>
+                </div>
+              </div>
               <div className="p-3 bg-white/5 rounded-2xl border border-white/10">
                 <div className="font-hanzi text-sm text-amber-200 font-semibold mb-1">
                   千里之行，始于足下。

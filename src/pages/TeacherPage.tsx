@@ -85,8 +85,9 @@ const METHODOLOGY = [
 
 export const TeacherPage: React.FC = () => {
   const zaloUrl = 'https://zalo.me/0772550044';
+  const zaloPhone = '0772 550 044';
+  const hotline = '0328 480 588';
   const facebookUrl = 'https://www.facebook.com/kimchi.nguyenvan.35';
-  const phone = '0772 550 044';
 
   return (
     <div className="min-h-screen bg-cream text-ink">
@@ -186,7 +187,7 @@ export const TeacherPage: React.FC = () => {
                   className="flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-brand shadow-xs transition-all hover:bg-white/95 hover:scale-[1.02] active:scale-98"
                 >
                   <MessageCircle size={15} />
-                  <span>Zalo: {phone}</span>
+                  <span>Zalo: {zaloPhone}</span>
                 </a>
 
                 <a
@@ -201,11 +202,11 @@ export const TeacherPage: React.FC = () => {
                 </a>
 
                 <a
-                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  href={`tel:${hotline.replace(/\s+/g, '')}`}
                   className="flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-xs font-bold text-white transition-all hover:bg-white/25 hover:scale-[1.02] active:scale-98"
                 >
                   <Phone size={14} />
-                  <span>Hotline: {phone}</span>
+                  <span>Hotline: {hotline}</span>
                 </a>
               </div>
             </div>
