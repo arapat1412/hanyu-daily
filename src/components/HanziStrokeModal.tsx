@@ -146,18 +146,18 @@ export const HanziStrokeModal: React.FC<HanziStrokeModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
       <div
         ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-label="Tập viết chữ Hán"
         tabIndex={-1}
-        className="relative w-full max-w-md max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-y-auto border border-line flex flex-col"
+        className="relative w-full max-w-md max-h-[88dvh] bg-white rounded-3xl shadow-2xl overflow-y-auto border border-line flex flex-col pb-[calc(env(safe-area-inset-bottom,0px)+10px)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-line bg-cream">
+        <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-line bg-cream shrink-0">
           <div className="flex items-center gap-2">
             <span className="p-1.5 rounded-xl bg-brand/10 text-brand">
               <PenTool className="w-4 h-4" />
@@ -280,11 +280,11 @@ export const HanziStrokeModal: React.FC<HanziStrokeModalProps> = ({
         </div>
 
         {/* Action Controls */}
-        <div className="p-4 bg-cream border-t border-line flex items-center justify-between gap-3">
+        <div className="p-3 sm:p-4 bg-cream border-t border-line flex items-center justify-between gap-3 shrink-0">
           <button
             disabled={!ready}
             onClick={handleAnimate}
-            className="flex-1 py-2.5 px-3 rounded-2xl border border-brand/20 bg-white hover:bg-tint text-brand text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+            className="flex-1 min-h-[46px] py-2.5 px-3 rounded-2xl border border-brand/20 bg-white hover:bg-tint text-brand text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95 touch-manipulation disabled:opacity-50"
           >
             <Play className="w-4 h-4 fill-brand" />
             Xem viết mẫu
@@ -293,7 +293,7 @@ export const HanziStrokeModal: React.FC<HanziStrokeModalProps> = ({
           <button
             disabled={!ready}
             onClick={handleStartQuiz}
-            className="flex-1 py-2.5 px-3 rounded-2xl bg-brand hover:bg-brand-dark text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-md"
+            className="flex-1 min-h-[46px] py-2.5 px-3 rounded-2xl bg-brand hover:bg-brand-dark text-white text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 shadow-md active:scale-95 touch-manipulation disabled:opacity-50"
           >
             <PenTool className="w-4 h-4" />
             Tự tập viết

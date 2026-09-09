@@ -297,7 +297,7 @@ export function PracticeSession({
               disabled={checked}
               onClick={() => setAnswer(option)}
               aria-pressed={answer === option}
-              className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors ${checked && option === question.answer ? "border-emerald-500 bg-emerald-50" : checked && option === answer ? "border-red-400 bg-red-50" : answer === option ? "border-brand bg-tint" : "border-line hover:bg-page/50"}`}
+              className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors active:scale-[0.99] touch-manipulation cursor-pointer min-h-[52px] ${checked && option === question.answer ? "border-emerald-500 bg-emerald-50" : checked && option === answer ? "border-red-400 bg-red-50" : answer === option ? "border-brand bg-tint" : "border-line hover:bg-page/50"}`}
             >
               <span className="text-xs text-muted">
                 {String.fromCharCode(65 + i)}
@@ -333,7 +333,7 @@ export function PracticeSession({
       <button
         disabled={!answer.trim()}
         onClick={checked ? next : check}
-        className="mt-6 w-full rounded-2xl bg-brand py-3.5 font-bold text-white shadow-sm transition hover:bg-brand-dark disabled:opacity-40"
+        className="mt-6 w-full min-h-[48px] rounded-2xl bg-brand py-3.5 font-bold text-white shadow-sm transition hover:bg-brand-dark active:scale-[0.99] touch-manipulation disabled:opacity-40 flex items-center justify-center"
       >
         {checked
           ? index === questions.length - 1

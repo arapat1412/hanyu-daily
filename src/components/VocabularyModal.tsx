@@ -121,16 +121,16 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
         onClick={onClose}
       >
         <div
-          className="relative flex flex-col w-full max-w-3xl max-h-[92vh] bg-white rounded-3xl shadow-2xl overflow-hidden border border-line animate-scaleUp"
+          className="relative flex flex-col w-full max-w-3xl max-h-[90dvh] bg-white rounded-3xl shadow-2xl overflow-hidden border border-line animate-scaleUp"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-brand-dark via-brand to-brand-light p-5 sm:p-6 text-white shrink-0 relative">
+          <div className="bg-gradient-to-r from-brand-dark via-brand to-brand-light p-4 sm:p-6 text-white shrink-0 relative">
             <button
               type="button"
               onClick={onClose}
               aria-label="Đóng"
-              className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/15 transition-colors"
+              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/15 transition-colors active:scale-95"
             >
               <X className="w-5 h-5" />
             </button>
@@ -151,11 +151,11 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
             </p>
 
             {/* 3 Tab Switcher Buttons */}
-            <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none momentum-scroll overscroll-x-contain">
               <button
                 type="button"
                 onClick={() => setActiveTab("known")}
-                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap ${
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
                   activeTab === "known"
                     ? "bg-white text-emerald-800 shadow-md ring-2 ring-emerald-300"
                     : "bg-white/15 text-white hover:bg-white/25"
@@ -175,7 +175,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab("bookmarks")}
-                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap ${
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
                   activeTab === "bookmarks"
                     ? "bg-white text-amber-900 shadow-md ring-2 ring-amber-300"
                     : "bg-white/15 text-white hover:bg-white/25"
@@ -195,7 +195,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab("mistakes")}
-                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap ${
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
                   activeTab === "mistakes"
                     ? "bg-white text-rose-900 shadow-md ring-2 ring-rose-300"
                     : "bg-white/15 text-white hover:bg-white/25"
@@ -421,14 +421,14 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
           </div>
 
           {/* Modal Bottom Footer */}
-          <div className="bg-white border-t border-line p-4 sm:px-6 flex items-center justify-between shrink-0">
+          <div className="bg-white border-t border-line p-3.5 sm:p-4 sm:px-6 pb-[calc(env(safe-area-inset-bottom,0px)+12px)] flex items-center justify-between shrink-0">
             <div className="text-xs text-muted">
               Đang hiển thị <strong className="text-ink font-mono">{filteredWords.length}</strong> từ vựng
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl bg-brand/10 hover:bg-brand/15 px-4 py-2 text-xs font-bold text-brand transition-colors"
+              className="min-h-[40px] px-4 py-2 rounded-xl bg-brand/10 hover:bg-brand/15 text-xs font-bold text-brand transition-colors active:scale-95 touch-manipulation flex items-center justify-center"
             >
               Đóng
             </button>

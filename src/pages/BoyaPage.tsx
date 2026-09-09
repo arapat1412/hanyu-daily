@@ -247,9 +247,9 @@ export const BoyaPage: React.FC = () => {
         </div>
 
         {/* Hero Header Banner with Book Cover */}
-        <header className="relative mb-8 overflow-hidden rounded-[26px] bg-gradient-to-br from-[#1B3B4B] via-[#245369] to-[#2D6682] px-6 py-6 text-white shadow-md sm:px-8 sm:py-8">
+        <header className="relative mb-6 sm:mb-8 overflow-hidden rounded-[22px] sm:rounded-[26px] bg-gradient-to-br from-[#1B3B4B] via-[#245369] to-[#2D6682] px-4 py-5 sm:px-8 sm:py-8 text-white shadow-md">
           {/* Watermark character */}
-          <span className="pointer-events-none absolute -right-6 -bottom-10 select-none font-hanzi text-[190px] font-black text-white/5 sm:text-[230px]">
+          <span className="pointer-events-none absolute -right-6 -bottom-10 select-none font-hanzi text-[140px] sm:text-[230px] font-black text-white/5 opacity-40 sm:opacity-100">
             博雅
           </span>
 
@@ -361,7 +361,7 @@ export const BoyaPage: React.FC = () => {
                 <button
                   key={u.unit}
                   onClick={() => handleSelectUnit(isActive ? 0 : u.unit)}
-                  className={`flex flex-col items-start p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                  className={`flex flex-col items-start p-3 rounded-xl border text-left transition-all cursor-pointer active:scale-[0.98] touch-manipulation ${
                     isActive
                       ? 'border-brand bg-brand text-white shadow-sm scale-[1.02]'
                       : 'border-line bg-white hover:border-brand/40 hover:bg-tint/30 text-ink'
@@ -401,10 +401,10 @@ export const BoyaPage: React.FC = () => {
             )}
           </div>
 
-          <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+          <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none momentum-scroll overscroll-x-contain px-0.5">
             <button
               onClick={() => handleSelectLesson(0)}
-              className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+              className={`flex-shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 touch-manipulation ${
                 selectedLesson === 0
                   ? 'bg-brand text-white shadow-xs'
                   : 'bg-white text-ink-2 border border-line hover:bg-tint/50'
@@ -421,7 +421,7 @@ export const BoyaPage: React.FC = () => {
                     key={l.number}
                     onClick={() => handleSelectLesson(isActive ? 0 : l.number)}
                     title={`Bài ${l.number}: ${l.titleZh} - ${l.titleVi}`}
-                    className={`flex-shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                    className={`flex-shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 touch-manipulation ${
                       isActive
                         ? 'bg-brand text-white shadow-xs'
                         : 'bg-white text-ink-2 border border-line hover:bg-tint/50'

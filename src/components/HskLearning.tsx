@@ -240,14 +240,14 @@ export function LevelShell({
             </div>
             <nav
               aria-label="Điều hướng cấp độ"
-              className="flex flex-wrap gap-1 lg:flex-col"
+              className="flex overflow-x-auto gap-1 pb-1 lg:flex-col lg:overflow-x-visible scrollbar-none momentum-scroll"
             >
               {links.map(([key, label, icon]) => (
                 <Link
                   key={key}
                   to={`/hsk/${code}${key === "overview" ? "" : `/${key}`}`}
                   aria-current={tab === key ? "page" : undefined}
-                  className={`rounded-xl px-3 py-2.5 text-sm font-semibold ${tab === key ? "bg-tint text-brand" : "text-muted hover:bg-page"}`}
+                  className={`rounded-xl px-3 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap lg:whitespace-normal active:scale-95 touch-manipulation transition-all ${tab === key ? "bg-tint text-brand" : "text-muted hover:bg-page"}`}
                 >
                   {icon} {label}
                 </Link>
@@ -517,7 +517,7 @@ export function WordCard({
             setError("");
             speakChinese(word.hanzi, setError);
           }}
-          className="rounded-xl bg-tint/80 p-2.5 text-brand transition hover:bg-tint"
+          className="rounded-xl bg-tint/80 p-2.5 text-brand transition hover:bg-tint active:scale-95 touch-manipulation min-w-[40px] min-h-[40px] flex items-center justify-center shrink-0"
         >
           <Volume2 size={18} />
         </button>
@@ -556,7 +556,7 @@ export function WordCard({
           aria-label={`${saved ? "Bỏ lưu" : "Lưu"} ${word.hanzi}`}
           aria-pressed={saved}
           onClick={() => toggleBookmark(word.id)}
-          className={`rounded-xl border border-line p-2 transition ${saved ? "bg-amber-50 text-amber-600" : "text-muted hover:bg-page"}`}
+          className={`rounded-xl border border-line p-2 transition active:scale-95 touch-manipulation min-w-[38px] min-h-[38px] flex items-center justify-center shrink-0 ${saved ? "bg-amber-50 text-amber-600 border-amber-300" : "text-muted hover:bg-page"}`}
         >
           <Bookmark size={16} fill={saved ? "currentColor" : "none"} />
         </button>

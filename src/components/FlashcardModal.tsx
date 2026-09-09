@@ -44,16 +44,16 @@ export function FlashcardModal({
     }
   }
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-sm animate-fadeIn">
       <div
         ref={ref}
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white shadow-2xl outline-none"
+        className="max-h-[88dvh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white shadow-2xl outline-none pb-[calc(env(safe-area-inset-bottom,0px)+12px)] flex flex-col"
       >
-        <div className="flex items-center justify-between border-b border-line bg-cream p-5">
+        <div className="flex items-center justify-between border-b border-line bg-cream p-4 sm:p-5 shrink-0">
           <div>
             <h2 className="font-bold">{title}</h2>
             <p className="text-xs text-muted">
@@ -101,7 +101,7 @@ export function FlashcardModal({
             </div>
             <button
               onClick={() => setFlipped((value) => !value)}
-              className="flex min-h-[270px] w-full flex-col items-center justify-center gap-4 rounded-3xl border-2 border-line bg-gradient-to-b from-page/60 to-white p-6 text-center"
+              className="flex min-h-[220px] sm:min-h-[270px] w-full flex-col items-center justify-center gap-3 sm:gap-4 rounded-3xl border-2 border-line bg-gradient-to-b from-page/60 to-white p-5 sm:p-6 text-center cursor-pointer active:scale-[0.99] transition-transform"
             >
               <span className="text-xs text-muted">
                 {flipped
@@ -147,7 +147,7 @@ export function FlashcardModal({
             {flipped && <ExampleSentence word={word} compact />}
             <button
               onClick={() => speakChinese(word.hanzi, setError)}
-              className="mx-auto my-4 flex items-center gap-2 rounded-xl bg-tint/80 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-tint"
+              className="mx-auto my-3 sm:my-4 flex items-center gap-2 rounded-xl bg-tint/80 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-tint active:scale-95 touch-manipulation"
             >
               <Volume2 size={16} /> Nghe phát âm
             </button>
@@ -156,7 +156,7 @@ export function FlashcardModal({
                 {error}
               </p>
             )}
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2 sm:gap-2.5">
               <button
                 aria-label="Thẻ trước"
                 disabled={index === 0}
@@ -164,19 +164,19 @@ export function FlashcardModal({
                   setIndex((value) => value - 1);
                   setFlipped(false);
                 }}
-                className="rounded-xl p-2 transition hover:bg-page disabled:opacity-30"
+                className="flex h-12 w-11 shrink-0 items-center justify-center rounded-xl p-2 transition hover:bg-page disabled:opacity-30 active:scale-95 touch-manipulation"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
                 onClick={() => rate(false)}
-                className="flex-1 rounded-2xl bg-amber-50 py-3.5 text-sm font-bold text-amber-900 shadow-2xs transition hover:bg-amber-100"
+                className="flex-1 min-h-[48px] rounded-2xl bg-amber-50 hover:bg-amber-100 py-3 text-sm font-bold text-amber-900 shadow-2xs transition active:scale-95 touch-manipulation flex items-center justify-center"
               >
                 Chưa nhớ
               </button>
               <button
                 onClick={() => rate(true)}
-                className="flex-1 rounded-2xl bg-emerald-600 py-3.5 text-sm font-bold text-white shadow-2xs transition hover:bg-emerald-700"
+                className="flex-1 min-h-[48px] rounded-2xl bg-emerald-600 hover:bg-emerald-700 py-3 text-sm font-bold text-white shadow-2xs transition active:scale-95 touch-manipulation flex items-center justify-center"
               >
                 Đã nhớ
               </button>
@@ -187,7 +187,7 @@ export function FlashcardModal({
                   setIndex((value) => value + 1);
                   setFlipped(false);
                 }}
-                className="rounded-xl p-2 transition hover:bg-page disabled:opacity-30"
+                className="flex h-12 w-11 shrink-0 items-center justify-center rounded-xl p-2 transition hover:bg-page disabled:opacity-30 active:scale-95 touch-manipulation"
               >
                 <ChevronRight size={20} />
               </button>
