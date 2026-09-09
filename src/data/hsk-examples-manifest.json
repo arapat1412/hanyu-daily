@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-06T08:40:41.018Z",
+  "input": "data/hsk-example-overrides.jsonl",
+  "policy": "AI examples are labeled; corpus examples require editorial review.",
+  "totalWords": 11000,
+  "totalExamples": 11000,
+  "fallbackExamples": 0,
+  "lessonPlacements": 10951,
+  "lessonExamplePlacements": 10945,
+  "lessonFallbackPlacements": 6,
+  "levels": {
+    "hsk1": {
+      "lessons": 15,
+      "words": 300,
+      "examples": 300,
+      "fallback": 0,
+      "lessonPlacements": 296,
+      "lessonExamplePlacements": 293,
+      "lessonFallbackPlacements": 3,
+      "bytes": 68280
+    },
+    "hsk2": {
+      "lessons": 15,
+      "words": 200,
+      "examples": 200,
+      "fallback": 0,
+      "lessonPlacements": 205,
+      "lessonExamplePlacements": 204,
+      "lessonFallbackPlacements": 1,
+      "bytes": 52319
+    },
+    "hsk3": {
+      "lessons": 18,
+      "words": 500,
+      "examples": 500,
+      "fallback": 0,
+      "lessonPlacements": 450,
+      "lessonExamplePlacements": 448,
+      "lessonFallbackPlacements": 2,
+      "bytes": 116998
+    },
+    "hsk4": {
+      "lessons": 100,
+      "words": 1000,
+      "examples": 1000,
+      "fallback": 0,
+      "lessonPlacements": 1000,
+      "lessonExamplePlacements": 1000,
+      "lessonFallbackPlacements": 0,
+      "bytes": 271283
+    },
+    "hsk5": {
+      "lessons": 160,
+      "words": 1600,
+      "examples": 1600,
+      "fallback": 0,
+      "lessonPlacements": 1600,
+      "lessonExamplePlacements": 1600,
+      "lessonFallbackPlacements": 0,
+      "bytes": 459608
+    },
+    "hsk6": {
+      "lessons": 180,
+      "words": 1800,
+      "examples": 1800,
+      "fallback": 0,
+      "lessonPlacements": 1800,
+      "lessonExamplePlacements": 1800,
+      "lessonFallbackPlacements": 0,
+      "bytes": 529921
+    },
+    "hsk7-9": {
+      "lessons": 560,
+      "words": 5600,
+      "examples": 5600,
+      "fallback": 0,
+      "lessonPlacements": 5600,
+      "lessonExamplePlacements": 5600,
+      "lessonFallbackPlacements": 0,
+      "bytes": 1727355
+    }
+  },
+  "sha256": "7fb71a5e341f86d175260ef7fbd2c19e5990c8d33abdb8d1c86c90c96d2487b7"
+}

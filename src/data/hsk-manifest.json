@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "source": "https://github.com/profesorm/hsk30",
+  "sourceAttribution": "profesorm/hsk30; đề cương HSK của Chinese Testing International",
+  "license": "CC BY 4.0",
+  "vocabularySha256": "e17971fd73680608a7a256a9b4a6c3541858df3411d8ad47efddd46889fe6c7b",
+  "totalWords": 11000,
+  "totalLessons": 1048,
+  "lessonPolicy": "HSK 1-3 dùng thứ tự bài và từ công khai của Meiday; HSK 4-9 chia thành các mục 10 từ ổn định theo thứ tự đề cương, theo mô hình trình bày từ vựng của Meiday.",
+  "lessonLayoutSource": "https://meidaychinese.com",
+  "lessonLayoutCapturedAt": "2026-09-06T05:43:38.471Z",
+  "levels": {
+    "hsk1": {
+      "vocabCount": 300,
+      "lessonsCount": 15,
+      "grammarCount": 70,
+      "hanziCount": 246,
+      "topicCount": 30,
+      "taskCount": 59
+    },
+    "hsk2": {
+      "vocabCount": 200,
+      "lessonsCount": 15,
+      "grammarCount": 78,
+      "hanziCount": 225,
+      "topicCount": 34,
+      "taskCount": 76
+    },
+    "hsk3": {
+      "vocabCount": 500,
+      "lessonsCount": 18,
+      "grammarCount": 96,
+      "hanziCount": 434,
+      "topicCount": 54,
+      "taskCount": 109
+    },
+    "hsk4": {
+      "vocabCount": 1000,
+      "lessonsCount": 100,
+      "grammarCount": 95,
+      "hanziCount": 591,
+      "topicCount": 77,
+      "taskCount": 139
+    },
+    "hsk5": {
+      "vocabCount": 1600,
+      "lessonsCount": 160,
+      "grammarCount": 70,
+      "hanziCount": 581,
+      "topicCount": 72,
+      "taskCount": 109
+    },
+    "hsk6": {
+      "vocabCount": 1800,
+      "lessonsCount": 180,
+      "grammarCount": 50,
+      "hanziCount": 563,
+      "topicCount": 68,
+      "taskCount": 97
+    },
+    "hsk7-9": {
+      "vocabCount": 5600,
+      "lessonsCount": 560,
+      "grammarCount": 134,
+      "hanziCount": 1648,
+      "topicCount": 92,
+      "taskCount": 89
+    }
+  }
+}

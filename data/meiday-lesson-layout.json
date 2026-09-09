@@ -1,0 +1,2574 @@
+{
+  "version": 1,
+  "source": "https://meidaychinese.com",
+  "capturedAt": "2026-09-06T05:43:38.471Z",
+  "policy": "Public HSK 1-3 lesson titles and vocabulary placement; official 11,000-word catalog remains separate.",
+  "stats": {
+    "lessons": 48,
+    "placements": 951,
+    "mappedPlacements": 945,
+    "customPlacements": 6
+  },
+  "levels": {
+    "hsk1": {
+      "lessons": [
+        {
+          "number": 1,
+          "title": "你好！",
+          "titlePinyin": "Nǐ hǎo!",
+          "titleVi": "Xin chào!",
+          "subtitle": "12 từ · Lời chào và làm quen",
+          "wordIds": [
+            "hsk30-147",
+            "hsk30-107",
+            "hsk30-71",
+            "hsk30-26",
+            "hsk30-124",
+            "hsk30-211",
+            "hsk30-148",
+            "hsk30-248",
+            "hsk30-150",
+            "hsk30-241",
+            "hsk30-14",
+            "hsk30-272"
+          ]
+        },
+        {
+          "number": 2,
+          "title": "我叫李文",
+          "titleVi": "Tôi tên là Lý Văn",
+          "subtitle": "15 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-221",
+            "hsk30-91",
+            "hsk30-146",
+            "hsk30-182",
+            "hsk30-130",
+            "hsk30-171",
+            "hsk30-57",
+            "hsk30-79",
+            "hsk30-166",
+            "hsk30-188",
+            "hsk30-13",
+            "hsk30-45",
+            "hsk30-120",
+            "hsk30-121",
+            "hsk30-253"
+          ]
+        },
+        {
+          "number": 3,
+          "title": "我是中国人",
+          "titleVi": "Tôi là người Trung Quốc",
+          "subtitle": "17 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-66",
+            "hsk30-170",
+            "hsk30-131",
+            "hsk30-30",
+            "hsk30-67",
+            "hsk30-202",
+            "hsk30-181",
+            "hsk30-154",
+            "hsk30-92",
+            "hsk30-206",
+            "hsk30-118",
+            "hsk30-218",
+            "hsk30-222",
+            "hsk30-233",
+            "hsk30-279",
+            "hsk30-63",
+            "hsk30-115"
+          ]
+        },
+        {
+          "number": 4,
+          "title": "我有两个孩子",
+          "titleVi": "Tôi có hai đứa con",
+          "subtitle": "34 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-263",
+            "hsk30-111",
+            "hsk30-60",
+            "hsk30-68",
+            "hsk30-122",
+            "hsk30-48",
+            "hsk30-153",
+            "hsk30-3",
+            "hsk30-114",
+            "hsk30-59",
+            "hsk30-123",
+            "hsk30-104",
+            "hsk30-47",
+            "hsk30-85",
+            "hsk30-199",
+            "hsk30-93",
+            "hsk30-46",
+            "hsk30-86",
+            "hsk30-200",
+            "hsk30-144",
+            "hsk30-78",
+            "hsk30-254",
+            "hsk30-49",
+            "hsk30-173",
+            "hsk30-198",
+            "hsk30-223",
+            "hsk30-113",
+            "hsk30-160",
+            "hsk30-2",
+            "hsk30-95",
+            "hsk30-184",
+            "hsk30-6",
+            "hsk30-162",
+            "hsk30-112"
+          ]
+        },
+        {
+          "number": 5,
+          "title": "今天我休息",
+          "titleVi": "Hôm nay tôi nghỉ",
+          "subtitle": "22 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-94",
+            "hsk30-246",
+            "hsk30-243",
+            "hsk30-244",
+            "hsk30-245",
+            "hsk30-269",
+            "hsk30-172",
+            "hsk30-76",
+            "hsk30-36",
+            "hsk30-225",
+            "hsk30-73",
+            "hsk30-127",
+            "hsk30-90",
+            "hsk30-16",
+            "hsk30-242",
+            "hsk30-262",
+            "hsk30-285",
+            "hsk30-299",
+            "hsk30-300",
+            "hsk30-228",
+            "hsk30-201",
+            "hsk30-82"
+          ]
+        },
+        {
+          "number": 6,
+          "title": "你的手机号是多少？",
+          "titleVi": "Số điện thoại của bạn là bao nhiêu?",
+          "subtitle": "20 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-189",
+            "hsk30-35",
+            "hsk30-276",
+            "hsk30-167",
+            "hsk30-19",
+            "hsk30-116",
+            "hsk30-40",
+            "hsk30-21",
+            "hsk30-72",
+            "hsk30-8",
+            "hsk30-125",
+            "hsk30-151",
+            "hsk30-129",
+            "hsk30-22",
+            "hsk30-298",
+            "hsk30-137",
+            "hsk30-239",
+            "hsk30-216",
+            "hsk30-53",
+            "hsk30-233"
+          ]
+        },
+        {
+          "number": 7,
+          "title": "我晚上六点半下班",
+          "titleVi": "Tối tôi 6 giờ rưỡi tan làm",
+          "subtitle": "23 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-33",
+            "hsk30-7",
+            "hsk30-55",
+            "hsk30-56",
+            "hsk30-176",
+            "hsk30-177",
+            "hsk30-229",
+            "hsk30-178",
+            "hsk30-230",
+            "hsk30-217",
+            "hsk30-275",
+            "hsk30-232",
+            "hsk30-80",
+            "hsk30-103",
+            "hsk30-187",
+            "hsk30-4",
+            "hsk30-88",
+            "hsk30-99",
+            "hsk30-38",
+            "hsk30-39",
+            "hsk30-34",
+            "hsk30-110",
+            "hsk30-271"
+          ]
+        },
+        {
+          "number": 8,
+          "title": "我爸爸也在医院工作",
+          "titleVi": "Bố tôi cũng làm việc ở bệnh viện",
+          "subtitle": "20 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-256",
+            "hsk30-257",
+            "hsk30-250",
+            "hsk30-191",
+            "hsk30-52",
+            "hsk30-295",
+            "hsk30-119",
+            "hsk30-25",
+            "hsk30-234",
+            "hsk30-158",
+            "hsk30-29",
+            "hsk30-101",
+            "hsk30-145",
+            "meiday-355",
+            "hsk30-163",
+            "hsk30-212",
+            "hsk30-226",
+            "hsk30-287",
+            "hsk30-50",
+            "hsk30-224"
+          ]
+        },
+        {
+          "number": 9,
+          "title": "我明天上午在学校学习",
+          "titleVi": "Sáng mai tôi học ở trường",
+          "subtitle": "19 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-249",
+            "hsk30-5",
+            "hsk30-43",
+            "hsk30-31",
+            "hsk30-10",
+            "hsk30-190",
+            "hsk30-37",
+            "hsk30-58",
+            "hsk30-18",
+            "hsk30-74",
+            "hsk30-156",
+            "hsk30-214",
+            "hsk30-260",
+            "meiday-365",
+            "hsk30-213",
+            "hsk30-11",
+            "hsk30-175",
+            "hsk30-136",
+            "hsk30-138"
+          ]
+        },
+        {
+          "number": 10,
+          "title": "这儿的苹果真便宜！",
+          "titleVi": "Táo ở đây rẻ thật!",
+          "subtitle": "21 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-159",
+            "hsk30-157",
+            "hsk30-65",
+            "hsk30-164",
+            "hsk30-268",
+            "hsk30-105",
+            "hsk30-277",
+            "hsk30-174",
+            "hsk30-193",
+            "hsk30-255",
+            "hsk30-89",
+            "hsk30-23",
+            "hsk30-9",
+            "hsk30-142",
+            "hsk30-152",
+            "hsk30-180",
+            "hsk30-280",
+            "hsk30-283",
+            "hsk30-284",
+            "hsk30-140",
+            "hsk30-141"
+          ]
+        },
+        {
+          "number": 11,
+          "title": "我读大学呢",
+          "titleVi": "Tôi đang học đại học",
+          "subtitle": "22 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-27",
+            "hsk30-28",
+            "hsk30-42",
+            "hsk30-196",
+            "hsk30-219",
+            "hsk30-20",
+            "hsk30-98",
+            "hsk30-51",
+            "hsk30-32",
+            "hsk30-235",
+            "hsk30-133",
+            "hsk30-139",
+            "hsk30-161",
+            "hsk30-194",
+            "hsk30-195",
+            "hsk30-185",
+            "hsk30-286",
+            "hsk30-278",
+            "hsk30-288",
+            "hsk30-247",
+            "hsk30-297",
+            "hsk30-252"
+          ]
+        },
+        {
+          "number": 12,
+          "title": "昨天下雪了",
+          "titleVi": "Hôm qua có tuyết rơi",
+          "subtitle": "21 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-208",
+            "hsk30-227",
+            "hsk30-267",
+            "hsk30-251",
+            "hsk30-109",
+            "hsk30-169",
+            "hsk30-207",
+            "hsk30-108",
+            "hsk30-192",
+            "hsk30-12",
+            "hsk30-183",
+            "hsk30-100",
+            "hsk30-62",
+            "hsk30-77",
+            "hsk30-81",
+            "hsk30-106",
+            "hsk30-96",
+            "hsk30-261",
+            "hsk30-265",
+            "hsk30-282",
+            "hsk30-270"
+          ]
+        },
+        {
+          "number": 13,
+          "title": "请给我一杯茶",
+          "titleVi": "Cho tôi một tách trà",
+          "subtitle": "16 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-165",
+            "hsk30-61",
+            "meiday-389",
+            "hsk30-17",
+            "hsk30-102",
+            "hsk30-259",
+            "hsk30-258",
+            "hsk30-231",
+            "hsk30-155",
+            "hsk30-117",
+            "hsk30-84",
+            "hsk30-126",
+            "hsk30-274",
+            "hsk30-220",
+            "hsk30-24",
+            "hsk30-281"
+          ]
+        },
+        {
+          "number": 14,
+          "title": "我看了一个电影",
+          "titleVi": "Tôi đã xem một bộ phim",
+          "subtitle": "19 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-108",
+            "hsk30-41",
+            "hsk30-15",
+            "hsk30-97",
+            "hsk30-179",
+            "hsk30-240",
+            "hsk30-296",
+            "hsk30-209",
+            "hsk30-210",
+            "hsk30-197",
+            "hsk30-203",
+            "hsk30-205",
+            "hsk30-215",
+            "hsk30-128",
+            "hsk30-135",
+            "hsk30-264",
+            "hsk30-237",
+            "hsk30-292",
+            "hsk30-291"
+          ]
+        },
+        {
+          "number": 15,
+          "title": "大兴机场见！",
+          "titleVi": "Hẹn gặp ở sân bay Đại Hưng!",
+          "subtitle": "15 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-54",
+            "hsk30-363",
+            "hsk30-83",
+            "hsk30-1",
+            "hsk30-87",
+            "hsk30-143",
+            "hsk30-149",
+            "hsk30-168",
+            "hsk30-186",
+            "hsk30-236",
+            "hsk30-273",
+            "hsk30-294",
+            "hsk30-75",
+            "hsk30-132",
+            "hsk30-706"
+          ]
+        }
+      ],
+      "supplementalWords": [
+        {
+          "id": "meiday-355",
+          "hanzi": "没",
+          "pinyin": "méi",
+          "meaning": "không, chưa",
+          "partOfSpeech": "Phó từ",
+          "hskLevel": "hsk1",
+          "sourceWord": "没",
+          "sourceLevel": "Meiday HSK1",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "我没吃早饭。",
+            "pinyin": "wǒ méi chī zǎo fàn 。",
+            "vietnamese": "Tôi chưa ăn sáng.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "meiday-365",
+          "hanzi": "前边",
+          "pinyin": "qiánbiān",
+          "meaning": "phía trước",
+          "partOfSpeech": "Danh từ",
+          "hskLevel": "hsk1",
+          "sourceWord": "前边",
+          "sourceLevel": "Meiday HSK1",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "学校在前边。",
+            "pinyin": "xué xiào zài qián biān 。",
+            "vietnamese": "Trường học ở phía trước.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "meiday-389",
+          "hanzi": "杯",
+          "pinyin": "bēi",
+          "meaning": "ly, cốc, tách",
+          "partOfSpeech": "Lượng từ",
+          "hskLevel": "hsk1",
+          "sourceWord": "杯",
+          "sourceLevel": "Meiday HSK1",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "我喝了一杯水。",
+            "pinyin": "wǒ hē le yì bēi shuǐ 。",
+            "vietnamese": "Tôi đã uống một cốc nước.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "hsk30-363",
+          "hanzi": "机场",
+          "sourceWord": "机场",
+          "pinyin": "jīchǎng",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk2",
+          "sourceLevel": "二级",
+          "sort": 363,
+          "meaning": "sân bay; phi trường; (tiếng lóng) nhà cung cấp dịch vụ cho Shadowsocks hoặc phần mềm tương tự để vượt kiểm duyệt Internet; Lượng từ: 家[jia1],處|处[chu4]",
+          "meaningStatus": "dictionary",
+          "unit": 5,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "sân bay; phi trường",
+            "(tiếng lóng) nhà cung cấp dịch vụ cho Shadowsocks hoặc phần mềm tương tự để vượt kiểm duyệt Internet",
+            "Lượng từ: 家[jia1],處|处[chu4]"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              58469
+            ],
+            "pronunciations": [
+              "ji1 chang3"
+            ],
+            "traditional": [
+              "機場"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "cơ trường",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-706",
+          "hanzi": "接",
+          "sourceWord": "接",
+          "pinyin": "jiē",
+          "partOfSpeech": "动",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 706,
+          "meaning": "nhận; trả lời (điện thoại); gặp hoặc chào đón ai",
+          "meaningStatus": "dictionary",
+          "unit": 8,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "nhận",
+            "trả lời (điện thoại)",
+            "gặp hoặc chào đón ai",
+            "kết nối",
+            "bắt",
+            "ghép",
+            "mở rộng",
+            "tiếp nhận ca trực",
+            "tiếp quản cho ai"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              47050
+            ],
+            "pronunciations": [
+              "jie1"
+            ],
+            "traditional": [
+              "接"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "tiếp",
+          "sinoVietnameseMethod": "character-pinyin"
+        }
+      ]
+    },
+    "hsk2": {
+      "lessons": [
+        {
+          "number": 1,
+          "title": "她请我们吃了北京烤鸭",
+          "titleVi": "Cô ấy mời chúng tôi ăn vịt quay Bắc Kinh",
+          "subtitle": "12 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-337",
+            "hsk30-61",
+            "hsk30-376",
+            "hsk30-422",
+            "hsk30-323",
+            "hsk30-306",
+            "hsk30-313",
+            "hsk30-369",
+            "hsk30-472",
+            "hsk30-474",
+            "hsk30-480",
+            "hsk30-136"
+          ]
+        },
+        {
+          "number": 2,
+          "title": "还是打车去北大吧",
+          "titleVi": "Hay là đi taxi đến Bắc Đại đi",
+          "subtitle": "16 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-301",
+            "hsk30-311",
+            "hsk30-330",
+            "hsk30-352",
+            "hsk30-449",
+            "hsk30-484",
+            "hsk30-315",
+            "hsk30-346",
+            "hsk30-368",
+            "hsk30-366",
+            "hsk30-404",
+            "hsk30-416",
+            "hsk30-328",
+            "hsk30-446",
+            "hsk30-451",
+            "hsk30-348"
+          ]
+        },
+        {
+          "number": 3,
+          "title": "我想去西安旅游",
+          "titleVi": "Tôi muốn đi du lịch Tây An",
+          "subtitle": "16 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-312",
+            "hsk30-388",
+            "hsk30-454",
+            "hsk30-399",
+            "hsk30-433",
+            "hsk30-394",
+            "hsk30-456",
+            "hsk30-448",
+            "hsk30-473",
+            "hsk30-494",
+            "hsk30-437",
+            "hsk30-405",
+            "hsk30-361",
+            "hsk30-362",
+            "hsk30-320",
+            "hsk30-488"
+          ]
+        },
+        {
+          "number": 4,
+          "title": "你穿红色的很好看",
+          "titleVi": "Bạn mặc màu đỏ rất đẹp",
+          "subtitle": "15 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-351",
+            "hsk30-466",
+            "hsk30-303",
+            "hsk30-353",
+            "hsk30-355",
+            "hsk30-396",
+            "hsk30-383",
+            "hsk30-443",
+            "hsk30-435",
+            "hsk30-424",
+            "hsk30-476",
+            "hsk30-439",
+            "hsk30-373",
+            "hsk30-350",
+            "hsk30-646"
+          ]
+        },
+        {
+          "number": 5,
+          "title": "第一次去中国朋友家",
+          "titleVi": "Lần đầu đến nhà bạn TQ",
+          "subtitle": "18 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-334",
+            "hsk30-384",
+            "hsk30-403",
+            "hsk30-459",
+            "hsk30-458",
+            "hsk30-460",
+            "hsk30-425",
+            "hsk30-427",
+            "hsk30-372",
+            "hsk30-345",
+            "hsk30-470",
+            "hsk30-409",
+            "hsk30-408",
+            "hsk30-471",
+            "hsk30-495",
+            "hsk30-493",
+            "hsk30-375",
+            "hsk30-748"
+          ]
+        },
+        {
+          "number": 6,
+          "title": "小雪，生日快乐！",
+          "titleVi": "Tiểu Tuyết, chúc mừng sinh nhật!",
+          "subtitle": "13 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-385",
+            "hsk30-436",
+            "hsk30-314",
+            "hsk30-430",
+            "hsk30-423",
+            "hsk30-483",
+            "hsk30-321",
+            "hsk30-359",
+            "hsk30-452",
+            "hsk30-329",
+            "hsk30-347",
+            "hsk30-580",
+            "hsk30-333"
+          ]
+        },
+        {
+          "number": 7,
+          "title": "他篮球打得很好",
+          "titleVi": "Anh ấy chơi bóng rổ rất giỏi",
+          "subtitle": "15 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-332",
+            "hsk30-327",
+            "hsk30-324",
+            "hsk30-450",
+            "hsk30-421",
+            "hsk30-387",
+            "hsk30-497",
+            "hsk30-414",
+            "hsk30-415",
+            "hsk30-441",
+            "hsk30-477",
+            "hsk30-478",
+            "hsk30-485",
+            "hsk30-302",
+            "hsk30-378"
+          ]
+        },
+        {
+          "number": 8,
+          "title": "虽然你忘了，但是我记得",
+          "titleVi": "Tuy bạn quên nhưng tôi nhớ",
+          "subtitle": "16 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-309",
+            "hsk30-331",
+            "hsk30-438",
+            "hsk30-365",
+            "hsk30-479",
+            "hsk30-358",
+            "hsk30-487",
+            "hsk30-417",
+            "hsk30-434",
+            "hsk30-339",
+            "hsk30-336",
+            "hsk30-481",
+            "hsk30-482",
+            "hsk30-499",
+            "hsk30-500",
+            "meiday-652"
+          ]
+        },
+        {
+          "number": 9,
+          "title": "我去买杯奶茶",
+          "titleVi": "Tôi đi mua cốc trà sữa",
+          "subtitle": "13 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-371",
+            "hsk30-341",
+            "hsk30-389",
+            "hsk30-360",
+            "hsk30-406",
+            "hsk30-489",
+            "hsk30-377",
+            "hsk30-410",
+            "hsk30-401",
+            "hsk30-413",
+            "hsk30-344",
+            "hsk30-492",
+            "hsk30-496"
+          ]
+        },
+        {
+          "number": 10,
+          "title": "就要考试了",
+          "titleVi": "Sắp thi rồi",
+          "subtitle": "13 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-305",
+            "hsk30-380",
+            "hsk30-381",
+            "hsk30-386",
+            "hsk30-379",
+            "hsk30-463",
+            "hsk30-326",
+            "hsk30-322",
+            "hsk30-442",
+            "hsk30-400",
+            "hsk30-310",
+            "hsk30-308",
+            "hsk30-356"
+          ]
+        },
+        {
+          "number": 11,
+          "title": "我最喜欢吃中国菜",
+          "titleVi": "Tôi thích ăn đồ Trung Quốc nhất",
+          "subtitle": "13 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-498",
+            "hsk30-397",
+            "hsk30-338",
+            "hsk30-490",
+            "hsk30-468",
+            "hsk30-469",
+            "hsk30-445",
+            "hsk30-429",
+            "hsk30-440",
+            "hsk30-393",
+            "hsk30-374",
+            "hsk30-431",
+            "hsk30-370"
+          ]
+        },
+        {
+          "number": 12,
+          "title": "这里比北京冷多了",
+          "titleVi": "Ở đây lạnh hơn Bắc Kinh nhiều",
+          "subtitle": "10 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-491",
+            "hsk30-420",
+            "hsk30-475",
+            "hsk30-486",
+            "hsk30-335",
+            "hsk30-391",
+            "hsk30-447",
+            "hsk30-432",
+            "hsk30-325",
+            "hsk30-462"
+          ]
+        },
+        {
+          "number": 13,
+          "title": "我们爱上中文课",
+          "titleVi": "Chúng tôi yêu thích giờ học tiếng Trung",
+          "subtitle": "13 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-382",
+            "hsk30-343",
+            "hsk30-367",
+            "hsk30-455",
+            "hsk30-407",
+            "hsk30-358",
+            "hsk30-304",
+            "hsk30-310",
+            "hsk30-390",
+            "hsk30-426",
+            "hsk30-428",
+            "hsk30-457",
+            "hsk30-903"
+          ]
+        },
+        {
+          "number": 14,
+          "title": "一个人过年多没意思啊",
+          "titleVi": "Một mình ăn Tết buồn quá",
+          "subtitle": "11 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-398",
+            "hsk30-453",
+            "hsk30-307",
+            "hsk30-419",
+            "hsk30-444",
+            "hsk30-467",
+            "hsk30-464",
+            "hsk30-461",
+            "hsk30-412",
+            "hsk30-349",
+            "hsk30-623"
+          ]
+        },
+        {
+          "number": 15,
+          "title": "我想再去一次中国",
+          "titleVi": "Tôi muốn đi Trung Quốc thêm lần nữa",
+          "subtitle": "11 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-340",
+            "hsk30-392",
+            "hsk30-317",
+            "hsk30-319",
+            "hsk30-363",
+            "hsk30-364",
+            "hsk30-402",
+            "hsk30-411",
+            "hsk30-665",
+            "hsk30-342",
+            "hsk30-465"
+          ]
+        }
+      ],
+      "supplementalWords": [
+        {
+          "id": "hsk30-61",
+          "hanzi": "给",
+          "sourceWord": "给",
+          "pinyin": "gěi",
+          "partOfSpeech": "动、（介）",
+          "hskLevel": "hsk1",
+          "sourceLevel": "一级（二级）",
+          "sort": 61,
+          "meaning": "cho; để; cho lợi ích của",
+          "meaningStatus": "dictionary",
+          "unit": 4,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "cho",
+            "để",
+            "cho lợi ích của",
+            "đưa",
+            "cung cấp",
+            "làm gì đó (cho ai)",
+            "(tương đương ngữ pháp của 被)",
+            "(tương đương ngữ pháp của 把)",
+            "(nhấn mạnh câu)"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              84097
+            ],
+            "pronunciations": [
+              "gei3"
+            ],
+            "traditional": [
+              "給"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "cấp",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-136",
+          "hanzi": "那",
+          "sourceWord": "那",
+          "pinyin": "nà",
+          "partOfSpeech": "代、（连）",
+          "hskLevel": "hsk1",
+          "sourceLevel": "一级（二级）",
+          "sort": 136,
+          "meaning": "(chỉ định) đó; cái; những (phát âm thông tục [nei4]); (đại từ) đó (chỉ người, sự vật hoặc tình huống); vậy thì (trong trường hợp đó)",
+          "meaningStatus": "dictionary",
+          "unit": 7,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "(chỉ định) đó; cái; những (phát âm thông tục [nei4])",
+            "(đại từ) đó (chỉ người, sự vật hoặc tình huống)",
+            "vậy thì (trong trường hợp đó)"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              107306
+            ],
+            "pronunciations": [
+              "na4"
+            ],
+            "traditional": [
+              "那"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "na",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-646",
+          "hanzi": "更",
+          "sourceWord": "更",
+          "pinyin": "gèng",
+          "partOfSpeech": "副",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 646,
+          "meaning": "hơn; còn hơn; nữa",
+          "meaningStatus": "dictionary",
+          "unit": 6,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "hơn",
+            "còn hơn",
+            "nữa",
+            "vẫn",
+            "càng"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              53430
+            ],
+            "pronunciations": [
+              "geng4"
+            ],
+            "traditional": [
+              "更"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "càng/cánh",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-748",
+          "hanzi": "礼物",
+          "sourceWord": "礼物",
+          "pinyin": "lǐwù",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 748,
+          "meaning": "quà; món quà",
+          "meaningStatus": "dictionary",
+          "unit": 9,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "quà; món quà"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              79485
+            ],
+            "pronunciations": [
+              "li3 wu4"
+            ],
+            "traditional": [
+              "禮物"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "lễ vật",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-580",
+          "hanzi": "蛋糕",
+          "sourceWord": "蛋糕",
+          "pinyin": "dàngāo",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 580,
+          "meaning": "bánh ngọt",
+          "meaningStatus": "dictionary",
+          "unit": 3,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "bánh ngọt"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              95179
+            ],
+            "pronunciations": [
+              "dan4 gao1"
+            ],
+            "traditional": [
+              "蛋糕"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "đản cao",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "meiday-652",
+          "hanzi": "爱情片",
+          "pinyin": "àiqíngpiàn",
+          "meaning": "phim tình cảm",
+          "partOfSpeech": "Danh từ",
+          "hskLevel": "hsk2",
+          "sourceWord": "爱情片",
+          "sourceLevel": "Meiday HSK2",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "我喜欢看爱情片。",
+            "pinyin": "wǒ xǐ huan kàn ài qíng piàn 。",
+            "vietnamese": "Tôi thích xem phim tình cảm.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "hsk30-903",
+          "hanzi": "新年",
+          "sourceWord": "新年",
+          "pinyin": "xīnnián",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 903,
+          "meaning": "Năm mới; Lượng từ: 個|个[ge4]",
+          "meaningStatus": "dictionary",
+          "unit": 15,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "Năm mới",
+            "Lượng từ: 個|个[ge4]"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              50999
+            ],
+            "pronunciations": [
+              "xin1 nian2"
+            ],
+            "traditional": [
+              "新年"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "tân niên",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-623",
+          "hanzi": "房子",
+          "sourceWord": "房子",
+          "pinyin": "fángzi",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 623,
+          "meaning": "nhà; tòa nhà (một hoặc hai tầng); căn hộ",
+          "meaningStatus": "dictionary",
+          "unit": 5,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "nhà",
+            "tòa nhà (một hoặc hai tầng)",
+            "căn hộ",
+            "phòng"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              43511
+            ],
+            "pronunciations": [
+              "fang2 zi5"
+            ],
+            "traditional": [
+              "房子"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "phòng tử",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-665",
+          "hanzi": "好像",
+          "sourceWord": "好像",
+          "pinyin": "hǎoxiàng",
+          "partOfSpeech": "动、副",
+          "hskLevel": "hsk3",
+          "sourceLevel": "三级",
+          "sort": 665,
+          "meaning": "như thể; giống như",
+          "meaningStatus": "dictionary",
+          "unit": 6,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "như thể",
+            "giống như"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              29660
+            ],
+            "pronunciations": [
+              "hao3 xiang4"
+            ],
+            "traditional": [
+              "好像"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "hảo tượng",
+          "sinoVietnameseMethod": "character-pinyin"
+        }
+      ]
+    },
+    "hsk3": {
+      "lessons": [
+        {
+          "number": 1,
+          "title": "我们去机场接你们",
+          "titleVi": "Chúng tôi đến sân bay đón các bạn",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-930",
+            "hsk30-895",
+            "hsk30-968",
+            "hsk30-827",
+            "hsk30-769",
+            "hsk30-839",
+            "hsk30-706",
+            "hsk30-784",
+            "hsk30-539",
+            "hsk30-939",
+            "hsk30-972",
+            "hsk30-893",
+            "hsk30-909",
+            "hsk30-966",
+            "hsk30-982",
+            "hsk30-969",
+            "hsk30-666",
+            "hsk30-665",
+            "hsk30-578",
+            "hsk30-861",
+            "hsk30-605",
+            "hsk30-985",
+            "hsk30-596",
+            "hsk30-617"
+          ]
+        },
+        {
+          "number": 2,
+          "title": "你们想吃什么就点什么",
+          "titleVi": "Muốn ăn gì thì gọi món đó",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-545",
+            "hsk30-741",
+            "hsk30-869",
+            "hsk30-825",
+            "hsk30-938",
+            "hsk30-687",
+            "hsk30-580",
+            "hsk30-619",
+            "hsk30-620",
+            "hsk30-699",
+            "hsk30-913",
+            "hsk30-553",
+            "hsk30-732",
+            "hsk30-610",
+            "hsk30-814",
+            "hsk30-866",
+            "hsk30-540",
+            "hsk30-664",
+            "hsk30-941",
+            "hsk30-766",
+            "hsk30-949",
+            "hsk30-845",
+            "hsk30-967",
+            "hsk30-956",
+            "hsk30-1432"
+          ]
+        },
+        {
+          "number": 3,
+          "title": "这个小区挺好的",
+          "titleVi": "Khu dân cư này khá tốt",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-536",
+            "hsk30-887",
+            "hsk30-739",
+            "hsk30-588",
+            "hsk30-877",
+            "hsk30-679",
+            "hsk30-675",
+            "hsk30-897",
+            "hsk30-549",
+            "hsk30-623",
+            "hsk30-509",
+            "hsk30-510",
+            "hsk30-571",
+            "hsk30-680",
+            "hsk30-858",
+            "hsk30-857",
+            "hsk30-678",
+            "hsk30-907",
+            "hsk30-936",
+            "hsk30-976",
+            "hsk30-912",
+            "hsk30-962",
+            "hsk30-544",
+            "hsk30-565"
+          ]
+        },
+        {
+          "number": 4,
+          "title": "这家宾馆跟别的都不一样",
+          "titleVi": "Khách sạn này khác biệt hẳn",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-661",
+            "hsk30-764",
+            "hsk30-785",
+            "hsk30-918",
+            "hsk30-959",
+            "hsk30-896",
+            "hsk30-797",
+            "hsk30-802",
+            "hsk30-847",
+            "hsk30-851",
+            "hsk30-767",
+            "hsk30-636",
+            "hsk30-677",
+            "hsk30-735",
+            "hsk30-870",
+            "hsk30-922",
+            "hsk30-925",
+            "hsk30-929",
+            "hsk30-531",
+            "hsk30-696",
+            "hsk30-719",
+            "hsk30-533",
+            "hsk30-890",
+            "hsk30-3710",
+            "hsk30-1964"
+          ]
+        },
+        {
+          "number": 5,
+          "title": "这样的照片才好看",
+          "titleVi": "Ảnh như thế này mới đẹp",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-823",
+            "hsk30-842",
+            "hsk30-849",
+            "hsk30-901",
+            "hsk30-577",
+            "hsk30-973",
+            "hsk30-970",
+            "hsk30-789",
+            "hsk30-791",
+            "hsk30-608",
+            "hsk30-712",
+            "hsk30-983",
+            "hsk30-837",
+            "hsk30-637",
+            "hsk30-910",
+            "hsk30-935",
+            "hsk30-846",
+            "hsk30-777",
+            "hsk30-778",
+            "hsk30-942",
+            "hsk30-630",
+            "hsk30-994",
+            "hsk30-640",
+            "hsk30-683",
+            "meiday-1223"
+          ]
+        },
+        {
+          "number": 6,
+          "title": "高铁上还可以点外卖",
+          "titleVi": "Trên tàu cao tốc còn gọi được đồ ăn",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-644",
+            "hsk30-594",
+            "hsk30-822",
+            "hsk30-613",
+            "hsk30-763",
+            "hsk30-670",
+            "hsk30-844",
+            "hsk30-698",
+            "hsk30-700",
+            "hsk30-572",
+            "hsk30-914",
+            "hsk30-628",
+            "hsk30-625",
+            "hsk30-671",
+            "hsk30-635",
+            "hsk30-525",
+            "hsk30-819",
+            "hsk30-898",
+            "hsk30-691",
+            "hsk30-908",
+            "hsk30-958",
+            "hsk30-927",
+            "hsk30-561",
+            "meiday-1232"
+          ]
+        },
+        {
+          "number": 7,
+          "title": "那条裙子比短裤更好看",
+          "titleVi": "Cái váy đó đẹp hơn quần đùi",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-812",
+            "hsk30-606",
+            "hsk30-768",
+            "hsk30-716",
+            "hsk30-647",
+            "hsk30-754",
+            "hsk30-828",
+            "hsk30-855",
+            "hsk30-721",
+            "hsk30-668",
+            "hsk30-646",
+            "hsk30-690",
+            "hsk30-923",
+            "hsk30-709",
+            "hsk30-724",
+            "hsk30-833",
+            "hsk30-681",
+            "hsk30-905",
+            "hsk30-891",
+            "hsk30-883",
+            "hsk30-538",
+            "hsk30-575",
+            "hsk30-991",
+            "hsk30-728"
+          ]
+        },
+        {
+          "number": 8,
+          "title": "今天我出院了",
+          "titleVi": "Hôm nay tôi xuất viện rồi",
+          "subtitle": "27 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-950",
+            "hsk30-864",
+            "hsk30-612",
+            "hsk30-615",
+            "hsk30-639",
+            "hsk30-793",
+            "hsk30-655",
+            "hsk30-579",
+            "hsk30-988",
+            "hsk30-885",
+            "hsk30-862",
+            "hsk30-902",
+            "hsk30-926",
+            "hsk30-729",
+            "hsk30-97",
+            "hsk30-701",
+            "hsk30-800",
+            "hsk30-552",
+            "hsk30-989",
+            "hsk30-854",
+            "hsk30-564",
+            "hsk30-621",
+            "hsk30-587",
+            "hsk30-984",
+            "hsk30-1149",
+            "hsk30-537",
+            "hsk30-998"
+          ]
+        },
+        {
+          "number": 9,
+          "title": "打不好没关系",
+          "titleVi": "Chơi không giỏi cũng không sao",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-524",
+            "hsk30-960",
+            "hsk30-961",
+            "hsk30-811",
+            "hsk30-899",
+            "hsk30-872",
+            "hsk30-835",
+            "hsk30-794",
+            "hsk30-853",
+            "hsk30-584",
+            "hsk30-585",
+            "hsk30-876",
+            "hsk30-751",
+            "hsk30-752",
+            "hsk30-546",
+            "hsk30-940",
+            "hsk30-688",
+            "hsk30-987",
+            "hsk30-81",
+            "hsk30-780",
+            "hsk30-840",
+            "hsk30-559",
+            "hsk30-725",
+            "hsk30-978",
+            "hsk30-1391"
+          ]
+        },
+        {
+          "number": 10,
+          "title": "你明天再把书还给我",
+          "titleVi": "Ngày mai bạn trả sách cho tôi nhé",
+          "subtitle": "26 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-520",
+            "hsk30-722",
+            "hsk30-723",
+            "hsk30-669",
+            "hsk30-512",
+            "hsk30-609",
+            "hsk30-783",
+            "hsk30-867",
+            "hsk30-843",
+            "hsk30-581",
+            "hsk30-775",
+            "hsk30-634",
+            "hsk30-852",
+            "hsk30-920",
+            "hsk30-786",
+            "hsk30-807",
+            "hsk30-771",
+            "hsk30-817",
+            "hsk30-703",
+            "hsk30-932",
+            "hsk30-672",
+            "hsk30-527",
+            "hsk30-953",
+            "hsk30-921",
+            "hsk30-749",
+            "hsk30-1000"
+          ]
+        },
+        {
+          "number": 11,
+          "title": "看来我没办法解决这个问题",
+          "titleVi": "Xem ra tôi không giải quyết được vấn đề này",
+          "subtitle": "26 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-684",
+            "hsk30-560",
+            "hsk30-829",
+            "hsk30-831",
+            "hsk30-718",
+            "hsk30-859",
+            "hsk30-590",
+            "hsk30-511",
+            "hsk30-834",
+            "hsk30-945",
+            "hsk30-727",
+            "hsk30-713",
+            "hsk30-808",
+            "hsk30-747",
+            "hsk30-730",
+            "hsk30-790",
+            "hsk30-689",
+            "hsk30-685",
+            "hsk30-686",
+            "hsk30-875",
+            "hsk30-532",
+            "hsk30-957",
+            "hsk30-977",
+            "hsk30-522",
+            "hsk30-911",
+            "hsk30-673"
+          ]
+        },
+        {
+          "number": 12,
+          "title": "这个季节天气变化很快",
+          "titleVi": "Thời tiết mùa này thay đổi rất nhanh",
+          "subtitle": "26 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-694",
+            "hsk30-568",
+            "hsk30-889",
+            "hsk30-810",
+            "hsk30-601",
+            "hsk30-629",
+            "hsk30-820",
+            "hsk30-952",
+            "hsk30-567",
+            "hsk30-648",
+            "hsk30-649",
+            "hsk30-848",
+            "hsk30-904",
+            "hsk30-526",
+            "hsk30-528",
+            "hsk30-529",
+            "hsk30-715",
+            "hsk30-726",
+            "hsk30-651",
+            "hsk30-657",
+            "hsk30-557",
+            "hsk30-554",
+            "hsk30-753",
+            "hsk30-591",
+            "hsk30-707",
+            "hsk30-642"
+          ]
+        },
+        {
+          "number": 13,
+          "title": "我的新邻居来自英国",
+          "titleVi": "Hàng xóm mới của tôi đến từ Anh",
+          "subtitle": "26 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-758",
+            "hsk30-676",
+            "hsk30-599",
+            "hsk30-776",
+            "hsk30-631",
+            "hsk30-720",
+            "hsk30-792",
+            "hsk30-743",
+            "hsk30-695",
+            "hsk30-624",
+            "hsk30-626",
+            "hsk30-999",
+            "hsk30-1992",
+            "hsk30-809",
+            "hsk30-756",
+            "hsk30-638",
+            "hsk30-878",
+            "hsk30-541",
+            "hsk30-933",
+            "hsk30-592",
+            "hsk30-748",
+            "hsk30-871",
+            "hsk30-518",
+            "hsk30-974",
+            "hsk30-336",
+            "hsk30-586"
+          ]
+        },
+        {
+          "number": 14,
+          "title": "这本书被别人借走了",
+          "titleVi": "Cuốn sách này bị người khác mượn mất rồi",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-595",
+            "hsk30-569",
+            "hsk30-863",
+            "hsk30-650",
+            "hsk30-710",
+            "hsk30-873",
+            "hsk30-900",
+            "hsk30-760",
+            "hsk30-788",
+            "hsk30-773",
+            "hsk30-516",
+            "hsk30-519",
+            "hsk30-856",
+            "hsk30-530",
+            "hsk30-874",
+            "hsk30-892",
+            "hsk30-813",
+            "hsk30-996",
+            "hsk30-997",
+            "hsk30-266",
+            "hsk30-924",
+            "hsk30-770",
+            "hsk30-903",
+            "hsk30-1673",
+            "hsk30-708"
+          ]
+        },
+        {
+          "number": 15,
+          "title": "我是半个南京人",
+          "titleVi": "Tôi là nửa người Nam Kinh",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-548",
+            "hsk30-765",
+            "hsk30-667",
+            "hsk30-744",
+            "hsk30-746",
+            "hsk30-943",
+            "hsk30-944",
+            "hsk30-947",
+            "hsk30-633",
+            "hsk30-717",
+            "hsk30-954",
+            "hsk30-919",
+            "hsk30-654",
+            "hsk30-645",
+            "hsk30-734",
+            "hsk30-757",
+            "hsk30-755",
+            "hsk30-795",
+            "hsk30-928",
+            "hsk30-607",
+            "hsk30-627",
+            "hsk30-865",
+            "hsk30-881",
+            "hsk30-513"
+          ]
+        },
+        {
+          "number": 16,
+          "title": "我听说有的熊猫出国了",
+          "titleVi": "Nghe nói có gấu trúc ra nước ngoài rồi",
+          "subtitle": "24 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-603",
+            "hsk30-604",
+            "hsk30-576",
+            "hsk30-750",
+            "hsk30-995",
+            "hsk30-705",
+            "hsk30-826",
+            "hsk30-656",
+            "hsk30-799",
+            "hsk30-798",
+            "hsk30-733",
+            "hsk30-815",
+            "hsk30-971",
+            "hsk30-886",
+            "hsk30-471",
+            "hsk30-986",
+            "hsk30-967",
+            "hsk30-515",
+            "hsk30-5132",
+            "hsk30-4108",
+            "hsk30-574",
+            "hsk30-1598",
+            "hsk30-963",
+            "hsk30-3539"
+          ]
+        },
+        {
+          "number": 17,
+          "title": "我要多向认真的人学习",
+          "titleVi": "Tôi cần học hỏi nhiều từ người nghiêm túc",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-658",
+            "hsk30-622",
+            "hsk30-761",
+            "hsk30-879",
+            "hsk30-781",
+            "hsk30-759",
+            "hsk30-582",
+            "hsk30-860",
+            "hsk30-682",
+            "hsk30-523",
+            "hsk30-662",
+            "hsk30-653",
+            "hsk30-816",
+            "hsk30-555",
+            "hsk30-570",
+            "hsk30-818",
+            "hsk30-946",
+            "hsk30-948",
+            "hsk30-894",
+            "hsk30-731",
+            "hsk30-980",
+            "hsk30-830",
+            "hsk30-806",
+            "hsk30-550",
+            "hsk30-1332"
+          ]
+        },
+        {
+          "number": 18,
+          "title": "我学会了包饺子",
+          "titleVi": "Tôi đã học được cách gói sủi cảo",
+          "subtitle": "25 từ · Theo giáo trình Meiday",
+          "wordIds": [
+            "hsk30-562",
+            "hsk30-563",
+            "hsk30-616",
+            "hsk30-618",
+            "hsk30-868",
+            "hsk30-697",
+            "hsk30-702",
+            "hsk30-836",
+            "hsk30-602",
+            "hsk30-660",
+            "hsk30-659",
+            "hsk30-711",
+            "hsk30-7964",
+            "hsk30-801",
+            "hsk30-993",
+            "hsk30-643",
+            "hsk30-542",
+            "hsk30-573",
+            "hsk30-965",
+            "hsk30-979",
+            "hsk30-915",
+            "hsk30-841",
+            "hsk30-742",
+            "hsk30-1029",
+            "hsk30-1517"
+          ]
+        }
+      ],
+      "supplementalWords": [
+        {
+          "id": "hsk30-1432",
+          "hanzi": "客气",
+          "sourceWord": "客气",
+          "pinyin": "kèqi",
+          "partOfSpeech": "形、动",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1432,
+          "meaning": "lịch sự; nhã nhặn; trang trọng",
+          "meaningStatus": "dictionary",
+          "unit": 18,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "lịch sự",
+            "nhã nhặn",
+            "trang trọng",
+            "khiêm tốn"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              32137
+            ],
+            "pronunciations": [
+              "ke4 qi5"
+            ],
+            "traditional": [
+              "客氣"
+            ],
+            "notes": ""
+          }
+        },
+        {
+          "id": "hsk30-3710",
+          "hanzi": "草原",
+          "sourceWord": "草原",
+          "pinyin": "cǎoyuán",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk6",
+          "sourceLevel": "六级",
+          "sort": 3710,
+          "meaning": "đồng cỏ; thảo nguyên",
+          "meaningStatus": "dictionary",
+          "unit": 5,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "đồng cỏ",
+            "thảo nguyên"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              92172
+            ],
+            "pronunciations": [
+              "cao3 yuan2"
+            ],
+            "traditional": [
+              "草原"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "thảo nguyên",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1964",
+          "hanzi": "主意",
+          "sourceWord": "主意",
+          "pinyin": "zhǔyi",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1964,
+          "meaning": "kế hoạch; ý tưởng; quyết định",
+          "meaningStatus": "dictionary",
+          "unit": 39,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "kế hoạch",
+            "ý tưởng",
+            "quyết định",
+            "cách phát âm Bắc Kinh [zhu2 yi5]"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              3946
+            ],
+            "pronunciations": [
+              "zhu3 yi5"
+            ],
+            "traditional": [
+              "主意"
+            ],
+            "notes": ""
+          }
+        },
+        {
+          "id": "meiday-1223",
+          "hanzi": "哈哈",
+          "pinyin": "hāhā",
+          "meaning": "ha ha",
+          "partOfSpeech": "Thán từ",
+          "hskLevel": "hsk3",
+          "sourceWord": "哈哈",
+          "sourceLevel": "Meiday HSK3",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "哈哈，太有意思了。",
+            "pinyin": "hā hā ， tài yǒu yì sī le 。",
+            "vietnamese": "Ha ha, thú vị quá.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "meiday-1232",
+          "hanzi": "充电宝",
+          "pinyin": "chōngdiànbǎo",
+          "meaning": "sạc dự phòng",
+          "partOfSpeech": "Danh từ",
+          "hskLevel": "hsk3",
+          "sourceWord": "充电宝",
+          "sourceLevel": "Meiday HSK3",
+          "meaningStatus": "reviewed",
+          "meaningQuizEligible": true,
+          "exampleSentence": {
+            "chinese": "出门别忘了带充电宝。",
+            "pinyin": "chū mén bié wàng le dài chōng diàn bǎo 。",
+            "vietnamese": "Ra ngoài đừng quên mang sạc dự phòng.",
+            "source": "curated",
+            "reviewStatus": "reviewed"
+          }
+        },
+        {
+          "id": "hsk30-97",
+          "hanzi": "开",
+          "sourceWord": "开",
+          "pinyin": "kāi",
+          "partOfSpeech": "动",
+          "hskLevel": "hsk1",
+          "sourceLevel": "一级",
+          "sort": 97,
+          "meaning": "mở (ngoại động từ hoặc nội động từ); (tàu thuyền, xe cộ, quân đội, v.v.) bắt đầu; bật; vận hành; hoạt động; chạy",
+          "meaningStatus": "dictionary",
+          "unit": 5,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "mở (ngoại động từ hoặc nội động từ)",
+            "(tàu thuyền, xe cộ, quân đội, v.v.) bắt đầu",
+            "bật; vận hành; hoạt động; chạy",
+            "đun sôi",
+            "viết (đơn thuốc, séc, hóa đơn, v.v.)",
+            "(bổ ngữ xu hướng) đi; rời",
+            "carat (vàng)",
+            "viết tắt của Kelvin, 開爾文|开尔文[Kai1 er3 wen2]",
+            "viết tắt của 開本|开本[kai1 ben3], khổ sách"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              111133
+            ],
+            "pronunciations": [
+              "kai1"
+            ],
+            "traditional": [
+              "開"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "khai",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1149",
+          "hanzi": "低",
+          "sourceWord": "低",
+          "pinyin": "dī",
+          "partOfSpeech": "形、动",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1149,
+          "meaning": "thấp; bên dưới; cúi (đầu)",
+          "meaningStatus": "dictionary",
+          "unit": 6,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "thấp",
+            "bên dưới",
+            "cúi (đầu)",
+            "để rũ xuống",
+            "treo xuống",
+            "nghiêng"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              7106
+            ],
+            "pronunciations": [
+              "di1"
+            ],
+            "traditional": [
+              "低"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "đê",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-81",
+          "hanzi": "回",
+          "sourceWord": "回",
+          "pinyin": "huí",
+          "partOfSpeech": "动、（量）",
+          "hskLevel": "hsk1",
+          "sourceLevel": "一级（三级）",
+          "sort": 81,
+          "meaning": "xoay vòng; quay lại; quay quanh",
+          "meaningStatus": "dictionary",
+          "unit": 5,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "xoay vòng",
+            "quay lại",
+            "quay quanh",
+            "trả lời",
+            "trở về",
+            "xoay",
+            "chủng tộc Hồi (người Hồi giáo Trung Quốc)",
+            "lần",
+            "lượng từ cho hành động trong vở kịch",
+            "phần hoặc chương (của sách kinh điển)",
+            "cong"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              23574,
+              104964,
+              105927
+            ],
+            "pronunciations": [
+              "hui2"
+            ],
+            "traditional": [
+              "回",
+              "迴",
+              "逥"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "hồi",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1391",
+          "hanzi": "紧张",
+          "sourceWord": "紧张",
+          "pinyin": "jǐnzhāng",
+          "partOfSpeech": "形",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1391,
+          "meaning": "căng thẳng; hồi hộp; mạnh",
+          "meaningStatus": "dictionary",
+          "unit": 16,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "căng thẳng",
+            "hồi hộp",
+            "mạnh",
+            "mức độ cao",
+            "khẩn trương",
+            "khó khăn",
+            "khan hiếm"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              84845
+            ],
+            "pronunciations": [
+              "jin3 zhang1"
+            ],
+            "traditional": [
+              "緊張"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "khẩn trương",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1992",
+          "hanzi": "做法",
+          "sourceWord": "做法",
+          "pinyin": "zuòfǎ",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1992,
+          "meaning": "cách xử lý; phương pháp làm; cách làm",
+          "meaningStatus": "dictionary",
+          "unit": 40,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "cách xử lý",
+            "phương pháp làm",
+            "cách làm",
+            "công thức",
+            "thực hành"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              9163
+            ],
+            "pronunciations": [
+              "zuo4 fa3"
+            ],
+            "traditional": [
+              "做法"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "tố pháp",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-336",
+          "hanzi": "点",
+          "sourceWord": "点2",
+          "pinyin": "diǎn",
+          "partOfSpeech": "动、（名、量）",
+          "hskLevel": "hsk2",
+          "sourceLevel": "二级（四级）",
+          "sort": 336,
+          "meaning": "điểm; chấm; giọt",
+          "meaningStatus": "dictionary",
+          "unit": 3,
+          "meaningQuizEligible": false,
+          "definitions": [
+            "điểm",
+            "chấm",
+            "giọt",
+            "vết",
+            "chấm giờ",
+            "điểm (trong không gian hoặc thời gian)",
+            "vẽ một chấm",
+            "kiểm tra danh sách",
+            "chọn",
+            "gọi món (trong nhà hàng)",
+            "chạm nhẹ",
+            "gợi ý",
+            "thắp",
+            "làm sáng",
+            "rót chất lỏng từng giọt",
+            "(cũ) một phần năm của một canh hai giờ 更[geng1]",
+            "nét chấm trong chữ Hán",
+            "lượng từ cho mục"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              121885
+            ],
+            "pronunciations": [
+              "dian3"
+            ],
+            "traditional": [
+              "點"
+            ],
+            "notes": "Nguồn HSK tách mục đồng tự; nghĩa từ điển chưa được tách theo số mục."
+          },
+          "sinoVietnamese": "điểm",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-266",
+          "hanzi": "有些",
+          "sourceWord": "有些",
+          "pinyin": "yǒuxiē",
+          "partOfSpeech": "代、（副）",
+          "hskLevel": "hsk1",
+          "sourceLevel": "一级（三级）",
+          "sort": 266,
+          "meaning": "một số; hơi",
+          "meaningStatus": "dictionary",
+          "unit": 14,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "một số",
+            "hơi"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              53909
+            ],
+            "pronunciations": [
+              "you3 xie1"
+            ],
+            "traditional": [
+              "有些"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "hữu ta",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1673",
+          "hanzi": "视频",
+          "sourceWord": "视频",
+          "pinyin": "shìpín",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1673,
+          "meaning": "video",
+          "meaningStatus": "dictionary",
+          "unit": 27,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "video"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              97845
+            ],
+            "pronunciations": [
+              "shi4 pin2"
+            ],
+            "traditional": [
+              "視頻"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "thị tần",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-471",
+          "hanzi": "一会儿",
+          "sourceWord": "一会儿",
+          "pinyin": "yíhuìr",
+          "partOfSpeech": "数量、（副）",
+          "hskLevel": "hsk2",
+          "sourceLevel": "二级（三级）",
+          "sort": 471,
+          "meaning": "một lúc; một thời gian; ngay lập tức",
+          "meaningStatus": "dictionary",
+          "unit": 13,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "một lúc",
+            "một thời gian",
+            "ngay lập tức",
+            "lúc thì...lúc thì..."
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "sandhi",
+            "lines": [
+              664
+            ],
+            "pronunciations": [
+              "yi1 hui4 r5"
+            ],
+            "traditional": [
+              "一會兒"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "nhất hội nhi",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-5132",
+          "hanzi": "野生",
+          "sourceWord": "野生",
+          "pinyin": "yěshēng",
+          "partOfSpeech": "形",
+          "hskLevel": "hsk6",
+          "sourceLevel": "六级",
+          "sort": 5132,
+          "meaning": "hoang dã; không thuần hóa",
+          "meaningStatus": "dictionary",
+          "unit": 62,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "hoang dã",
+            "không thuần hóa"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              108725
+            ],
+            "pronunciations": [
+              "ye3 sheng1"
+            ],
+            "traditional": [
+              "野生"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "dã sinh",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-4108",
+          "hanzi": "国宝",
+          "sourceWord": "国宝",
+          "pinyin": "guóbǎo",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk6",
+          "sourceLevel": "六级",
+          "sort": 4108,
+          "meaning": "báu vật quốc gia",
+          "meaningStatus": "dictionary",
+          "unit": 21,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "báu vật quốc gia"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              24025
+            ],
+            "pronunciations": [
+              "guo2 bao3"
+            ],
+            "traditional": [
+              "國寶"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "quốc bảo",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1598",
+          "hanzi": "全",
+          "sourceWord": "全",
+          "pinyin": "quán",
+          "partOfSpeech": "形、副",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1598,
+          "meaning": "tất cả; toàn bộ; toàn thể",
+          "meaningStatus": "dictionary",
+          "unit": 24,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "tất cả",
+            "toàn bộ",
+            "toàn thể",
+            "mọi",
+            "hoàn toàn",
+            "họ [Quan2]"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              11166,
+              11165
+            ],
+            "pronunciations": [
+              "quan2",
+              "Quan2"
+            ],
+            "traditional": [
+              "全"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "toàn",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-3539",
+          "hanzi": "竹子",
+          "sourceWord": "竹子",
+          "pinyin": "zhúzi",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk5",
+          "sourceLevel": "五级",
+          "sort": 3539,
+          "meaning": "cây tre",
+          "meaningStatus": "dictionary",
+          "unit": 62,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "cây tre"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              81175
+            ],
+            "pronunciations": [
+              "zhu2 zi5"
+            ],
+            "traditional": [
+              "竹子"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "trúc tử",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1332",
+          "hanzi": "继续",
+          "sourceWord": "继续",
+          "pinyin": "jìxù",
+          "partOfSpeech": "动",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1332,
+          "meaning": "tiếp tục; tiến hành; tiếp diễn",
+          "meaningStatus": "dictionary",
+          "unit": 14,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "tiếp tục; tiến hành; tiếp diễn"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              85594
+            ],
+            "pronunciations": [
+              "ji4 xu4"
+            ],
+            "traditional": [
+              "繼續"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "kế tục",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-7964",
+          "hanzi": "联欢",
+          "sourceWord": "联欢",
+          "pinyin": "liánhuān",
+          "partOfSpeech": "动",
+          "hskLevel": "hsk7-9",
+          "sourceLevel": "七-九级",
+          "sort": 7964,
+          "meaning": "có buổi họp mặt; tổ chức liên hoan; bữa tiệc",
+          "meaningStatus": "dictionary",
+          "unit": 103,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "có buổi họp mặt",
+            "tổ chức liên hoan",
+            "bữa tiệc"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              87745
+            ],
+            "pronunciations": [
+              "lian2 huan1"
+            ],
+            "traditional": [
+              "聯歡"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "liên hoan",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1029",
+          "hanzi": "毕业",
+          "sourceWord": "毕业",
+          "pinyin": "bìyè",
+          "partOfSpeech": "动",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1029,
+          "meaning": "tốt nghiệp; hoàn thành khóa học",
+          "meaningStatus": "dictionary",
+          "unit": 2,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "tốt nghiệp",
+            "hoàn thành khóa học"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              73805
+            ],
+            "pronunciations": [
+              "bi4 ye4"
+            ],
+            "traditional": [
+              "畢業"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "tất nghiệp",
+          "sinoVietnameseMethod": "character-pinyin"
+        },
+        {
+          "id": "hsk30-1517",
+          "hanzi": "目标",
+          "sourceWord": "目标",
+          "pinyin": "mùbiāo",
+          "partOfSpeech": "名",
+          "hskLevel": "hsk4",
+          "sourceLevel": "四级",
+          "sort": 1517,
+          "meaning": "mục tiêu; mục đích",
+          "meaningStatus": "dictionary",
+          "unit": 21,
+          "meaningQuizEligible": true,
+          "definitions": [
+            "mục tiêu",
+            "mục đích"
+          ],
+          "dictionary": {
+            "source": "cvdict",
+            "match": "exact",
+            "lines": [
+              76280
+            ],
+            "pronunciations": [
+              "mu4 biao1"
+            ],
+            "traditional": [
+              "目標"
+            ],
+            "notes": ""
+          },
+          "sinoVietnamese": "mục tiêu",
+          "sinoVietnameseMethod": "character-pinyin"
+        }
+      ]
+    }
+  }
+}

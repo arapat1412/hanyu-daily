@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "reviewedPronunciationSorts": [
+    137, 139, 248, 356, 361, 362, 418, 451, 458, 532, 570, 643, 654,
+    730, 849, 902, 971, 1200, 1290, 1304, 1313, 1320, 1347, 1458, 1485,
+    1684, 1689, 1717, 1773, 1908, 1919, 1947, 2257, 2308, 2479, 2674,
+    2688, 2707, 2747, 2749, 2756, 3198, 3230, 3269, 3320, 3339, 3772,
+    3836, 3881, 3885, 3944, 3997, 4280, 4527, 4802, 4956, 5003, 5051,
+    5067, 5091, 5163, 5193, 5423, 5436, 5492, 5580, 5696, 6128, 6129,
+    6342, 6554, 6575, 6613, 6745, 6800, 6860, 6978, 6991, 7070, 7232,
+    7454, 7473, 7497, 7744, 7881, 7899, 7901, 7909, 8177, 8193, 8205,
+    8206, 8253, 8316, 8342, 8413, 8466, 8544, 8692, 8769, 8815, 9106,
+    9107, 9166, 9300, 9521, 9559, 9568, 9667, 10132, 10222, 10278,
+    10354, 10664, 10799, 10867, 10973
+  ],
+  "manualMeanings": {
+    "1534": {
+      "definitions": ["ừ; vâng; ờ (thán từ biểu thị đồng ý hoặc đáp lời)"],
+      "source": "cvdict-reviewed",
+      "sourceLines": [22789, 22790],
+      "sourcePronunciations": ["en4", "en5"],
+      "note": "Đề cương ghi âm tiết mũi ǹg; nghĩa được đối chiếu với các mục thán từ 嗯 trong CVDICT."
+    },
+    "1818": {
+      "definitions": ["máu (cách đọc khẩu ngữ)"],
+      "source": "cvdict-reviewed",
+      "sourceLines": [95905],
+      "sourcePronunciations": ["xue4; khẩu ngữ xie3"],
+      "note": "CVDICT ghi 血 đọc xue4 và nêu rõ cách đọc khẩu ngữ xie3."
+    },
+    "5064": {
+      "definitions": ["truyền thông mới; phương tiện truyền thông số"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E6%96%B0%E5%AA%92%E4%BD%93",
+      "note": "Nghĩa Việt do dự án biên soạn và đối chiếu theo mục từ tiếng Trung."
+    },
+    "5066": {
+      "definitions": ["năng lượng mới; nguồn năng lượng mới được khai thác hoặc sử dụng bằng công nghệ mới"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E6%96%B0%E8%83%BD%E6%BA%90",
+      "note": "Bao gồm các nguồn như năng lượng mặt trời, gió và địa nhiệt."
+    },
+    "5638": {
+      "definitions": ["dấu hiệu; ký hiệu dùng để nhận biết", "đánh dấu; biểu thị"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E6%A0%87%E8%AF%86",
+      "note": "Đối chiếu theo cách đọc biāoshí của đề cương; không gộp với mục biāozhì trong CVDICT."
+    },
+    "5720": {
+      "definitions": ["không cho; không chấp thuận", "không tiến hành hoặc không áp dụng điều nêu sau"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E4%B8%8D%E4%BA%88",
+      "note": "Thường dùng trong văn viết, đứng trước một động từ hai âm tiết."
+    },
+    "7556": {
+      "definitions": ["nhiều nội dung đặc sắc, phong phú liên tiếp xuất hiện"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E7%B2%BE%E5%BD%A9%E7%BA%B7%E5%91%88",
+      "note": "Nghĩa Việt được biên soạn từ hai thành tố 精彩 và 纷呈."
+    },
+    "7645": {
+      "definitions": ["ở vào; nằm tại", "giữ một vị trí hoặc địa vị nào đó"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E5%B1%85%E4%BA%8E",
+      "note": "Nghĩa Việt do dự án biên soạn và đối chiếu theo mục từ tiếng Trung."
+    },
+    "7793": {
+      "definitions": ["tiếng huýt sáo", "cái còi nhỏ có thể thổi thành tiếng"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E5%8F%A3%E5%93%A8",
+      "note": "儿 biểu thị âm uốn lưỡi trong cách đọc miền Bắc."
+    },
+    "7875": {
+      "definitions": ["khó khăn mới có được; không dễ mà có"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E6%9D%A5%E4%B9%8B%E4%B8%8D%E6%98%93",
+      "note": "Dùng để nhấn mạnh thành quả hoặc sự vật đạt được rất khó khăn."
+    },
+    "7993": {
+      "definitions": ["hai cánh", "hai bên sườn hoặc hai bộ phận hỗ trợ ở hai phía"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E4%B8%A4%E7%BF%BC",
+      "note": "Có thể dùng theo nghĩa đen hoặc nghĩa mở rộng."
+    },
+    "8927": {
+      "definitions": ["hiệp đầu; nửa đầu của một trận đấu hoặc chương trình"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E4%B8%8A%E5%8D%8A%E5%9C%BA",
+      "note": "Nghĩa Việt do dự án biên soạn và đối chiếu theo mục từ tiếng Trung."
+    },
+    "9384": {
+      "definitions": ["dây leo; thân dây của cây leo"],
+      "source": "cvdict-reviewed",
+      "sourceLines": [94449],
+      "sourcePronunciations": ["teng2 man4; cũng đọc teng2 wan4"],
+      "note": "CVDICT nêu trực tiếp cách đọc téngwàn dùng trong đề cương."
+    },
+    "9808": {
+      "definitions": ["hiệp sau; nửa sau của một trận đấu hoặc chương trình"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E4%B8%8B%E5%8D%8A%E5%9C%BA",
+      "note": "Nghĩa Việt do dự án biên soạn và đối chiếu theo mục từ tiếng Trung."
+    },
+    "9911": {
+      "definitions": ["bắt chước; noi theo; mô phỏng"],
+      "source": "cvdict-reviewed",
+      "sourceLines": [9555, 6634],
+      "sourcePronunciations": ["xiao4 fang3", "fang3 xiao4"],
+      "note": "Đã giải thủ công liên kết chéo 效仿 → 仿效 trong CVDICT."
+    },
+    "9931": {
+      "definitions": ["rò rỉ; làm lộ hoặc tiết lộ thông tin"],
+      "source": "cvdict-reviewed",
+      "sourceLines": [62658],
+      "sourcePronunciations": ["xie4 lu4; cũng đọc xie4 lou4"],
+      "note": "CVDICT nêu trực tiếp cách đọc xièlòu dùng trong đề cương."
+    },
+    "10114": {
+      "definitions": ["tiết mục gần cuối của chương trình", "tiết mục hoặc sự kiện đặc sắc nhất, được dùng làm điểm nhấn"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E5%8E%8B%E8%BD%B4",
+      "note": "Giữ cả nghĩa sân khấu truyền thống và nghĩa mở rộng thông dụng."
+    },
+    "10737": {
+      "definitions": ["dốc sức vào; tận tâm cho; chuyên tâm thực hiện"],
+      "source": "editorial",
+      "sourceUrl": "https://www.zdic.net/hans/%E8%87%B4%E5%8A%9B%E4%BA%8E",
+      "note": "Nghĩa Việt do dự án biên soạn và đối chiếu theo mục từ tiếng Trung."
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "sources": {
+    "cvdict": {
+      "url": "https://github.com/ph0ngp/CVDICT",
+      "author": "Phong Phan; CC-CEDICT contributors",
+      "commit": "c379d909e308343a247e51619f7839a2060a271c",
+      "license": "CC BY-SA 4.0",
+      "sha256": "4dde4b204193efa9c192d7f7daeab1bb579c8ccd7c41ed90d1b6caee22ba0948"
+    },
+    "hanviet": {
+      "url": "https://github.com/ph0ngp/hanviet-pinyin-wordlist",
+      "author": "Phong Phan",
+      "commit": "b9923df92c8b55f013001390e37cddd35e986dc1",
+      "license": "MIT",
+      "sha256": "dd90d59db1265a47317477c9f741baeff7cb4dfed58d9a0c2be5f69b9ed14d66"
+    },
+    "editorial": {
+      "file": "data/hsk-reviewed-overrides.json",
+      "description": "Vietnamese glosses authored for this project and pronunciation matches explicitly reviewed against the pinned dictionary and linked Chinese dictionary entries."
+    }
+  },
+  "dictionaryEntries": 122597,
+  "totalMeanings": 11000,
+  "totalHanviet": 10759,
+  "totalQuizEligible": 10914,
+  "totalReviewedMeanings": 135,
+  "totalEditorialMeanings": 13,
+  "levels": {
+    "hsk1": {
+      "total": 300,
+      "meanings": 300,
+      "hanviet": 282,
+      "quizEligible": 293,
+      "reviewedMeanings": 3,
+      "editorialMeanings": 0
+    },
+    "hsk2": {
+      "total": 200,
+      "meanings": 200,
+      "hanviet": 185,
+      "quizEligible": 191,
+      "reviewedMeanings": 6,
+      "editorialMeanings": 0
+    },
+    "hsk3": {
+      "total": 500,
+      "meanings": 500,
+      "hanviet": 486,
+      "quizEligible": 494,
+      "reviewedMeanings": 8,
+      "editorialMeanings": 0
+    },
+    "hsk4": {
+      "total": 1000,
+      "meanings": 1000,
+      "hanviet": 964,
+      "quizEligible": 990,
+      "reviewedMeanings": 17,
+      "editorialMeanings": 0
+    },
+    "hsk5": {
+      "total": 1600,
+      "meanings": 1600,
+      "hanviet": 1573,
+      "quizEligible": 1581,
+      "reviewedMeanings": 14,
+      "editorialMeanings": 0
+    },
+    "hsk6": {
+      "total": 1800,
+      "meanings": 1800,
+      "hanviet": 1770,
+      "quizEligible": 1788,
+      "reviewedMeanings": 18,
+      "editorialMeanings": 2
+    },
+    "hsk7-9": {
+      "total": 5600,
+      "meanings": 5600,
+      "hanviet": 5499,
+      "quizEligible": 5577,
+      "reviewedMeanings": 69,
+      "editorialMeanings": 11
+    }
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Scratch and inspection scripts
+scratch_*.js
+download_inspect.js
+bundle_*.js
+
+# Logs and Vercel artifacts
+*.log
+.vercel
