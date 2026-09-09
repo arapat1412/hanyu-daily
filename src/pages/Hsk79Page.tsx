@@ -6,17 +6,14 @@ import {
 } from 'lucide-react';
 import { SAMPLE_CHENGYU } from '../data/chengyuData';
 import { ChengyuItem } from '../types';
+import { speakChinese } from '../lib/hsk';
 
 export const Hsk79Page: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'chengyu' | 'dingshi' | 'translate' | 'history'>('chengyu');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSpeak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'zh-CN';
-      window.speechSynthesis.speak(utterance);
-    }
+    speakChinese(text);
   };
 
   const filteredChengyu = SAMPLE_CHENGYU.filter(item => 

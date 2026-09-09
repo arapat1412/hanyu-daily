@@ -571,28 +571,125 @@ export function completeLesson(id: string, score?: number) {
         : [...progress.attempts, { lessonId: id, score, at: now }].slice(-500),
   });
 }
+// Cache voices and prewarm SpeechSynthesis for iOS/Safari & Android
+let cachedVoices: SpeechSynthesisVoice[] = [];
+
+if (typeof window !== "undefined" && "speechSynthesis" in window) {
+  const updateVoices = () => {
+    try {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        cachedVoices = voices;
+      }
+    } catch {
+      // Ignore errors
+    }
+  };
+
+  updateVoices();
+  if (typeof window.speechSynthesis.addEventListener === "function") {
+    window.speechSynthesis.addEventListener("voiceschanged", updateVoices);
+  } else if ("onvoiceschanged" in window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = updateVoices;
+  }
+}
+
+/**
+ * Phát hiện thiết bị iOS (iPhone, iPad, iPod)
+ */
+export function isAppleDevice(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+}
+
+/**
+ * Tìm giọng đọc tiếng Trung chất lượng cao nhất theo thứ tự ưu tiên
+ */
+export function getBestChineseVoice(): SpeechSynthesisVoice | undefined {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return undefined;
+
+  const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return undefined;
+
+  // 1. Ưu tiên các giọng zh-CN cao cấp (Enhanced, Premium, Natural, Siri, Google)
+  const premiumZhCn = voices.find(
+    (v) =>
+      /^zh[-_](CN|Hans)/i.test(v.lang) &&
+      /enhanced|premium|natural|siri|google/i.test(v.name)
+  );
+  if (premiumZhCn) return premiumZhCn;
+
+  // 2. Ưu tiên giọng chuẩn Ting-Ting trên iOS hoặc Xiaoxiao/Huihui trên Windows/Edge
+  const standardNamedZhCn = voices.find(
+    (v) =>
+      /^zh[-_](CN|Hans)/i.test(v.lang) &&
+      /ting-?ting|xiaoxiao|yaoyao|kangkang|huihui|zhiyu/i.test(v.name)
+  );
+  if (standardNamedZhCn) return standardNamedZhCn;
+
+  // 3. Bất kỳ giọng zh-CN / zh-Hans nào (Trung Quốc đại lục, Quan Thoại)
+  const anyZhCn = voices.find((v) => /^zh[-_](CN|Hans)/i.test(v.lang));
+  if (anyZhCn) return anyZhCn;
+
+  // 4. Giọng tiếng Trung Quan Thoại Đài Loan (zh-TW/Hant) nếu không có zh-CN (tránh tiếng Quảng Đông zh-HK)
+  const anyZhTw = voices.find((v) => /^zh[-_](TW|Hant)/i.test(v.lang));
+  if (anyZhTw) return anyZhTw;
+
+  // 5. Bất kỳ giọng zh nào còn lại
+  return voices.find((v) => /^zh/i.test(v.lang));
+}
+
 export function speakChinese(
   text: string,
   onError?: (message: string) => void,
 ) {
-  if (!("speechSynthesis" in window)) {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
     onError?.("Trình duyệt này không hỗ trợ đọc văn bản.");
     return;
   }
+
+  // Khắc phục lỗi iOS Safari tự động suspended/paused speech synthesis
+  if (window.speechSynthesis.paused) {
+    window.speechSynthesis.resume();
+  }
   window.speechSynthesis.cancel();
+
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "zh-CN";
-  utterance.rate = 0.85;
-  const voice = window.speechSynthesis
-    .getVoices()
-    .find((item) => /^zh[-_](CN|Hans)/i.test(item.lang));
-  if (voice) utterance.voice = voice;
+
+  const isIOS = isAppleDevice();
+  const bestVoice = getBestChineseVoice();
+
+  if (bestVoice) {
+    utterance.voice = bestVoice;
+    if (bestVoice.lang) utterance.lang = bestVoice.lang;
+  }
+
+  // Tối ưu tốc độ đọc:
+  // - Trên iOS: Với giọng mặc định Compact của Apple, nếu để rate < 1.0 (như 0.85) thì âm thanh bị bóp méo, rè và the the như robot.
+  //   Nếu có giọng Enhanced/Premium/Siri thì đặt 0.95, nếu là giọng Compact thông thường thì giữ 1.0 để phát âm sắc nét và tự nhiên nhất.
+  // - Trên Android / Windows: Google và Microsoft Neural TTS co dãn âm rất tốt, tốc độ 0.88 là chuẩn nhất cho người học.
+  if (isIOS) {
+    const isEnhanced = bestVoice
+      ? /enhanced|premium|natural|siri/i.test(bestVoice.name)
+      : false;
+    utterance.rate = isEnhanced ? 0.95 : 1.0;
+    utterance.pitch = 1.0;
+  } else {
+    utterance.rate = 0.88;
+    utterance.pitch = 1.0;
+  }
+
   utterance.onerror = (event) => {
     if (!["interrupted", "canceled"].includes(event.error))
       onError?.(
         "Không phát được giọng tiếng Trung. Hãy kiểm tra giọng đọc và âm thanh của thiết bị.",
       );
   };
+
   window.speechSynthesis.speak(utterance);
 }
 
