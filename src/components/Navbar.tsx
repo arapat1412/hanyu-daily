@@ -35,9 +35,9 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-gradient-to-br from-brand-dark via-brand to-brand-light shadow-[0_4px_24px_rgba(23,48,63,0.3)] pt-safe">
+      <header className="sticky top-0 z-30 w-full bg-gradient-to-br from-brand-dark via-brand to-brand-light shadow-[0_4px_24px_rgba(23,48,63,0.3)] pt-safe">
         {/* Top Header Row */}
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-2 px-3 sm:px-7 py-2.5 sm:py-3">
+        <div className="mx-auto flex max-w-[1180px] w-full items-center justify-between gap-2 px-3 sm:px-7 py-2.5 sm:py-3">
           {/* Logo & Slogan */}
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 no-underline group shrink-0">
             <div className="flex h-9 w-9 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-[10px] sm:rounded-[12px] bg-white/10 shadow-[0_2px_10px_rgba(0,0,0,0.2)] group-hover:scale-105 transition-transform">
@@ -116,8 +116,8 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Bottom Sub-Navigation Row (Exact Meiday Chinese Sub-Bar) */}
-        <div className="bg-black/10 border-t border-white/10">
-          <div className="mx-auto flex max-w-[1180px] items-center gap-1.5 overflow-x-auto px-3 sm:px-5.5 py-1.5 scrollbar-none momentum-scroll overscroll-x-contain">
+        <div className="bg-black/10 border-t border-white/10 w-full">
+          <div className="mx-auto flex max-w-[1180px] w-full items-center gap-1.5 overflow-x-auto px-3 sm:px-5.5 py-1.5 scrollbar-none momentum-scroll overscroll-x-contain">
             {navLinks.map((item) => {
               const active = isActive(item.href);
               if (item.ready === false) {

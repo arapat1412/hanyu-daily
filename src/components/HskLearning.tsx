@@ -216,16 +216,16 @@ export function LevelShell({
     ["syllabus", "Đề cương", "📑"],
   ];
   return (
-    <div className="min-h-screen bg-page">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[210px_minmax(0,1fr)]">
-        <aside>
+    <div className="min-h-screen bg-page w-full overflow-x-hidden">
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[210px_minmax(0,1fr)] min-w-0 w-full">
+        <aside className="min-w-0 w-full">
           <Link
             to="/hsk"
             className="mb-5 inline-flex items-center gap-2 text-xs font-semibold text-brand"
           >
             <ArrowLeft size={14} /> Quay lại HSK 3.0
           </Link>
-          <div className="rounded-2xl border border-line bg-white p-4">
+          <div className="rounded-2xl border border-line bg-white p-4 min-w-0">
             <div className="mb-5 flex items-center gap-3">
               <span
                 className="flex h-11 w-11 items-center justify-center rounded-xl text-lg font-bold"
@@ -240,14 +240,14 @@ export function LevelShell({
             </div>
             <nav
               aria-label="Điều hướng cấp độ"
-              className="flex overflow-x-auto gap-1 pb-1 lg:flex-col lg:overflow-x-visible scrollbar-none momentum-scroll"
+              className="flex flex-wrap gap-1.5 lg:flex-col"
             >
               {links.map(([key, label, icon]) => (
                 <Link
                   key={key}
                   to={`/hsk/${code}${key === "overview" ? "" : `/${key}`}`}
                   aria-current={tab === key ? "page" : undefined}
-                  className={`rounded-xl px-3 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap lg:whitespace-normal active:scale-95 touch-manipulation transition-all ${tab === key ? "bg-tint text-brand" : "text-muted hover:bg-page"}`}
+                  className={`rounded-xl px-3 py-2 text-xs sm:text-sm font-semibold active:scale-95 touch-manipulation transition-all ${tab === key ? "bg-tint text-brand" : "text-muted hover:bg-page"}`}
                 >
                   {icon} {label}
                 </Link>
