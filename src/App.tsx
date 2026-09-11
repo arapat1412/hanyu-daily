@@ -60,11 +60,11 @@ export const App: React.FC = () => {
           <main className="flex-1 pb-16 md:pb-0">
             <Suspense fallback={<RouteLoading />}>
             <Routes>
-              {/* Exactly https://meidaychinese.com/dashboard */}
+              {/* Trang chủ / Bảng điều khiển */}
               <Route path="/" element={<DashboardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               
-              {/* Exactly https://meidaychinese.com/hsk */}
+              {/* Lộ trình HSK */}
               <Route path="/hsk" element={<HskPage />} />
               <Route path="/hsk/:code" element={<HskLevelPage />} />
               <Route path="/hsk/:code/:tab" element={<HskLevelPage />} />

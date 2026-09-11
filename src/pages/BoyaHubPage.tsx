@@ -5,14 +5,13 @@ import {
   Sparkles,
   GraduationCap,
   Layers,
-  ChevronRight,
   Bookmark,
   CheckCircle2,
   Clock,
   ArrowRight,
+  ArrowLeft,
   Headphones,
   PenTool,
-  Award,
   BookMarked,
   Info
 } from 'lucide-react';
@@ -50,7 +49,7 @@ export const BoyaHubPage: React.FC = () => {
       id: 'so-cap-1',
       title: 'Boya Sơ cấp 1',
       titleZh: '博雅汉语 · 初级起步篇 I',
-      edition: 'Tập 1 — Phiên bản 2',
+      edition: 'Tập 1 — ĐH Bắc Kinh',
       levelBadge: 'Sơ cấp (A1 - A2)',
       targetHsk: 'HSK 1 – 2',
       lessonsCount: 30,
@@ -58,15 +57,21 @@ export const BoyaHubPage: React.FC = () => {
       wordsCount: BOYA1_STATS.totalWords,
       status: 'ready',
       coverImage: '/boyasocap1.png',
-      description: 'Giáo trình mở đầu chuẩn xác, rèn luyện phát âm pinyin, ngữ pháp cơ bản và 678 từ vựng đàm thoại đời sống.',
-      highlights: ['30 bài học thực tế', '6 đơn nguyên hoàn chỉnh', 'Audio phát âm chuẩn', 'Bút thuận từng chữ'],
-      link: '/boya/so-cap-1'
+      description: 'Nền tảng mở đầu chuẩn xác: phát âm Pinyin chuẩn, ngữ pháp căn bản và 678 từ vựng giao tiếp thực tế.',
+      highlights: ['30 bài học · 6 đơn nguyên', '678 từ vựng kèm audio', 'Bút thuận từng nét chữ'],
+      link: '/boya/so-cap-1',
+      cardBg: 'bg-gradient-to-br from-white via-sky-50/40 to-sky-100/50',
+      cardBorder: 'border-sky-200/90 hover:border-sky-400 hover:shadow-md hover:shadow-sky-500/10',
+      badgeBg: 'bg-sky-600 text-white',
+      btnHover: 'group-hover:bg-sky-600',
+      hanzi: '博',
+      hanziColor: 'text-sky-600/15',
     },
     {
       id: 'so-cap-2',
       title: 'Boya Sơ cấp 2',
       titleZh: '博雅汉语 · 初级起步篇 II',
-      edition: 'Tập 2 — Phiên bản 2',
+      edition: 'Tập 2 — ĐH Bắc Kinh',
       levelBadge: 'Sơ cấp nâng cao (A2+)',
       targetHsk: 'HSK 2 – 3',
       lessonsCount: 25,
@@ -74,15 +79,21 @@ export const BoyaHubPage: React.FC = () => {
       wordsCount: BOYA2_STATS.totalWords,
       status: 'ready',
       coverImage: '/boyasocap2.png',
-      description: 'Tiếp nối tập 1, mở rộng trường từ vựng giao tiếp thực tế và các mẫu câu phức trong đời sống hàng ngày.',
-      highlights: ['25 bài học nâng cao', '864 từ vựng đàm thoại', 'Audio phát âm chuẩn & Ví dụ', 'Luyện Flashcard & Trắc nghiệm'],
-      link: '/boya/so-cap-2'
+      description: 'Mở rộng vốn từ vựng đàm thoại đời sống, nâng cấp câu ghép và phản xạ giao tiếp tự nhiên.',
+      highlights: ['25 bài học · 5 đơn nguyên', '864 từ vựng đàm thoại', 'Luyện Flashcard & Trắc nghiệm'],
+      link: '/boya/so-cap-2',
+      cardBg: 'bg-gradient-to-br from-white via-pink-50/40 to-pink-100/50',
+      cardBorder: 'border-pink-200/90 hover:border-pink-400 hover:shadow-md hover:shadow-pink-500/10',
+      badgeBg: 'bg-pink-600 text-white',
+      btnHover: 'group-hover:bg-pink-600',
+      hanzi: '雅',
+      hanziColor: 'text-pink-600/15',
     },
     {
       id: 'chuan-trung-cap-1',
       title: 'Boya Trung cấp 1',
       titleZh: '博雅汉语 · 准中级加速篇 I',
-      edition: 'Tập 1 — Phiên bản 2',
+      edition: 'Tập 1 — ĐH Bắc Kinh',
       levelBadge: 'Tiền trung cấp (B1)',
       targetHsk: 'HSK 3 – 4',
       lessonsCount: 20,
@@ -91,14 +102,20 @@ export const BoyaHubPage: React.FC = () => {
       status: 'upcoming',
       badgeText: 'Sắp ra mắt',
       coverImage: '/boyatrungcap1.png',
-      description: 'Tăng tốc khả năng đọc hiểu và diễn đạt đoạn văn ngắn, phân tích ngữ pháp liên kết câu.',
-      highlights: ['Tăng tốc từ vựng', 'Đọc hiểu đoạn văn', 'Ngữ pháp liên kết', 'Phản xạ giao tiếp']
+      description: 'Tăng tốc khả năng đọc hiểu và diễn đạt đoạn văn ngắn, phân tích cấu trúc liên kết câu.',
+      highlights: ['Tăng tốc từ vựng', 'Đọc hiểu đoạn văn', 'Ngữ pháp liên kết'],
+      cardBg: 'bg-gradient-to-br from-white via-amber-50/30 to-amber-100/40',
+      cardBorder: 'border-amber-200/80',
+      badgeBg: 'bg-amber-600 text-white',
+      btnHover: 'group-hover:bg-amber-600',
+      hanzi: '汉',
+      hanziColor: 'text-amber-600/15',
     },
     {
       id: 'chuan-trung-cap-2',
       title: 'Boya Trung cấp 2',
       titleZh: '博雅汉语 · 中级冲刺篇',
-      edition: 'Tập 2 — Phiên bản 2',
+      edition: 'Tập 2 — ĐH Bắc Kinh',
       levelBadge: 'Trung cấp (B1+)',
       targetHsk: 'HSK 4',
       lessonsCount: 20,
@@ -107,104 +124,143 @@ export const BoyaHubPage: React.FC = () => {
       status: 'upcoming',
       badgeText: 'Sắp ra mắt',
       coverImage: '/boyatrungcap2.png',
-      description: 'Làm chủ kỹ năng thảo luận, đọc bài văn ngắn và hiểu sâu về bối cảnh văn hóa Trung Hoa.',
-      highlights: ['Chủ đề văn hóa', 'Kỹ năng thảo luận', 'Từ vựng trung cấp', 'Chuẩn bị HSK 4']
+      description: 'Làm chủ kỹ năng thảo luận, đọc hiểu bài văn ngắn và đào sâu ngữ cảnh văn hóa Trung Hoa.',
+      highlights: ['Chủ đề văn hóa', 'Kỹ năng thảo luận', 'Từ vựng chuyên sâu'],
+      cardBg: 'bg-gradient-to-br from-white via-purple-50/30 to-purple-100/40',
+      cardBorder: 'border-purple-200/80',
+      badgeBg: 'bg-purple-600 text-white',
+      btnHover: 'group-hover:bg-purple-600',
+      hanzi: '语',
+      hanziColor: 'text-purple-600/15',
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F9FA] pb-20">
-      <div className="mx-auto max-w-[1180px] px-4 sm:px-6 pt-6">
+    <div className="min-h-screen bg-[#F1F5F9] text-slate-900 pb-20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6">
 
-        {/* Navigation Breadcrumb */}
-        <div className="mb-4 flex items-center gap-2 text-xs font-medium text-ink-2">
-          <Link to="/" className="hover:text-brand transition-colors no-underline">Trang chủ</Link>
-          <span>/</span>
-          <span className="text-ink font-semibold">Giáo trình Boya</span>
-        </div>
+        {/* Nút quay lại trang chủ */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-sky-600 transition-colors mb-5 group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+          <span>Trang chủ</span>
+        </Link>
 
-        {/* Hero Header Banner */}
-        <header className="relative mb-8 overflow-hidden rounded-[26px] bg-gradient-to-br from-[#1B3B4B] via-[#245369] to-[#2D6682] px-6 py-8 text-white shadow-md sm:px-10 sm:py-10">
-          {/* Chinese watermark background */}
-          <span className="pointer-events-none absolute -right-6 -bottom-10 select-none font-hanzi text-[180px] font-black text-white/5 sm:text-[230px]">
-            博雅
-          </span>
+        {/* 1. Header Banner phong cách Luminous Gradient đậm đà & có chiều sâu */}
+        <header 
+          className="relative mb-8 overflow-hidden rounded-3xl text-white p-6 sm:p-8 lg:p-9 shadow-lg shadow-sky-950/10 border border-sky-400/30"
+          style={{
+            background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 30%, #38BDF8 58%, #F472B6 100%)'
+          }}
+        >
+          {/* Ambient glow orbs */}
+          <div className="absolute -top-16 -right-16 w-80 h-80 bg-pink-300/40 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-16 left-1/4 w-80 h-80 bg-sky-300/30 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-[760px]">
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-amber-300 backdrop-blur-xs">
-              <span>📚</span>
-              <span>博雅汉语系列教材 · PEKING UNIVERSITY PRESS</span>
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 border border-white/40 text-white text-xs font-bold mb-3 backdrop-blur-md shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-pink-200" />
+                <span>博雅汉语 · Giáo Trình Chuẩn Đại Học Bắc Kinh</span>
+              </div>
+              <h1 className="font-display text-2xl sm:text-3xl lg:text-[36px] font-black text-white tracking-tight leading-snug drop-shadow-xs">
+                Tủ Sách Hán Ngữ Boya
+              </h1>
+              <p className="mt-2 max-w-xl text-xs sm:text-sm text-white/95 leading-relaxed font-medium">
+                Bộ giáo trình Hán ngữ kinh điển phân cấp khoa học từ Sơ cấp đến Trung cấp — từ vựng chuẩn hóa, audio phát âm bản xứ và bài tập tương tác.
+              </p>
             </div>
-            <h1 className="text-2xl sm:text-[36px] font-black tracking-tight leading-tight">
-              Tủ Sách Giáo Trình Hán Ngữ Boya
-            </h1>
-            <p className="mt-3 text-sm sm:text-[15px] leading-relaxed text-white/85">
-              Bộ giáo trình Hán ngữ kinh điển do Đại học Bắc Kinh biên soạn, phân cấp khoa học từ Sơ cấp đến Cao cấp. 
-              Trọn vẹn từ vựng chuẩn, tra cứu bút thuận, phát âm audio bản xứ và bộ công cụ ôn luyện tương tác.
-            </p>
 
-            {/* Quick stats pills */}
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold">
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/12 px-3 py-1.5 border border-white/10 backdrop-blur-xs">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span>Boya Sơ cấp 1: <strong>{BOYA1_STATS.totalLessons} bài ({BOYA1_STATS.totalWords} từ)</strong></span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/12 px-3 py-1.5 border border-white/10 backdrop-blur-xs">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span>Boya Sơ cấp 2: <strong>{BOYA2_STATS.totalLessons} bài ({BOYA2_STATS.totalWords} từ)</strong></span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/12 px-3 py-1.5 border border-white/10 backdrop-blur-xs">
-                <BookMarked className="h-4 w-4 text-amber-300" />
-                <span>Tổng cộng: <strong>{BOYA1_STATS.totalWords + BOYA2_STATS.totalWords}</strong> từ vựng chuẩn</span>
-              </span>
-              {boyaBookmarkCount > 0 && (
-                <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400/20 px-3 py-1.5 border border-amber-300/30 text-amber-200">
-                  <Bookmark className="h-4 w-4 fill-amber-300 text-amber-300" />
-                  <span>Đã lưu <strong>{boyaBookmarkCount}</strong> từ</span>
-                </span>
-              )}
+            {/* 2 Thẻ chỉ số nổi kính mờ sang trọng */}
+            <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-sky-950/10">
+                <div className="w-10 h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-white font-mono leading-none">
+                    {(BOYA1_STATS.totalWords + BOYA2_STATS.totalWords).toLocaleString("vi-VN")}
+                  </div>
+                  <div className="text-[11px] text-white/85 font-semibold mt-1">
+                    Từ vựng Sơ cấp
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 px-5 py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-sky-950/10">
+                <div className="w-10 h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-white font-mono leading-none">
+                    {BOYA1_STATS.totalLessons + BOYA2_STATS.totalLessons} bài
+                  </div>
+                  <div className="text-[11px] text-white/85 font-semibold mt-1">
+                    11 Đơn nguyên
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </header>
 
-        {/* ========================================================================= */}
-        {/* BOYA SERIES BOOKS GRID (TỦ SÁCH GIÁO TRÌNH BOYA) */}
-        {/* ========================================================================= */}
-        <section className="mb-12">
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-black text-ink flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand text-white text-sm">📚</span>
-                <span>Tủ Sách Giáo Trình Hán Ngữ Boya</span>
+        {/* 2. Thanh thông báo gọn gàng, súc tích */}
+        <div className="mb-7 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-200/80 text-xs text-slate-500 shadow-2xs">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-semibold text-slate-700">Dữ liệu Boya Sơ cấp 1 & 2 đã hoàn tất số hóa</span>
+            <span className="text-slate-300">|</span>
+            <span>Phát âm bản xứ · Bút thuận từng nét · Flashcard thông minh</span>
+          </div>
+          <span className="font-medium text-slate-400">
+            {boyaBookmarkCount > 0 ? `Đã lưu ${boyaBookmarkCount} từ trong sổ tay` : 'Bấm chọn sách bên dưới để vào học'}
+          </span>
+        </div>
+
+        {/* 3. Lưới các tập sách Boya (博雅汉语) */}
+        <section className="mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-5 pb-2.5 border-b border-slate-200">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+                Bộ Giáo Trình Boya Toàn Tập
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-muted">
-                Hệ thống hóa toàn bộ các cấp độ trong bộ sách Boya của Đại học Bắc Kinh. Chọn sách để bắt đầu học.
-              </p>
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-200/80 text-slate-700">
+                4 Cấp độ · 9 Tập
+              </span>
             </div>
-            <span className="self-start sm:self-auto rounded-full bg-tint px-3 py-1 text-xs font-bold text-brand border border-line">
-              4 Cấp độ · 9 Tập
+            <span className="text-xs text-slate-500 font-medium">
+              Sơ cấp 1 & Sơ cấp 2 sẵn sàng học ngay
             </span>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {boyaSeries.map(book => {
               const isReady = book.status === 'ready';
+
               return (
                 <div
                   key={book.id}
-                  className={`flex flex-col justify-between rounded-[22px] border p-5 transition-all ${
-                    isReady
-                      ? 'border-brand/40 bg-white shadow-md hover:shadow-xl hover:border-brand'
-                      : 'border-line bg-white/70 opacity-90'
-                  }`}
+                  className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4.5 border transition-all ${book.cardBg} ${book.cardBorder} shadow-xs hover:shadow-md hover:-translate-y-0.5`}
                 >
-                  <div>
-                    {/* Book Cover Container */}
-                    {book.coverImage ? (
-                      isReady ? (
+                  {/* Chữ Hán mờ đại diện đằng sau: 博 - 雅 - 汉 - 语 */}
+                  <span 
+                    aria-hidden="true" 
+                    className={`pointer-events-none absolute -right-2 -bottom-3 select-none font-serif text-[100px] sm:text-[110px] font-black leading-none transition-transform duration-300 group-hover:scale-105 ${book.hanziColor}`}
+                  >
+                    {book.hanzi}
+                  </span>
+
+                  {/* Nội dung nổi bên trên chữ mờ */}
+                  <div className="relative z-10 flex flex-col justify-between h-full">
+                    <div>
+                      {/* Bìa sách 3D sang trọng */}
+                      {isReady ? (
                         <Link
                           to={book.link || "/boya/so-cap-1"}
-                          className="group/cover block relative mb-4 overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ring-1 ring-black/10 bg-[#F4F6F8] aspect-[3/4]"
+                          className="group/cover block relative mb-3.5 overflow-hidden rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ring-1 ring-slate-900/10 bg-slate-100 aspect-[3/4] max-h-52 mx-auto"
                           title={`Mở ${book.title}`}
                         >
                           <img
@@ -212,135 +268,106 @@ export const BoyaHubPage: React.FC = () => {
                             alt={book.title}
                             className="w-full h-full object-cover group-hover/cover:scale-105 transition-transform duration-300 block"
                           />
-                          {/* Realistic 3D spine shadow */}
-                          <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/25 via-white/10 to-transparent" />
-                          {/* Overlay Ready Pill */}
-                          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex justify-center">
-                            <span className="rounded-full bg-emerald-600/95 text-white text-[11px] font-bold px-3 py-1 shadow-sm backdrop-blur-xs flex items-center gap-1.5">
-                              <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
+                          {/* Gáy sách hiệu ứng 3D */}
+                          <div className="pointer-events-none absolute inset-y-0 left-0 w-2.5 bg-gradient-to-r from-black/25 via-white/10 to-transparent" />
+                          {/* Chip sẵn sàng */}
+                          <div className="absolute bottom-2 left-2 right-2 flex justify-center">
+                            <span className="rounded-full bg-emerald-600/95 text-white text-[10.5px] font-bold px-2.5 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
                               <span>Sẵn sàng học</span>
                             </span>
                           </div>
                         </Link>
                       ) : (
                         <div
-                          className="group/cover relative mb-4 overflow-hidden rounded-2xl shadow-md transition-all duration-300 ring-1 ring-black/10 bg-[#F4F6F8] aspect-[3/4]"
+                          className="relative mb-3.5 overflow-hidden rounded-xl shadow-xs ring-1 ring-slate-900/10 bg-slate-100 aspect-[3/4] max-h-52 mx-auto opacity-80"
                           title={book.title}
                         >
                           <img
                             src={book.coverImage}
                             alt={book.title}
-                            className="w-full h-full object-cover group-hover/cover:scale-105 transition-transform duration-300 block filter contrast-[0.97]"
+                            className="w-full h-full object-cover block filter contrast-[0.95]"
                           />
-                          {/* Realistic 3D spine shadow */}
-                          <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/25 via-white/10 to-transparent" />
-                          {/* Overlay Status Pill */}
-                          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex justify-center">
-                            <span className="rounded-full bg-slate-900/85 text-white text-[11px] font-bold px-3 py-1 shadow-sm backdrop-blur-xs flex items-center gap-1.5 border border-white/15">
+                          {/* Gáy sách hiệu ứng 3D */}
+                          <div className="pointer-events-none absolute inset-y-0 left-0 w-2.5 bg-gradient-to-r from-black/25 via-white/10 to-transparent" />
+                          {/* Chip đang biên soạn */}
+                          <div className="absolute bottom-2 left-2 right-2 flex justify-center">
+                            <span className="rounded-full bg-slate-900/80 text-white text-[10.5px] font-bold px-2.5 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5 border border-white/15">
                               <Clock className="h-3 w-3 text-amber-300" />
-                              <span>{book.badgeText || 'Đang cập nhật'}</span>
+                              <span>Sắp ra mắt</span>
                             </span>
                           </div>
                         </div>
-                      )
-                    ) : (
-                      <div className="relative mb-4 overflow-hidden rounded-2xl bg-gradient-to-br from-[#1B3B4B]/5 via-[#245369]/10 to-amber-500/10 border border-line aspect-[3/4] flex flex-col items-center justify-center p-4 text-center">
-                        <span className="font-hanzi text-6xl font-black text-brand/15 select-none mb-2">博雅</span>
-                        <div className="font-bold text-sm text-ink">{book.title}</div>
-                        <div className="font-hanzi text-xs text-muted mt-0.5">{book.titleZh}</div>
-                        <span className="mt-3 rounded-full bg-amber-100 text-[#8A5F0C] text-[10.5px] font-bold px-2.5 py-0.5">
-                          {book.badgeText}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Level Badge & Status */}
-                    <div className="mb-2.5 flex items-center justify-between gap-1">
-                      <span className="rounded-md bg-tint px-2 py-0.5 text-[10.5px] font-bold text-brand">
-                        {book.levelBadge}
-                      </span>
-                      {isReady ? (
-                        <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5">
-                          ✓ ĐÃ CÓ ({book.wordsCount} từ)
-                        </span>
-                      ) : (
-                        <span className="rounded-full bg-amber-100 text-[#8A5F0C] text-[10px] font-bold px-2 py-0.5">
-                          {book.badgeText}
-                        </span>
                       )}
-                    </div>
 
-                    {/* Book Title */}
-                    <h3 className="text-base sm:text-lg font-black text-ink tracking-tight">
-                      {isReady ? (
-                        <Link
-                          to={book.link || "/boya/so-cap-1"}
-                          className="no-underline text-ink hover:text-brand transition-colors"
-                        >
+                      {/* Header thẻ: Badge cấp độ + Tag */}
+                      <div className="flex items-center justify-between gap-1 mb-2">
+                        <span className={`inline-flex items-center justify-center font-display text-xs font-black px-2.5 py-0.5 rounded-lg shadow-xs tracking-wide ${book.badgeBg}`}>
                           {book.title}
-                        </Link>
-                      ) : (
-                        book.title
-                      )}
-                    </h3>
-                    <div className="font-hanzi text-xs font-bold text-muted mt-0.5">
-                      {book.titleZh}
-                    </div>
-
-                    <p className="mt-2 text-xs text-muted leading-relaxed line-clamp-3">
-                      {book.description}
-                    </p>
-
-                    {/* Highlights */}
-                    <div className="mt-3.5 space-y-1">
-                      {book.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-1.5 text-[11px] text-ink-2">
-                          <span className="text-emerald-500 font-bold">✓</span>
-                          <span>{h}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="mt-5 pt-3 border-t border-line/60">
-                    {isReady ? (
-                      <div className="flex flex-col gap-2">
-                        <Link
-                          to={book.link || "/boya/so-cap-1"}
-                          className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand hover:bg-brand-dark px-4 py-2.5 text-xs font-bold text-white transition-all shadow-xs hover:scale-[1.02] active:scale-98 no-underline cursor-pointer"
-                        >
-                          <span>Vào học ngay</span>
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                        <div className="grid grid-cols-2 gap-1.5">
-                          <button
-                            onClick={() => {
-                              setFlashcardBook(book.id as any);
-                              setFlashcardOpen(true);
-                            }}
-                            className="inline-flex items-center justify-center gap-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/80 px-2 py-1.5 text-[11px] font-bold transition-colors cursor-pointer"
-                          >
-                            <Sparkles className="h-3 w-3" />
-                            <span>Flashcard</span>
-                          </button>
-                          <Link
-                            to={`${book.link || "/boya/so-cap-1"}?action=practice`}
-                            className="inline-flex items-center justify-center gap-1 rounded-lg bg-page hover:bg-tint/60 text-ink-2 border border-line px-2 py-1.5 text-[11px] font-bold transition-colors no-underline cursor-pointer"
-                          >
-                            <GraduationCap className="h-3 w-3" />
-                            <span>Trắc nghiệm</span>
-                          </Link>
-                        </div>
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-500">
+                          {book.targetHsk}
+                        </span>
                       </div>
-                    ) : (
-                      <button
-                        disabled
-                        className="w-full inline-flex items-center justify-center rounded-xl bg-gray-100 px-3 py-2.5 text-xs font-semibold text-muted cursor-not-allowed"
-                      >
-                        Đang biên soạn dữ liệu
-                      </button>
-                    )}
+
+                      {/* Tên chữ Hán & phân cấp */}
+                      <div className="font-hanzi text-xs font-bold text-slate-500 mb-1.5">
+                        {book.titleZh}
+                      </div>
+
+                      <p className="text-xs text-slate-600 leading-relaxed mb-3 line-clamp-2">
+                        {book.description}
+                      </p>
+
+                      {/* Điểm nhấn nổi bật */}
+                      <div className="space-y-1 mb-3">
+                        {book.highlights.map((h, i) => (
+                          <div key={i} className="flex items-center gap-1.5 text-[11px] text-slate-600">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                            <span>{h}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Footer thẻ: Nút hành động */}
+                    <div className="pt-3 border-t border-slate-200/80">
+                      {isReady ? (
+                        <div className="flex flex-col gap-2">
+                          <Link
+                            to={book.link || "/boya/so-cap-1"}
+                            className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-slate-800 hover:bg-sky-600 text-white font-bold text-xs py-2 px-3.5 shadow-xs transition-all cursor-pointer group-hover:bg-sky-600"
+                          >
+                            <span>Vào học ngay</span>
+                            <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                          </Link>
+
+                          <div className="grid grid-cols-2 gap-1.5">
+                            <button
+                              onClick={() => {
+                                setFlashcardBook(book.id as any);
+                                setFlashcardOpen(true);
+                              }}
+                              className="inline-flex items-center justify-center gap-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/80 py-1.5 text-[11px] font-bold transition-colors cursor-pointer"
+                            >
+                              <Sparkles className="h-3 w-3" />
+                              <span>Flashcard</span>
+                            </button>
+                            <Link
+                              to={`${book.link || "/boya/so-cap-1"}?action=practice`}
+                              className="inline-flex items-center justify-center gap-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 py-1.5 text-[11px] font-bold transition-colors cursor-pointer"
+                            >
+                              <GraduationCap className="h-3 w-3" />
+                              <span>Trắc nghiệm</span>
+                            </Link>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-full text-center py-2 px-3 rounded-xl bg-slate-100 border border-slate-200/70 text-slate-400 text-xs font-semibold select-none">
+                          Đang biên soạn dữ liệu
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -348,40 +375,43 @@ export const BoyaHubPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ========================================================================= */}
-        {/* BOYA LEARNING TIPS & FEATURES */}
-        {/* ========================================================================= */}
-        <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-          <h3 className="text-base font-bold text-ink flex items-center gap-2 mb-4">
-            <Info className="h-4 w-4 text-brand" />
-            <span>Phương pháp học Giáo trình Hán ngữ Boya hiệu quả trên Hanyu Daily</span>
-          </h3>
-          <div className="grid gap-4 sm:grid-cols-3 text-xs leading-relaxed text-ink-2">
-            <div className="rounded-xl bg-page p-4 border border-line/60">
-              <div className="flex items-center gap-2 font-bold text-brand mb-1.5 text-sm">
+        {/* 4. Hướng dẫn phương pháp học Boya tinh gọn & hiện đại */}
+        <section className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs">
+          <div className="flex items-center gap-2 mb-4 pb-2.5 border-b border-slate-200">
+            <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+              Phương pháp học Boya tối ưu trên Hanyu Daily
+            </h3>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3 text-xs leading-relaxed">
+            <div className="rounded-2xl bg-slate-50/80 p-4 border border-slate-200/70">
+              <div className="flex items-center gap-2 font-bold text-sky-700 mb-1.5 text-sm">
                 <Headphones className="h-4 w-4" />
                 <span>1. Luyện nghe & Phát âm</span>
               </div>
-              <p className="text-muted">
-                Mỗi từ vựng và câu ví dụ đều tích hợp nút phát âm bản xứ chuẩn. Hãy nghe và lặp lại theo nhịp điệu để nắm chắc thanh điệu.
+              <p className="text-slate-500">
+                Phát âm audio bản xứ chuẩn cho từng từ vựng và câu mẫu — nghe, nhại giọng và chuẩn hóa thanh điệu.
               </p>
             </div>
-            <div className="rounded-xl bg-page p-4 border border-line/60">
-              <div className="flex items-center gap-2 font-bold text-brand mb-1.5 text-sm">
+
+            <div className="rounded-2xl bg-slate-50/80 p-4 border border-slate-200/70">
+              <div className="flex items-center gap-2 font-bold text-pink-700 mb-1.5 text-sm">
                 <PenTool className="h-4 w-4" />
                 <span>2. Bút thuận Chữ Hán</span>
               </div>
-              <p className="text-muted">
-                Tra cứu thứ tự các nét viết động của từng chữ Hán trong bài học, giúp bạn viết chữ đúng quy tắc và ghi nhớ mặt chữ lâu dài.
+              <p className="text-slate-500">
+                Tra cứu chuyển động nét viết sinh động theo thứ tự quy chuẩn, nhớ lâu mặt chữ và viết chuẩn tay.
               </p>
             </div>
-            <div className="rounded-xl bg-page p-4 border border-line/60">
-              <div className="flex items-center gap-2 font-bold text-brand mb-1.5 text-sm">
+
+            <div className="rounded-2xl bg-slate-50/80 p-4 border border-slate-200/70">
+              <div className="flex items-center gap-2 font-bold text-emerald-700 mb-1.5 text-sm">
                 <Sparkles className="h-4 w-4" />
                 <span>3. Flashcard & Trắc nghiệm</span>
               </div>
-              <p className="text-muted">
-                Củng cố trí nhớ với chế độ lật thẻ Flashcard thông minh và làm bài tập trắc nghiệm chọn nghĩa, pinyin để kiểm tra độ nhớ từ.
+              <p className="text-slate-500">
+                Lật thẻ thông minh và trắc nghiệm phản xạ giúp củng cố vốn từ nhanh chóng, không lo quên bài.
               </p>
             </div>
           </div>
@@ -399,4 +429,5 @@ export const BoyaHubPage: React.FC = () => {
     </div>
   );
 };
+
 export default BoyaHubPage;

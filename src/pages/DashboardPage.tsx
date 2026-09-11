@@ -1,13 +1,30 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Bookmark, AlertCircle, CheckCircle2, Sparkles, ArrowRight, Zap } from 'lucide-react';
+import { 
+  BookOpen, 
+  Sparkles, 
+  ArrowRight, 
+  Flame, 
+  Trophy, 
+  PenTool, 
+  Coffee, 
+  Layers, 
+  MessageSquare,
+  Award,
+  ChevronRight,
+  Compass,
+  CheckCircle2
+} from 'lucide-react';
 import { BobaTeaModal } from '../components/BobaTeaModal';
 import { useProgress, fetchWordsByIds } from '../lib/hsk';
 import { submitFeedback, useAuth, useLeaderboard } from '../lib/auth';
-import { calculateProgressStats, getWeekDays } from '../lib/progress-stats';
+import { calculateProgressStats } from '../lib/progress-stats';
 import { VocabularyModal, type VocabularyTab } from '../components/VocabularyModal';
 import { FlashcardModal } from '../components/FlashcardModal';
+import { HanziStrokeModal } from '../components/HanziStrokeModal';
+import { SAMPLE_VOCABULARY } from '../data/sampleVocab';
 import type { VocabularyWord } from '../types';
+import { PandaWalking } from '../components/PandaWalking';
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -16,62 +33,51 @@ function getInitials(name: string) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
+const FLOATING_HANZI = [
+  // Cánh trái (vùng xanh trời - thoáng rộng ngoài lề chữ)
+  { char: '学', left: '2%', top: '16%', size: 'text-6xl sm:text-7xl', color: '#0284C7', opacity: 0.08, anim: 'animate-float-slow', delay: '0s' },
+  { char: '博', left: '7%', top: '56%', size: 'text-7xl sm:text-8xl', color: '#0369A1', opacity: 0.07, anim: 'animate-float-medium', delay: '1.5s' },
+  { char: '知', left: '14%', top: '12%', size: 'text-5xl sm:text-6xl', color: '#0EA5E9', opacity: 0.08, anim: 'animate-float-gentle', delay: '3.2s' },
+  { char: '文', left: '20%', top: '64%', size: 'text-6xl sm:text-7xl', color: '#0284C7', opacity: 0.06, anim: 'animate-float-slow', delay: '2.1s' },
+
+  // Mép trên ngoài tầm đọc của tiêu đề
+  { char: '书', left: '36%', top: '-4%', size: 'text-6xl sm:text-7xl', color: '#38BDF8', opacity: 0.05, anim: 'animate-float-gentle', delay: '4s' },
+  { char: '道', left: '64%', top: '-4%', size: 'text-6xl sm:text-7xl', color: '#818CF8', opacity: 0.05, anim: 'animate-float-medium', delay: '2.8s' },
+
+  // Cánh phải (vùng hồng phấn - thoáng rộng ngoài lề thẻ)
+  { char: '雅', left: '77%', top: '15%', size: 'text-6xl sm:text-7xl', color: '#DB2777', opacity: 0.08, anim: 'animate-float-slow', delay: '2.5s' },
+  { char: '恒', left: '83%', top: '60%', size: 'text-6xl sm:text-7xl', color: '#E11D48', opacity: 0.07, anim: 'animate-float-medium', delay: '3.6s' },
+  { char: '习', left: '90%', top: '12%', size: 'text-7xl sm:text-8xl', color: '#EC4899', opacity: 0.08, anim: 'animate-float-slow', delay: '1.2s' },
+  { char: '智', left: '96%', top: '56%', size: 'text-5xl sm:text-6xl', color: '#F43F5E', opacity: 0.07, anim: 'animate-float-gentle', delay: '2.2s' },
+];
+
 export const DashboardPage: React.FC = () => {
   const progress = useProgress();
   const { user } = useAuth();
   const { users: leaderboardUsers } = useLeaderboard();
+
   const completedCount = Object.values(progress.lessons).filter((l) => l.completed).length;
   const stats = useMemo(() => calculateProgressStats(progress), [progress]);
-  const weekDays = useMemo(() => getWeekDays(stats.activityDays), [stats.activityDays]);
 
-  // Sổ tay từ vựng Modal state
+  // Modals state
   const [vocabModalOpen, setVocabModalOpen] = useState(false);
   const [vocabTab, setVocabTab] = useState<VocabularyTab>('bookmarks');
 
-  // Ôn tập Flashcard trực tiếp từ Dashboard
   const [flashcardOpen, setFlashcardOpen] = useState(false);
   const [flashcardWords, setFlashcardWords] = useState<VocabularyWord[]>([]);
   const [flashcardLoading, setFlashcardLoading] = useState(false);
-  const [flashcardToast, setFlashcardToast] = useState<string | null>(null);
 
-  const handleOpenVocab = (tab: VocabularyTab) => {
-    setVocabTab(tab);
-    setVocabModalOpen(true);
-  };
-
-  const handleStartFlashcard = async () => {
-    if (progress.bookmarks.length === 0) {
-      setFlashcardToast(
-        "Bạn chưa có từ vựng nào trong mục Đã lưu. Hãy bấm biểu tượng 🔖 khi học bài để lưu từ nhé!"
-      );
-      setTimeout(() => setFlashcardToast(null), 4000);
-      return;
-    }
-    setFlashcardLoading(true);
-    setFlashcardToast(null);
-    try {
-      const words = await fetchWordsByIds(progress.bookmarks);
-      if (words.length > 0) {
-        setFlashcardWords(words);
-        setFlashcardOpen(true);
-      } else {
-        setFlashcardToast("Chưa thể tải dữ liệu từ vựng. Vui lòng thử lại sau.");
-        setTimeout(() => setFlashcardToast(null), 3000);
-      }
-    } catch {
-      setFlashcardToast("Lỗi kết nối khi tải từ vựng ôn tập.");
-      setTimeout(() => setFlashcardToast(null), 3000);
-    } finally {
-      setFlashcardLoading(false);
-    }
-  };
-
+  const [strokeWord, setStrokeWord] = useState<VocabularyWord | null>(null);
   const [bobaOpen, setBobaOpen] = useState(false);
+
+  // Leaderboard
   const [leaderboardTab, setLeaderboardTab] = useState<'weekly' | 'overall'>('weekly');
+
+  // Feedback state
   const [feedback, setFeedback] = useState('');
   const [feedbackStatus, setFeedbackStatus] = useState<string | null>(null);
-  const [feedbackError, setFeedbackError] = useState<string | null>(null);
   const [feedbackSending, setFeedbackSending] = useState(false);
+
   const leaderboardRows = leaderboardUsers
     .map((item) => ({
       ...item,
@@ -81,727 +87,665 @@ export const DashboardPage: React.FC = () => {
     .sort((first, second) => second.stars - first.stars)
     .slice(0, 3);
 
+  const handleOpenVocab = (tab: VocabularyTab) => {
+    setVocabTab(tab);
+    setVocabModalOpen(true);
+  };
+
+  const handleStartFlashcard = async () => {
+    if (progress.bookmarks.length === 0) {
+      setFlashcardWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setFlashcardOpen(true);
+      return;
+    }
+    setFlashcardLoading(true);
+    try {
+      const words = await fetchWordsByIds(progress.bookmarks);
+      setFlashcardWords(words.length > 0 ? words : SAMPLE_VOCABULARY.hsk1 || []);
+      setFlashcardOpen(true);
+    } catch {
+      setFlashcardWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setFlashcardOpen(true);
+    } finally {
+      setFlashcardLoading(false);
+    }
+  };
+
+  const handleStartHanziPractice = () => {
+    const sampleWord = SAMPLE_VOCABULARY.hsk1?.[1] || {
+      id: 'hsk1-sample',
+      hanzi: '爱',
+      pinyin: 'ài',
+      sinoVietnamese: 'Ái',
+      partOfSpeech: 'Động từ',
+      hskLevel: 'hsk1',
+      unit: 1,
+      meaning: 'Yêu, quý mến',
+      exampleSentence: {
+        chinese: '我爱学习中文。',
+        pinyin: 'Wǒ ài xuéxí zhōngwén.',
+        vietnamese: 'Tôi yêu thích việc học tiếng Trung.'
+      }
+    };
+    setStrokeWord(sampleWord);
+  };
+
   const handleSendFeedback = async () => {
     if (!feedback.trim()) return;
     setFeedbackSending(true);
-    setFeedbackStatus(null);
-    setFeedbackError(null);
     try {
       await submitFeedback(feedback);
-      setFeedbackStatus('Đã gửi! Cảm ơn bạn rất nhiều 💌');
+      setFeedbackStatus('Đã gửi! Cảm ơn bạn 💌');
       setFeedback('');
-    } catch (error) {
-      setFeedbackError(error instanceof Error ? error.message : 'Chưa gửi được phản hồi.');
+      setTimeout(() => setFeedbackStatus(null), 3000);
+    } catch {
+      setFeedbackStatus('Chưa gửi được, bạn thử lại sau nhé.');
     } finally {
       setFeedbackSending(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-cream">
-      {/* 2-Column Grid: Main Content & 300px Right Sidebar */}
-      <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-start gap-6 px-4 sm:px-7 pt-6 pb-16 lg:grid-cols-[1fr_300px]">
-        
-        {/* ================= LEFT MAIN COLUMN ================= */}
-        <div className="flex flex-col gap-6">
+    <div className="min-h-screen bg-[#F1F5F9] text-slate-900 pb-20">
+      
+      {/* 1. Header tinh tế, ấm áp & nổi bật với dải màu Aurora mềm mại */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#E0F2FE]/95 via-[#F8FAFC]/90 to-[#FCE7F3]/95 border-b border-sky-200/60 pt-8 pb-24 sm:pt-10 sm:pb-28 shadow-xs">
+        {/* Decorative ambient glowing orbs tạo chiều sâu và sắc thái ấm cúng */}
+        <div className="absolute -top-16 -left-16 w-80 h-80 bg-sky-200/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -right-16 w-80 h-80 bg-pink-200/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-white/40 rounded-full blur-2xl pointer-events-none" />
 
-          {/* 1. Greeting Banner */}
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-[22px] bg-gradient-to-br from-brand to-brand-dark p-6 sm:p-8 text-white shadow-sm">
-            <div
-              className="pointer-events-none absolute top-1/2 -right-2 -translate-y-1/2 font-display text-[230px] leading-none font-black opacity-10 select-none"
+        {/* Chữ Hán bay lượn nghệ thuật ở hậu cảnh */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+          {FLOATING_HANZI.map((item, idx) => (
+            <span
+              key={idx}
+              aria-hidden="true"
+              className={`absolute font-serif font-black leading-none ${item.size} ${item.anim}`}
+              style={{
+                left: item.left,
+                top: item.top,
+                color: item.color,
+                opacity: item.opacity,
+                animationDelay: item.delay,
+              }}
             >
-              学
+              {item.char}
+            </span>
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            
+            {/* Lời chào & Định hướng */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-sky-300/70 text-slate-800 text-xs font-bold mb-2.5 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-pink-500" />
+                <span>Học viện Hanyu Daily · Chuẩn New HSK 3.0 & Boya</span>
+              </div>
+              <h1 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-slate-900 tracking-tight leading-snug">
+                Chào {user?.name || 'bạn'}, hôm nay chúng ta cùng học nhé!
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg font-medium">
+                Duy trì thói quen học mỗi ngày để xây dựng phản xạ giao tiếp tự nhiên và ghi nhớ chữ Hán dài hạn.
+              </p>
             </div>
 
-            <div className="relative">
-              <div className="mb-1.5 text-[13px] font-semibold opacity-90">
-                Chào mừng, {user?.name || 'MoGia'} 👋
+            {/* 3 Thẻ chỉ số thiết kế kính mờ nổi bật (Glassmorphic Cards) */}
+            <div className="flex items-center gap-3 sm:gap-3.5 flex-wrap">
+              
+              {/* Streak */}
+              <div className="flex items-center gap-3 px-4.5 py-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/90 shadow-md shadow-sky-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center shrink-0">
+                  <Flame className="w-5 h-5 fill-amber-500" />
+                </div>
+                <div>
+                  <div className="text-sm font-extrabold text-slate-900 font-mono leading-none">
+                    {stats.streak} ngày
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    Chuỗi liên tục
+                  </div>
+                </div>
               </div>
-              <h1 className="mb-2 font-display text-2xl sm:text-[28px] lg:text-[30px] font-bold">
-                Bắt đầu hành trình học tiếng Trung nào!
-              </h1>
-              <p className="mb-5 max-w-[460px] text-[13.5px] leading-[1.55] opacity-90">
-                Chọn một lộ trình bên dưới và hoàn thành bài học đầu tiên để mở khoá chuỗi ngày của bạn.
+
+              {/* Completed Lessons */}
+              <div className="flex items-center gap-3 px-4.5 py-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/90 shadow-md shadow-sky-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-extrabold text-slate-900 font-mono leading-none">
+                    {completedCount} bài
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    Đã hoàn thành
+                  </div>
+                </div>
+              </div>
+
+              {/* Known Words */}
+              <div className="flex items-center gap-3 px-4.5 py-3 rounded-2xl bg-white/95 backdrop-blur-md border border-white/90 shadow-md shadow-sky-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-extrabold text-slate-900 font-mono leading-none">
+                    {progress.known.length} từ
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    Đã ghi nhớ
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        {/* Chú gấu trúc hoạt hình kéo xe chữ 你好 (Nǐ hǎo) */}
+        <PandaWalking />
+      </section>
+
+      {/* 2. Thân trang: Bố cục 2 cột cân đối & hiện đại */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 mt-7">
+
+        {/* ========================================================
+            FLAGSHIP HERO SPOTLIGHT: CÔ NGUYỄN THỊ KIM CHI
+            (Tone xanh nhẹ thanh lịch kết hợp ánh hồng mềm mại, cuốn hút)
+        ======================================================== */}
+        <section 
+          className="relative overflow-hidden rounded-3xl text-white p-6 sm:p-8 lg:p-9 shadow-xl shadow-pink-500/10 mb-8 border border-pink-200/40"
+          style={{
+            background: 'linear-gradient(135deg, #0EA5E9 0%, #38BDF8 28%, #7DD3FC 52%, #F9A8D4 78%, #F472B6 100%)'
+          }}
+        >
+          {/* Subtle decorative glowing orbs: Ánh hồng dịu ngọt & xanh nhẹ mát lành */}
+          <div className="absolute -top-16 -right-16 w-80 h-80 bg-pink-300/45 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-16 right-1/4 w-72 h-72 bg-rose-300/35 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-sky-200/30 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+            
+            {/* Cột trái: Thông tin chuyên môn, thành tựu & nút đăng ký */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/25 border border-white/40 text-white text-xs font-bold mb-3 backdrop-blur-md shadow-xs">
+                <Award className="w-4 h-4 text-pink-200" />
+                <span>Biên soạn & Cố vấn Chuyên môn Hanyu Daily</span>
+              </div>
+
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-white mb-3 drop-shadow-sm leading-tight">
+                Cô Nguyễn Thị Kim Chi
+              </h2>
+
+              {/* 3 Huy hiệu nổi bật */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5 mb-4">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-white/20 border border-white/30 text-white text-xs font-semibold backdrop-blur-xs">
+                  🎓 Cử nhân Xuất sắc ĐH Hùng Vương
+                </span>
+                <span className="inline-flex items-center gap-1 px-3.5 py-1 rounded-xl bg-gradient-to-r from-sky-100 to-pink-100 text-sky-950 text-xs font-black shadow-xs border border-white/70 backdrop-blur-xs">
+                  🏆 Chứng chỉ HSK 6
+                </span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl bg-white/20 border border-white/30 text-white text-xs font-semibold backdrop-blur-xs">
+                  ✍️ Biên soạn 100% học liệu
+                </span>
+              </div>
+
+              <p className="text-white/95 text-xs sm:text-sm leading-relaxed max-w-2xl mb-6">
+                Toàn bộ bài giảng, hệ thống từ vựng New HSK 3.0 và giáo trình Boya do cô trực tiếp biên tập và giảng dạy — đồng hành cùng bạn bứt phá tiếng Trung từ con số 0 đến thành thạo phản xạ tự nhiên.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3.5">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                 <Link
-                  to="/lesson/hsk1-1/list"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-[13.5px] font-bold text-brand no-underline shadow-md hover:bg-white/95 transition-all hover:scale-[1.02] active:scale-98"
+                  to="/khoa-hoc"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-pink-50 text-sky-950 hover:text-pink-700 font-black text-xs sm:text-sm shadow-xl shadow-sky-950/15 hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
                 >
-                  <span>▶</span>
-                  <span>Bắt đầu bài học đầu tiên</span>
+                  <Sparkles className="w-4 h-4 text-pink-500" />
+                  <span>Đăng ký khóa học cùng cô</span>
+                  <ArrowRight className="w-4 h-4 text-pink-500" />
                 </Link>
+
+                <Link
+                  to="/giao-vien"
+                  className="inline-flex items-center gap-1.5 px-5 py-3.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white border border-white/40 font-bold text-xs sm:text-sm backdrop-blur-md transition-all hover:scale-105 active:scale-95"
+                >
+                  <span>Giới thiệu chi tiết</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Cột phải: Ảnh chân dung nổi bật có vòng bo sáng ánh hồng */}
+            <div className="relative shrink-0">
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl overflow-hidden ring-4 ring-pink-200/90 shadow-[0_0_45px_rgba(244,114,182,0.4)]">
+                <img
+                  src="/kimchi.png"
+                  alt="Cô Nguyễn Thị Kim Chi"
+                  className="w-full h-full object-cover object-[50%_20%]"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-pink-400 via-rose-400 to-pink-300 text-white px-3 py-1 rounded-full text-xs font-black shadow-lg border-2 border-white flex items-center gap-1">
+                <span>✓</span>
+                <span>Giảng viên HSK 6</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+          
+          {/* CỘT TRÁI (8 cột): Khối học chính & Lộ trình */}
+          <div className="lg:col-span-8 flex flex-col gap-7">
+
+            {/* Bài học tiếp theo (Thiết kế phong cách Luminous Modern Card) */}
+            <div className="relative overflow-hidden rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-7 shadow-xs hover:shadow-md transition-shadow">
+              {/* Quầng sáng ambient hài hòa cùng tone xanh - hồng */}
+              <div className="absolute -top-10 -right-10 w-64 h-64 bg-sky-100/60 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 right-1/3 w-64 h-64 bg-pink-100/45 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-700 text-xs font-bold shadow-2xs">
+                    <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+                    <span>Bài học tiếp theo của bạn</span>
+                  </div>
+
+                  <Link 
+                    to="/hsk" 
+                    className="text-xs font-semibold text-slate-500 hover:text-sky-600 transition-colors flex items-center gap-1"
+                  >
+                    <span>Tất cả bài học</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 pt-1">
+                  <div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-black text-slate-900 mb-1.5 tracking-tight">
+                      HSK 1 · Bài 1: 你好! (Xin chào)
+                    </h3>
+                    <p className="text-slate-500 text-xs sm:text-sm max-w-md leading-relaxed">
+                      Làm quen với đại từ nhân xưng, hệ thống thanh điệu cơ bản và 12 từ vựng thông dụng nhất.
+                    </p>
+                  </div>
+
+                  <Link
+                    to="/lesson/hsk1-1/list"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-pink-500 hover:from-sky-600 hover:to-pink-600 text-white font-black text-sm shadow-md shadow-sky-500/20 hover:shadow-lg transition-all shrink-0 hover:scale-[1.02] active:scale-98"
+                  >
+                    <span>Vào học ngay</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Lộ trình học tập đa chiều */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-sky-600" />
+                  <h2 className="font-display text-lg font-bold text-slate-900">
+                    Lộ trình học tập
+                  </h2>
+                </div>
+                <Link to="/hsk" className="text-xs font-semibold text-slate-500 hover:text-sky-600 transition-colors">
+                  Khám phá toàn bộ →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                
+                {/* Track 1: New HSK 3.0 (Tone Xanh da trời) */}
                 <Link
                   to="/hsk"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 bg-white/15 px-5 py-3 text-[13.5px] font-bold text-white no-underline hover:bg-white/25 transition-all hover:scale-[1.02] active:scale-98 backdrop-blur-xs"
+                  className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-sky-300 hover:shadow-sky-500/5 hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
                 >
-                  <span>🧭</span>
-                  <span>Chọn lộ trình phù hợp</span>
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-sky-50 border border-sky-200/70 text-sky-600 font-display text-xl font-bold flex items-center justify-center mb-3.5 group-hover:scale-105 transition-transform">
+                      汉
+                    </div>
+                    <div className="font-bold text-sm text-slate-900 group-hover:text-sky-600 transition-colors">
+                      New HSK 3.0
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      9 cấp bậc tiêu chuẩn mới với 11.000 từ vựng và ngữ pháp.
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-700 group-hover:text-sky-600 transition-colors flex items-center justify-between">
+                    <span>9 cấp độ</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
                 </Link>
+
+                {/* Track 2: Boya (Tone Hồng phấn tươi tắn) */}
+                <Link
+                  to="/boya"
+                  className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-pink-300 hover:shadow-pink-500/5 hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-pink-50 border border-pink-200/70 text-pink-600 font-display text-xl font-bold flex items-center justify-center mb-3.5 group-hover:scale-105 transition-transform">
+                      博
+                    </div>
+                    <div className="font-bold text-sm text-slate-900 group-hover:text-pink-600 transition-colors">
+                      Hán ngữ Boya
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      Giáo trình ĐH Bắc Kinh kinh điển, chuẩn giao tiếp thực tế.
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-700 group-hover:text-pink-600 transition-colors flex items-center justify-between">
+                    <span>Sơ cấp 1 & 2</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </Link>
+
+                {/* Track 3: HSK 7-9 & CSCA (Tone Lam tím học thuật) */}
+                <Link
+                  to="/hsk/hsk7-9"
+                  className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-indigo-300 hover:shadow-indigo-500/5 hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-indigo-50 border border-indigo-200/70 text-indigo-600 font-display text-xl font-bold flex items-center justify-center mb-3.5 group-hover:scale-105 transition-transform">
+                      顶
+                    </div>
+                    <div className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors">
+                      HSK 7–9 & CSCA
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      Dành cho ôn thi xin học bổng và dịch thuật chuyên ngành.
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-700 group-hover:text-indigo-600 transition-colors flex items-center justify-between">
+                    <span>Học thuật cao cấp</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </Link>
+
               </div>
             </div>
-          </div>
 
-          {/* 2 Mini Stats */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
-              <div className="mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF3E0] text-2xl shadow-xs">
-                🔥
-              </div>
-              <div className="font-display text-[28px] sm:text-[32px] leading-tight font-extrabold text-ink">
-                {stats.streak}
-              </div>
-              <div className="mt-1 text-xs sm:text-[13px] font-semibold text-ink-2">
-                Ngày liên tục
-              </div>
-            </div>
+            {/* Khám phá & Trò chơi Văn hóa */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Link
+                to="/kham-pha/van-hoa-trung-quoc"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-pink-300 hover:shadow-pink-500/5 transition-all flex items-center gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
+                  🏛️
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-bold text-pink-600 uppercase tracking-wider mb-0.5">
+                    Trò chơi học tập
+                  </div>
+                  <div className="text-sm font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
+                    1000 Câu hỏi Văn hóa
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5 truncate">
+                    Trắc nghiệm lịch sử, phong tục, địa lý
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+              </Link>
 
-            <div className="flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
-              <div className="mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EAF7EF] text-2xl shadow-xs">
-                📖
-              </div>
-              <div className="font-display text-[28px] sm:text-[32px] leading-tight font-extrabold text-ink">
-                {completedCount}
-              </div>
-              <div className="mt-1 text-xs sm:text-[13px] font-semibold text-ink-2">
-                Bài đã hoàn thành
-              </div>
-            </div>
-          </div>
-
-          {/* 2. Gợi ý cho bạn */}
-          <section>
-            <div className="mb-3 flex items-baseline justify-between">
-              <h3 className="border-l-4 border-brand pl-3 font-display text-[19px] font-bold text-ink">
-                Gợi ý cho bạn
-              </h3>
-              <Link to="/hsk" className="text-[12.5px] font-semibold text-brand no-underline hover:text-brand-dark">
-                Xem tất cả →
+              <Link
+                to="/kham-pha/thanh-ngu-dien-co"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-sky-300 hover:shadow-sky-500/5 transition-all flex items-center gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
+                  📜
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-bold text-sky-600 uppercase tracking-wider mb-0.5">
+                    Kho tàng tri thức
+                  </div>
+                  <div className="text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                    Thành ngữ & Thơ Đường
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5 truncate">
+                    Điển tích thành ngữ và thi ca kinh điển
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-line bg-white sm:grid-cols-[180px_1fr] shadow-sm">
-              <div className="flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-[#E7F2F8] to-[#D9EAF3] p-6 text-center">
-                <div className="font-display text-[52px] leading-none font-black text-brand">
-                  汉语
-                </div>
-                <small className="text-[11px] font-semibold text-brand-dark">
-                  HSK 3.0 · Cấp 1 · Bài 1
-                </small>
-              </div>
+          </div>
 
-              <div className="p-6">
-                <div className="mb-1 text-[11px] font-bold tracking-[0.06em] text-brand uppercase">
-                  Bài học mở đầu
-                </div>
-                <h4 className="mb-1 font-hanzi text-xl font-bold text-ink">
-                  你好!
-                </h4>
-                <div className="mb-3.5 text-[13px] text-ink-2">
-                  Xin chào!
-                </div>
-                <div className="flex items-center gap-3">
-                  <Link
-                    to="/lesson/hsk1-1/list"
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-brand px-5 py-2.5 text-[13.5px] font-bold text-white no-underline hover:bg-brand-dark transition-colors shadow-xs hover:scale-[1.02] active:scale-98"
-                  >
-                    ▶ Bắt đầu học
-                  </Link>
-                  <span className="ml-auto text-xs font-semibold text-ink-2">
-                    12 từ
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* CỘT PHẢI (4 cột): Sổ tay từ vựng + Bảng xếp hạng + Trà sữa */}
+          <div className="lg:col-span-4 flex flex-col gap-6">
 
-          {/* 3. Sổ tay từ vựng cá nhân */}
-          <section>
-            <div className="mb-3 flex items-baseline justify-between">
-              <div className="flex items-center gap-2">
-                <h3 className="border-l-4 border-gold pl-3 font-display text-[19px] font-bold text-ink">
-                  Sổ tay từ vựng cá nhân
-                </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200/80">
-                  {progress.bookmarks.length + progress.mistakes.length + progress.known.length} từ
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleOpenVocab('bookmarks')}
-                className="text-[12.5px] font-semibold text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1 cursor-pointer"
-              >
-                <span>Mở sổ tay</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-sm">
-              <p className="m-0 mb-4 text-[13px] leading-relaxed text-ink-2">
-                Bộ sưu tập từ vựng cá nhân hóa theo tiến độ học của bạn. Bấm vào từng danh mục để tra cứu chi tiết, nghe phát âm, xem nét thuận hoặc mở Flashcard ôn tập ngay.
-              </p>
-
-              {/* 3 Quick Indicator Cards / Pill tabs */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                {/* Bookmarks */}
+            {/* Sổ tay từ vựng */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="font-display text-base font-bold text-slate-900">
+                    Sổ tay từ vựng
+                  </h3>
+                  <div className="text-xs text-slate-500">Ôn tập theo Spaced Repetition</div>
+                </div>
                 <button
                   type="button"
                   onClick={() => handleOpenVocab('bookmarks')}
-                  className="group flex items-center justify-between p-3 rounded-xl border border-amber-200/80 bg-gradient-to-br from-amber-50/70 to-amber-50/20 hover:border-amber-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                  className="text-xs font-semibold text-sky-600 hover:text-sky-700 cursor-pointer transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 text-base shadow-xs group-hover:scale-105 transition-transform">
-                      🔖
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-amber-950">Từ đã lưu</div>
-                      <div className="text-[10.5px] text-amber-800/80">Bộ sưu tập cần nhớ</div>
-                    </div>
-                  </div>
-                  <div className="font-mono text-sm font-black text-amber-900 bg-white/90 px-2 py-0.5 rounded-lg border border-amber-200">
+                  Xem tất cả →
+                </button>
+              </div>
+
+              {/* 3 Thẻ số liệu */}
+              <div className="grid grid-cols-3 gap-2.5 mb-4">
+                <button
+                  type="button"
+                  onClick={() => handleOpenVocab('bookmarks')}
+                  className="p-3 rounded-2xl bg-sky-50/50 hover:bg-sky-50 border border-sky-200/70 transition-all text-center cursor-pointer group"
+                >
+                  <div className="text-[11px] text-sky-700 font-bold">Đã lưu</div>
+                  <div className="font-mono text-lg font-black text-sky-950 mt-0.5">
                     {progress.bookmarks.length}
                   </div>
                 </button>
 
-                {/* Mistakes */}
                 <button
                   type="button"
                   onClick={() => handleOpenVocab('mistakes')}
-                  className="group flex items-center justify-between p-3 rounded-xl border border-rose-200/80 bg-gradient-to-br from-rose-50/70 to-rose-50/20 hover:border-rose-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                  className="p-3 rounded-2xl bg-rose-50/50 hover:bg-rose-50 border border-rose-200/70 transition-all text-center cursor-pointer group"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-rose-800 text-base shadow-xs group-hover:scale-105 transition-transform">
-                      ⚠️
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-rose-950">Cần ôn lại</div>
-                      <div className="text-[10.5px] text-rose-800/80">Từ từng làm sai</div>
-                    </div>
-                  </div>
-                  <div className="font-mono text-sm font-black text-rose-900 bg-white/90 px-2 py-0.5 rounded-lg border border-rose-200">
+                  <div className="text-[11px] text-rose-700 font-bold">Cần ôn</div>
+                  <div className="font-mono text-lg font-black text-rose-950 mt-0.5">
                     {progress.mistakes.length}
                   </div>
                 </button>
 
-                {/* Known */}
                 <button
                   type="button"
                   onClick={() => handleOpenVocab('known')}
-                  className="group flex items-center justify-between p-3 rounded-xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-emerald-50/20 hover:border-emerald-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                  className="p-3 rounded-2xl bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-200/70 transition-all text-center cursor-pointer group"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 text-base shadow-xs group-hover:scale-105 transition-transform">
-                      ✅
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-emerald-950">Đã nhớ</div>
-                      <div className="text-[10.5px] text-emerald-800/80">Trả lời đúng bài thi</div>
-                    </div>
-                  </div>
-                  <div className="font-mono text-sm font-black text-emerald-900 bg-white/90 px-2 py-0.5 rounded-lg border border-emerald-200">
+                  <div className="text-[11px] text-emerald-700 font-bold">Đã nhớ</div>
+                  <div className="font-mono text-lg font-black text-emerald-950 mt-0.5">
                     {progress.known.length}
                   </div>
                 </button>
               </div>
 
-              {/* Action Buttons & Flashcard Toast */}
-              {flashcardToast && (
-                <div className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-medium flex items-center justify-between gap-2 animate-in fade-in">
-                  <span>{flashcardToast}</span>
-                  <button onClick={() => setFlashcardToast(null)} className="text-amber-700 hover:text-amber-950 p-0.5">✕</button>
-                </div>
-              )}
-
-              <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-line/60">
-                <button
-                  type="button"
-                  onClick={() => handleOpenVocab('bookmarks')}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-brand-dark transition-all hover:scale-[1.01] active:scale-98 cursor-pointer"
-                >
-                  <BookOpen className="w-4 h-4" />
-                  <span>Mở Sổ tay từ vựng</span>
-                </button>
-
+              <div className="flex flex-col gap-2.5">
                 <button
                   type="button"
                   onClick={handleStartFlashcard}
                   disabled={flashcardLoading}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 px-4 py-2 text-xs font-bold text-amber-900 transition-all hover:scale-[1.01] active:scale-98 shadow-xs disabled:opacity-60 cursor-pointer"
+                  className="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-pink-500 hover:from-sky-600 hover:to-pink-600 text-white font-black text-xs transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-2 shadow-md shadow-sky-500/15 hover:shadow-lg hover:shadow-pink-500/20"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-600" />
-                  <span>{flashcardLoading ? 'Đang nạp từ...' : 'Ôn Flashcard từ đã lưu'}</span>
+                  <Sparkles className="w-4 h-4 text-white" />
+                  <span>{flashcardLoading ? 'Đang tải...' : 'Ôn Flashcard ngay'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleStartHanziPractice}
+                  className="w-full py-2.5 rounded-2xl bg-slate-50 hover:bg-pink-50/60 text-slate-700 hover:text-pink-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-slate-200/80 hover:border-pink-200"
+                >
+                  <PenTool className="w-3.5 h-3.5 text-pink-500" />
+                  <span>Tập viết chữ Hán ô Mễ</span>
                 </button>
               </div>
             </div>
-          </section>
 
-          {/* 4. Lộ trình của bạn */}
-          <section>
-            <div className="mb-3 flex items-baseline justify-between">
-              <h3 className="border-l-4 border-brand pl-3 font-display text-[19px] font-bold text-ink">
-                Lộ trình của bạn
-              </h3>
-              <Link to="/hsk" className="text-[12.5px] font-semibold text-brand no-underline hover:text-brand-dark">
-                Tất cả →
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Link
-                to="/hsk"
-                className="rounded-2xl border border-line bg-white p-5 no-underline shadow-sm hover:shadow-md hover:border-brand/40 transition-all group"
-              >
-                <div className="mb-3 flex items-center gap-2.5">
-                  <div className="font-display text-[26px] leading-none font-black text-[#D4A017]">
-                    汉语
+            {/* Bảng xếp hạng tuần / chung */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-600 flex items-center justify-center">
+                    <Trophy className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[15px] font-bold text-ink group-hover:text-brand transition-colors">
-                      HSK 3.0
-                    </div>
-                    <div className="text-[11.5px] text-ink-2">
-                      9 cấp · 11.000 từ
-                    </div>
+                    <h3 className="font-display text-sm font-bold text-slate-900">Bảng vàng vinh danh</h3>
+                    <div className="text-[11px] text-slate-500">Học viên tích cực nhất</div>
                   </div>
                 </div>
-                <div className="text-[13px] font-semibold text-ink-2">
-                  <b className="font-display text-[18px] font-bold text-[#D4A017]">{progress.known.length}</b> từ đã học
-                </div>
-              </Link>
 
-              <Link
-                to="/hsk/hsk7-9"
-                className="rounded-2xl border border-line bg-white p-5 no-underline shadow-sm hover:shadow-md hover:border-brand/40 transition-all group"
-              >
-                <div className="mb-3 flex items-center gap-2.5">
-                  <div className="font-display text-[26px] leading-none font-black text-[#2C5670]">
-                    顶石
-                  </div>
-                  <div>
-                    <div className="text-[15px] font-bold text-ink group-hover:text-brand transition-colors">
-                      HSK 7-9
-                    </div>
-                    <div className="text-[11.5px] text-ink-2">
-                      Nâng cao học thuật
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[13px] font-semibold text-ink-2">
-                  <b className="font-display text-[18px] font-bold text-[#2C5670]">5.636</b> từ vựng
-                </div>
-              </Link>
-
-              <Link
-                to="/csca"
-                className="rounded-2xl border border-line bg-white p-5 opacity-70 no-underline hover:opacity-100 transition-opacity shadow-sm"
-              >
-                <div className="mb-3 flex items-center gap-2.5">
-                  <div className="font-display text-[26px] leading-none font-black text-[#2C5670]">
-                    入
-                  </div>
-                  <div>
-                    <div className="text-[15px] font-bold text-ink">
-                      CSCA
-                    </div>
-                    <div className="text-[11.5px] leading-[1.35] text-ink-2">
-                      Ôn thi xin học bổng đại học Trung Quốc
-                    </div>
-                  </div>
-                </div>
-                <span className="inline-block rounded-full bg-track px-2.5 py-1 text-[10.5px] font-semibold text-ink-2">
-                  Sắp ra mắt
-                </span>
-              </Link>
-
-              <div className="rounded-2xl border border-line bg-white p-5 opacity-70 shadow-sm">
-                <div className="mb-3 flex items-center gap-2.5">
-                  <div className="font-display text-[26px] leading-none font-black text-[#2C5670]">
-                    教
-                  </div>
-                  <div>
-                    <div className="text-[15px] font-bold text-ink">
-                      CTCSOL
-                    </div>
-                    <div className="text-[11.5px] leading-[1.35] text-ink-2">
-                      Chứng chỉ giáo viên tiếng Trung quốc tế
-                    </div>
-                  </div>
-                </div>
-                <span className="inline-block rounded-full bg-track px-2.5 py-1 text-[10.5px] font-semibold text-ink-2">
-                  Sắp ra mắt
-                </span>
-              </div>
-            </div>
-          </section>
-
-          {/* 5. Khám phá & Tiện ích nổi bật */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-baseline justify-between">
-              <h3 className="border-l-4 border-brand pl-3 font-display text-[19px] font-bold text-ink">
-                Khám phá & Tiện ích
-              </h3>
-            </div>
-
-            {/* 2-Column Grid: HSK 1 Banner & Game 1000 Câu hỏi Văn hóa Trung Quốc */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* HSK1 Banner */}
-              <Link
-                to="/hsk/hsk1"
-                className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-brand-dark to-brand p-6 text-white no-underline shadow-sm hover:shadow-md transition-all group min-h-[160px]"
-              >
-                <span
-                  className="pointer-events-none absolute right-[-8px] bottom-[-25px] font-sans text-[100px] leading-[.8] font-black select-none opacity-10"
-                >
-                  课
-                </span>
-
-                <div className="relative mb-4">
-                  <div className="mb-1 text-[10.5px] font-bold tracking-[0.12em] text-white/85 uppercase">
-                    HSK 3.0 · Cấp 1
-                  </div>
-                  <h4 className="font-display text-[17px] sm:text-[18px] font-bold leading-snug">
-                    HSK1 đã có đầy đủ Từ vựng · Ngữ pháp · Luyện tập
-                  </h4>
-                </div>
-
-                <div className="relative flex items-center justify-between pt-1">
-                  <span className="rounded-xl bg-white px-4 py-2 text-[12.5px] font-extrabold text-brand-dark shadow-xs group-hover:scale-105 transition-transform inline-flex items-center gap-1">
-                    Vào học ngay →
-                  </span>
-                </div>
-              </Link>
-
-              {/* Game 1000 Câu hỏi */}
-              <div
-                className="relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 text-white shadow-sm min-h-[160px]"
-                style={{ background: 'linear-gradient(120deg, #2C5670 0%, #25485E 55%, #1D3A4C 100%)' }}
-              >
-                <span
-                  className="pointer-events-none absolute right-[-10px] bottom-[-30px] font-sans text-[110px] leading-[.8] font-black select-none opacity-10"
-                >
-                  游
-                </span>
-
-                <div className="relative mb-4">
-                  <div className="mb-1.5 flex items-center gap-2">
-                    <span className="text-[10.5px] font-bold tracking-[0.12em] text-[#C9E7F5] uppercase">
-                      Game học tập
-                    </span>
-                    <span className="rounded-full bg-[#E14848] px-2 py-0.5 text-[9.5px] font-extrabold tracking-[0.06em] text-white uppercase">
-                      Mới
-                    </span>
-                  </div>
-                  <h4 className="mb-1.5 font-display text-[17px] sm:text-[18px] font-bold leading-snug">
-                    1000 câu hỏi Văn hóa Trung Quốc
-                  </h4>
-                  <p className="text-[12.5px] leading-[1.5] text-white/80 line-clamp-2">
-                    7 chuyên đề trắc nghiệm về lịch sử, văn học, nghệ thuật, khoa học... Trung Quốc.
-                  </p>
-                </div>
-
-                <div className="relative pt-1">
-                  <Link
-                    to="/kham-pha"
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl px-4 py-2 text-[12.5px] font-extrabold whitespace-nowrap no-underline shadow-sm hover:scale-105 active:scale-98 transition-transform"
-                    style={{ background: 'linear-gradient(135deg, #F0C64C, #E0A62A)', color: '#40300A' }}
+                <div className="flex rounded-xl bg-slate-100 p-0.5 text-xs font-semibold">
+                  <button
+                    type="button"
+                    onClick={() => setLeaderboardTab('weekly')}
+                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                      leaderboardTab === 'weekly' ? 'bg-white font-bold text-slate-950 shadow-2xs' : 'text-slate-500'
+                    }`}
                   >
-                    ▶ Khám phá ngay
-                  </Link>
+                    Tuần
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLeaderboardTab('overall')}
+                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                      leaderboardTab === 'overall' ? 'bg-white font-bold text-slate-950 shadow-2xs' : 'text-slate-500'
+                    }`}
+                  >
+                    Chung
+                  </button>
                 </div>
               </div>
-            </div>
 
-            {/* Teacher Banner (Cô Nguyễn Thị Kim Chi) */}
-            <div className="relative overflow-hidden rounded-2xl sm:rounded-[22px] bg-gradient-to-br from-[#DCEEFB] to-[#C3E0F7] p-6 sm:p-7 text-ink shadow-sm">
-              <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm">
-                  <img
-                    src="/kimchi.png"
-                    alt="Cô Nguyễn Thị Kim Chi"
-                    className="h-full w-full object-cover object-[50%_20%]"
-                  />
-                </div>
-
-                <div>
-                  <div className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-brand uppercase">
-                    Biên soạn và phát triển website
-                  </div>
-                  <h2 className="mb-1.5 font-display text-2xl sm:text-[26px] font-bold text-ink">
-                    Cô Nguyễn Thị Kim Chi
-                  </h2>
-                  <div className="mb-2 text-[13px] font-medium text-brand-dark">
-                    Cử nhân Xuất sắc Ngôn ngữ Trung · ĐH Hùng Vương TP. HCM · HSK 6
-                  </div>
-                  <p className="mb-4 max-w-[540px] text-[13px] leading-[1.55] text-ink-2">
-                    Toàn bộ bài học và giáo trình do cô trực tiếp biên soạn theo chuẩn New HSK 3.0 — đồng hành cùng bạn qua từng kỳ thi.
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Link
-                      to="/giao-vien"
-                      className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2 text-[13px] font-bold text-white no-underline shadow-xs hover:bg-brand-dark transition-all hover:scale-[1.02] active:scale-98"
-                    >
-                      Giới thiệu giáo viên →
-                    </Link>
-                    <Link
-                      to="/khoa-hoc"
-                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border-2 border-brand px-4 py-1.5 text-[13px] font-bold text-brand no-underline hover:bg-brand/5 transition-all hover:scale-[1.02] active:scale-98"
-                    >
-                      Khám phá khóa học →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-        </div>
-
-        {/* ================= RIGHT SIDEBAR (300px) ================= */}
-        <div className="flex flex-col gap-4">
-
-          {/* 1. Chuỗi ngày học */}
-          <div className="rounded-2xl border border-[#F0DDA8] bg-gradient-to-b from-[#FFF6E6] to-[#FDEEC9] p-5 text-center shadow-xs">
-            <div className="mb-1 text-[11px] font-bold tracking-[0.08em] text-[#B07A12] uppercase">
-              Chuỗi ngày học
-            </div>
-            <div className="text-[36px] leading-none">
-              🔥
-            </div>
-            <div className="mt-0.5 font-display text-[40px] leading-none font-black text-brand">
-              {stats.streak}
-            </div>
-            <div className="text-[11.5px] font-bold tracking-[0.04em] text-[#B07A12]">
-              NGÀY LIÊN TỤC
-            </div>
-
-            <div className="mt-3.5 flex justify-center gap-1.5 sm:gap-2">
-              {weekDays.map((day) => {
-                return (
-                  <div key={day.dateKey} className="text-center flex-1 max-w-[36px]">
-                    <span className="mb-1 block text-[10px] font-semibold text-ink-2">
-                      {day.label}
+              <ul className="space-y-2 mb-4">
+                {leaderboardRows.map((item, idx) => (
+                  <li 
+                    key={item.id} 
+                    className={`flex items-center gap-3 p-2 rounded-xl transition-colors ${
+                      idx === 0 
+                        ? 'bg-amber-50/50 border border-amber-200/60' 
+                        : 'hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className={`w-5 text-center font-bold font-mono text-sm ${
+                      idx === 0 ? 'text-amber-500' : idx === 1 ? 'text-slate-400' : idx === 2 ? 'text-amber-700' : 'text-slate-400'
+                    }`}>
+                      {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
                     </span>
-                    <i
-                      title={`${day.dateKey}: ${day.hasActivity ? 'Đã học' : day.isToday ? 'Hôm nay' : 'Chưa học'}`}
-                      className={`block h-7 w-7 sm:h-8 sm:w-8 mx-auto rounded-xl text-[12px] font-bold not-italic flex items-center justify-center transition-all ${
-                        day.hasActivity
-                          ? 'bg-amber-400 text-amber-950 shadow-xs ring-2 ring-amber-300/60 scale-105'
-                          : day.isToday
-                            ? 'bg-white text-brand border-2 border-dashed border-brand shadow-xs animate-pulse'
-                            : day.isPast
-                              ? 'bg-white/60 text-stone-400 border border-stone-200'
-                              : 'bg-white/40 text-stone-300 border border-stone-200/50'
-                      }`}
-                    >
-                      {day.hasActivity ? '🔥' : day.isToday ? '?' : day.isPast ? '·' : ''}
-                    </i>
-                    <span
-                      className={`block text-[9px] mt-0.5 font-mono ${
-                        day.isToday ? 'font-bold text-brand' : 'text-stone-400'
-                      }`}
-                    >
-                      {day.dayNumber}
+                    {item.avatar ? (
+                      <img src={item.avatar} alt={item.name} className="w-7 h-7 rounded-full object-cover border border-slate-200" />
+                    ) : (
+                      <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px] flex items-center justify-center">
+                        {getInitials(item.name)}
+                      </span>
+                    )}
+                    <span className="flex-1 truncate font-medium text-xs text-slate-800">
+                      {item.name}
                     </span>
-                  </div>
-                );
-              })}
-            </div>
+                    <span className="font-bold text-xs text-amber-600 font-mono">
+                      {item.stars} ⭐
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
-            {stats.hasStudiedToday ? (
-              <div className="mt-4 rounded-xl bg-emerald-100/80 border border-emerald-200 py-2 px-3 text-[12px] font-bold text-emerald-900 shadow-xs flex items-center justify-center gap-1.5">
-                <span>✅</span>
-                <span>Hôm nay bạn đã hoàn thành bài học!</span>
-              </div>
-            ) : (
               <Link
-                to="/hsk"
-                className="mt-4 block w-full rounded-xl bg-[#2C5670] py-2.5 text-[13px] font-bold text-white no-underline hover:bg-[#17303F] transition-all hover:scale-[1.01] active:scale-98 shadow-xs"
+                to="/xep-hang"
+                className="block text-center py-2.5 rounded-2xl bg-slate-50 hover:bg-sky-50/60 hover:text-sky-700 hover:border-sky-200 text-xs font-bold text-slate-600 transition-colors border border-slate-200/70"
               >
-                Học ngay để giữ chuỗi 🔥
+                Xem chi tiết bảng xếp hạng →
               </Link>
-            )}
-          </div>
-
-          {/* 2. Hôm nay */}
-          <div className="rounded-2xl border border-line bg-white p-5 text-center shadow-xs">
-            <div className="mb-1 text-[11px] font-bold tracking-[0.08em] text-ink-2 uppercase">
-              Hôm nay
-            </div>
-            <div className="text-[18px] font-bold text-ink">
-              {stats.todayCount} mục đã luyện tập
-            </div>
-            <div className="text-xs text-ink-2/80 mt-0.5">
-              {stats.hasStudiedToday
-                ? 'Tuyệt vời! Bạn đang duy trì phong độ rất tốt 👏'
-                : 'tính theo bài/đơn vị có hoạt động hôm nay'}
-            </div>
-          </div>
-
-          {/* 3. Ngôi sao từ vựng */}
-          <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
-            <div className="mb-3 flex items-center gap-1.5 text-[11px] font-bold tracking-[0.08em] text-ink-2 uppercase">
-              <span className="text-gold">⭐</span>
-              <span>Ngôi sao từ vựng</span>
             </div>
 
-            <div className="mb-3 flex rounded-full bg-tint p-1 text-[12px] font-semibold">
+            {/* Mời trà sữa ấm cúng */}
+            <div className="p-4.5 rounded-3xl bg-gradient-to-br from-pink-50/80 via-rose-50/50 to-amber-50/60 border border-pink-200/70 flex items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-center gap-3 min-w-0">
+                <img src="/tra-sua-icon.png" alt="Trà sữa" className="w-11 h-11 object-contain shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-bold text-slate-900">Mời cô giáo một ly trà sữa</div>
+                  <div className="text-[11px] text-pink-900/70 truncate">Ủng hộ máy chủ duy trì web</div>
+                </div>
+              </div>
               <button
                 type="button"
-                onClick={() => setLeaderboardTab('weekly')}
-                className={`flex-1 rounded-full py-1.5 transition-colors ${
-                  leaderboardTab === 'weekly'
-                    ? 'bg-white text-brand shadow-xs font-bold'
-                    : 'text-ink-2 hover:text-brand'
-                }`}
+                onClick={() => setBobaOpen(true)}
+                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs shrink-0 cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-1"
               >
-                Tuần
-              </button>
-              <button
-                type="button"
-                onClick={() => setLeaderboardTab('overall')}
-                className={`flex-1 rounded-full py-1.5 transition-colors ${
-                  leaderboardTab === 'overall'
-                    ? 'bg-white text-brand shadow-xs font-bold'
-                    : 'text-ink-2 hover:text-brand'
-                }`}
-              >
-                Chung
+                <span>Mời</span>
+                <span>🧋</span>
               </button>
             </div>
 
-            <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
-              {leaderboardRows.map((item, idx) => (
-                <li key={item.id} className="flex items-center gap-2.5 text-[13px]">
-                  <span className="w-4 text-center font-bold text-gold">
-                    {idx + 1}
-                  </span>
-                  {item.avatar ? (
-                    <img
-                      src={item.avatar}
-                      alt={item.name}
-                      className="h-7 w-7 flex-shrink-0 rounded-full object-cover"
-                    />
-                  ) : (
-                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-tint text-[11px] font-bold text-brand-dark">
-                      {getInitials(item.name)}
-                    </span>
-                  )}
-                  <span className="flex-1 truncate font-semibold text-ink">
-                    {item.name}
-                  </span>
-                  <span className="font-bold whitespace-nowrap text-gold">
-                    {item.stars} ⭐
-                  </span>
-                </li>
-              ))}
-              {!leaderboardRows.length && (
-                <li className="rounded-xl bg-page p-3 text-center text-xs text-muted">
-                  Chưa có tài khoản. Đăng ký để lưu điểm và XP.
-                </li>
+            {/* Góp ý & Báo lỗi */}
+            <div className="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-2">
+                <MessageSquare className="w-3.5 h-3.5 text-slate-500" />
+                <span>Góp ý & Báo lỗi</span>
+              </div>
+              <textarea
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                placeholder="Lời nhắn gửi đến đội ngũ phát triển..."
+                rows={2}
+                className="w-full resize-none rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 focus:outline-none focus:border-slate-400 transition-colors mb-2"
+              />
+              {feedbackStatus && (
+                <div className="text-[11px] text-teal-700 font-medium mb-1.5">{feedbackStatus}</div>
               )}
-            </ul>
-
-            <p className="m-0 mt-3.5 mb-2 text-center text-[12px] font-semibold text-brand">
-              Luyện từ vựng để giành thêm sao!
-            </p>
-            <Link
-              to="/xep-hang"
-              className="block text-center text-[12px] font-semibold text-brand no-underline hover:text-brand-dark"
-            >
-              Xem bảng đầy đủ →
-            </Link>
-          </div>
-
-          {/* 4. Mời cô giáo một ly trà sữa */}
-          <button
-            type="button"
-            onClick={() => setBobaOpen(true)}
-            className="flex w-full items-center gap-3.5 rounded-2xl border border-[#F0DDA8] bg-gradient-to-br from-[#FDEEC9] to-[#F0C64C] p-4.5 text-left shadow-xs hover:scale-[1.02] active:scale-98 transition-transform group cursor-pointer"
-          >
-            <img
-              src="/tra-sua-icon.png"
-              alt="Trà sữa"
-              className="h-12 w-12 flex-shrink-0 object-contain group-hover:rotate-6 transition-transform"
-            />
-            <span className="min-w-0 flex-1">
-              <span className="block text-[13.5px] font-bold text-[#5C3E0A]">
-                Mời cô giáo một ly trà sữa
-              </span>
-              <span className="block text-[11px] text-[#8A6A1E]">
-                Ủng hộ để website luôn cập nhật nhé ~
-              </span>
-            </span>
-          </button>
-
-          {/* 5. Đánh giá */}
-          <div className="rounded-2xl border border-line bg-white p-5 shadow-xs">
-            <div className="mb-2 text-[11px] font-bold tracking-[0.08em] text-ink-2 uppercase">
-              Đánh giá
+              <button
+                type="button"
+                disabled={!feedback.trim() || feedbackSending}
+                onClick={() => void handleSendFeedback()}
+                className="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs disabled:opacity-40 cursor-pointer transition-colors"
+              >
+                {feedbackSending ? 'Đang gửi...' : 'Gửi lời nhắn'}
+              </button>
             </div>
-            <p className="mb-2.5 text-[12px] leading-[1.5] text-ink-2">
-              Bạn thấy trang web thế nào? Để lại vài dòng góp ý, báo lỗi, hoặc một lời động viên cho tụi mình nha 💌
-            </p>
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              maxLength={1500}
-              aria-label="Nội dung phản hồi"
-              placeholder="Viết lời nhắn của bạn ở đây..."
-              rows={3}
-              className="w-full resize-none rounded-xl border-[1.5px] border-line p-3 text-[13px] text-ink focus:border-brand focus:outline-none transition-colors"
-            />
-            <p className="mt-1.5 text-[11px] leading-[1.5] text-ink-2">
-              {user ? (
-                <>Phản hồi được lưu riêng tư và chỉ quản trị viên có thể đọc.</>
-              ) : (
-                <>
-                  <Link to="/login" className="font-semibold text-brand hover:underline">Đăng nhập</Link>
-                  {' '}để gửi phản hồi.
-                </>
-              )}
-            </p>
-            {feedbackStatus && (
-              <div className="mt-2 text-[12px] font-semibold text-brand" role="status">
-                {feedbackStatus}
-              </div>
-            )}
-            {feedbackError && (
-              <div className="mt-2 text-[12px] font-semibold text-red-700" role="alert">
-                {feedbackError}
-              </div>
-            )}
-            <button
-              type="button"
-              disabled={!user || !feedback.trim() || feedbackSending}
-              onClick={() => void handleSendFeedback()}
-              className="mt-2.5 w-full rounded-xl bg-tint py-2.5 text-[13px] font-bold text-brand hover:bg-brand/15 disabled:opacity-60 transition-colors cursor-pointer"
-            >
-              {feedbackSending ? 'Đang gửi…' : 'Gửi'}
-            </button>
+
           </div>
 
         </div>
+      </main>
 
-      </div>
-
-      {/* Boba Tea Modal */}
-      <BobaTeaModal isOpen={bobaOpen} onClose={() => setBobaOpen(false)} />
-
-      {/* Sổ tay từ vựng Modal */}
+      {/* Modals */}
       <VocabularyModal
         isOpen={vocabModalOpen}
         onClose={() => setVocabModalOpen(false)}
         initialTab={vocabTab}
       />
 
-      {/* Flashcard Modal */}
       <FlashcardModal
         isOpen={flashcardOpen}
         onClose={() => setFlashcardOpen(false)}
         words={flashcardWords}
-        title="Ôn tập Từ vựng đã lưu"
+        title="Ôn tập Từ vựng Phản xạ"
       />
+
+      <HanziStrokeModal
+        isOpen={!!strokeWord}
+        onClose={() => setStrokeWord(null)}
+        word={strokeWord}
+      />
+
+      <BobaTeaModal
+        isOpen={bobaOpen}
+        onClose={() => setBobaOpen(false)}
+      />
+
     </div>
   );
 };
+
+export default DashboardPage;

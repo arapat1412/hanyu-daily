@@ -31,14 +31,41 @@ export function isStandalone(): boolean {
 }
 
 /**
- * Check if user is on iOS Safari and not yet installed to home screen
+ * Check if user is on an iOS device (iPhone, iPad, iPod) and not yet installed to home screen
  */
-export function isIosSafari(): boolean {
+export function isIosDevice(): boolean {
   if (typeof window === 'undefined') return false;
   const ua = window.navigator.userAgent.toLowerCase();
-  const isIos = /iphone|ipad|ipod/.test(ua);
-  const isWebkit = /safari/.test(ua) && !/crios|fxios|edgios|chrome/.test(ua);
-  return isIos && isWebkit && !isStandalone();
+  const isApple =
+    /iphone|ipad|ipod/.test(ua) ||
+    (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
+  return isApple && !isStandalone();
+}
+
+/**
+ * Check if the user is in an in-app browser on iOS (Zalo, Messenger, Facebook, TikTok...)
+ */
+export function isIosInAppBrowser(): boolean {
+  if (typeof window === 'undefined') return false;
+  const ua = window.navigator.userAgent.toLowerCase();
+  return (
+    isIosDevice() &&
+    /zalo|fbav|fbios|fban|messenger|instagram|line|micromessenger|tiktok|snapchat/i.test(ua)
+  );
+}
+
+/**
+ * Alias for backward compatibility
+ */
+export const isIosSafari = isIosDevice;
+
+/**
+ * Trigger PWA Install Modal / Guide from anywhere in the app
+ */
+export function openPwaInstallModal(): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('hanyu-open-pwa-install'));
+  }
 }
 
 /**
@@ -173,10 +200,12 @@ export function usePwa() {
   return {
     isInstallable: !!deferredPrompt,
     isStandalone: isStandalone(),
-    isIos: isIosSafari(),
+    isIos: isIosDevice(),
+    isInAppBrowser: isIosInAppBrowser(),
     isOffline,
     updateAvailable: !!updateWaitingRegistration,
     promptInstall,
     applyUpdate,
+    openInstallModal: openPwaInstallModal,
   };
 }

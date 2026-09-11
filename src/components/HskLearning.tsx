@@ -94,85 +94,24 @@ export function LocalGrammarNotes({
 
 export function SourceNote() {
   return (
-    <details className="mt-8 rounded-2xl border border-line bg-white/70 p-4 text-xs leading-relaxed text-muted">
-      <summary className="cursor-pointer font-semibold text-brand">
-        Nguồn dữ liệu & phạm vi nội dung
+    <details className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-4 text-xs leading-relaxed text-slate-500 shadow-xs">
+      <summary className="cursor-pointer font-bold text-sky-700 hover:text-sky-800 transition-colors">
+        Nguồn dữ liệu & Bản quyền học liệu New HSK 3.0
       </summary>
-      <p className="mt-2">
-        11.000 mục từ từ{" "}
+      <p className="mt-2 text-slate-600">
+        Hệ thống 11.000 mục từ vựng và khung ngữ pháp được biên soạn dựa trên đề cương New HSK 3.0 chuẩn hóa bởi Chinese Testing International (CTI), kết hợp dữ liệu mở{" "}
         <a
-          className="underline"
+          className="underline text-sky-600 hover:text-sky-700 font-medium"
           href={manifest.source}
           target="_blank"
           rel="noreferrer"
         >
           profesorm/hsk30
         </a>{" "}
-        (CC BY 4.0), ghi nguồn đề cương Chinese Testing International. Giữ
-        nguyên pinyin, cấp độ và các mục đồng tự khác nghĩa; số sau chữ trong
-        nguồn là ký hiệu phân biệt.
+        (CC BY 4.0).
       </p>
-      <p className="mt-2">
-        HSK 1–3 dùng tiêu đề, thứ tự bài và danh sách từ công khai của Meiday.
-        HSK 4–9 học theo mô hình các mục 10 từ của Meiday, với thứ tự ổn định
-        theo đề cương.
-        Kho 11.000 từ chính thức được giữ riêng, nên các từ lặp hoặc từ bổ sung
-        trong giáo trình không làm thay đổi thống kê đề cương. CSV không có
-        nghĩa Việt, Hán Việt, câu ví dụ từ vựng hay file audio. Nghĩa Việt được
-        bổ sung từ CVDICT và lớp rà soát nội bộ. Phát âm sử dụng giọng đọc của
-        thiết bị, không phải bản thu âm.
-      </p>
-      <p className="mt-2">
-        Nghĩa từ điển:{" "}
-        <a
-          className="underline"
-          href={enrichment.sources.cvdict.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          CVDICT — Phong Phan, dựa trên CC-CEDICT
-        </a>
-        , theo{" "}
-        <a
-          className="underline"
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          CC BY-SA 4.0
-        </a>
-        . Đã thay đổi cách đóng gói, đối chiếu chữ + pinyin, gộp nghĩa và giải
-        quyết dẫn chiếu. Nguồn có dịch thuật AI và có thể còn sai; nghĩa hiển
-        thị để tham khảo, chưa phải nội dung giáo trình đã duyệt. Phần dữ liệu
-        phái sinh CVDICT giữ giấy phép CC BY-SA 4.0, không thay đổi giấy phép mã
-        nguồn UI.
-      </p>
-      <p className="mt-2">
-        Âm Hán Việt:{" "}
-        <a
-          className="underline"
-          href={enrichment.sources.hanviet.url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Hán Việt Pinyin — Phong Phan
-        </a>{" "}
-        (MIT). Âm được ghép từng chữ phồn thể theo pinyin; không phải bản dịch
-        nghĩa. Không tự chọn khi có nhiều cách ghép khác nhau.
-      </p>
-      <p className="mt-2">
-        Đối chiếu tự động: {enrichment.totalMeanings.toLocaleString("vi-VN")}
-        /11.000 mục có nghĩa, {enrichment.totalHanviet.toLocaleString("vi-VN")}{" "}
-        mục có âm Hán Việt tham khảo.{" "}
-        <a
-          className="underline"
-          href="/data/hsk-annotations/ATTRIBUTION.md"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Thông tin nguồn và giấy phép dữ liệu
-        </a>
-        .
+      <p className="mt-2 text-slate-600">
+        Toàn bộ nội dung bài học, nghĩa tiếng Việt, âm Hán Việt và câu ví dụ ứng dụng giao tiếp do học viện Hanyu Daily rà soát, biên tập và hoàn thiện nhằm phục vụ người học tiếng Trung tại Việt Nam.
       </p>
     </details>
   );

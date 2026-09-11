@@ -1,40 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Share, X, RefreshCw, WifiOff, PlusSquare } from 'lucide-react';
+import { Download, Share, X, RefreshCw, WifiOff, PlusSquare, ExternalLink } from 'lucide-react';
 import { usePwa } from '../lib/pwa';
 
 const DISMISS_STORAGE_KEY = 'hanyu_pwa_dismissed_time';
-const DISMISS_DURATION_DAYS = 7;
+const DISMISS_DURATION_DAYS = 2; // Nhắc lại sau 2 ngày nếu bấm tắt
 
 export const PwaInstallPrompt: React.FC = () => {
   const {
     isInstallable,
     isStandalone,
     isIos,
+    isInAppBrowser,
     isOffline,
     updateAvailable,
     promptInstall,
     applyUpdate,
   } = usePwa();
 
-  const [isDismissed, setIsDismissed] = useState(true);
-  const [showIosGuide, setShowIosGuide] = useState(false);
-
-  useEffect(() => {
+  const [isDismissed, setIsDismissed] = useState<boolean>(() => {
     try {
       const dismissedTime = localStorage.getItem(DISMISS_STORAGE_KEY);
       if (dismissedTime) {
         const diffMs = Date.now() - parseInt(dismissedTime, 10);
         const diffDays = diffMs / (1000 * 60 * 60 * 24);
-        if (diffDays < DISMISS_DURATION_DAYS) {
-          setIsDismissed(true);
-          return;
-        }
+        return diffDays < DISMISS_DURATION_DAYS;
       }
-      setIsDismissed(false);
+      return false;
     } catch {
-      setIsDismissed(false);
+      return false;
     }
-  }, []);
+  });
+
+  const [showIosGuide, setShowIosGuide] = useState(false);
+
+  // Lắng nghe sự kiện kích hoạt mở hướng dẫn cài đặt từ Menu / Nút bên ngoài
+  useEffect(() => {
+    const handleOpenModal = () => {
+      setIsDismissed(false);
+      if (isInstallable) {
+        void promptInstall();
+      } else {
+        setShowIosGuide(true);
+      }
+    };
+
+    window.addEventListener('hanyu-open-pwa-install', handleOpenModal);
+    return () => {
+      window.removeEventListener('hanyu-open-pwa-install', handleOpenModal);
+    };
+  }, [isInstallable, promptInstall]);
 
   const handleDismiss = () => {
     setIsDismissed(true);
@@ -52,7 +66,8 @@ export const PwaInstallPrompt: React.FC = () => {
       if (installed) {
         handleDismiss();
       }
-    } else if (isIos) {
+    } else {
+      // Trên iOS hoặc các trình duyệt chưa hỗ trợ beforeinstallprompt trực tiếp
       setShowIosGuide(true);
     }
   };
@@ -62,7 +77,7 @@ export const PwaInstallPrompt: React.FC = () => {
     return (
       <aside
         aria-label="Thông báo cập nhật ứng dụng"
-        className="fixed bottom-18 md:bottom-4 left-4 right-4 md:left-auto md:right-6 md:w-96 z-50 mb-safe animate-in fade-in slide-in-from-bottom-4 duration-300"
+        className="fixed bottom-20 md:bottom-6 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 mb-safe animate-in fade-in slide-in-from-bottom-4 duration-300"
       >
         <div className="bg-[#2C5670] text-white p-4 rounded-2xl shadow-xl border border-white/10 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
@@ -76,7 +91,7 @@ export const PwaInstallPrompt: React.FC = () => {
           </div>
           <button
             onClick={applyUpdate}
-            className="px-3.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-stone-900 font-semibold text-xs rounded-xl shadow-sm shrink-0 transition-colors"
+            className="px-3.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-stone-900 font-semibold text-xs rounded-xl shadow-sm shrink-0 transition-colors cursor-pointer"
           >
             Làm mới
           </button>
@@ -90,9 +105,9 @@ export const PwaInstallPrompt: React.FC = () => {
     return (
       <aside
         aria-label="Thông báo chế độ ngoại tuyến"
-        className="fixed bottom-18 md:bottom-4 left-1/2 -translate-x-1/2 z-40 mb-safe animate-in fade-in duration-300 pointer-events-none"
+        className="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 z-50 mb-safe animate-in fade-in duration-300 pointer-events-none"
       >
-        <div className="bg-stone-900/90 backdrop-blur-sm text-stone-100 px-4 py-2 rounded-full shadow-lg text-xs font-medium flex items-center gap-2 border border-stone-700">
+        <div className="bg-stone-900/90 backdrop-blur-sm text-stone-100 px-4 py-2 rounded-full shadow-lg text-xs font-medium flex items-center gap-2 border border-stone-700 whitespace-nowrap">
           <WifiOff className="w-3.5 h-3.5 text-amber-400" />
           <span>Đang ngoại tuyến — bạn vẫn có thể học các bài học đã tải</span>
         </div>
@@ -100,20 +115,15 @@ export const PwaInstallPrompt: React.FC = () => {
     );
   }
 
-  // Do not show install prompt if already installed (standalone) or user recently dismissed
-  if (isStandalone || isDismissed) {
-    return null;
-  }
-
   // 3. Show iOS Safari Add to Home Screen modal guide
   if (showIosGuide) {
     return (
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-4 animate-in fade-in duration-200">
         <div className="bg-cream border border-[#E5E0D8] text-[#2C5670] w-full max-w-md rounded-3xl p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
           <button
-            onClick={handleDismiss}
+            onClick={() => setShowIosGuide(false)}
             aria-label="Đóng hướng dẫn"
-            className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1.5 rounded-full hover:bg-stone-200/50 transition-colors"
+            className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1.5 rounded-full hover:bg-stone-200/50 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -121,43 +131,56 @@ export const PwaInstallPrompt: React.FC = () => {
           <div className="flex items-center gap-3 mb-4">
             <img src="/logo.png" alt="Hanyu Daily" className="w-12 h-12 rounded-2xl shadow-md" />
             <div>
-              <h3 className="font-bold text-base text-stone-900">Cài đặt Hanyu Daily trên iOS</h3>
+              <h3 className="font-bold text-base text-stone-900">Cài đặt Hanyu Daily trên iPhone</h3>
               <p className="text-xs text-stone-500">Mở app toàn màn hình & học ngoại tuyến</p>
             </div>
           </div>
 
+          {/* Hướng dẫn khi mở trong Zalo/Facebook Messenger */}
+          {isInAppBrowser && (
+            <div className="mb-3.5 p-3 rounded-2xl bg-amber-50 border border-amber-200/90 text-amber-950 text-xs flex items-start gap-2.5">
+              <span className="text-base shrink-0">💡</span>
+              <div>
+                <p className="font-bold text-amber-900 mb-0.5">Bạn đang mở trong ứng dụng Zalo/Facebook</p>
+                <p className="text-amber-800 leading-relaxed">
+                  Hãy bấm biểu tượng <b>•••</b> ở góc trên bên phải màn hình ➔ chọn <b>"Mở bằng trình duyệt Safari"</b> để cài app vào Màn hình chính nhé!
+                </p>
+              </div>
+            </div>
+          )}
+
           <div className="space-y-3 my-4 text-sm text-stone-700">
-            <div className="flex items-start gap-3 p-2.5 rounded-xl bg-white/70 border border-stone-200/70">
+            <div className="flex items-start gap-3 p-3 rounded-xl bg-white/80 border border-stone-200/70 shadow-2xs">
               <span className="w-6 h-6 rounded-full bg-[#2C5670] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                 1
               </span>
-              <div>
-                Bấm nút <span className="font-semibold text-stone-900">Chia sẻ</span> (biểu tượng <Share className="w-4 h-4 inline text-blue-600 mx-0.5 align-text-bottom" />) trên thanh công cụ Safari.
+              <div className="text-xs sm:text-[13px] leading-relaxed">
+                Bấm nút <span className="font-bold text-stone-900">Chia sẻ</span> (biểu tượng <Share className="w-4 h-4 inline text-blue-600 mx-0.5 align-text-bottom" />) trên thanh công cụ Safari.
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-2.5 rounded-xl bg-white/70 border border-stone-200/70">
+            <div className="flex items-start gap-3 p-3 rounded-xl bg-white/80 border border-stone-200/70 shadow-2xs">
               <span className="w-6 h-6 rounded-full bg-[#2C5670] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                 2
               </span>
-              <div>
-                Cuộn xuống và chọn <span className="font-semibold text-stone-900">Thêm vào MH chính</span> (<PlusSquare className="w-4 h-4 inline text-stone-700 mx-0.5 align-text-bottom" /> Add to Home Screen).
+              <div className="text-xs sm:text-[13px] leading-relaxed">
+                Cuộn xuống danh sách tùy chọn và chọn <span className="font-bold text-stone-900">Thêm vào MH chính</span> (<PlusSquare className="w-4 h-4 inline text-stone-700 mx-0.5 align-text-bottom" /> Add to Home Screen).
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-2.5 rounded-xl bg-white/70 border border-stone-200/70">
+            <div className="flex items-start gap-3 p-3 rounded-xl bg-white/80 border border-stone-200/70 shadow-2xs">
               <span className="w-6 h-6 rounded-full bg-[#2C5670] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                 3
               </span>
-              <div>
-                Bấm <span className="font-semibold text-stone-900">Thêm (Add)</span> ở góc trên để hoàn tất.
+              <div className="text-xs sm:text-[13px] leading-relaxed">
+                Bấm nút <span className="font-bold text-stone-900">Thêm (Add)</span> ở góc trên bên phải để hoàn tất. Icon app sẽ xuất hiện ngoài màn hình chính iPhone của bạn!
               </div>
             </div>
           </div>
 
           <button
-            onClick={handleDismiss}
-            className="w-full py-2.5 bg-[#2C5670] text-white font-semibold text-sm rounded-xl hover:bg-[#23455a] transition-colors shadow-sm"
+            onClick={() => setShowIosGuide(false)}
+            className="w-full py-2.5 bg-[#2C5670] text-white font-bold text-sm rounded-xl hover:bg-[#23455a] transition-colors shadow-sm cursor-pointer"
           >
             Đã hiểu
           </button>
@@ -166,12 +189,17 @@ export const PwaInstallPrompt: React.FC = () => {
     );
   }
 
+  // Do not show install prompt if already installed (standalone) or user recently dismissed
+  if (isStandalone || isDismissed) {
+    return null;
+  }
+
   // 4. Install Banner (for Android/Chrome or iOS Safari)
   if (isInstallable || isIos) {
     return (
       <aside
         aria-label="Cài đặt ứng dụng Hanyu Daily"
-        className="fixed bottom-18 md:bottom-4 left-4 right-4 md:left-auto md:right-6 md:w-96 z-40 mb-safe animate-in fade-in slide-in-from-bottom-3 duration-300"
+        className="fixed bottom-20 md:bottom-6 left-3 right-3 sm:left-auto sm:right-6 sm:w-96 z-50 mb-safe animate-in fade-in slide-in-from-bottom-3 duration-300"
       >
         <div className="bg-white/95 backdrop-blur-md text-stone-800 p-3.5 rounded-2xl shadow-xl border border-stone-200/80 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
@@ -189,7 +217,7 @@ export const PwaInstallPrompt: React.FC = () => {
           <div className="flex items-center gap-1.5 shrink-0">
             <button
               onClick={handleInstallClick}
-              className="px-3 py-1.5 bg-[#2C5670] hover:bg-[#23455a] text-white font-medium text-xs rounded-xl shadow-sm flex items-center gap-1 transition-colors"
+              className="px-3 py-1.5 bg-[#2C5670] hover:bg-[#23455a] text-white font-medium text-xs rounded-xl shadow-sm flex items-center gap-1 transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Cài app</span>
@@ -197,7 +225,7 @@ export const PwaInstallPrompt: React.FC = () => {
             <button
               onClick={handleDismiss}
               aria-label="Đóng thông báo"
-              className="p-1.5 text-stone-400 hover:text-stone-600 rounded-lg hover:bg-stone-100 transition-colors"
+              className="p-1.5 text-stone-400 hover:text-stone-600 rounded-lg hover:bg-stone-100 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>

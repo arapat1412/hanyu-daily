@@ -10,10 +10,17 @@ export default {
         xs: '380px',
       },
       colors: {
+        aqua: {
+          DEFAULT: '#A7F7FE',
+          light: '#E2FCFE',
+          dark: '#0891B2',
+          deep: '#083344',
+        },
         brand: {
-          DEFAULT: '#2C5670',
-          dark: '#17303F',
-          light: '#3D6A82',
+          DEFAULT: '#0891B2',
+          dark: '#0E7490',
+          light: '#06B6D4',
+          accent: '#A7F7FE',
         },
         gold: {
           DEFAULT: '#D4A017',
