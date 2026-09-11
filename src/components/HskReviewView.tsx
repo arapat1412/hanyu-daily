@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import type { VocabularyWord } from '../types';
 import { useProgress, speakChinese, toggleBookmark, useExamplesForWords, type HskData } from '../lib/hsk';
-import { isMeaningEligible, type PracticeMode } from '../lib/practice.mjs';
+import { isMeaningEligible, isClozeEligible, type PracticeMode } from '../lib/practice.mjs';
 import { HSK_LEVELS } from '../data/hskLevels';
 import { PracticeSession } from './PracticeSession';
 import { FlashcardModal } from './FlashcardModal';
@@ -94,8 +94,9 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
     return eligiblePool.slice(0, batchSize);
   }, [eligiblePool, batchSize]);
 
-  // Enriched words with sample sentences for previews
-  const previewWords = useExamplesForWords(data.code, reviewBatch.slice(0, 12));
+  // Enriched words with sample sentences for previews and cloze practice
+  const enrichedReviewBatch = useExamplesForWords(data.code, reviewBatch);
+  const previewWords = enrichedReviewBatch.slice(0, 12);
 
   // Audio helper
   const handlePlayAudio = (e: React.MouseEvent, word: VocabularyWord) => {
@@ -106,7 +107,7 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
 
   // Launch practice session
   const launchPractice = (mode: PracticeModeType, customWords?: VocabularyWord[]) => {
-    const targetWords = customWords || reviewBatch;
+    const targetWords = customWords || (mode === 'cloze' ? enrichedReviewBatch : reviewBatch);
     if (targetWords.length === 0) return;
 
     if (mode === 'flashcard') {
@@ -123,6 +124,7 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
       meaning: 'Chọn Nghĩa Việt',
       listening: 'Luyện Nghe',
       typing: 'Gõ Pinyin',
+      cloze: 'Điền câu ví dụ',
     };
 
     return (
@@ -375,7 +377,7 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
             Chọn chế độ ôn tập và bắt đầu:
           </h3>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {/* Flashcard */}
             <button
               disabled={reviewBatch.length === 0}
@@ -473,6 +475,26 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
               </div>
               <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-rose-700">
                 Luyện Gõ <ArrowRight size={12} />
+              </span>
+            </button>
+
+            {/* Cloze Sentence */}
+            <button
+              disabled={enrichedReviewBatch.length === 0 || !enrichedReviewBatch.some(isClozeEligible)}
+              onClick={() => launchPractice('cloze')}
+              className="group relative flex flex-col justify-between rounded-2xl border border-line bg-gradient-to-b from-white to-teal-50/30 p-4 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-sm disabled:opacity-40"
+            >
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-100 font-hanzi text-lg font-bold text-teal-700">
+                  填
+                </div>
+                <h4 className="mt-3 font-bold text-sm text-ink group-hover:text-teal-600">Điền câu ví dụ</h4>
+                <p className="mt-1 text-[11px] text-muted leading-relaxed">
+                  Đọc ngữ cảnh câu mẫu và điền từ còn thiếu.
+                </p>
+              </div>
+              <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-teal-700">
+                Luyện Điền <ArrowRight size={12} />
               </span>
             </button>
           </div>

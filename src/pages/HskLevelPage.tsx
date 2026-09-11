@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Sparkles, Headphones } from "lucide-react";
+import { useHandsFreePlayer } from "../lib/hands-free-context";
 import { HSK_LEVELS } from "../data/hskLevels";
 import {
   isLevelCode,
@@ -70,6 +71,7 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
   const level = HSK_LEVELS.find((item) => item.code === data.code)!;
   const vocabularyGroups = isVocabularyGroupLevel(data.code);
   const progress = useProgress();
+  const { playWordList } = useHandsFreePlayer();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
   const [unit, setUnit] = useState("all");
@@ -404,6 +406,14 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
                   {filtered.length.toLocaleString("vi-VN")} kết quả · Ôn{" "}
                   {batch.length} từ trên trang này
                 </span>
+                <button
+                  disabled={!batch.length}
+                  onClick={() => playWordList({ title: `${level.name} - Trang ${current}`, words: batch })}
+                  className="flex items-center gap-2 rounded-xl bg-amber-400 hover:bg-amber-300 px-4 py-2.5 text-xs font-bold text-stone-900 shadow-2xs transition hover:scale-[1.02] active:scale-95 disabled:opacity-40 cursor-pointer"
+                  title="Luyện nghe rảnh tay danh sách từ trên trang này"
+                >
+                  <Headphones size={14} /> Nghe rảnh tay
+                </button>
                 <button
                   disabled={!batch.length}
                   onClick={() => setFlashWords(batch)}

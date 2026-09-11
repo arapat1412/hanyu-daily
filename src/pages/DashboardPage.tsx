@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { BookOpen, Bookmark, AlertCircle, CheckCircle2, Sparkles, ArrowRight, Zap } from 'lucide-react';
 import { BobaTeaModal } from '../components/BobaTeaModal';
-import { useProgress } from '../lib/hsk';
+import { useProgress, fetchWordsByIds } from '../lib/hsk';
 import { submitFeedback, useAuth, useLeaderboard } from '../lib/auth';
+import { calculateProgressStats, getWeekDays } from '../lib/progress-stats';
+import { VocabularyModal, type VocabularyTab } from '../components/VocabularyModal';
+import { FlashcardModal } from '../components/FlashcardModal';
+import type { VocabularyWord } from '../types';
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -11,13 +16,56 @@ function getInitials(name: string) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-const DAYS_OF_WEEK = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-
 export const DashboardPage: React.FC = () => {
   const progress = useProgress();
   const { user } = useAuth();
   const { users: leaderboardUsers } = useLeaderboard();
   const completedCount = Object.values(progress.lessons).filter((l) => l.completed).length;
+  const stats = useMemo(() => calculateProgressStats(progress), [progress]);
+  const weekDays = useMemo(() => getWeekDays(stats.activityDays), [stats.activityDays]);
+
+  // Sổ tay từ vựng Modal state
+  const [vocabModalOpen, setVocabModalOpen] = useState(false);
+  const [vocabTab, setVocabTab] = useState<VocabularyTab>('bookmarks');
+
+  // Ôn tập Flashcard trực tiếp từ Dashboard
+  const [flashcardOpen, setFlashcardOpen] = useState(false);
+  const [flashcardWords, setFlashcardWords] = useState<VocabularyWord[]>([]);
+  const [flashcardLoading, setFlashcardLoading] = useState(false);
+  const [flashcardToast, setFlashcardToast] = useState<string | null>(null);
+
+  const handleOpenVocab = (tab: VocabularyTab) => {
+    setVocabTab(tab);
+    setVocabModalOpen(true);
+  };
+
+  const handleStartFlashcard = async () => {
+    if (progress.bookmarks.length === 0) {
+      setFlashcardToast(
+        "Bạn chưa có từ vựng nào trong mục Đã lưu. Hãy bấm biểu tượng 🔖 khi học bài để lưu từ nhé!"
+      );
+      setTimeout(() => setFlashcardToast(null), 4000);
+      return;
+    }
+    setFlashcardLoading(true);
+    setFlashcardToast(null);
+    try {
+      const words = await fetchWordsByIds(progress.bookmarks);
+      if (words.length > 0) {
+        setFlashcardWords(words);
+        setFlashcardOpen(true);
+      } else {
+        setFlashcardToast("Chưa thể tải dữ liệu từ vựng. Vui lòng thử lại sau.");
+        setTimeout(() => setFlashcardToast(null), 3000);
+      }
+    } catch {
+      setFlashcardToast("Lỗi kết nối khi tải từ vựng ôn tập.");
+      setTimeout(() => setFlashcardToast(null), 3000);
+    } finally {
+      setFlashcardLoading(false);
+    }
+  };
+
   const [bobaOpen, setBobaOpen] = useState(false);
   const [leaderboardTab, setLeaderboardTab] = useState<'weekly' | 'overall'>('weekly');
   const [feedback, setFeedback] = useState('');
@@ -32,10 +80,6 @@ export const DashboardPage: React.FC = () => {
     }))
     .sort((first, second) => second.stars - first.stars)
     .slice(0, 3);
-
-  // Weekday calculations: Monday=0 ... Sunday=6
-  const now = new Date();
-  const currentDayIndex = (now.getDay() + 6) % 7;
 
   const handleSendFeedback = async () => {
     if (!feedback.trim()) return;
@@ -212,7 +256,7 @@ export const DashboardPage: React.FC = () => {
                 🔥
               </div>
               <div className="font-display text-[28px] sm:text-[32px] leading-tight font-extrabold text-ink">
-                0
+                {stats.streak}
               </div>
               <div className="mt-1 text-xs sm:text-[13px] font-semibold text-ink-2">
                 Ngày liên tục
@@ -377,29 +421,123 @@ export const DashboardPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 8. Đã lưu của bạn */}
+          {/* 8. Sổ tay từ vựng cá nhân */}
           <section>
             <div className="mb-3 flex items-baseline justify-between">
-              <h3 className="border-l-4 border-gold pl-3 font-display text-[19px] font-bold text-ink">
-                Đã lưu của bạn
-              </h3>
-              <Link to="/hsk" className="text-[12.5px] font-semibold text-brand no-underline hover:text-brand-dark">
-                Ôn flashcard →
-              </Link>
+              <div className="flex items-center gap-2">
+                <h3 className="border-l-4 border-gold pl-3 font-display text-[19px] font-bold text-ink">
+                  Sổ tay từ vựng cá nhân
+                </h3>
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200/80">
+                  {progress.bookmarks.length + progress.mistakes.length + progress.known.length} từ
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleOpenVocab('bookmarks')}
+                className="text-[12.5px] font-semibold text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1 cursor-pointer"
+              >
+                <span>Mở sổ tay</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
 
             <div className="rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-sm">
-              <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFF6E6] text-[18px]">
-                  🔖
-                </div>
-                <div className="text-[15px] font-bold text-ink">
-                  Từ vựng đã lưu ({progress.bookmarks.length})
-                </div>
-              </div>
-              <p className="m-0 text-[12.5px] leading-[1.55] text-ink-2">
-                Đánh dấu từ khi ôn flashcard trong một buổi học — sổ tay lưu lại lâu dài giữa các lần vào app chưa có, tính năng này sẽ sớm ra mắt.
+              <p className="m-0 mb-4 text-[13px] leading-relaxed text-ink-2">
+                Bộ sưu tập từ vựng cá nhân hóa theo tiến độ học của bạn. Bấm vào từng danh mục để tra cứu chi tiết, nghe phát âm, xem nét thuận hoặc mở Flashcard ôn tập ngay.
               </p>
+
+              {/* 3 Quick Indicator Cards / Pill tabs */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                {/* Bookmarks */}
+                <button
+                  type="button"
+                  onClick={() => handleOpenVocab('bookmarks')}
+                  className="group flex items-center justify-between p-3 rounded-xl border border-amber-200/80 bg-gradient-to-br from-amber-50/70 to-amber-50/20 hover:border-amber-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 text-base shadow-xs group-hover:scale-105 transition-transform">
+                      🔖
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-amber-950">Từ đã lưu</div>
+                      <div className="text-[10.5px] text-amber-800/80">Bộ sưu tập cần nhớ</div>
+                    </div>
+                  </div>
+                  <div className="font-mono text-sm font-black text-amber-900 bg-white/90 px-2 py-0.5 rounded-lg border border-amber-200">
+                    {progress.bookmarks.length}
+                  </div>
+                </button>
+
+                {/* Mistakes */}
+                <button
+                  type="button"
+                  onClick={() => handleOpenVocab('mistakes')}
+                  className="group flex items-center justify-between p-3 rounded-xl border border-rose-200/80 bg-gradient-to-br from-rose-50/70 to-rose-50/20 hover:border-rose-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-rose-800 text-base shadow-xs group-hover:scale-105 transition-transform">
+                      ⚠️
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-rose-950">Cần ôn lại</div>
+                      <div className="text-[10.5px] text-rose-800/80">Từ từng làm sai</div>
+                    </div>
+                  </div>
+                  <div className="font-mono text-sm font-black text-rose-900 bg-white/90 px-2 py-0.5 rounded-lg border border-rose-200">
+                    {progress.mistakes.length}
+                  </div>
+                </button>
+
+                {/* Known */}
+                <button
+                  type="button"
+                  onClick={() => handleOpenVocab('known')}
+                  className="group flex items-center justify-between p-3 rounded-xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-emerald-50/20 hover:border-emerald-400 hover:shadow-xs transition-all text-left active:scale-98 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 text-base shadow-xs group-hover:scale-105 transition-transform">
+                      ✅
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-emerald-950">Đã nhớ</div>
+                      <div className="text-[10.5px] text-emerald-800/80">Trả lời đúng bài thi</div>
+                    </div>
+                  </div>
+                  <div className="font-mono text-sm font-black text-emerald-900 bg-white/90 px-2 py-0.5 rounded-lg border border-emerald-200">
+                    {progress.known.length}
+                  </div>
+                </button>
+              </div>
+
+              {/* Action Buttons & Flashcard Toast */}
+              {flashcardToast && (
+                <div className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-medium flex items-center justify-between gap-2 animate-in fade-in">
+                  <span>{flashcardToast}</span>
+                  <button onClick={() => setFlashcardToast(null)} className="text-amber-700 hover:text-amber-950 p-0.5">✕</button>
+                </div>
+              )}
+
+              <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-line/60">
+                <button
+                  type="button"
+                  onClick={() => handleOpenVocab('bookmarks')}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-brand-dark transition-all hover:scale-[1.01] active:scale-98 cursor-pointer"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Mở Sổ tay từ vựng</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleStartFlashcard}
+                  disabled={flashcardLoading}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 px-4 py-2 text-xs font-bold text-amber-900 transition-all hover:scale-[1.01] active:scale-98 shadow-xs disabled:opacity-60 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-600" />
+                  <span>{flashcardLoading ? 'Đang nạp từ...' : 'Ôn Flashcard từ đã lưu'}</span>
+                </button>
+              </div>
             </div>
           </section>
 
@@ -513,40 +651,58 @@ export const DashboardPage: React.FC = () => {
               🔥
             </div>
             <div className="mt-0.5 font-display text-[40px] leading-none font-black text-brand">
-              0
+              {stats.streak}
             </div>
             <div className="text-[11.5px] font-bold tracking-[0.04em] text-[#B07A12]">
               NGÀY LIÊN TỤC
             </div>
 
-            <div className="mt-3.5 flex justify-center gap-2">
-              {DAYS_OF_WEEK.map((dayLabel, idx) => {
-                const isToday = idx === currentDayIndex;
+            <div className="mt-3.5 flex justify-center gap-1.5 sm:gap-2">
+              {weekDays.map((day) => {
                 return (
-                  <div key={dayLabel} className="text-center">
+                  <div key={day.dateKey} className="text-center flex-1 max-w-[36px]">
                     <span className="mb-1 block text-[10px] font-semibold text-ink-2">
-                      {dayLabel}
+                      {day.label}
                     </span>
                     <i
-                      className={`block h-7 w-7 rounded-xl text-[12px] font-bold not-italic flex items-center justify-center ${
-                        isToday
-                          ? 'bg-white text-brand border-2 border-dashed border-brand shadow-xs'
-                          : 'bg-white text-muted border border-line'
+                      title={`${day.dateKey}: ${day.hasActivity ? 'Đã học' : day.isToday ? 'Hôm nay' : 'Chưa học'}`}
+                      className={`block h-7 w-7 sm:h-8 sm:w-8 mx-auto rounded-xl text-[12px] font-bold not-italic flex items-center justify-center transition-all ${
+                        day.hasActivity
+                          ? 'bg-amber-400 text-amber-950 shadow-xs ring-2 ring-amber-300/60 scale-105'
+                          : day.isToday
+                            ? 'bg-white text-brand border-2 border-dashed border-brand shadow-xs animate-pulse'
+                            : day.isPast
+                              ? 'bg-white/60 text-stone-400 border border-stone-200'
+                              : 'bg-white/40 text-stone-300 border border-stone-200/50'
                       }`}
                     >
-                      {isToday ? '?' : ''}
+                      {day.hasActivity ? '🔥' : day.isToday ? '?' : day.isPast ? '·' : ''}
                     </i>
+                    <span
+                      className={`block text-[9px] mt-0.5 font-mono ${
+                        day.isToday ? 'font-bold text-brand' : 'text-stone-400'
+                      }`}
+                    >
+                      {day.dayNumber}
+                    </span>
                   </div>
                 );
               })}
             </div>
 
-            <Link
-              to="/hsk"
-              className="mt-4 block w-full rounded-xl bg-[#2C5670] py-2.5 text-[13px] font-bold text-white no-underline hover:bg-[#17303F] transition-all hover:scale-[1.01] active:scale-98 shadow-xs"
-            >
-              Học ngay để giữ chuỗi
-            </Link>
+            {stats.hasStudiedToday ? (
+              <div className="mt-4 rounded-xl bg-emerald-100/80 border border-emerald-200 py-2 px-3 text-[12px] font-bold text-emerald-900 shadow-xs flex items-center justify-center gap-1.5">
+                <span>✅</span>
+                <span>Hôm nay bạn đã hoàn thành bài học!</span>
+              </div>
+            ) : (
+              <Link
+                to="/hsk"
+                className="mt-4 block w-full rounded-xl bg-[#2C5670] py-2.5 text-[13px] font-bold text-white no-underline hover:bg-[#17303F] transition-all hover:scale-[1.01] active:scale-98 shadow-xs"
+              >
+                Học ngay để giữ chuỗi 🔥
+              </Link>
+            )}
           </div>
 
           {/* 4. Hôm nay */}
@@ -555,10 +711,12 @@ export const DashboardPage: React.FC = () => {
               Hôm nay
             </div>
             <div className="text-[18px] font-bold text-ink">
-              0 mục đã luyện tập
+              {stats.todayCount} mục đã luyện tập
             </div>
             <div className="text-xs text-ink-2/80 mt-0.5">
-              tính theo bài/đơn vị có hoạt động hôm nay
+              {stats.hasStudiedToday
+                ? 'Tuyệt vời! Bạn đang duy trì phong độ rất tốt 👏'
+                : 'tính theo bài/đơn vị có hoạt động hôm nay'}
             </div>
           </div>
 
@@ -615,6 +773,21 @@ export const DashboardPage: React.FC = () => {
 
       {/* Boba Tea Modal */}
       <BobaTeaModal isOpen={bobaOpen} onClose={() => setBobaOpen(false)} />
+
+      {/* Sổ tay từ vựng Modal */}
+      <VocabularyModal
+        isOpen={vocabModalOpen}
+        onClose={() => setVocabModalOpen(false)}
+        initialTab={vocabTab}
+      />
+
+      {/* Flashcard Modal */}
+      <FlashcardModal
+        isOpen={flashcardOpen}
+        onClose={() => setFlashcardOpen(false)}
+        words={flashcardWords}
+        title="Ôn tập Từ vựng đã lưu"
+      />
     </div>
   );
 };

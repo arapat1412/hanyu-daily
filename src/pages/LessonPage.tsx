@@ -16,9 +16,11 @@ import {
   LevelShell,
   WordCard,
 } from "../components/HskLearning";
+import { Headphones } from "lucide-react";
 import { FlashcardModal } from "../components/FlashcardModal";
 import { HanziStrokeModal } from "../components/HanziStrokeModal";
 import { PracticeSession } from "../components/PracticeSession";
+import { useHandsFreePlayer } from "../lib/hands-free-context";
 import type { VocabularyWord } from "../types";
 
 export function LessonPage() {
@@ -83,6 +85,7 @@ function LessonContent({
   const [flashOpen, setFlashOpen] = useState(mode === "journey");
   const [stroke, setStroke] = useState<VocabularyWord | null>(null);
   const progress = useProgress();
+  const { playWordList } = useHandsFreePlayer();
   const next = data.lessons[lesson.number];
   const previous = data.lessons[lesson.number - 2];
   const grammar = data.grammar.filter(
@@ -120,23 +123,36 @@ function LessonContent({
             ` · Điểm cao nhất ${progress.lessons[lesson.id]?.score}%`}
         </p>
       </header>
-      <nav aria-label="Nội dung bài học" className="mb-6 flex flex-wrap gap-2">
-        {[
-          ["list", "📄 Từ vựng"],
-          ["grammar", "📘 Ngữ pháp"],
-          ["journey", "🎴 Flashcard"],
-          ["test", "✏️ Luyện tập"],
-        ].map(([key, label]) => (
-          <Link
-            key={key}
-            to={`/lesson/${lesson.id}/${key}`}
-            aria-current={mode === key ? "page" : undefined}
-            className={`rounded-xl border px-4 py-2.5 text-xs font-bold ${mode === key ? "border-brand bg-brand text-white" : "border-line bg-white text-brand"}`}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <nav aria-label="Nội dung bài học" className="flex flex-wrap gap-2">
+          {[
+            ["list", "📄 Từ vựng"],
+            ["grammar", "📘 Ngữ pháp"],
+            ["journey", "🎴 Flashcard"],
+            ["test", "✏️ Luyện tập"],
+          ].map(([key, label]) => (
+            <Link
+              key={key}
+              to={`/lesson/${lesson.id}/${key}`}
+              aria-current={mode === key ? "page" : undefined}
+              className={`rounded-xl border px-4 py-2.5 text-xs font-bold ${mode === key ? "border-brand bg-brand text-white" : "border-line bg-white text-brand"}`}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+        {words.length > 0 && (
+          <button
+            type="button"
+            onClick={() => playWordList({ title: `${lesson.title} (${words.length} từ)`, words })}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-900 px-3.5 py-2.5 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] active:scale-95 cursor-pointer ml-auto"
+            title="Nghe rảnh tay toàn bộ từ vựng bài này"
           >
-            {label}
-          </Link>
-        ))}
-      </nav>
+            <Headphones className="w-3.5 h-3.5 text-stone-900" />
+            <span>🎧 Nghe rảnh tay</span>
+          </button>
+        )}
+      </div>
       {(mode === "list" || mode === "journey") && (
         <>
           <div className="grid gap-3 md:grid-cols-2">
@@ -145,6 +161,14 @@ function LessonContent({
             ))}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => playWordList({ title: `${lesson.title} (${words.length} từ)`, words })}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 hover:bg-amber-300 text-stone-900 px-5 py-3.5 text-sm font-bold shadow-sm transition-all hover:scale-[1.01] active:scale-95 cursor-pointer"
+            >
+              <Headphones className="w-4 h-4 text-stone-900" />
+              <span>🎧 Luyện nghe rảnh tay</span>
+            </button>
             <button
               onClick={() => setFlashOpen(true)}
               className="flex-1 rounded-2xl bg-brand hover:bg-brand-dark px-5 py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:scale-[1.01]"

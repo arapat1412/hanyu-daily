@@ -25,6 +25,49 @@ export function matchesPinyin(answer, pinyin) {
 export function isMeaningEligible(word) {
   return !!word.meaning && word.meaningQuizEligible !== false;
 }
+export function isClozeEligible(word) {
+  return (
+    !!word?.exampleSentence?.chinese &&
+    typeof word.exampleSentence.chinese === "string" &&
+    word.exampleSentence.chinese.includes(word.hanzi) &&
+    word.exampleSentence.source !== "generated-template"
+  );
+}
+export function maskVietnameseHint(vietnamese, hanzi, pinyin) {
+  if (!vietnamese) return "";
+  let text = String(vietnamese);
+
+  if (hanzi) {
+    text = text
+      .replaceAll(`“${hanzi}”`, "( _____ )")
+      .replaceAll(`"${hanzi}"`, "( _____ )")
+      .replaceAll(`'${hanzi}'`, "( _____ )")
+      .replaceAll(`‘${hanzi}’`, "( _____ )")
+      .replaceAll(`(${hanzi})`, "( _____ )")
+      .replaceAll(`（${hanzi}）`, "( _____ )")
+      .replaceAll(`[${hanzi}]`, "( _____ )")
+      .replaceAll(`【${hanzi}】`, "( _____ )")
+      .replaceAll(hanzi, "( _____ )");
+  }
+
+  if (pinyin && typeof pinyin === "string") {
+    pinyin.split("/").forEach((variant) => {
+      const trimmed = variant.trim();
+      if (trimmed.length >= 2) {
+        text = text
+          .replaceAll(`“${trimmed}”`, "( _____ )")
+          .replaceAll(`"${trimmed}"`, "( _____ )")
+          .replaceAll(`(${trimmed})`, "( _____ )")
+          .replaceAll(trimmed, "( _____ )");
+      }
+    });
+  }
+
+  text = text.replace(/\(\s*_____\s*\)\s*\(\s*_____\s*\)/g, "( _____ )");
+  text = text.replace(/\(\s*\(\s*_____\s*\)\s*\)/g, "( _____ )");
+
+  return text;
+}
 function meaningParts(word) {
   return new Set(
     [...(word.definitions || []), ...word.meaning.split(/[;/]/)]
@@ -34,14 +77,18 @@ function meaningParts(word) {
 }
 export function buildQuestions(words, pool, mode, random = Math.random) {
   return shuffle(
-    words.filter((word) => mode !== "meaning" || isMeaningEligible(word)),
+    words.filter(
+      (word) =>
+        (mode !== "meaning" || isMeaningEligible(word)) &&
+        (mode !== "cloze" || isClozeEligible(word)),
+    ),
     random,
   ).flatMap((word) => {
     if (mode === "typing") return [{ word, answer: word.pinyin, options: [] }];
     const field =
       mode === "meaning"
         ? "meaning"
-        : mode === "listening"
+        : (mode === "listening" || mode === "cloze")
           ? "hanzi"
           : "pinyin";
     const answer = word[field];

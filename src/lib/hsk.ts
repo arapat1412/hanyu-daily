@@ -125,7 +125,14 @@ export function loadLevel(code: string): Promise<HskData> {
             data.words.length !== manifest.levels[code].vocabCount
           )
             throw new Error("Dữ liệu cấp độ không hợp lệ.");
+          const wordUnitMap = new Map<string, number>();
+          (data.lessons || []).forEach((lesson) => {
+            (lesson.wordIds || []).forEach((id) => {
+              wordUnitMap.set(id, lesson.number);
+            });
+          });
           const hydrateWord = (word: VocabularyWord) => {
+            const lessonUnit = wordUnitMap.get(word.id) || word.unit;
             const local = localWords.find(
               (item) =>
                 item.hanzi === word.hanzi &&
@@ -139,6 +146,7 @@ export function loadLevel(code: string): Promise<HskData> {
               : word.exampleSentence || createFallbackExample(word, meaning);
             return {
               ...word,
+              unit: lessonUnit,
               definitions: annotation.definitions || word.definitions,
               dictionary: annotation.dictionary || word.dictionary,
               partOfSpeech:
@@ -640,6 +648,31 @@ export function getBestChineseVoice(): SpeechSynthesisVoice | undefined {
 
   // 5. Bất kỳ giọng zh nào còn lại
   return voices.find((v) => /^zh/i.test(v.lang));
+}
+
+/**
+ * Tìm giọng đọc tiếng Việt chất lượng cao nhất theo thứ tự ưu tiên
+ */
+export function getBestVietnameseVoice(): SpeechSynthesisVoice | undefined {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return undefined;
+
+  const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return undefined;
+
+  // 1. Ưu tiên giọng tiếng Việt có tên chứa Google, Microsoft, Enhanced, Siri, Natural, Online
+  const premiumVi = voices.find(
+    (v) =>
+      /^(vi|vie)[-_]/i.test(v.lang) &&
+      /enhanced|premium|natural|siri|google|online|neural/i.test(v.name)
+  );
+  if (premiumVi) return premiumVi;
+
+  // 2. Giọng tiếng Việt chuẩn vi-VN hoặc vi_VN
+  const standardVi = voices.find((v) => /^vi[-_]VN/i.test(v.lang));
+  if (standardVi) return standardVi;
+
+  // 3. Bất kỳ giọng vi nào
+  return voices.find((v) => /^vi/i.test(v.lang) || /vietnam/i.test(v.name));
 }
 
 export function speakChinese(

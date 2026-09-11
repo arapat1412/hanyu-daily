@@ -5,6 +5,8 @@ import {
   buildQuestions,
   matchesPinyin,
   isMeaningEligible,
+  isClozeEligible,
+  maskVietnameseHint,
   type PracticeMode,
 } from "../lib/practice.mjs";
 import type { VocabularyWord } from "../types";
@@ -107,14 +109,25 @@ export function PracticeSession({
                 "Gõ pinyin",
                 "Nhập pinyin có dấu hoặc số thanh điệu",
               ],
+              [
+                "cloze",
+                "填",
+                "Điền câu ví dụ",
+                `${words.filter(isClozeEligible).length}/${words.length} từ có câu ngữ cảnh`,
+              ],
             ] as const
           ).map(([key, icon, label, detail]) => (
             <button
               key={key}
               aria-pressed={mode === key}
-              disabled={key === "meaning" && !words.some(isMeaningEligible)}
+              disabled={
+                (key === "meaning" && !words.some(isMeaningEligible)) ||
+                (key === "cloze" && !words.some(isClozeEligible))
+              }
               onClick={() => setMode(key)}
-              className={`flex items-center gap-4 rounded-2xl border p-4 text-left disabled:opacity-40 ${mode === key ? "border-brand bg-tint" : "border-line"}`}
+              className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition disabled:opacity-40 ${
+                mode === key ? "border-brand bg-tint" : "border-line hover:border-brand/40"
+              } ${key === "cloze" ? "sm:col-span-2" : ""}`}
             >
               <span className="font-hanzi text-3xl text-brand">{icon}</span>
               <span>
@@ -126,9 +139,9 @@ export function PracticeSession({
         </div>
         <p className="mb-5 text-xs leading-relaxed text-muted">
           Chọn nghĩa chỉ sử dụng mục đủ dữ liệu; loại các mục đồng tự chưa tách
-          nghĩa. Nghĩa CVDICT có hỗ trợ dịch máy, dùng để tham khảo. Nghe yêu
-          cầu thiết bị có giọng tiếng Trung. Bài được hoàn thành khi kiểm tra
-          toàn bộ từ và đạt ít nhất 80%.
+          nghĩa. Điền câu ví dụ yêu cầu từ có câu ngữ cảnh mẫu. Nghĩa CVDICT có hỗ
+          trợ dịch máy, dùng để tham khảo. Nghe yêu cầu thiết bị có giọng tiếng
+          Trung. Bài được hoàn thành khi kiểm tra toàn bộ từ và đạt ít nhất 80%.
         </p>
         {error && (
           <p role="alert" className="mb-3 text-sm text-red-700">
@@ -190,11 +203,25 @@ export function PracticeSession({
           .map((q) => (
             <div
               key={q.word.id}
-              className="mt-2 rounded-xl bg-page p-3 text-sm"
+              className="mt-2 rounded-xl bg-page p-3 text-sm text-left"
             >
-              <span className="font-hanzi">{q.word.hanzi}</span> —{" "}
-              {q.word.pinyin}
-              {q.word.meaning && ` · ${q.word.meaning}`}
+              <div className="flex items-center justify-between">
+                <span>
+                  <span className="font-hanzi font-bold">{q.word.hanzi}</span> —{" "}
+                  {q.word.pinyin}
+                  {q.word.meaning && ` · ${q.word.meaning}`}
+                </span>
+                {mode === "cloze" && (
+                  <span className="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                    Đúng: {q.answer}
+                  </span>
+                )}
+              </div>
+              {mode === "cloze" && q.word.exampleSentence && (
+                <p className="mt-1 text-xs text-muted font-hanzi">
+                  {q.word.exampleSentence.chinese} ({q.word.exampleSentence.vietnamese})
+                </p>
+              )}
             </div>
           ))}
       </div>
@@ -246,20 +273,76 @@ export function PracticeSession({
             ? "Chọn nghĩa Việt phù hợp"
             : mode === "typing"
               ? "Nhập pinyin có dấu hoặc số thanh điệu của từ sau"
-              : "Chọn pinyin đúng"}
+              : mode === "cloze"
+                ? "Đọc câu ví dụ và chọn từ thích hợp điền vào chỗ trống"
+                : "Chọn pinyin đúng"}
       </h2>
       <div className="my-8 text-center">
-        {mode !== "listening" ? (
-          <div className="break-all font-hanzi text-5xl text-ink">
-            {question.word.hanzi}
-          </div>
-        ) : (
+        {mode === "listening" ? (
           <button
             onClick={() => speakChinese(question.word.hanzi, setError)}
-            className="mx-auto flex items-center gap-3 rounded-2xl bg-tint px-6 py-4 font-semibold text-brand"
+            className="mx-auto flex items-center gap-3 rounded-2xl bg-tint px-6 py-4 font-semibold text-brand transition hover:bg-brand/10 active:scale-[0.99]"
           >
             <Volume2 size={30} /> Nghe phát âm
           </button>
+        ) : mode === "cloze" ? (
+          (() => {
+            const sentence = question.word.exampleSentence?.chinese || "";
+            const target = question.word.hanzi;
+            const segments = target ? sentence.split(target) : [sentence];
+            const rawVietnamese = question.word.exampleSentence?.vietnamese || "";
+            const hintText = checked
+              ? rawVietnamese
+              : maskVietnameseHint(rawVietnamese, target, question.word.pinyin);
+
+            return (
+              <div className="flex flex-col items-center">
+                <div className="text-2xl sm:text-3xl font-hanzi leading-relaxed text-ink text-center flex flex-wrap items-center justify-center gap-y-2">
+                  {segments.map((seg, i) => (
+                    <span key={i} className="contents">
+                      <span>{seg}</span>
+                      {i < segments.length - 1 && (
+                        <span
+                          className={`mx-1.5 inline-flex items-center justify-center min-w-[76px] px-3 py-1 rounded-xl border-2 font-bold font-hanzi text-xl sm:text-2xl transition-all ${
+                            checked
+                              ? correct
+                                ? "bg-emerald-100 text-emerald-800 border-emerald-500 shadow-xs"
+                                : "bg-red-100 text-red-800 border-red-500 shadow-xs"
+                              : answer
+                                ? "bg-brand/10 text-brand border-brand font-semibold"
+                                : "bg-track/60 border-dashed border-muted/60 text-muted font-normal"
+                          }`}
+                        >
+                          {checked
+                            ? (correct ? question.answer : answer || "_____")
+                            : answer || "_____"}
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+
+                {hintText && (
+                  <p className="mt-3 text-sm sm:text-base text-ink/80 italic text-center font-medium bg-page/80 px-4 py-2 rounded-xl border border-line/60 inline-block max-w-lg">
+                    “{hintText}”
+                  </p>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => speakChinese(sentence, setError)}
+                  className="mt-3.5 inline-flex items-center gap-1.5 rounded-full bg-tint px-3.5 py-1.5 text-xs font-semibold text-brand transition-colors hover:bg-brand/15 active:scale-95 cursor-pointer touch-manipulation"
+                  title="Nghe phát âm cả câu ví dụ"
+                >
+                  <Volume2 size={16} /> Nghe câu ví dụ
+                </button>
+              </div>
+            );
+          })()
+        ) : (
+          <div className="break-all font-hanzi text-5xl text-ink">
+            {question.word.hanzi}
+          </div>
         )}
       </div>
       {error && (
@@ -297,12 +380,26 @@ export function PracticeSession({
               disabled={checked}
               onClick={() => setAnswer(option)}
               aria-pressed={answer === option}
-              className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors active:scale-[0.99] touch-manipulation cursor-pointer min-h-[52px] ${checked && option === question.answer ? "border-emerald-500 bg-emerald-50" : checked && option === answer ? "border-red-400 bg-red-50" : answer === option ? "border-brand bg-tint" : "border-line hover:bg-page/50"}`}
+              className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors active:scale-[0.99] touch-manipulation cursor-pointer min-h-[52px] ${
+                checked && option === question.answer
+                  ? "border-emerald-500 bg-emerald-50"
+                  : checked && option === answer
+                    ? "border-red-400 bg-red-50"
+                    : answer === option
+                      ? "border-brand bg-tint"
+                      : "border-line hover:bg-page/50"
+              }`}
             >
               <span className="text-xs text-muted">
                 {String.fromCharCode(65 + i)}
               </span>
-              <span className="break-words">{option}</span>
+              <span
+                className={`break-words ${
+                  mode === "cloze" ? "font-hanzi text-xl font-bold text-ink" : ""
+                }`}
+              >
+                {option}
+              </span>
             </button>
           ))}
         </div>
@@ -310,21 +407,45 @@ export function PracticeSession({
       {checked && (
         <div
           role="status"
-          className={`mt-5 rounded-2xl p-4.5 text-sm ${correct ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-800"}`}
+          className={`mt-5 rounded-2xl p-4.5 text-sm ${
+            correct ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-800"
+          }`}
         >
-          <strong>{correct ? "Chính xác!" : "Chưa đúng."}</strong>
-          <p className="mt-1">
-            {question.word.hanzi} · {question.word.pinyin}
+          <div className="flex items-center justify-between">
+            <strong className="text-base">{correct ? "Chính xác!" : "Chưa đúng."}</strong>
+            {mode === "cloze" && !correct && (
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-200/70 text-red-900">
+                Đáp án đúng: <span className="font-hanzi font-bold text-sm">{question.answer}</span>
+              </span>
+            )}
+          </div>
+          <p className="mt-1.5">
+            <span className="font-hanzi font-bold">{question.word.hanzi}</span> · {question.word.pinyin}
             {question.word.meaning && ` · ${question.word.meaning}`}
           </p>
-          <p>Đáp án: {question.answer}</p>
+          {mode !== "cloze" && <p>Đáp án: {question.answer}</p>}
+          {mode === "cloze" && question.word.exampleSentence && (
+            <div className="mt-2.5 pt-2.5 border-t border-current/15">
+              <p className="font-hanzi text-base font-semibold">
+                {question.word.exampleSentence.chinese}
+              </p>
+              {question.word.exampleSentence.pinyin && (
+                <p className="font-sans text-xs opacity-75 mt-0.5">
+                  {question.word.exampleSentence.pinyin}
+                </p>
+              )}
+              <p className="text-xs opacity-85 mt-0.5">
+                {question.word.exampleSentence.vietnamese}
+              </p>
+            </div>
+          )}
           {question.word.meaningStatus === "dictionary" && (
-            <p className="mt-2 text-xs">
+            <p className="mt-2 text-xs opacity-75">
               Nghĩa tham khảo từ CVDICT (Phong Phan / CC-CEDICT), CC BY-SA 4.0.
             </p>
           )}
           {question.word.meaningStatus === "reviewed" && (
-            <p className="mt-2 text-xs">
+            <p className="mt-2 text-xs opacity-75">
               Nghĩa Việt đã rà soát trong dữ liệu Hanyu Daily.
             </p>
           )}

@@ -13,6 +13,8 @@ import {
   RotateCw,
   Zap,
   Check,
+  Download,
+  Headphones,
 } from "lucide-react";
 import type { VocabularyWord } from "../types";
 import {
@@ -25,6 +27,7 @@ import {
 } from "../lib/hsk";
 import { HanziStrokeModal } from "./HanziStrokeModal";
 import { FlashcardModal } from "./FlashcardModal";
+import { useHandsFreePlayer } from "../lib/hands-free-context";
 
 export type VocabularyTab = "known" | "bookmarks" | "mistakes";
 
@@ -40,6 +43,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
   initialTab = "known",
 }) => {
   const progress = useProgress();
+  const { playWordList } = useHandsFreePlayer();
   const [activeTab, setActiveTab] = useState<VocabularyTab>(initialTab);
   const [query, setQuery] = useState("");
   const [levelFilter, setLevelFilter] = useState("all");
@@ -111,6 +115,44 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
       return matchHanzi || matchPinyin || matchMeaning || matchSino;
     });
   }, [words, query, levelFilter]);
+
+  const [exportNotice, setExportNotice] = useState<string | null>(null);
+
+  const handleExportCsv = () => {
+    if (filteredWords.length === 0) return;
+
+    const headers = ["Chữ Hán", "Phiên âm", "Nghĩa tiếng Việt", "Hán Việt", "Cấp độ"];
+    const escapeCsv = (str: string = "") => `"${str.replace(/"/g, '""')}"`;
+
+    const rows = filteredWords.map((w) => [
+      escapeCsv(w.hanzi),
+      escapeCsv(w.pinyin),
+      escapeCsv(w.meaning),
+      escapeCsv(w.sinoVietnamese || ""),
+      escapeCsv((w.hskLevel || "").toUpperCase()),
+    ]);
+
+    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\r\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const tabNames: Record<VocabularyTab, string> = {
+      bookmarks: "da-luu",
+      mistakes: "can-on-lai",
+      known: "da-thuoc",
+    };
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `hanyu-tu-vung-${tabNames[activeTab] || activeTab}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    setExportNotice(`Đã xuất ${filteredWords.length} từ vựng sang file CSV thành công!`);
+    setTimeout(() => setExportNotice(null), 3500);
+  };
 
   if (!isOpen) return null;
 
@@ -244,18 +286,69 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
               </select>
 
               {filteredWords.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setIsFlashcardOpen(true)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white px-3 py-1.5 text-xs font-bold transition-all shadow-xs shrink-0 active:scale-95"
-                  title="Luyện flashcard với danh sách này"
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Luyện</span> Flashcard ({filteredWords.length})
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={handleExportCsv}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-white hover:bg-tint hover:border-brand/40 text-ink-2 hover:text-brand px-3 py-1.5 text-xs font-semibold transition-all shadow-xs shrink-0 active:scale-95"
+                    title="Tải về file CSV danh sách từ vựng này để in ra hoặc nhập vào Anki / Quizlet"
+                  >
+                    <Download className="w-3.5 h-3.5 text-brand" />
+                    <span className="hidden sm:inline">Xuất danh sách</span>
+                    <span className="sm:hidden">Xuất</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const tabLabels = {
+                        bookmarks: 'Từ đã lưu',
+                        mistakes: 'Cần ôn lại',
+                        known: 'Đã thuộc',
+                      };
+                      playWordList({
+                        title: `Sổ tay: ${tabLabels[activeTab]} (${filteredWords.length} từ)`,
+                        words: filteredWords,
+                      });
+                      onClose();
+                    }}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-900 px-3 py-1.5 text-xs font-bold transition-all shadow-xs shrink-0 active:scale-95 cursor-pointer"
+                    title="Luyện nghe rảnh tay danh sách từ vựng này"
+                  >
+                    <Headphones className="w-3.5 h-3.5 text-stone-900" />
+                    <span>🎧 Nghe rảnh tay</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsFlashcardOpen(true)}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white px-3 py-1.5 text-xs font-bold transition-all shadow-xs shrink-0 active:scale-95"
+                    title="Luyện flashcard với danh sách này"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Luyện</span> Flashcard ({filteredWords.length})
+                  </button>
+                </>
               )}
             </div>
           </div>
+
+          {/* Export Toast / Alert Banner */}
+          {exportNotice && (
+            <div className="bg-emerald-50 border-b border-emerald-200 text-emerald-800 text-xs px-5 py-2 font-medium flex items-center justify-between shrink-0 animate-in fade-in">
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{exportNotice}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setExportNotice(null)}
+                className="text-emerald-600 hover:text-emerald-900 p-0.5"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
 
           {/* Word List Area */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3 bg-[#FCFAF6] scrollbar-thin">
