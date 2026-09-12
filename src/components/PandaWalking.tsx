@@ -68,7 +68,7 @@ export const PandaWalking: React.FC = () => {
 
   return (
     <div 
-      className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none z-20 select-none h-32 sm:h-36 flex items-end"
+      className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none z-20 select-none h-48 sm:h-52 flex items-end"
       aria-hidden="true"
     >
       {/* Khung di chuyển thong thả ngang qua màn hình */}
@@ -94,7 +94,7 @@ export const PandaWalking: React.FC = () => {
             ? 'scale-105 opacity-100 -translate-y-1'
             : 'opacity-0 group-hover:opacity-100 group-hover:-translate-y-1'
         }`}>
-          <div className="bg-white px-3.5 py-1.5 rounded-2xl border border-pink-300 text-slate-800 text-xs flex items-center gap-2">
+          <div className="bg-white px-3.5 py-1.5 rounded-2xl border border-pink-300 text-slate-800 text-xs flex items-center gap-2 shadow-md shadow-pink-500/10">
             <span className="text-sm">{currentPhrase.icon}</span>
             <div className="flex flex-col items-start leading-none">
               <div className="flex items-center gap-1.5">

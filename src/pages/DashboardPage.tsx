@@ -149,7 +149,7 @@ export const DashboardPage: React.FC = () => {
     <div className="min-h-screen bg-[#F1F5F9] text-slate-900 pb-20">
       
       {/* 1. Header tinh tế, ấm áp & nổi bật với dải màu Aurora mềm mại */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#E0F2FE]/95 via-[#F8FAFC]/90 to-[#FCE7F3]/95 border-b border-sky-200/60 pt-8 pb-24 sm:pt-10 sm:pb-28 shadow-xs">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#E0F2FE]/95 via-[#F8FAFC]/90 to-[#FCE7F3]/95 border-b border-sky-200/60 pt-8 pb-40 sm:pt-10 sm:pb-36 shadow-xs">
         {/* Decorative ambient glowing orbs tạo chiều sâu và sắc thái ấm cúng */}
         <div className="absolute -top-16 -left-16 w-80 h-80 bg-sky-200/50 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-16 -right-16 w-80 h-80 bg-pink-200/50 rounded-full blur-3xl pointer-events-none" />
