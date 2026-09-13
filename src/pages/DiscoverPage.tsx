@@ -67,12 +67,12 @@ export const DiscoverPage: React.FC = () => {
           </p>
         </div>
 
-        {/* ================= 4 FEATURED HUBS GRID ================= */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {/* ================= 3 FEATURED CULTURE HUBS ================= */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* 1. 1000 CÂU HỎI VĂN HÓA TRUNG QUỐC */}
           <Link
             to="/kham-pha/van-hoa-trung-quoc"
-            className="group relative flex min-h-[245px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            className="group relative flex min-h-[250px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
             style={{
               background: "linear-gradient(150deg,#2C5670 0%,#25485E 55%,#1D3A4C 100%)",
               boxShadow: "0 12px 32px rgba(23,48,63,.35)",
@@ -153,7 +153,7 @@ export const DiscoverPage: React.FC = () => {
           {/* 2. ĐIỂN CỐ & THÀNH NGỮ TRUNG HOA */}
           <Link
             to="/kham-pha/thanh-ngu-dien-co"
-            className="group relative flex min-h-[245px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            className="group relative flex min-h-[250px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
             style={{
               background: "linear-gradient(150deg,#7C2D37 0%,#5B1B25 55%,#3D0F18 100%)",
               boxShadow: "0 12px 32px rgba(61,15,24,.35)",
@@ -234,7 +234,7 @@ export const DiscoverPage: React.FC = () => {
           {/* 3. 300 BÀI THƠ ĐƯỜNG BẤT HỦ */}
           <Link
             to="/kham-pha/tho-duong"
-            className="group relative flex min-h-[245px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            className="group relative flex min-h-[250px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
             style={{
               background: "linear-gradient(150deg,#1B4D3E 0%,#13382D 55%,#0B241C 100%)",
               boxShadow: "0 12px 32px rgba(11,36,28,.35)",
@@ -311,85 +311,143 @@ export const DiscoverPage: React.FC = () => {
               </span>
             </div>
           </Link>
+        </div>
 
-          {/* 4. GÓC THIẾU NHI · GIÁO TRÌNH CHUẨN YCT 1 */}
+        {/* ================= GÓC THIẾU NHI · GIÁO TRÌNH CHO TRẺ EM ================= */}
+        <div className="mt-10">
+          <div className="mb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-amber-700">
+                <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+                <span>Dành Riêng Cho Các Bạn Nhỏ · 少儿汉语</span>
+              </div>
+              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl mt-1">
+                Giáo Trình Tiếng Trung Thiếu Nhi · YCT
+              </h2>
+              <p className="text-xs sm:text-[13.5px] text-[#8A7A5C] mt-0.5">
+                Chương trình chuẩn quốc tế Youth Chinese Test (YCT) với hình minh họa hoạt hình trực quan, flashcard phát âm, trò chơi và trọn bộ PDF giáo trình.
+              </p>
+            </div>
+          </div>
+
+          {/* Featured Kid Hero Card */}
           <Link
             to="/kham-pha/yct"
-            className="group relative flex min-h-[245px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            className="group relative flex flex-col lg:flex-row items-stretch justify-between gap-6 overflow-hidden rounded-[28px] p-6 sm:p-8 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.006] hover:shadow-2xl"
             style={{
-              background: "linear-gradient(150deg,#D97706 0%,#C2410C 55%,#9A3412 100%)",
-              boxShadow: "0 12px 32px rgba(194,65,12,.35)",
+              background: "linear-gradient(135deg,#D97706 0%,#EA580C 45%,#C2410C 80%,#9A3412 100%)",
+              boxShadow: "0 12px 36px rgba(194,65,12,.3)",
             }}
           >
-            {/* Giant Chinese Character Watermark */}
+            {/* Giant Watermark Character */}
             <span
-              className="pointer-events-none absolute right-[-14px] bottom-[-34px] select-none font-hanzi text-[150px] font-black leading-[0.8] transition-transform duration-500 group-hover:scale-105"
-              style={{ color: "rgba(255,255,255,.09)" }}
+              className="pointer-events-none absolute right-[-20px] bottom-[-45px] select-none font-hanzi text-[180px] sm:text-[220px] font-black leading-[0.8] transition-transform duration-500 group-hover:scale-105"
+              style={{ color: "rgba(255,255,255,.08)" }}
             >
               幼
             </span>
 
-            {/* Badge pill */}
-            <div className="relative flex items-center gap-2">
-              <span
-                className="w-fit rounded-full px-3 py-1.5 text-[11px] font-extrabold tracking-[0.08em] shadow-xs"
-                style={{ color: "#9A3412", background: "#FFF7ED" }}
-              >
-                少儿 · 80 TỪ CỐT LÕI
-              </span>
-              {yctStats.xp > 0 && (
-                <span className="flex items-center gap-1 rounded-full bg-amber-400/20 px-2.5 py-1 text-[11px] font-mono font-bold text-amber-300">
-                  <Zap className="h-3 w-3 fill-amber-300" />
-                  {yctStats.xp} XP
-                </span>
+            {/* Left Column: Info & Highlights */}
+            <div className="relative z-10 flex flex-1 flex-col justify-between gap-4">
+              <div>
+                {/* Badges row */}
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span
+                    className="w-fit rounded-full px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.08em] shadow-xs"
+                    style={{ color: "#9A3412", background: "#FFF7ED" }}
+                  >
+                    少儿 · GIÁO TRÌNH CHO TRẺ EM
+                  </span>
+                  <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold text-white backdrop-blur-xs">
+                    🐼 YCT 1 · 80 Từ Cốt Lõi
+                  </span>
+                  {yctStats.xp > 0 && (
+                    <span className="flex items-center gap-1 rounded-full bg-amber-300/30 px-3 py-1 text-[11px] font-mono font-bold text-amber-200">
+                      <Zap className="h-3 w-3 fill-amber-200" />
+                      {yctStats.xp} XP
+                    </span>
+                  )}
+                </div>
+
+                {/* Title & Description */}
+                <h3 className="mt-3.5 font-display text-2xl sm:text-3xl font-black text-white">
+                  Góc Thiếu Nhi · Giáo Trình Chuẩn YCT 1
+                </h3>
+                <div className="mt-1 text-xs sm:text-sm font-bold text-amber-100/90">
+                  YCT 标准教程 1 · Khóa học tiếng Trung đầu đời sinh động cho thiếu nhi
+                </div>
+
+                <p className="mt-2.5 max-w-2xl text-xs sm:text-sm leading-relaxed text-orange-50/95 font-medium">
+                  Thiết kế đặc biệt dành riêng cho trẻ em và học sinh tiểu học: hình ảnh hoạt hình minh họa mờ trực quan cho từng từ, thẻ lật phát âm chuẩn, trò chơi ghép từ 30s, thử thách xếp câu và tải trọn bộ PDF sách giáo trình chuẩn.
+                </p>
+
+                {/* Feature Pills */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
+                    🎨 Tranh hoạt hình minh họa từng từ
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
+                    🔊 Flashcard phát âm & tập viết chữ
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
+                    🎮 Nối từ & Trắc nghiệm vui nhộn
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
+                    📥 Tải miễn phí PDF sách giáo trình
+                  </span>
+                </div>
+              </div>
+
+              {/* Progress Bar (if started) */}
+              {yctStats.learnedCount > 0 && (
+                <div className="max-w-md">
+                  <div className="flex items-center justify-between text-[11px] text-white/90">
+                    <span>Tiến độ học từ vựng</span>
+                    <span className="font-mono font-bold text-amber-200">
+                      {yctStats.learnedCount}/{yctStats.total} ({yctStats.percent}%)
+                    </span>
+                  </div>
+                  <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-black/20">
+                    <div
+                      className="h-full rounded-full bg-amber-300 transition-all duration-500"
+                      style={{ width: `${yctStats.percent}%` }}
+                    />
+                  </div>
+                </div>
               )}
             </div>
 
-            {/* Title & Subtitle */}
-            <div className="relative">
-              <div className="font-hanzi text-xl font-black leading-tight text-white">
-                Góc Thiếu Nhi · YCT 1
-              </div>
-              <div className="mt-1.5 text-xs font-bold" style={{ color: "#FED7AA" }}>
-                YCT 标准教程 1 · Flashcard & Quiz
-              </div>
-            </div>
-
-            {/* Progress indicator if player started */}
-            {yctStats.learnedCount > 0 ? (
-              <div className="relative max-w-xs">
-                <div className="flex items-center justify-between text-[11px] text-white/80">
-                  <span>Tiến độ từ vựng</span>
-                  <span className="font-mono font-bold text-amber-300">
-                    {yctStats.learnedCount}/{yctStats.total} ({yctStats.percent}%)
-                  </span>
+            {/* Right Column: Interactive Word Preview / Action Box */}
+            <div className="relative z-10 flex flex-col justify-between sm:items-end lg:w-72 shrink-0 gap-4 border-t lg:border-t-0 lg:border-l border-white/20 pt-4 lg:pt-0 lg:pl-6">
+              {/* Sample word bubbles */}
+              <div className="hidden sm:flex flex-wrap lg:flex-col gap-2 w-full">
+                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
+                  <span className="font-hanzi text-base font-bold text-white">你好 Nǐ hǎo</span>
+                  <span className="text-amber-100 font-medium">Xin chào 👋</span>
                 </div>
-                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/20">
-                  <div
-                    className="h-full rounded-full bg-amber-400 transition-all duration-500"
-                    style={{ width: `${yctStats.percent}%` }}
-                  />
+                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
+                  <span className="font-hanzi text-base font-bold text-white">爸爸 Bàba</span>
+                  <span className="text-amber-100 font-medium">Bố 👨</span>
+                </div>
+                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
+                  <span className="font-hanzi text-base font-bold text-white">苹果 Píngguǒ</span>
+                  <span className="text-amber-100 font-medium">Quả táo 🍎</span>
                 </div>
               </div>
-            ) : (
-              <div className="relative text-xs text-orange-100/80">
-                Chào hỏi, số đếm, gia đình, động vật, đồ ăn, sách PDF...
+
+              {/* Big Action Button */}
+              <div className="w-full mt-auto pt-2">
+                <span
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-black shadow-lg transition-all duration-300 group-hover:bg-amber-300 group-hover:shadow-amber-500/30 group-hover:scale-[1.02]"
+                  style={{ background: "#F0C64C", color: "#40300A" }}
+                >
+                  <span>{yctStats.learnedCount > 0 ? "Tiếp Tục Học YCT 1" : "Vào Khám Phá & Học Ngay"}</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+                <div className="mt-2 text-center text-[11px] font-medium text-white/80">
+                  🐼 Gấu trúc Pipi cùng bé học mỗi ngày
+                </div>
               </div>
-            )}
-
-            {/* Bottom CTA Row */}
-            <div className="relative mt-auto flex items-end justify-between gap-2 pt-2">
-              <span
-                className="inline-flex items-center gap-1.5 rounded-[12px] px-4 py-2 text-[12.5px] font-extrabold whitespace-nowrap shadow-md transition-all group-hover:bg-amber-300"
-                style={{ background: "#F0C64C", color: "#40300A" }}
-              >
-                <span>{yctStats.learnedCount > 0 ? "▶ Tiếp tục" : "▶ Khám phá"}</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-
-              <span className="text-[11px] font-medium whitespace-nowrap text-white/85">
-                🐼 Tranh ảnh & PDF
-              </span>
             </div>
           </Link>
         </div>
