@@ -588,24 +588,24 @@ export const DashboardPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Khám phá & Trò chơi Văn hóa */}
+            {/* Khám phá & Trò chơi */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link
-                to="/kham-pha/van-hoa-trung-quoc"
-                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-pink-300 hover:shadow-pink-500/5 transition-all flex items-center gap-4 group"
+                to="/kham-pha/yct"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-amber-300 hover:shadow-amber-500/5 transition-all flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
-                  🏛️
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
+                  🐼
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs font-bold text-pink-600 uppercase tracking-wider mb-0.5">
-                    Trò chơi học tập
+                  <div className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-0.5">
+                    Góc Thiếu Nhi
                   </div>
-                  <div className="text-sm font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
-                    1000 Câu hỏi Văn hóa
+                  <div className="text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                    Giáo trình Chuẩn YCT 1
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5 truncate">
-                    Trắc nghiệm lịch sử, phong tục, địa lý
+                    80 từ vựng tranh vẽ, flashcard & trò chơi
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />

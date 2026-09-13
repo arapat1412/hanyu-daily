@@ -25,8 +25,6 @@ const RegisterPage = lazy(() => import('./pages/RegisterPage').then((module) => 
 const TeacherPage = lazy(() => import('./pages/TeacherPage').then((module) => ({ default: module.TeacherPage })));
 const MePage = lazy(() => import('./pages/MePage').then((module) => ({ default: module.MePage })));
 const DiscoverPage = lazy(() => import('./pages/DiscoverPage').then((module) => ({ default: module.DiscoverPage })));
-const CultureTopicsPage = lazy(() => import('./pages/CultureTopicsPage').then((module) => ({ default: module.CultureTopicsPage })));
-const CultureGamePlayerPage = lazy(() => import('./pages/CultureGamePlayerPage').then((module) => ({ default: module.CultureGamePlayerPage })));
 const ChengyuHubPage = lazy(() => import('./pages/ChengyuHubPage').then((module) => ({ default: module.ChengyuHubPage })));
 const ChengyuDetailPage = lazy(() => import('./pages/ChengyuDetailPage').then((module) => ({ default: module.ChengyuDetailPage })));
 const TangPoetryHubPage = lazy(() => import('./pages/TangPoetryHubPage').then((module) => ({ default: module.TangPoetryHubPage })));
@@ -87,8 +85,8 @@ export const App: React.FC = () => {
               <Route path="/hsk79/*" element={<Hsk79Page />} />
               <Route path="/csca" element={<CscaPage />} />
               <Route path="/kham-pha" element={<DiscoverPage />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc" element={<CultureTopicsPage />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc/:slug" element={<CultureGamePlayerPage />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc" element={<Navigate to="/kham-pha" replace />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc/*" element={<Navigate to="/kham-pha" replace />} />
               <Route path="/kham-pha/thanh-ngu-dien-co" element={<ChengyuHubPage />} />
               <Route path="/kham-pha/thanh-ngu-dien-co/:id" element={<ChengyuDetailPage />} />
               <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
