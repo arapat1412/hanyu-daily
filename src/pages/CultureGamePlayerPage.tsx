@@ -33,7 +33,7 @@ export const CultureGamePlayerPage: React.FC = () => {
       <iframe
         ref={iframeRef}
         title={topic.title}
-        src={`/hoc-va-choi/${topic.slug}.html`}
+        src={`/hoc-va-choi/${topic.slug}.html?v=20260913`}
         className="block h-full w-full border-0"
       />
     </div>

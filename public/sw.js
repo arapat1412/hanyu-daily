@@ -4,7 +4,7 @@
  * Optimized for instant load (~0.1s), offline learning, and safe Supabase bypass.
  */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `hanyu-static-${CACHE_VERSION}`;
 const DATA_CACHE = `hanyu-data-${CACHE_VERSION}`;
 const CDN_CACHE = `hanyu-cdn-${CACHE_VERSION}`;
