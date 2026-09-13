@@ -108,17 +108,20 @@ const LEVEL_CONFIG: Record<string, {
 
 const groups = [
   { 
-    title: "Sơ cấp", 
+    title: "Nền tảng", 
+    range: "Cấp 1 – 3",
     subtitle: "Cấp 1 – 3: Nền tảng phát âm, từ vựng và câu đàm thoại", 
     codes: ["hsk1", "hsk2", "hsk3"] 
   },
   { 
-    title: "Trung cấp", 
+    title: "Giao tiếp", 
+    range: "Cấp 4 – 6",
     subtitle: "Cấp 4 – 6: Phản xạ giao tiếp tự nhiên và ngữ pháp nâng cao", 
     codes: ["hsk4", "hsk5", "hsk6"] 
   },
   { 
-    title: "Cao cấp", 
+    title: "Nâng cao", 
+    range: "Cấp 7 – 9",
     subtitle: "Cấp 7 – 9: Học thuật chuyên sâu, biên phiên dịch và nghiên cứu", 
     codes: ["hsk7-9"] 
   },
@@ -224,7 +227,7 @@ export function HskPage() {
                     {group.title}
                   </h2>
                   <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-200/80 text-slate-700">
-                    {group.codes.length === 1 ? "Cấp 7 – 9" : group.title === "Sơ cấp" ? "Cấp 1 – 3" : "Cấp 4 – 6"}
+                    {group.range}
                   </span>
                 </div>
                 <span className="text-xs text-slate-500 font-medium">
