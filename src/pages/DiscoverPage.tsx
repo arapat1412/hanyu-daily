@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Zap } from "lucide-react";
 import { CHENGYU_STORIES, getChengyuProgress } from "../data/chengyuStories";
 import { TANG_POEMS, getPoetryProgress } from "../data/tangPoems";
-import { YCT1_WORDS, getYctProgress } from "../data/yct1Data";
 
 export const DiscoverPage: React.FC = () => {
   // 1. Calculate chengyu idioms stats
@@ -26,15 +25,6 @@ export const DiscoverPage: React.FC = () => {
     return { readCount, quizCount, total, percent, xp: prog.xp };
   }, []);
 
-  // 3. Calculate YCT stats
-  const yctStats = useMemo(() => {
-    const prog = getYctProgress();
-    const learnedCount = prog.learnedWordIds.length;
-    const total = YCT1_WORDS.length;
-    const percent = total > 0 ? Math.round((learnedCount / total) * 100) : 0;
-    return { learnedCount, total, percent, xp: prog.xp };
-  }, []);
-
   return (
     <div className="min-h-screen bg-cream pb-24 selection:bg-brand/20 selection:text-brand-dark">
       {/* Top Header Container */}
@@ -47,7 +37,7 @@ export const DiscoverPage: React.FC = () => {
           </div>
           <h1 className="font-display text-2xl font-bold text-ink sm:text-3xl">Khám phá</h1>
           <p className="text-[13.5px] leading-relaxed text-[#8A7A5C] sm:text-sm">
-            Nâng cao kiến thức qua thành ngữ ngụ ngôn, thi ca Đường thi và giáo trình thiếu nhi tương tác sinh động.
+            Nâng cao kiến thức và vốn từ qua kho tàng điển cố thành ngữ và tuyển tập thơ Đường bất hủ.
           </p>
         </div>
 
@@ -216,146 +206,8 @@ export const DiscoverPage: React.FC = () => {
             </div>
           </Link>
         </div>
-
-        {/* ================= GÓC THIẾU NHI · GIÁO TRÌNH CHO TRẺ EM ================= */}
-        <div className="mt-10">
-          <div className="mb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-amber-700">
-                <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-                <span>Dành Riêng Cho Các Bạn Nhỏ · 少儿汉语</span>
-              </div>
-              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl mt-1">
-                Giáo Trình Tiếng Trung Thiếu Nhi · YCT
-              </h2>
-              <p className="text-xs sm:text-[13.5px] text-[#8A7A5C] mt-0.5">
-                Chương trình chuẩn quốc tế Youth Chinese Test (YCT) với hình minh họa hoạt hình trực quan, flashcard phát âm, trò chơi và trọn bộ PDF giáo trình.
-              </p>
-            </div>
-          </div>
-
-          {/* Featured Kid Hero Card */}
-          <Link
-            to="/kham-pha/yct"
-            className="group relative flex flex-col lg:flex-row items-stretch justify-between gap-6 overflow-hidden rounded-[28px] p-6 sm:p-8 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.006] hover:shadow-2xl"
-            style={{
-              background: "linear-gradient(135deg,#D97706 0%,#EA580C 45%,#C2410C 80%,#9A3412 100%)",
-              boxShadow: "0 12px 36px rgba(194,65,12,.3)",
-            }}
-          >
-            {/* Giant Watermark Character */}
-            <span
-              className="pointer-events-none absolute right-[-20px] bottom-[-45px] select-none font-hanzi text-[180px] sm:text-[220px] font-black leading-[0.8] transition-transform duration-500 group-hover:scale-105"
-              style={{ color: "rgba(255,255,255,.08)" }}
-            >
-              幼
-            </span>
-
-            {/* Left Column: Info & Highlights */}
-            <div className="relative z-10 flex flex-1 flex-col justify-between gap-4">
-              <div>
-                {/* Badges row */}
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span
-                    className="w-fit rounded-full px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.08em] shadow-xs"
-                    style={{ color: "#9A3412", background: "#FFF7ED" }}
-                  >
-                    少儿 · GIÁO TRÌNH CHO TRẺ EM
-                  </span>
-                  <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold text-white backdrop-blur-xs">
-                    🐼 YCT 1 · 80 Từ Cốt Lõi
-                  </span>
-                  {yctStats.xp > 0 && (
-                    <span className="flex items-center gap-1 rounded-full bg-amber-300/30 px-3 py-1 text-[11px] font-mono font-bold text-amber-200">
-                      <Zap className="h-3 w-3 fill-amber-200" />
-                      {yctStats.xp} XP
-                    </span>
-                  )}
-                </div>
-
-                {/* Title & Description */}
-                <h3 className="mt-3.5 font-display text-2xl sm:text-3xl font-black text-white">
-                  Góc Thiếu Nhi · Giáo Trình Chuẩn YCT 1
-                </h3>
-                <div className="mt-1 text-xs sm:text-sm font-bold text-amber-100/90">
-                  YCT 标准教程 1 · Khóa học tiếng Trung đầu đời sinh động cho thiếu nhi
-                </div>
-
-                <p className="mt-2.5 max-w-2xl text-xs sm:text-sm leading-relaxed text-orange-50/95 font-medium">
-                  Thiết kế đặc biệt dành riêng cho trẻ em và học sinh tiểu học: hình ảnh hoạt hình minh họa mờ trực quan cho từng từ, thẻ lật phát âm chuẩn, trò chơi ghép từ 30s, thử thách xếp câu và tải trọn bộ PDF sách giáo trình chuẩn.
-                </p>
-
-                {/* Feature Pills */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
-                    🎨 Tranh hoạt hình minh họa từng từ
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
-                    🔊 Flashcard phát âm & tập viết chữ
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
-                    🎮 Nối từ & Trắc nghiệm vui nhộn
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-xs">
-                    📥 Tải miễn phí PDF sách giáo trình
-                  </span>
-                </div>
-              </div>
-
-              {/* Progress Bar (if started) */}
-              {yctStats.learnedCount > 0 && (
-                <div className="max-w-md">
-                  <div className="flex items-center justify-between text-[11px] text-white/90">
-                    <span>Tiến độ học từ vựng</span>
-                    <span className="font-mono font-bold text-amber-200">
-                      {yctStats.learnedCount}/{yctStats.total} ({yctStats.percent}%)
-                    </span>
-                  </div>
-                  <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-black/20">
-                    <div
-                      className="h-full rounded-full bg-amber-300 transition-all duration-500"
-                      style={{ width: `${yctStats.percent}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Right Column: Interactive Word Preview / Action Box */}
-            <div className="relative z-10 flex flex-col justify-between sm:items-end lg:w-72 shrink-0 gap-4 border-t lg:border-t-0 lg:border-l border-white/20 pt-4 lg:pt-0 lg:pl-6">
-              {/* Sample word bubbles */}
-              <div className="hidden sm:flex flex-wrap lg:flex-col gap-2 w-full">
-                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
-                  <span className="font-hanzi text-base font-bold text-white">你好 Nǐ hǎo</span>
-                  <span className="text-amber-100 font-medium">Xin chào 👋</span>
-                </div>
-                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
-                  <span className="font-hanzi text-base font-bold text-white">爸爸 Bàba</span>
-                  <span className="text-amber-100 font-medium">Bố 👨</span>
-                </div>
-                <div className="flex items-center justify-between rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-xs text-xs">
-                  <span className="font-hanzi text-base font-bold text-white">苹果 Píngguǒ</span>
-                  <span className="text-amber-100 font-medium">Quả táo 🍎</span>
-                </div>
-              </div>
-
-              {/* Big Action Button */}
-              <div className="w-full mt-auto pt-2">
-                <span
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-black shadow-lg transition-all duration-300 group-hover:bg-amber-300 group-hover:shadow-amber-500/30 group-hover:scale-[1.02]"
-                  style={{ background: "#F0C64C", color: "#40300A" }}
-                >
-                  <span>{yctStats.learnedCount > 0 ? "Tiếp Tục Học YCT 1" : "Vào Khám Phá & Học Ngay"}</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-                <div className="mt-2 text-center text-[11px] font-medium text-white/80">
-                  🐼 Gấu trúc Pipi cùng bé học mỗi ngày
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
       </div>
     </div>
   );
 };
+

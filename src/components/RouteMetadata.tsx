@@ -6,7 +6,7 @@ const DEFAULT_DESCRIPTION =
 
 function metadataFor(pathname: string) {
   if (pathname === "/")
-    return { title: "Hanyu Daily — 泡菜学汉语 | Học tiếng Trung mỗi ngày", description: DEFAULT_DESCRIPTION };
+    return { title: "Hanyu Daily — 泡菜学汉语 | Kim Chi học tiếng Trung", description: DEFAULT_DESCRIPTION };
   if (pathname === "/hsk")
     return { title: "Lộ trình New HSK 3.0 | Hanyu Daily", description: "Khám phá lộ trình New HSK 3.0 từ cấp 1 đến cấp 9 với 11.000 từ vựng." };
   if (pathname === "/boya")
@@ -20,13 +20,13 @@ function metadataFor(pathname: string) {
   if (pathname.startsWith("/lesson/"))
     return { title: "Bài học tiếng Trung | Hanyu Daily", description: "Bài học tiếng Trung với từ vựng, ví dụ, luyện nghe và kiểm tra tiến độ." };
   if (pathname.startsWith("/kham-pha/tho-duong"))
-    return { title: "300 Bài Thơ Đường Bất Hủ | Hanyu Daily", description: "Đắm mình trong thi họa cổ phong Đường thi, ngâm thơ chuẩn, bản dịch thơ kinh điển và thử thách thi ca." };
+    return { title: "Đường Thi Tuyển Tập | Hanyu Daily", description: "Đắm mình trong thi họa cổ phong Đường thi, ngâm thơ chuẩn, bản dịch thơ kinh điển và thử thách thi ca." };
   if (pathname.startsWith("/kham-pha/thanh-ngu-dien-co"))
     return { title: "Điển Cố & Thành Ngữ Trung Hoa | Hanyu Daily", description: "Học thành ngữ tiếng Trung qua các câu chuyện ngụ ngôn và điển tích lịch sử kinh điển kèm mini quiz." };
-  if (pathname.startsWith("/kham-pha/yct"))
-    return { title: "Góc Thiếu Nhi · Giáo Trình Chuẩn YCT 1 | Hanyu Daily", description: "Học tiếng Trung thiếu nhi chuẩn YCT 1 với 80 từ vựng cốt lõi, flashcard lật 3D, mini quiz trắc nghiệm và tải trọn bộ sách PDF." };
-  if (pathname === "/kham-pha" || pathname.startsWith("/kham-pha/"))
-    return { title: "Khám phá văn hóa Trung Quốc | Hanyu Daily", description: "Học và chơi qua các chuyên đề lịch sử, văn học, nghệ thuật, khoa học và văn hóa Trung Quốc." };
+  if (pathname.startsWith("/yct"))
+    return { title: "Tủ Sách Tiếng Trung Thiếu Nhi YCT (1 – 6) | Hanyu Daily", description: "Giáo trình tiếng Trung thiếu nhi chuẩn quốc tế Youth Chinese Test (YCT 1 – 6) với hình ảnh minh họa, phát âm và PDF sách." };
+  if (pathname === "/giao-trinh")
+    return { title: "Bộ Giáo Trình Tiếng Trung Chuẩn (Boya & YCT) | Hanyu Daily", description: "Hệ thống tủ sách giáo trình tiếng Trung chuẩn hóa: Hán ngữ Boya và Thiếu nhi YCT." };
   if (pathname === "/xep-hang")
     return { title: "Bảng xếp hạng học tập | Hanyu Daily", description: "Theo dõi tiến độ và duy trì động lực học tiếng Trung cùng cộng đồng Hanyu Daily." };
   if (pathname === "/khoa-hoc")
@@ -69,10 +69,10 @@ export function RouteMetadata() {
     setMeta('meta[property="og:title"]', { property: "og:title", content: title });
     setMeta('meta[property="og:description"]', { property: "og:description", content: description });
     setMeta('meta[property="og:url"]', { property: "og:url", content: canonicalUrl });
-    setMeta('meta[property="og:image"]', { property: "og:image", content: `${origin}/logo.png` });
+    setMeta('meta[property="og:image"]', { property: "og:image", content: `${origin}/gautruc.png` });
     setMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
     setMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
-    setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: `${origin}/logo.png` });
+    setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: `${origin}/gautruc.png` });
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {

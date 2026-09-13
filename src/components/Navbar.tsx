@@ -6,7 +6,6 @@ import {
   Home,
   GraduationCap,
   BookOpen,
-  Compass,
   Trophy,
   Coffee,
   Download,
@@ -58,7 +57,7 @@ export const Navbar: React.FC = () => {
     { label: 'Trang chủ', href: '/' },
     { label: 'HSK 3.0', href: '/hsk' },
     { label: 'Boya', href: '/boya' },
-    { label: 'Khám phá', href: '/kham-pha' },
+    { label: 'YCT', href: '/yct' },
     { label: 'Khóa học', href: '/khoa-hoc' },
     { label: 'Xếp hạng', href: '/xep-hang' },
     { label: 'Giáo viên', href: '/giao-vien' },
@@ -69,7 +68,7 @@ export const Navbar: React.FC = () => {
     { label: 'Trang chủ', href: '/', icon: Home, desc: 'Bảng tin & bài học tiếp theo' },
     { label: 'Lộ trình New HSK 3.0', href: '/hsk', icon: GraduationCap, desc: 'HSK 1 đến HSK 6 & HSK 7-9' },
     { label: 'Giáo trình Hán ngữ Boya', href: '/boya', icon: BookOpen, desc: 'Boya Sơ cấp 1 & Sơ cấp 2' },
-    { label: 'Khám phá & Trò chơi', href: '/kham-pha', icon: Compass, desc: 'Văn hóa, thành ngữ, thơ Đường' },
+    { label: 'Tủ sách Thiếu Nhi YCT', href: '/yct', icon: Sparkles, desc: 'Giáo trình YCT 1 đến YCT 6 cho bé' },
     { label: 'Bảng xếp hạng tuần', href: '/xep-hang', icon: Trophy, desc: 'Thi đua sao & điểm kinh nghiệm' },
     { label: 'Khóa học tiếng Trung', href: '/khoa-hoc', icon: Sparkles, desc: 'Các lớp học cùng cô Kim Chi' },
     { label: 'Giới thiệu Giáo viên', href: '/giao-vien', icon: Award, desc: 'Cô Nguyễn Thị Kim Chi' },
@@ -107,7 +106,7 @@ export const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center gap-2.5 sm:gap-3 no-underline group shrink-0">
             <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-slate-200/70 p-0.5 shadow-2xs group-hover:scale-105 transition-transform">
               <img
-                src="/logo.png"
+                src="/gautruc.png"
                 alt="Hanyu Daily"
                 className="h-full w-full object-cover scale-[1.35]"
                 onError={(e) => {
@@ -124,7 +123,7 @@ export const Navbar: React.FC = () => {
                 Hanyu Daily
               </div>
               <div className="text-[10px] text-teal-700 font-bold uppercase tracking-wider hidden xs:block">
-                泡菜学汉语 · Học mỗi ngày
+                泡菜学汉语 · Kim Chi học tiếng Trung
               </div>
             </div>
           </Link>
@@ -249,10 +248,10 @@ export const Navbar: React.FC = () => {
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 bg-slate-50/50">
               <div className="flex items-center gap-2.5">
-                <img src="/logo.png" alt="Hanyu Daily" className="w-8 h-8 rounded-xl shadow-xs" />
+                <img src="/gautruc.png" alt="Hanyu Daily" className="w-8 h-8 rounded-xl shadow-xs" />
                 <div>
                   <h3 className="font-bold text-slate-900 text-sm">Hanyu Daily</h3>
-                  <p className="text-[11px] text-slate-500">泡菜学汉语 · Học mỗi ngày</p>
+                  <p className="text-[11px] text-slate-500">泡菜学汉语 · Kim Chi học tiếng Trung</p>
                 </div>
               </div>
               <button
@@ -349,39 +348,40 @@ export const Navbar: React.FC = () => {
                   const active = isActive(item.href);
 
                   return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      onClick={() => setDrawerOpen(false)}
-                      className={`flex items-center justify-between p-2.5 rounded-xl no-underline transition-all ${
-                        active
-                          ? 'bg-gradient-to-r from-sky-500 to-pink-500 text-white font-bold shadow-xs'
-                          : 'text-slate-700 hover:bg-slate-100'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                            active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
-                          }`}
-                        >
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold leading-tight">{item.label}</p>
-                          <p
-                            className={`text-[10px] leading-tight ${
-                              active ? 'text-slate-300' : 'text-slate-400'
+                    <div key={item.href} className="space-y-1">
+                      <Link
+                        to={item.href}
+                        onClick={() => setDrawerOpen(false)}
+                        className={`flex items-center justify-between p-2.5 rounded-xl no-underline transition-all ${
+                          active
+                            ? 'bg-gradient-to-r from-sky-500 to-pink-500 text-white font-bold shadow-xs'
+                            : 'text-slate-700 hover:bg-slate-100'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                              active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
                             }`}
                           >
-                            {item.desc}
-                          </p>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold leading-tight">{item.label}</p>
+                            <p
+                              className={`text-[10px] leading-tight ${
+                                active ? 'text-slate-100' : 'text-slate-400'
+                              }`}
+                            >
+                              {item.desc}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <ChevronRight
-                        className={`w-3.5 h-3.5 ${active ? 'text-white' : 'text-slate-300'}`}
-                      />
-                    </Link>
+                        <ChevronRight
+                          className={`w-3.5 h-3.5 ${active ? 'text-white' : 'text-slate-300'}`}
+                        />
+                      </Link>
+                    </div>
                   );
                 })}
               </div>

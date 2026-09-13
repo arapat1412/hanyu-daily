@@ -1,5 +1,5 @@
 {
-  "name": "Hanyu Daily — Học tiếng Trung mỗi ngày",
+  "name": "Hanyu Daily — Kim Chi học tiếng Trung",
   "short_name": "Hanyu Daily",
   "description": "Học từ vựng, ngữ pháp HSK 3.0 và giáo trình Boya mỗi ngày",
   "start_url": "/",
@@ -29,7 +29,7 @@
       "purpose": "maskable"
     },
     {
-      "src": "/logo.png",
+      "src": "/gautruc.png",
       "sizes": "1254x1254",
       "type": "image/png",
       "purpose": "any"

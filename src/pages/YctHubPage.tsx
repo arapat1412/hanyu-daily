@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   Volume2,
@@ -44,8 +44,21 @@ import { WordMatchGameModal } from "../components/WordMatchGameModal";
 import type { VocabularyWord } from "../types";
 
 export const YctHubPage: React.FC = () => {
+  const { tab } = useParams<{ tab?: string }>();
+
   // Navigation tabs
-  const [activeTab, setActiveTab] = useState<"vocab" | "flashcard" | "quiz" | "pdf">("vocab");
+  const [activeTab, setActiveTab] = useState<"vocab" | "flashcard" | "quiz" | "pdf">(() => {
+    if (tab && ["vocab", "flashcard", "quiz", "pdf"].includes(tab)) {
+      return tab as "vocab" | "flashcard" | "quiz" | "pdf";
+    }
+    return "vocab";
+  });
+
+  useEffect(() => {
+    if (tab && ["vocab", "flashcard", "quiz", "pdf"].includes(tab)) {
+      setActiveTab(tab as "vocab" | "flashcard" | "quiz" | "pdf");
+    }
+  }, [tab]);
 
   // Category filter & Search
   const [selectedCategory, setSelectedCategory] = useState<YctCategoryId | "all">("all");
@@ -185,11 +198,11 @@ export const YctHubPage: React.FC = () => {
           {/* Top Bar: Back button + Mascot Welcome Message */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Link
-              to="/kham-pha"
+              to="/yct"
               className="inline-flex items-center gap-2 rounded-2xl border-2 border-amber-300 bg-white/90 px-4 py-2 text-xs font-black text-amber-900 shadow-[0_4px_0_#fcd34d] transition-all hover:-translate-y-0.5 active:translate-y-1 active:shadow-none"
             >
               <ArrowLeft size={16} className="text-amber-600" />
-              <span>Quay lại Khám phá</span>
+              <span>Tủ sách YCT</span>
             </Link>
 
             {/* Score & Star Badges */}

@@ -15,11 +15,11 @@ export const Footer: React.FC = () => {
             <div className="space-y-4 md:col-span-1">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm flex items-center justify-center flex-shrink-0 bg-white/10">
-                  <img src="/logo.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.38]" />
+                  <img src="/gautruc.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.38]" />
                 </div>
                 <div>
                   <div className="text-lg font-bold text-white">Hanyu Daily</div>
-                  <div className="text-xs text-white/60">泡菜学汉语 — Học mỗi ngày</div>
+                  <div className="text-xs text-white/60">泡菜学汉语 — Kim Chi học tiếng Trung</div>
                 </div>
               </div>
               <p className="text-xs text-white/70 leading-relaxed">

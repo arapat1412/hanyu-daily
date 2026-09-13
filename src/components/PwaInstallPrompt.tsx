@@ -129,7 +129,7 @@ export const PwaInstallPrompt: React.FC = () => {
           </button>
 
           <div className="flex items-center gap-3 mb-4">
-            <img src="/logo.png" alt="Hanyu Daily" className="w-12 h-12 rounded-2xl shadow-md" />
+            <img src="/gautruc.png" alt="Hanyu Daily" className="w-12 h-12 rounded-2xl shadow-md" />
             <div>
               <h3 className="font-bold text-base text-stone-900">Cài đặt Hanyu Daily trên iPhone</h3>
               <p className="text-xs text-stone-500">Mở app toàn màn hình & học ngoại tuyến</p>

@@ -19,16 +19,17 @@ const LessonPage = lazy(() => import('./pages/LessonPage').then((module) => ({ d
 const Hsk79Page = lazy(() => import('./pages/Hsk79Page').then((module) => ({ default: module.Hsk79Page })));
 const CscaPage = lazy(() => import('./pages/CscaPage').then((module) => ({ default: module.CscaPage })));
 const CoursesPage = lazy(() => import('./pages/CoursesPage').then((module) => ({ default: module.CoursesPage })));
+const CurriculumHubPage = lazy(() => import('./pages/CurriculumHubPage').then((module) => ({ default: module.CurriculumHubPage })));
 const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage').then((module) => ({ default: module.LeaderboardPage })));
 const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ default: module.LoginPage })));
 const RegisterPage = lazy(() => import('./pages/RegisterPage').then((module) => ({ default: module.RegisterPage })));
 const TeacherPage = lazy(() => import('./pages/TeacherPage').then((module) => ({ default: module.TeacherPage })));
 const MePage = lazy(() => import('./pages/MePage').then((module) => ({ default: module.MePage })));
-const DiscoverPage = lazy(() => import('./pages/DiscoverPage').then((module) => ({ default: module.DiscoverPage })));
 const ChengyuHubPage = lazy(() => import('./pages/ChengyuHubPage').then((module) => ({ default: module.ChengyuHubPage })));
 const ChengyuDetailPage = lazy(() => import('./pages/ChengyuDetailPage').then((module) => ({ default: module.ChengyuDetailPage })));
 const TangPoetryHubPage = lazy(() => import('./pages/TangPoetryHubPage').then((module) => ({ default: module.TangPoetryHubPage })));
 const TangPoetryDetailPage = lazy(() => import('./pages/TangPoetryDetailPage').then((module) => ({ default: module.TangPoetryDetailPage })));
+const YctSeriesHubPage = lazy(() => import('./pages/YctSeriesHubPage').then((module) => ({ default: module.YctSeriesHubPage })));
 const YctHubPage = lazy(() => import('./pages/YctHubPage').then((module) => ({ default: module.YctHubPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.TermsPage })));
 const PrivacyPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.PrivacyPage })));
@@ -70,6 +71,9 @@ export const App: React.FC = () => {
               <Route path="/lesson/:lessonId/:mode" element={<LessonPage />} />
               <Route path="/lesson/:lessonId" element={<LessonPage />} />
 
+              {/* Hệ thống Giáo trình Chuẩn (Boya & YCT) */}
+              <Route path="/giao-trinh" element={<CurriculumHubPage />} />
+
               {/* Giáo trình Hán ngữ Boya */}
               <Route path="/boya" element={<BoyaHubPage />} />
               <Route path="/boya/so-cap-1" element={<BoyaPage />} />
@@ -84,15 +88,18 @@ export const App: React.FC = () => {
               <Route path="/hsk79" element={<Navigate to="/hsk/hsk7-9" replace />} />
               <Route path="/hsk79/*" element={<Hsk79Page />} />
               <Route path="/csca" element={<CscaPage />} />
-              <Route path="/kham-pha" element={<DiscoverPage />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc" element={<Navigate to="/kham-pha" replace />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc/*" element={<Navigate to="/kham-pha" replace />} />
+              <Route path="/kham-pha" element={<Navigate to="/" replace />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc" element={<Navigate to="/" replace />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc/*" element={<Navigate to="/" replace />} />
               <Route path="/kham-pha/thanh-ngu-dien-co" element={<ChengyuHubPage />} />
               <Route path="/kham-pha/thanh-ngu-dien-co/:id" element={<ChengyuDetailPage />} />
               <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
-              <Route path="/kham-pha/tho-duong/:id" element={<TangPoetryDetailPage />} />
-              <Route path="/kham-pha/yct" element={<YctHubPage />} />
-              <Route path="/kham-pha/yct/:tab" element={<YctHubPage />} />
+              {/* Giáo trình Tiếng Trung Thiếu Nhi YCT */}
+              <Route path="/yct" element={<YctSeriesHubPage />} />
+              <Route path="/yct/1" element={<YctHubPage />} />
+              <Route path="/yct/1/:tab" element={<YctHubPage />} />
+              <Route path="/kham-pha/yct" element={<Navigate to="/yct" replace />} />
+              <Route path="/kham-pha/yct/:tab" element={<Navigate to="/yct" replace />} />
               <Route path="/xep-hang" element={<LeaderboardPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />

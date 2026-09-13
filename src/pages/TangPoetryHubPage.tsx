@@ -74,11 +74,11 @@ export const TangPoetryHubPage: React.FC = () => {
         <div className="mx-auto max-w-5xl">
           {/* Back link */}
           <Link
-            to="/kham-pha"
+            to="/"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-200/90 transition-colors hover:text-white"
           >
             <ArrowLeft size={14} />
-            <span>Quay lại Khám phá</span>
+            <span>Về trang chủ</span>
           </Link>
 
           {/* Title Area */}

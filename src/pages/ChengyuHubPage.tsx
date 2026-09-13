@@ -56,13 +56,13 @@ export const ChengyuHubPage: React.FC = () => {
       {/* Top Breadcrumb & Header */}
       <div className="border-b border-line/60 bg-gradient-to-b from-[#380B16] via-[#5B1B25] to-[#7C2D37] px-4 pt-7 pb-10 text-white shadow-lg sm:px-8">
         <div className="mx-auto max-w-5xl">
-          {/* Back to Discover link */}
+          {/* Back to Home link */}
           <Link
-            to="/kham-pha"
+            to="/"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-200/90 transition-colors hover:text-white"
           >
             <ArrowLeft size={14} />
-            <span>Quay lại Khám phá</span>
+            <span>Về trang chủ</span>
           </Link>
 
           {/* Title Area */}

@@ -44,7 +44,7 @@ export const HomePage: React.FC = () => {
 
             {/* Headline */}
             <div className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black tracking-tight leading-snug mb-2">
-              泡菜学汉语 — Học Mỗi Ngày
+              泡菜学汉语 — Kim Chi Học Tiếng Trung
             </div>
             
             <p className="text-xs sm:text-[13.5px] text-white/80 font-normal leading-relaxed mb-4 max-w-xl">

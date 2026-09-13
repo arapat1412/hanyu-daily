@@ -513,11 +513,11 @@ export const DashboardPage: React.FC = () => {
                   </h2>
                 </div>
                 <Link to="/hsk" className="text-xs font-semibold text-slate-500 hover:text-sky-600 transition-colors">
-                  Khám phá toàn bộ →
+                  Xem tất cả →
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {/* Track 1: New HSK 3.0 (Tone Xanh da trời) */}
                 <Link
@@ -563,7 +563,29 @@ export const DashboardPage: React.FC = () => {
                   </div>
                 </Link>
 
-                {/* Track 3: HSK 7-9 & CSCA (Tone Lam tím học thuật) */}
+                {/* Track 3: Thiếu nhi YCT (Tone Vàng hổ phách ấm áp & sinh động) */}
+                <Link
+                  to="/yct"
+                  className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-amber-300 hover:shadow-amber-500/5 hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200/70 text-amber-600 font-display text-xl font-bold flex items-center justify-center mb-3.5 group-hover:scale-105 transition-transform">
+                      少
+                    </div>
+                    <div className="font-bold text-sm text-slate-900 group-hover:text-amber-600 transition-colors">
+                      Thiếu nhi YCT
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      Giáo trình chuẩn quốc tế cho thanh thiếu nhi từ YCT 1 đến 6.
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-700 group-hover:text-amber-600 transition-colors flex items-center justify-between">
+                    <span>YCT 1 – 6</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </Link>
+
+                {/* Track 4: HSK 7-9 & CSCA (Tone Lam tím học thuật) */}
                 <Link
                   to="/hsk/hsk7-9"
                   className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-indigo-300 hover:shadow-indigo-500/5 hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
@@ -586,51 +608,6 @@ export const DashboardPage: React.FC = () => {
                 </Link>
 
               </div>
-            </div>
-
-            {/* Khám phá & Trò chơi */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Link
-                to="/kham-pha/yct"
-                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-amber-300 hover:shadow-amber-500/5 transition-all flex items-center gap-4 group"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
-                  🐼
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-0.5">
-                    Góc Thiếu Nhi
-                  </div>
-                  <div className="text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
-                    Giáo trình Chuẩn YCT 1
-                  </div>
-                  <div className="text-xs text-slate-500 mt-0.5 truncate">
-                    80 từ vựng tranh vẽ, flashcard & trò chơi
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <Link
-                to="/kham-pha/thanh-ngu-dien-co"
-                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-sky-300 hover:shadow-sky-500/5 transition-all flex items-center gap-4 group"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
-                  📜
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs font-bold text-sky-600 uppercase tracking-wider mb-0.5">
-                    Kho tàng tri thức
-                  </div>
-                  <div className="text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
-                    Thành ngữ & Thơ Đường
-                  </div>
-                  <div className="text-xs text-slate-500 mt-0.5 truncate">
-                    Điển tích thành ngữ và thi ca kinh điển
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
 
           </div>

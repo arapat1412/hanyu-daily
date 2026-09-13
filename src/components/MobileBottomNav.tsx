@@ -1,16 +1,11 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Home, GraduationCap, BookOpen, Compass, User } from 'lucide-react';
+import { Home, GraduationCap, BookOpen, Sparkles, User } from 'lucide-react';
 import { useAuth } from '../lib/auth';
 
 export const MobileBottomNav: React.FC = () => {
   const location = useLocation();
   const { user } = useAuth();
-
-  // Hide bottom bar in full-screen interactive games or iframe players
-  if (location.pathname.startsWith('/kham-pha/van-hoa-trung-quoc/')) {
-    return null;
-  }
 
   const navItems = [
     {
@@ -32,10 +27,10 @@ export const MobileBottomNav: React.FC = () => {
       isActive: (path: string) => path.startsWith('/boya'),
     },
     {
-      label: 'Khám phá',
-      href: '/kham-pha',
-      icon: Compass,
-      isActive: (path: string) => path.startsWith('/kham-pha'),
+      label: 'YCT',
+      href: '/yct',
+      icon: Sparkles,
+      isActive: (path: string) => path.startsWith('/yct'),
     },
     {
       label: 'Của tôi',
