@@ -129,7 +129,9 @@ export const PwaInstallPrompt: React.FC = () => {
           </button>
 
           <div className="flex items-center gap-3 mb-4">
-            <img src="/gautruc.png" alt="Hanyu Daily" className="w-12 h-12 rounded-2xl shadow-md" />
+            <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200/80 p-0.5 shadow-md overflow-hidden flex items-center justify-center shrink-0">
+              <img src="/gautruc.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.35]" />
+            </div>
             <div>
               <h3 className="font-bold text-base text-stone-900">Cài đặt Hanyu Daily trên iPhone</h3>
               <p className="text-xs text-stone-500">Mở app toàn màn hình & học ngoại tuyến</p>
@@ -203,11 +205,13 @@ export const PwaInstallPrompt: React.FC = () => {
       >
         <div className="bg-white/95 backdrop-blur-md text-stone-800 p-3.5 rounded-2xl shadow-xl border border-stone-200/80 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <img
-              src="/icon-192.png"
-              alt="Hanyu Daily"
-              className="w-10 h-10 rounded-xl shadow-sm shrink-0"
-            />
+            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 p-0.5 shadow-xs overflow-hidden flex items-center justify-center shrink-0">
+              <img
+                src="/gautruc.png"
+                alt="Hanyu Daily"
+                className="w-full h-full object-cover scale-[1.35]"
+              />
+            </div>
             <div className="min-w-0">
               <p className="text-xs font-bold text-stone-900 truncate">Cài đặt Hanyu Daily</p>
               <p className="text-[11px] text-stone-500 truncate">Học mượt mà, mở tức thì & Offline</p>
