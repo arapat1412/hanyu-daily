@@ -306,3 +306,22 @@
   animation: shake 0.45s ease-in-out;
 }
 
+@keyframes bobaWiggle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1.15);
+  }
+  25% {
+    transform: translateY(-4px) rotate(-10deg) scale(1.22);
+  }
+  50% {
+    transform: translateY(-2px) rotate(8deg) scale(1.24);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-6deg) scale(1.2);
+  }
+}
+
+.animate-boba-wiggle {
+  animation: bobaWiggle 1.1s ease-in-out infinite;
+}
+

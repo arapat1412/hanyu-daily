@@ -789,21 +789,54 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             {/* Mời trà sữa ấm cúng */}
-            <div className="p-4.5 rounded-3xl bg-gradient-to-br from-pink-50/80 via-rose-50/50 to-amber-50/60 border border-pink-200/70 flex items-center justify-between gap-3 shadow-xs">
-              <div className="flex items-center gap-3 min-w-0">
-                <img src="/tra-sua-icon.png" alt="Trà sữa" className="w-11 h-11 object-contain shrink-0" />
+            <div
+              onClick={() => setBobaOpen(true)}
+              className="group relative overflow-hidden p-4 sm:p-4.5 rounded-3xl bg-gradient-to-br from-pink-50/90 via-rose-50/50 to-amber-50/60 border border-pink-200/80 hover:border-pink-300/90 flex items-center justify-between gap-3 shadow-xs hover:shadow-md hover:shadow-pink-500/15 transition-all duration-300 cursor-pointer"
+            >
+              {/* Hiệu ứng ánh sáng quét nhẹ qua thẻ khi hover */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 pointer-events-none" />
+
+              <div className="flex items-center gap-3 min-w-0 relative z-10">
+                {/* Ly trà sữa với hiệu ứng hover sống động */}
+                <div className="relative shrink-0 flex items-center justify-center">
+                  {/* Quầng sáng màu hồng ấm phía sau ly trà sữa */}
+                  <div className="absolute -inset-1.5 rounded-full bg-pink-400/25 blur-md opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 pointer-events-none" />
+
+                  {/* Icon lấp lánh & trái tim dễ thương bay lên khi hover */}
+                  <span className="pointer-events-none absolute -top-2 -right-1.5 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:-translate-y-1.5 animate-bounce">
+                    ✨
+                  </span>
+                  <span className="pointer-events-none absolute -top-2.5 -left-1.5 text-[11px] opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 group-hover:-translate-y-1">
+                    💖
+                  </span>
+
+                  <img
+                    src="/tra-sua-icon.png"
+                    alt="Trà sữa"
+                    className="relative w-11 h-11 object-contain transition-all duration-300 ease-out group-hover:animate-boba-wiggle drop-shadow-xs group-hover:drop-shadow-lg"
+                  />
+                </div>
+
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-slate-900">Mời cô giáo một ly trà sữa</div>
-                  <div className="text-[11px] text-pink-900/70 truncate">Ủng hộ máy chủ duy trì web</div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-pink-600 transition-colors">
+                    Mời cô giáo một ly trà sữa
+                  </div>
+                  <div className="text-[11px] text-pink-900/70 truncate">
+                    Ủng hộ máy chủ duy trì web
+                  </div>
                 </div>
               </div>
+
               <button
                 type="button"
-                onClick={() => setBobaOpen(true)}
-                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs shrink-0 cursor-pointer shadow-xs hover:shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-1"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setBobaOpen(true);
+                }}
+                className="relative z-10 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs shrink-0 cursor-pointer shadow-xs group-hover:shadow-md group-hover:scale-105 active:scale-95 transition-all flex items-center gap-1"
               >
                 <span>Mời</span>
-                <span>🧋</span>
+                <span className="group-hover:rotate-12 transition-transform duration-200">🧋</span>
               </button>
             </div>
 

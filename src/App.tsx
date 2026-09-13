@@ -96,8 +96,8 @@ export const App: React.FC = () => {
               <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
               {/* Giáo trình Tiếng Trung Thiếu Nhi YCT */}
               <Route path="/yct" element={<YctSeriesHubPage />} />
-              <Route path="/yct/1" element={<YctHubPage />} />
-              <Route path="/yct/1/:tab" element={<YctHubPage />} />
+              <Route path="/yct/:level" element={<YctHubPage />} />
+              <Route path="/yct/:level/:tab" element={<YctHubPage />} />
               <Route path="/kham-pha/yct" element={<Navigate to="/yct" replace />} />
               <Route path="/kham-pha/yct/:tab" element={<Navigate to="/yct" replace />} />
               <Route path="/xep-hang" element={<LeaderboardPage />} />

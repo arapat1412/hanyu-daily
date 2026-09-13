@@ -13,6 +13,7 @@ import {
 import { BOYA1_STATS } from '../data/boya1Data';
 import { BOYA2_STATS } from '../data/boya2Data';
 import { YCT1_WORDS } from '../data/yct1Data';
+import { YCT2_WORDS } from '../data/yct2Data';
 
 export const CurriculumHubPage: React.FC = () => {
   return (
@@ -163,7 +164,7 @@ export const CurriculumHubPage: React.FC = () => {
               <div className="mt-5 space-y-2">
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>YCT 1 sẵn sàng học ngay ({YCT1_WORDS.length} từ cốt lõi)</span>
+                  <span>YCT 1 & 2 sẵn sàng học ngay ({YCT1_WORDS.length + YCT2_WORDS.length} từ cốt lõi)</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />

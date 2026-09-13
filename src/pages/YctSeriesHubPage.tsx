@@ -17,6 +17,8 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { getYctProgress, YCT1_WORDS, YCT_PDF_RESOURCES } from '../data/yct1Data';
+import { getYct2Progress, YCT2_WORDS } from '../data/yct2Data';
+import { getYct3Progress, YCT3_WORDS } from '../data/yct3Data';
 
 export interface YctBookItem {
   id: string;
@@ -41,12 +43,18 @@ export interface YctBookItem {
   hanzi: string;
   hanziColor: string;
   coverGradient: string;
+  coverImage?: string;
   textbookUrl?: string;
   workbookUrl?: string;
 }
 
 export const YctSeriesHubPage: React.FC = () => {
-  const yctProgress = useMemo(() => getYctProgress(), []);
+  const yct1Progress = useMemo(() => getYctProgress(), []);
+  const yct2Progress = useMemo(() => getYct2Progress(), []);
+  const yct3Progress = useMemo(() => getYct3Progress(), []);
+  const totalLearnedWords = yct1Progress.learnedWordIds.length + yct2Progress.learnedWordIds.length + yct3Progress.learnedWordIds.length;
+  const totalWords = YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length;
+  const totalXp = yct1Progress.xp + yct2Progress.xp + yct3Progress.xp;
 
   // Danh sách 6 quyển trong bộ giáo trình chuẩn YCT (Youth Chinese Test)
   const yctSeries: YctBookItem[] = [
@@ -58,13 +66,13 @@ export const YctSeriesHubPage: React.FC = () => {
       edition: 'Tập 1 — Khởi đầu',
       levelBadge: 'Khởi đầu (A1)',
       targetAge: 'Trẻ 6–10 tuổi',
-      wordsCount: 80,
-      lessonsCount: '12 bài học · 8 chủ đề',
+      wordsCount: 129,
+      lessonsCount: '11 bài học · 10 chủ đề',
       status: 'ready',
-      description: 'Làm quen tiếng Trung qua tranh vẽ hoạt hình, 80 từ vựng cốt lõi, flashcard phát âm chuẩn và trò chơi nối từ.',
+      description: 'Làm quen tiếng Trung qua tranh vẽ hoạt hình, 129 từ vựng chuẩn theo 11 bài học SGK, flashcard phát âm chuẩn và trò chơi nối từ.',
       highlights: [
-        '80 từ vựng hoạt hình kèm audio',
-        'Luyện Flashcard & Tập viết chữ Hán',
+        '129 từ vựng hoạt hình kèm audio',
+        '11 bài học chuẩn SGK & 10 chủ đề',
         'Trò chơi nối từ 30s & Đố vui có thưởng',
         'Trọn bộ PDF Sách bài học & bài tập',
       ],
@@ -77,6 +85,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '幼',
       hanziColor: 'text-amber-600/15',
       coverGradient: 'from-amber-400 via-orange-500 to-rose-500',
+      coverImage: '/yct1.png',
       textbookUrl: YCT_PDF_RESOURCES[0]?.textbookUrl,
       workbookUrl: YCT_PDF_RESOURCES[0]?.workbookUrl,
     },
@@ -88,15 +97,16 @@ export const YctSeriesHubPage: React.FC = () => {
       edition: 'Tập 2 — Sơ cấp',
       levelBadge: 'Sơ cấp (A1+)',
       targetAge: 'Trẻ 7–11 tuổi',
-      wordsCount: 150,
-      lessonsCount: '12 bài học · Nghe hiểu',
-      status: 'upcoming',
-      badgeText: 'Sắp ra mắt',
-      description: 'Mở rộng lên 150 từ vựng, rèn luyện kỹ năng nghe hiểu câu ngắn và miêu tả tranh sinh động hàng ngày.',
+      wordsCount: 154,
+      lessonsCount: '10 bài học · 154 từ',
+      status: 'ready',
+      link: '/yct/2',
+      description: 'Mở rộng lên 154 từ vựng chuẩn quốc tế, 10 bài học giao tiếp đàm thoại sinh động, luyện Flashcard và đố vui.',
       highlights: [
-        '150 từ vựng & mẫu câu đàm thoại',
-        'Miêu tả tranh ảnh sinh động & nghe hiểu',
-        'Đã có sẵn PDF Sách học & bài tập chuẩn',
+        '154 từ vựng hoạt hình kèm audio',
+        'Luyện Flashcard & Tập viết chữ Hán',
+        'Trò chơi nối từ 30s & Đố vui có thưởng',
+        'Trọn bộ PDF Sách bài học & bài tập',
       ],
       cardBg: 'bg-gradient-to-br from-white via-emerald-50/40 to-teal-100/50',
       cardBorder: 'border-emerald-200/90 hover:border-emerald-400 hover:shadow-md hover:shadow-emerald-500/10',
@@ -106,6 +116,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '童',
       hanziColor: 'text-emerald-600/15',
       coverGradient: 'from-emerald-400 via-teal-500 to-cyan-600',
+      coverImage: '/yct2.png',
       textbookUrl: YCT_PDF_RESOURCES[1]?.textbookUrl,
       workbookUrl: YCT_PDF_RESOURCES[1]?.workbookUrl,
     },
@@ -117,15 +128,16 @@ export const YctSeriesHubPage: React.FC = () => {
       edition: 'Tập 3 — Tiền trung cấp',
       levelBadge: 'Tiền trung cấp (A2)',
       targetAge: 'Trẻ 8–12 tuổi',
-      wordsCount: 300,
-      lessonsCount: '12 bài học · Giao tiếp',
-      status: 'upcoming',
-      badgeText: 'Sắp ra mắt',
-      description: 'Tích lũy 300 từ vựng, tự tin giao tiếp chủ đề đời sống học đường, thầy cô, bạn bè và sinh hoạt gia đình.',
+      wordsCount: 335,
+      lessonsCount: '11 bài học · 20 chủ đề',
+      status: 'ready',
+      link: '/yct/3',
+      description: 'Mở rộng lên 335 từ vựng chuẩn quốc tế, 11 bài học SGK kết hợp 20 chủ đề toàn diện từ XieHanzi, luyện Flashcard và đố vui.',
       highlights: [
-        '300 từ vựng & cấu trúc ngữ pháp mở rộng',
-        'Giao tiếp tự nhiên môi trường học đường',
-        'Đã có sẵn PDF Sách học & bài tập chuẩn',
+        '335 từ vựng hoạt hình kèm audio & ví dụ',
+        '11 bài học SGK & 20 chủ đề phân loại',
+        'Trò chơi nối từ 30s & Đố vui nhận điểm sao',
+        'Trọn bộ PDF Sách bài học & bài tập',
       ],
       cardBg: 'bg-gradient-to-br from-white via-sky-50/40 to-blue-100/50',
       cardBorder: 'border-sky-200/90 hover:border-sky-400 hover:shadow-md hover:shadow-sky-500/10',
@@ -135,6 +147,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '学',
       hanziColor: 'text-sky-600/15',
       coverGradient: 'from-sky-400 via-blue-500 to-indigo-600',
+      coverImage: '/yct3.png',
       textbookUrl: YCT_PDF_RESOURCES[2]?.textbookUrl,
       workbookUrl: YCT_PDF_RESOURCES[2]?.workbookUrl,
     },
@@ -262,31 +275,31 @@ export const YctSeriesHubPage: React.FC = () => {
             </div>
 
             {/* Thẻ chỉ số nổi kính mờ */}
-            <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
-              <div className="flex items-center gap-3.5 px-4.5 py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-amber-950/10">
-                <div className="w-10 h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
-                  <BookOpen className="w-5 h-5" />
+            <div className="grid grid-cols-2 sm:flex items-center gap-2.5 sm:gap-3 w-full lg:w-auto shrink-0">
+              <div className="flex items-center gap-2.5 sm:gap-3.5 px-3 sm:px-4.5 py-3 sm:py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-amber-950/10">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <div className="text-base font-black text-white font-mono leading-none">
+                  <div className="text-sm sm:text-base font-black text-white font-mono leading-none">
                     6 Quyển
                   </div>
-                  <div className="text-[11px] text-amber-100 font-semibold mt-1">
+                  <div className="text-[10px] sm:text-[11px] text-amber-100 font-semibold mt-1">
                     Cấp độ 1 – 6
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 px-4.5 py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-amber-950/10">
-                <div className="w-10 h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
-                  <Star className="w-5 h-5 fill-yellow-300 text-yellow-300" />
+              <div className="flex items-center gap-2.5 sm:gap-3.5 px-3 sm:px-4.5 py-3 sm:py-3.5 rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-md shadow-amber-950/10">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/25 text-white flex items-center justify-center shrink-0">
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-300 text-yellow-300" />
                 </div>
                 <div>
-                  <div className="text-base font-black text-white font-mono leading-none">
-                    {yctProgress.learnedWordIds.length}/{YCT1_WORDS.length} từ
+                  <div className="text-sm sm:text-base font-black text-white font-mono leading-none">
+                    {totalLearnedWords}/{totalWords} từ
                   </div>
-                  <div className="text-[11px] text-amber-100 font-semibold mt-1">
-                    Tiến độ YCT 1 ({yctProgress.xp} sao)
+                  <div className="text-[10px] sm:text-[11px] text-amber-100 font-semibold mt-1 truncate">
+                    Tiến độ YCT ({totalXp} sao)
                   </div>
                 </div>
               </div>
@@ -298,14 +311,14 @@ export const YctSeriesHubPage: React.FC = () => {
         <div className="mb-7 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-white border border-amber-200/80 text-xs text-slate-600 shadow-2xs">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-bold text-slate-800">Dữ liệu YCT 1 đã hoàn tất số hóa</span>
+            <span className="font-bold text-slate-800">Dữ liệu YCT 1, YCT 2 & YCT 3 đã hoàn tất số hóa</span>
             <span className="text-slate-300">|</span>
             <span className="text-slate-600">Flashcard phát âm · Bút thuận · Trò chơi nối từ 30s · Đố vui</span>
           </div>
-          <span className="font-medium text-amber-700">
-            {yctProgress.learnedWordIds.length > 0
-              ? `Bé đã học thuộc ${yctProgress.learnedWordIds.length} từ trong YCT 1 🌟`
-              : 'Chọn YCT 1 bên dưới để cùng Gấu Trúc Pipi vào học nhé! 🐼'}
+          <span className="font-medium text-emerald-700">
+            {totalLearnedWords > 0
+              ? `Bé đã học thuộc ${totalLearnedWords} từ trong YCT 🌟`
+              : 'Chọn YCT 1, YCT 2 hoặc YCT 3 bên dưới để cùng vào học nhé! 🐼'}
           </span>
         </div>
 
@@ -322,7 +335,7 @@ export const YctSeriesHubPage: React.FC = () => {
               </span>
             </div>
             <span className="text-xs text-slate-500 font-medium">
-              YCT 1 sẵn sàng học ngay · YCT 2 đến 6 tải trước PDF
+              YCT 1, 2, 3 sẵn sàng học ngay · YCT 4 đến 6 tải trước PDF
             </span>
           </div>
 
@@ -350,91 +363,128 @@ export const YctSeriesHubPage: React.FC = () => {
                       {isReady ? (
                         <Link
                           to={book.link || '/yct/1'}
-                          className="group/cover block relative mb-4 overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 ring-1 ring-slate-900/10 aspect-[3/4] max-h-56 mx-auto cursor-pointer"
+                          className="group/cover block relative mb-4 overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ring-1 ring-slate-900/10 bg-white aspect-[3/4] max-h-56 mx-auto cursor-pointer"
                           title={`Mở ${book.title}`}
                         >
-                          <div
-                            className={`w-full h-full p-4 flex flex-col justify-between text-white bg-gradient-to-br ${book.coverGradient} relative`}
-                          >
-                            {/* Texture & decorative circles */}
-                            <div className="absolute top-2 right-2 w-20 h-20 bg-white/10 rounded-full blur-xs pointer-events-none" />
-                            <div className="absolute bottom-4 left-2 w-14 h-14 bg-white/10 rounded-full blur-xs pointer-events-none" />
-
-                            {/* Top header on book cover */}
-                            <div className="relative z-10 flex items-center justify-between">
-                              <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-black/20 backdrop-blur-xs">
-                                YCT 1
-                              </span>
-                              <span className="text-lg">🐼</span>
-                            </div>
-
-                            {/* Center Book Title on Cover */}
-                            <div className="relative z-10 my-auto text-center">
-                              <div className="font-display text-2xl font-black tracking-tight leading-none drop-shadow-sm">
-                                YCT 1
-                              </div>
-                              <div className="font-hanzi text-xs font-bold text-amber-100 mt-1">
-                                标准教程
-                              </div>
-                              <div className="text-[11px] font-bold text-white/90 mt-2 bg-black/15 py-1 px-2.5 rounded-full inline-block backdrop-blur-xs">
-                                80 Từ vựng cốt lõi
+                          {book.coverImage ? (
+                            <div className="w-full h-full relative overflow-hidden bg-white">
+                              <img
+                                src={book.coverImage}
+                                alt={book.title}
+                                className="w-full h-full object-cover object-center group-hover/cover:scale-105 transition-transform duration-300 block"
+                              />
+                              {/* Gáy sách hiệu ứng 3D */}
+                              <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/30 via-white/15 to-transparent" />
+                              
+                              {/* Bottom tag on cover */}
+                              <div className="absolute bottom-2 inset-x-0 z-10 flex justify-center">
+                                <span className="rounded-full bg-emerald-600/95 text-white text-[10.5px] font-bold px-3 py-0.5 shadow-md backdrop-blur-xs flex items-center gap-1.5 border border-white/20">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                                  <span>Sẵn sàng học ngay</span>
+                                </span>
                               </div>
                             </div>
+                          ) : (
+                            <div
+                              className={`w-full h-full p-4 flex flex-col justify-between text-white bg-gradient-to-br ${book.coverGradient} relative`}
+                            >
+                              {/* Texture & decorative circles */}
+                              <div className="absolute top-2 right-2 w-20 h-20 bg-white/10 rounded-full blur-xs pointer-events-none" />
+                              <div className="absolute bottom-4 left-2 w-14 h-14 bg-white/10 rounded-full blur-xs pointer-events-none" />
 
-                            {/* Gáy sách hiệu ứng 3D */}
-                            <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/35 via-white/15 to-transparent" />
+                              {/* Top header on book cover */}
+                              <div className="relative z-10 flex items-center justify-between">
+                                <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-black/20 backdrop-blur-xs">
+                                  YCT {book.level}
+                                </span>
+                                <span className="text-lg">🐼</span>
+                              </div>
 
-                            {/* Bottom tag on cover */}
-                            <div className="relative z-10 flex justify-center">
-                              <span className="rounded-full bg-emerald-600/95 text-white text-[10.5px] font-bold px-3 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
-                                <span>Sẵn sàng học ngay</span>
-                              </span>
+                              {/* Center Book Title on Cover */}
+                              <div className="relative z-10 my-auto text-center">
+                                <div className="font-display text-2xl font-black tracking-tight leading-none drop-shadow-sm">
+                                  YCT {book.level}
+                                </div>
+                                <div className="font-hanzi text-xs font-bold text-amber-100 mt-1">
+                                  标准教程
+                                </div>
+                                <div className="text-[11px] font-bold text-white/90 mt-2 bg-black/15 py-1 px-2.5 rounded-full inline-block backdrop-blur-xs">
+                                  {book.wordsCount} Từ vựng cốt lõi
+                                </div>
+                              </div>
+
+                              {/* Gáy sách hiệu ứng 3D */}
+                              <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/35 via-white/15 to-transparent" />
+
+                              {/* Bottom tag on cover */}
+                              <div className="relative z-10 flex justify-center">
+                                <span className="rounded-full bg-emerald-600/95 text-white text-[10.5px] font-bold px-3 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5">
+                                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                                  <span>Sẵn sàng học ngay</span>
+                                </span>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </Link>
                       ) : (
                         <div
                           className="relative mb-4 overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-900/10 aspect-[3/4] max-h-56 mx-auto opacity-90"
                           title={book.title}
                         >
-                          <div
-                            className={`w-full h-full p-4 flex flex-col justify-between text-white bg-gradient-to-br ${book.coverGradient} relative`}
-                          >
-                            <div className="absolute top-2 right-2 w-16 h-16 bg-white/10 rounded-full blur-xs pointer-events-none" />
-
-                            {/* Top header on book cover */}
-                            <div className="relative z-10 flex items-center justify-between">
-                              <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-black/20 backdrop-blur-xs">
-                                YCT {book.level}
-                              </span>
-                              <span className="text-lg">📚</span>
-                            </div>
-
-                            {/* Center Book Title on Cover */}
-                            <div className="relative z-10 my-auto text-center">
-                              <div className="font-display text-2xl font-black tracking-tight leading-none drop-shadow-sm">
-                                YCT {book.level}
-                              </div>
-                              <div className="font-hanzi text-xs font-bold text-white/80 mt-1">
-                                标准教程
-                              </div>
-                              <div className="text-[11px] font-semibold text-white/90 mt-2 bg-black/20 py-1 px-2.5 rounded-full inline-block backdrop-blur-xs">
-                                {book.wordsCount} Từ vựng
+                          {book.coverImage ? (
+                            <div className="w-full h-full relative overflow-hidden bg-white">
+                              <img
+                                src={book.coverImage}
+                                alt={book.title}
+                                className="w-full h-full object-cover block filter contrast-[0.95]"
+                              />
+                              <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/30 via-white/15 to-transparent" />
+                              <div className="absolute bottom-2 inset-x-0 z-10 flex justify-center">
+                                <span className="rounded-full bg-slate-900/80 text-white text-[10.5px] font-bold px-2.5 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5 border border-white/15">
+                                  <Clock className="h-3 w-3 text-amber-300" />
+                                  <span>{book.badgeText || 'Sắp ra mắt'}</span>
+                                </span>
                               </div>
                             </div>
+                          ) : (
+                            <div
+                              className={`w-full h-full p-4 flex flex-col justify-between text-white bg-gradient-to-br ${book.coverGradient} relative`}
+                            >
+                              <div className="absolute top-2 right-2 w-16 h-16 bg-white/10 rounded-full blur-xs pointer-events-none" />
 
-                            {/* Gáy sách hiệu ứng 3D */}
-                            <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/35 via-white/15 to-transparent" />
+                              {/* Top header on book cover */}
+                              <div className="relative z-10 flex items-center justify-between">
+                                <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-black/20 backdrop-blur-xs">
+                                  YCT {book.level}
+                                </span>
+                                <span className="text-lg">📚</span>
+                              </div>
 
-                            {/* Chip trạng thái đang biên soạn */}
-                            <div className="relative z-10 flex justify-center">
-                              <span className="rounded-full bg-slate-900/80 text-white text-[10.5px] font-bold px-2.5 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5 border border-white/15">
-                                <Clock className="h-3 w-3 text-amber-300" />
-                                <span>{book.badgeText || 'Sắp ra mắt'}</span>
-                              </span>
+                              {/* Center Book Title on Cover */}
+                              <div className="relative z-10 my-auto text-center">
+                                <div className="font-display text-2xl font-black tracking-tight leading-none drop-shadow-sm">
+                                  YCT {book.level}
+                                </div>
+                                <div className="font-hanzi text-xs font-bold text-white/80 mt-1">
+                                  标准教程
+                                </div>
+                                <div className="text-[11px] font-semibold text-white/90 mt-2 bg-black/20 py-1 px-2.5 rounded-full inline-block backdrop-blur-xs">
+                                  {book.wordsCount} Từ vựng
+                                </div>
+                              </div>
+
+                              {/* Gáy sách hiệu ứng 3D */}
+                              <div className="pointer-events-none absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/35 via-white/15 to-transparent" />
+
+                              {/* Chip trạng thái đang biên soạn */}
+                              <div className="relative z-10 flex justify-center">
+                                <span className="rounded-full bg-slate-900/80 text-white text-[10.5px] font-bold px-2.5 py-0.5 shadow-xs backdrop-blur-xs flex items-center gap-1.5 border border-white/15">
+                                  <Clock className="h-3 w-3 text-amber-300" />
+                                  <span>{book.badgeText || 'Sắp ra mắt'}</span>
+                                </span>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       )}
 

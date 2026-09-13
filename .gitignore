@@ -13,3 +13,6 @@ bundle_*.js
 # Logs and Vercel artifacts
 *.log
 .vercel
+
+# Scraper cached HTML
+scripts/cached_*/
