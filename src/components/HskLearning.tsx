@@ -230,6 +230,28 @@ export function LevelShell({
     </div>
   );
 }
+export function numberToChinese(num: number): string {
+  const digits = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+  if (num <= 0) return "零";
+  if (num < 10) return digits[num];
+  if (num < 20) return num === 10 ? "十" : `十${digits[num % 10]}`;
+  if (num < 100) {
+    const tens = Math.floor(num / 10);
+    const rem = num % 10;
+    return `${digits[tens]}十${rem > 0 ? digits[rem] : ""}`;
+  }
+  if (num < 1000) {
+    const hundreds = Math.floor(num / 100);
+    const remainder = num % 100;
+    if (remainder === 0) return `${digits[hundreds]}百`;
+    if (remainder < 10) return `${digits[hundreds]}百零${digits[remainder]}`;
+    const tens = Math.floor(remainder / 10);
+    const rem = remainder % 10;
+    return `${digits[hundreds]}百${digits[tens]}十${rem > 0 ? digits[rem] : ""}`;
+  }
+  return String(num);
+}
+
 export function VocabularyUnitCard({ lesson }: { lesson: Lesson }) {
   const progress = useProgress();
   const known = lesson.wordIds.filter((id) =>
@@ -240,39 +262,116 @@ export function VocabularyUnitCard({ lesson }: { lesson: Lesson }) {
   const filledStars = completed
     ? 3
     : Math.min(3, Math.floor((known / lesson.wordIds.length) * 3));
+  const percent = Math.round((known / lesson.wordIds.length) * 100);
+  const chineseNumeral = numberToChinese(lesson.number);
+  const startWordIndex = (lesson.number - 1) * 10 + 1;
+  const endWordIndex = startWordIndex + lesson.wordIds.length - 1;
+
   return (
     <Link
       to={`/lesson/${lesson.id}/list`}
       aria-label={`Mục ${lesson.number}, ${lesson.wordIds.length} từ, ${known} từ đã nhớ${bestScore === undefined ? "" : `, điểm cao nhất ${bestScore}%`}`}
-      className="group flex min-w-0 items-center gap-2.5 rounded-2xl border border-line bg-white p-3 shadow-xs transition-all hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-md"
+      className={`group relative flex min-w-0 flex-col justify-between overflow-hidden rounded-2xl border p-3.5 sm:p-4 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${
+        completed
+          ? "border-emerald-200/90 bg-gradient-to-br from-white via-white to-emerald-50/40 hover:border-emerald-400 hover:shadow-emerald-500/10"
+          : known > 0
+          ? "border-sky-200/90 bg-gradient-to-br from-white via-white to-sky-50/40 hover:border-sky-400 hover:shadow-sky-500/10"
+          : "border-slate-200/90 bg-white hover:border-sky-300 hover:shadow-sky-500/10"
+      }`}
     >
+      {/* Chữ Hán mờ nghệ thuật đằng sau */}
       <span
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-bold ${completed ? "bg-emerald-50 text-emerald-700" : "bg-tint text-brand"}`}
+        aria-hidden="true"
+        className={`pointer-events-none absolute -bottom-2 -right-1 font-hanzi font-black select-none leading-none transition-all duration-300 group-hover:scale-105 group-hover:rotate-[-2deg] ${
+          completed
+            ? "text-emerald-600/[0.12] group-hover:text-emerald-600/[0.18]"
+            : known > 0
+            ? "text-sky-600/[0.12] group-hover:text-sky-600/[0.18]"
+            : "text-slate-900/[0.06] group-hover:text-sky-600/[0.14]"
+        }`}
+        style={{
+          fontSize:
+            chineseNumeral.length === 1
+              ? "74px"
+              : chineseNumeral.length === 2
+              ? "56px"
+              : chineseNumeral.length === 3
+              ? "42px"
+              : "34px",
+        }}
       >
-        {completed ? <Check size={18} /> : lesson.number}
+        {chineseNumeral}
       </span>
-      <span className="min-w-0">
-        <strong className="block truncate text-sm text-ink">
-          Mục {lesson.number}
-        </strong>
-        <span className="block text-xs text-muted">
-          {lesson.wordIds.length} từ
-          {bestScore !== undefined && ` · ${bestScore}%`}
+
+      {/* Header: Badge số mục + Đánh giá sao */}
+      <div className="relative z-10 flex items-center justify-between gap-2 mb-2.5">
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs font-black shadow-xs transition-transform group-hover:scale-105 ${
+            completed
+              ? "bg-emerald-500 text-white shadow-emerald-500/25"
+              : known > 0
+              ? "bg-sky-500 text-white shadow-sky-500/25"
+              : "bg-slate-100 text-slate-700 border border-slate-200/80"
+          }`}
+        >
+          {completed ? <Check size={16} strokeWidth={3} /> : lesson.number}
         </span>
-      </span>
-      <span
-        className="ml-auto shrink-0 text-xs tracking-[-1px]"
-        aria-label={`${filledStars} trên 3 sao`}
-      >
-        {[0, 1, 2].map((star) => (
-          <span
-            key={star}
-            className={star < filledStars ? "text-gold" : "text-line"}
-          >
-            ★
+
+        <div
+          className="flex items-center gap-0.5 text-xs shrink-0"
+          aria-label={`${filledStars} trên 3 sao`}
+        >
+          {[0, 1, 2].map((star) => (
+            <span
+              key={star}
+              className={`text-xs ${
+                star < filledStars ? "text-amber-400 drop-shadow-2xs" : "text-slate-200"
+              }`}
+            >
+              ★
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Nội dung: Tiêu đề Mục + Phạm vi từ vựng */}
+      <div className="relative z-10 min-w-0">
+        <div className="flex items-baseline justify-between gap-1.5">
+          <strong className="block truncate text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+            Mục {lesson.number}
+          </strong>
+          {bestScore !== undefined && (
+            <span className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 shrink-0">
+              {bestScore}%
+            </span>
+          )}
+        </div>
+        <p className="mt-0.5 text-[11px] text-slate-500 truncate font-medium">
+          Từ {startWordIndex} – {endWordIndex} · {lesson.wordIds.length} từ
+        </p>
+      </div>
+
+      {/* Footer: Thanh tiến độ học */}
+      <div className="relative z-10 mt-3 pt-2 border-t border-slate-100">
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+          <div
+            className={`h-full rounded-full transition-all duration-300 ${
+              completed
+                ? "bg-emerald-500"
+                : known > 0
+                ? "bg-sky-500"
+                : "bg-transparent"
+            }`}
+            style={{ width: `${percent}%` }}
+          />
+        </div>
+        <div className="mt-1 flex items-center justify-between text-[10px] font-medium text-slate-400">
+          <span>{completed ? "Hoàn thành" : `${known}/${lesson.wordIds.length} từ`}</span>
+          <span className={percent > 0 ? "font-bold text-sky-600" : ""}>
+            {percent}%
           </span>
-        ))}
-      </span>
+        </div>
+      </div>
     </Link>
   );
 }

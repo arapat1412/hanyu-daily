@@ -283,7 +283,7 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
                 {data.lessons.length} mục
               </span>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {data.lessons.map((lesson) => (
                 <VocabularyUnitCard key={lesson.id} lesson={lesson} />
               ))}
