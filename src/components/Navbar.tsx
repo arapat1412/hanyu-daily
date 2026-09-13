@@ -124,7 +124,7 @@ export const Navbar: React.FC = () => {
                 Hanyu Daily
               </div>
               <div className="text-[10px] text-teal-700 font-bold uppercase tracking-wider hidden xs:block">
-                每日汉语 · Học mỗi ngày
+                泡菜学汉语 · Học mỗi ngày
               </div>
             </div>
           </Link>
@@ -252,7 +252,7 @@ export const Navbar: React.FC = () => {
                 <img src="/logo.png" alt="Hanyu Daily" className="w-8 h-8 rounded-xl shadow-xs" />
                 <div>
                   <h3 className="font-bold text-slate-900 text-sm">Hanyu Daily</h3>
-                  <p className="text-[11px] text-slate-500">每日汉语 · Học mỗi ngày</p>
+                  <p className="text-[11px] text-slate-500">泡菜学汉语 · Học mỗi ngày</p>
                 </div>
               </div>
               <button

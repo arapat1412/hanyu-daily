@@ -6,7 +6,7 @@ const DEFAULT_DESCRIPTION =
 
 function metadataFor(pathname: string) {
   if (pathname === "/")
-    return { title: "Hanyu Daily — 每日汉语 | Học tiếng Trung mỗi ngày", description: DEFAULT_DESCRIPTION };
+    return { title: "Hanyu Daily — 泡菜学汉语 | Học tiếng Trung mỗi ngày", description: DEFAULT_DESCRIPTION };
   if (pathname === "/hsk")
     return { title: "Lộ trình New HSK 3.0 | Hanyu Daily", description: "Khám phá lộ trình New HSK 3.0 từ cấp 1 đến cấp 9 với 11.000 từ vựng." };
   if (pathname === "/boya")
@@ -43,7 +43,7 @@ function metadataFor(pathname: string) {
     return { title: "Điều khoản dịch vụ | Hanyu Daily", description: "Điều khoản sử dụng website và dịch vụ học tiếng Trung Hanyu Daily." };
   if (pathname === "/chinh-sach-bao-mat")
     return { title: "Chính sách bảo mật | Hanyu Daily", description: "Thông tin về cách Hanyu Daily thu thập, sử dụng và bảo vệ dữ liệu người học." };
-  return { title: "Hanyu Daily — 每日汉语", description: DEFAULT_DESCRIPTION };
+  return { title: "Hanyu Daily — 泡菜学汉语", description: DEFAULT_DESCRIPTION };
 }
 
 function setMeta(selector: string, attributes: Record<string, string>) {

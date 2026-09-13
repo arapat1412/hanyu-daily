@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-lg font-bold text-white">Hanyu Daily</div>
-                  <div className="text-xs text-white/60">每日汉语 — Học mỗi ngày</div>
+                  <div className="text-xs text-white/60">泡菜学汉语 — Học mỗi ngày</div>
                 </div>
               </div>
               <p className="text-xs text-white/70 leading-relaxed">
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
           {/* Bottom copyright */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-4">
             <div>
-              © 2026 <span className="text-white/80 font-medium">Hanyu Daily</span> (每日汉语). Mọi quyền được bảo lưu.
+              © 2026 <span className="text-white/80 font-medium">Hanyu Daily</span> (泡菜学汉语). Mọi quyền được bảo lưu.
             </div>
             <div className="flex items-center gap-4">
               <Link to="/dieu-khoan" className="hover:text-white">Điều khoản dịch vụ</Link>
