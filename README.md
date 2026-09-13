@@ -15,7 +15,7 @@ Default development URL: `http://localhost:3005/hsk`. The host must serve `index
 
 ## Supabase accounts and deployment
 
-The account, score and leaderboard system uses Supabase Auth + Postgres. Learners register with only a username and a password of at least 6 characters; the app creates an internal, non-user-facing Auth email. The browser keeps a local progress cache for instant rendering and offline resilience, then debounces writes to Supabase. Passwords are handled only by Supabase Auth; they are never stored in the app database or source code.
+The account, score and leaderboard system uses Supabase Auth + Postgres. Learners register with only a username and a password of at least 6 characters; the app creates an internal, non-user-facing Auth email. The browser keeps a local progress cache for instant rendering and offline resilience, then debounces writes to Supabase. Passwords are handled only by Supabase Auth; they are never stored in the app database or source code. Leaderboard weeks run from Monday 00:00 through Sunday 23:59 in `Asia/Bangkok`; weekly XP and streaks are derived at query time so inactive rows expire without requiring a client sync.
 
 1. Create a Supabase project on the free plan.
 2. Open **SQL Editor**, then run every file in `supabase/migrations/` in filename order. The production-hardening migration removes direct client writes to leaderboard statistics and adds private feedback storage.
@@ -100,7 +100,7 @@ CVDICT-derived annotation data and its adaptations retain CC BY-SA 4.0. This doe
 - Search supports Hanzi, accent-insensitive pinyin and Vietnamese; filters and pagination keep rendering bounded. A review session snapshots the currently displayed page so results do not remove questions mid-session.
 - Flashcards record each word's latest rating once, finish correctly on the last card, and store words to revisit.
 - Practice: pinyin choice, Vietnamese meaning where available, listening, typed tone-marked pinyin. Homophones are excluded from listening distractors. Answer keys ignore spacing/case but preserve tones.
-- Quizzes show per-question feedback, totals and wrong-answer review. Only full-lesson attempts can update the lesson score; 80% is required for quiz completion. The separate manual completion button is explicitly self-reported. Best scores are retained; retrying only wrong answers cannot inflate a lesson score.
+- Quizzes show per-question feedback, totals and wrong-answer review. Only full-lesson assessment modes can update the lesson score; 80% is required for quiz completion. Sentence scramble and timed word matching are ungraded practice and never overwrite a lesson's best score. The separate manual completion button is explicitly self-reported. Best scores are retained; retrying only wrong answers cannot inflate a lesson score.
 - Storage is versioned and validated; reload and other-tab changes are supported. Supabase accounts require a unique username and a password of at least 6 characters. Auth sessions and password security are managed by Supabase. Progress and scores sync across devices, while a local cache keeps the UI fast. The online leaderboard derives XP from remembered words, completed sections and best full-test scores.
 
 ## Checks

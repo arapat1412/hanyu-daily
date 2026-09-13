@@ -125,6 +125,8 @@ export const HskReviewView: React.FC<HskReviewViewProps> = ({ data }) => {
       listening: 'Luyện Nghe',
       typing: 'Gõ Pinyin',
       cloze: 'Điền câu ví dụ',
+      scramble: 'Sắp xếp câu',
+      matching: 'Nối từ 30s',
     };
 
     return (

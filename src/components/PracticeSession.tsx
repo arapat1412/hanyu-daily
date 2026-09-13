@@ -1,16 +1,19 @@
 import { useState, useMemo } from "react";
 import { CheckCircle2, Volume2 } from "lucide-react";
-import { recordAnswer, speakChinese } from "../lib/hsk";
+import { recordAnswer, recordSkillPractice, speakChinese } from "../lib/hsk";
 import {
   buildQuestions,
   matchesPinyin,
   isMeaningEligible,
   isClozeEligible,
+  isSentenceScrambleEligible,
   maskVietnameseHint,
   type PracticeMode,
 } from "../lib/practice.mjs";
 import type { VocabularyWord } from "../types";
 import { EmptyState } from "./HskLearning";
+import { SentenceScramblePractice } from "./SentenceScramblePractice";
+import { WordMatchGame } from "./WordMatchGame";
 
 export function PracticeSession({
   words,
@@ -27,7 +30,7 @@ export function PracticeSession({
 }) {
   const [mode, setMode] = useState<PracticeMode>(initialMode);
   const initialQuestions = useMemo(() => {
-    if (autoStart && words.length > 0) {
+    if (autoStart && words.length > 0 && !["scramble", "matching"].includes(initialMode)) {
       return buildQuestions(words, pool, initialMode);
     }
     return [];
@@ -41,16 +44,37 @@ export function PracticeSession({
   const [checked, setChecked] = useState(false);
   const [results, setResults] = useState<boolean[]>([]);
   const [started, setStarted] = useState(
-    () => autoStart && initialQuestions.length > 0,
+    () => autoStart && (["scramble", "matching"].includes(initialMode) || initialQuestions.length > 0),
   );
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState(() =>
-    autoStart && words.length > 0 && initialQuestions.length === 0
+    autoStart && words.length > 0 && initialQuestions.length === 0 && !["scramble", "matching"].includes(initialMode)
       ? "Chưa đủ dữ liệu cho chế độ này. Hãy chọn luyện pinyin hoặc gõ pinyin."
       : "",
   );
   const [retryWrong, setRetryWrong] = useState(false);
   function start(onlyWrong = false) {
+    if (mode === "scramble") {
+      if (!words.some(isSentenceScrambleEligible)) {
+        setError("Chưa đủ câu ví dụ để luyện chế độ sắp xếp câu.");
+        return;
+      }
+      setStarted(true);
+      setFinished(false);
+      setError("");
+      return;
+    }
+    if (mode === "matching") {
+      if (words.filter((w) => !!w.hanzi && !!w.meaning).length < 5) {
+        setError("Cần ít nhất 5 từ vựng có nghĩa để kích hoạt nối từ 30s.");
+        return;
+      }
+      setStarted(true);
+      setFinished(false);
+      setError("");
+      return;
+    }
+
     const selected = onlyWrong
       ? questions.filter((_, i) => !results[i]).map((q) => q.word)
       : words;
@@ -115,6 +139,18 @@ export function PracticeSession({
                 "Điền câu ví dụ",
                 `${words.filter(isClozeEligible).length}/${words.length} từ có câu ngữ cảnh`,
               ],
+              [
+                "scramble",
+                "序",
+                "Sắp xếp câu",
+                `${words.filter(isSentenceScrambleEligible).length}/${words.length} từ có câu ví dụ`,
+              ],
+              [
+                "matching",
+                "连",
+                "Nối từ 30s Blitz",
+                `${words.filter((w) => !!w.hanzi && !!w.meaning).length} từ sẵn sàng thử thách phản xạ`,
+              ],
             ] as const
           ).map(([key, icon, label, detail]) => (
             <button
@@ -122,12 +158,14 @@ export function PracticeSession({
               aria-pressed={mode === key}
               disabled={
                 (key === "meaning" && !words.some(isMeaningEligible)) ||
-                (key === "cloze" && !words.some(isClozeEligible))
+                (key === "cloze" && !words.some(isClozeEligible)) ||
+                (key === "scramble" && !words.some(isSentenceScrambleEligible)) ||
+                (key === "matching" && words.filter((w) => !!w.hanzi && !!w.meaning).length < 5)
               }
               onClick={() => setMode(key)}
-              className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition disabled:opacity-40 ${
+              className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition disabled:opacity-40 cursor-pointer ${
                 mode === key ? "border-brand bg-tint" : "border-line hover:border-brand/40"
-              } ${key === "cloze" ? "sm:col-span-2" : ""}`}
+              } ${key === "matching" ? "sm:col-span-2" : ""}`}
             >
               <span className="font-hanzi text-3xl text-brand">{icon}</span>
               <span>
@@ -139,9 +177,10 @@ export function PracticeSession({
         </div>
         <p className="mb-5 text-xs leading-relaxed text-muted">
           Chọn nghĩa chỉ sử dụng mục đủ dữ liệu; loại các mục đồng tự chưa tách
-          nghĩa. Điền câu ví dụ yêu cầu từ có câu ngữ cảnh mẫu. Nghĩa CVDICT có hỗ
-          trợ dịch máy, dùng để tham khảo. Nghe yêu cầu thiết bị có giọng tiếng
-          Trung. Bài được hoàn thành khi kiểm tra toàn bộ từ và đạt ít nhất 80%.
+          nghĩa. Điền câu và sắp xếp câu yêu cầu từ có câu ngữ cảnh mẫu. Nối từ 30s
+          rèn luyện phản xạ nhanh với đồng hồ đếm ngược. Sắp xếp câu và nối từ là
+          chế độ luyện, không thay đổi điểm bài học. Các chế độ kiểm tra còn lại chỉ
+          hoàn thành bài khi kiểm tra toàn bộ từ và đạt ít nhất 80%.
         </p>
         {error && (
           <p role="alert" className="mb-3 text-sm text-red-700">
@@ -150,12 +189,37 @@ export function PracticeSession({
         )}
         <button
           onClick={() => start()}
-          className="w-full rounded-2xl bg-brand px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-brand-dark"
+          className="w-full rounded-2xl bg-brand px-5 py-3.5 font-bold text-white shadow-sm transition hover:bg-brand-dark cursor-pointer"
         >
           Bắt đầu luyện tập →
         </button>
       </div>
     );
+
+  if (started && mode === "scramble") {
+    return (
+      <SentenceScramblePractice
+        words={words}
+        onExit={() => {
+          setStarted(false);
+          setFinished(false);
+        }}
+      />
+    );
+  }
+
+  if (started && mode === "matching") {
+    return (
+      <WordMatchGame
+        words={words}
+        onExit={() => {
+          setStarted(false);
+          setFinished(false);
+        }}
+      />
+    );
+  }
+
   if (finished) {
     const score = Math.round(
       (results.filter(Boolean).length / questions.length) * 100,
@@ -241,10 +305,12 @@ export function PracticeSession({
   function next() {
     if (index === questions.length - 1) {
       setFinished(true);
+      const finalScore = Math.round(
+        (results.filter(Boolean).length / questions.length) * 100,
+      );
+      recordSkillPractice(mode, finalScore);
       if (!retryWrong && questions.length === words.length)
-        onComplete?.(
-          Math.round((results.filter(Boolean).length / questions.length) * 100),
-        );
+        onComplete?.(finalScore);
     } else {
       setIndex((i) => i + 1);
       setAnswer("");

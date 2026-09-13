@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useDeferredValue, useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Trophy,
@@ -46,7 +46,6 @@ const HSK_TABS = ["Tất cả", "HSK 1", "HSK 2", "HSK 3", "HSK 4", "HSK 5", "HS
 
 export const LeaderboardPage: React.FC = () => {
   const { user: currentUser, isAuthenticated } = useAuth();
-  const { users, loading, error, refresh } = useLeaderboard();
   const localProgress = useProgress();
   const localStats = useMemo(() => calculateProgressStats(localProgress), [localProgress]);
 
@@ -55,71 +54,59 @@ export const LeaderboardPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
+  const [page, setPage] = useState(0);
+  const deferredSearch = useDeferredValue(searchQuery);
+  const { users, totalCount, filteredCount, totalXp, highestStreak, loading, error, refresh } = useLeaderboard({
+    period: timeframe,
+    hsk: selectedHsk === "Tất cả" ? undefined : selectedHsk,
+    search: deferredSearch,
+    offset: page * 100,
+    includeCurrent: true,
+  });
 
-  // Sorting & Filtering
+  useEffect(() => setPage(0), [timeframe, selectedHsk, deferredSearch]);
+
+  // The database owns ordering and tie-breaking; supplemental rows only provide
+  // the signed-in learner's standing when it falls outside the current page.
   const sortedUsers = useMemo(() => {
-    const list = [...users].map((u) => ({
+    return [...users].map((u) => ({
       ...u,
       displayXp: timeframe === "weekly" ? (u.weeklyXp ?? 0) : (u.xp ?? 0),
-    }));
-
-    list.sort((a, b) => {
-      if (b.displayXp !== a.displayXp) {
-        return b.displayXp - a.displayXp;
-      }
-      return (b.streak ?? 0) - (a.streak ?? 0);
-    });
-
-    return list;
+    })).sort((a, b) => a.rank - b.rank);
   }, [users, timeframe]);
 
-  // Filtered by HSK & Search
-  const filteredUsers = useMemo(() => {
-    return sortedUsers.filter((u) => {
-      // HSK filter
-      if (selectedHsk !== "Tất cả") {
-        const normHsk = (u.hsk || "").toLowerCase().replace(/[-–—\s]/g, "");
-        const targetHsk = selectedHsk.toLowerCase().replace(/[-–—\s]/g, "");
-        if (!normHsk.includes(targetHsk)) return false;
-      }
-      // Search filter
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const matchName = (u.name || "").toLowerCase().includes(q);
-        const matchUsername = (u.username || "").toLowerCase().includes(q);
-        if (!matchName && !matchUsername) return false;
-      }
-      return true;
-    });
-  }, [sortedUsers, selectedHsk, searchQuery]);
+  const pageUsers = sortedUsers.filter((u) => !u.isSupplemental);
 
   // Top 3 from sorted list
-  const top1 = sortedUsers[0] || null;
-  const top2 = sortedUsers[1] || null;
-  const top3 = sortedUsers[2] || null;
+  const top1 = sortedUsers.find((u) => u.rank === 1) || null;
+  const top2 = sortedUsers.find((u) => u.rank === 2) || null;
+  const top3 = sortedUsers.find((u) => u.rank === 3) || null;
 
   // Overview stats
-  const totalLearners = users.length;
-  const highestStreak = useMemo(
-    () => (users.length ? Math.max(...users.map((u) => u.streak || 0)) : 0),
-    [users]
-  );
-  const totalSystemXp = useMemo(
-    () => users.reduce((acc, u) => acc + (timeframe === "weekly" ? u.weeklyXp || 0 : u.xp || 0), 0),
-    [users, timeframe]
-  );
+  const totalLearners = totalCount;
+  const totalSystemXp = totalXp;
 
   // Current user standing
-  const currentUserIndex = useMemo(() => {
-    if (!currentUser) return -1;
-    return sortedUsers.findIndex((u) => u.id === currentUser.id);
+  const currentUserData = useMemo(() => {
+    if (!currentUser) return null;
+    return sortedUsers.find((u) => u.id === currentUser.id) || null;
   }, [sortedUsers, currentUser]);
-
-  const currentUserData = currentUserIndex !== -1 ? sortedUsers[currentUserIndex] : null;
-  const nextRankUser = currentUserIndex > 0 ? sortedUsers[currentUserIndex - 1] : null;
+  const currentUserIndex = currentUserData ? currentUserData.rank - 1 : -1;
+  const nextRankUser = currentUserData
+    ? sortedUsers.find((u) => u.rank === currentUserData.rank - 1) || null
+    : null;
   const xpNeededForNextRank =
     nextRankUser && currentUserData
-      ? Math.max(1, (nextRankUser.displayXp || 0) - (currentUserData.displayXp || 0) + 1)
+      ? Math.max(
+          1,
+          (nextRankUser.displayXp || 0) -
+            (currentUserData.displayXp || 0) +
+            (currentUserData.streak > nextRankUser.streak ||
+            (currentUserData.streak === nextRankUser.streak &&
+              currentUserData.id.localeCompare(nextRankUser.id) < 0)
+              ? 0
+              : 1),
+        )
       : null;
 
   const handleManualRefresh = async () => {
@@ -133,10 +120,10 @@ export const LeaderboardPage: React.FC = () => {
   };
 
   // Determine if Podium should be shown: only when not searching and viewing "Tất cả", and we have at least 1 user
-  const isPodiumActive = selectedHsk === "Tất cả" && !searchQuery.trim() && sortedUsers.length > 0;
+  const isPodiumActive = selectedHsk === "Tất cả" && !searchQuery.trim() && pageUsers.length > 0;
 
   // Table items: if podium is active, skip top 3; otherwise show all filtered items
-  const tableUsers = isPodiumActive ? filteredUsers.slice(3) : filteredUsers;
+  const tableUsers = isPodiumActive ? pageUsers.filter((u) => u.rank > 3) : pageUsers;
 
   return (
     <div className="min-h-screen bg-page pb-24 selection:bg-brand/20 selection:text-brand-dark">
@@ -642,7 +629,7 @@ export const LeaderboardPage: React.FC = () => {
               <span>
                 {isPodiumActive
                   ? "Danh Sách Sĩ Tử (Hạng 4 trở đi)"
-                  : `Kết quả xếp hạng (${filteredUsers.length} học viên)`}
+                  : `Kết quả xếp hạng (${filteredCount} học viên)`}
               </span>
             </div>
             <div className="text-xs text-muted">
@@ -673,8 +660,7 @@ export const LeaderboardPage: React.FC = () => {
           ) : tableUsers.length > 0 ? (
             <div className="divide-y divide-line/60">
               {tableUsers.map((user) => {
-                // Find actual overall rank index in the full sorted list
-                const actualRank = sortedUsers.findIndex((u) => u.id === user.id) + 1;
+                const actualRank = user.rank;
                 const isCurrent = user.id === currentUser?.id;
 
                 return (
@@ -797,6 +783,31 @@ export const LeaderboardPage: React.FC = () => {
                   </Link>
                 </div>
               )}
+            </div>
+          )}
+          {filteredCount > 100 && (
+            <div className="flex items-center justify-between border-t border-line bg-cream/50 px-5 py-3 text-xs">
+              <span className="text-muted">
+                Trang {page + 1} / {Math.ceil(filteredCount / 100)}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled={page === 0 || loading}
+                  onClick={() => setPage((current) => Math.max(0, current - 1))}
+                  className="rounded-lg border border-line bg-white px-3 py-1.5 font-semibold text-ink-2 disabled:opacity-40"
+                >
+                  Trang trước
+                </button>
+                <button
+                  type="button"
+                  disabled={(page + 1) * 100 >= filteredCount || loading}
+                  onClick={() => setPage((current) => current + 1)}
+                  className="rounded-lg border border-line bg-white px-3 py-1.5 font-semibold text-ink-2 disabled:opacity-40"
+                >
+                  Trang sau
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -934,8 +945,8 @@ export const LeaderboardPage: React.FC = () => {
               <div className="rounded-2xl border border-line bg-cream/50 p-3.5">
                 <h4 className="font-bold text-brand">3. Chu kỳ làm mới Bảng Đua Top Tuần</h4>
                 <p className="mt-1 leading-relaxed text-muted">
-                  Bảng xếp hạng tuần tính điểm tích luỹ trong 7 ngày gần nhất và tự động làm mới vào đúng 00:00 sáng thứ
-                  Hai hàng tuần (GMT+7).
+                  Bảng xếp hạng tuần tính XP phát sinh từ 00:00 thứ Hai đến 23:59 Chủ Nhật và tự động mở kỳ mới vào
+                  00:00 sáng thứ Hai hàng tuần (GMT+7).
                 </p>
               </div>
             </div>

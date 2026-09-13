@@ -1,5 +1,5 @@
 import type { User } from "@supabase/supabase-js";
-import { useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   isSupabaseConfigured,
   supabase,
@@ -18,6 +18,7 @@ export interface AuthUser {
 }
 
 export interface LeaderboardEntry {
+  rank: number;
   id: string;
   name: string;
   username: string;
@@ -28,6 +29,31 @@ export interface LeaderboardEntry {
   streak: number;
   hsk: string;
   avatarUrl?: string;
+  cultureXp: number;
+  cultureWeeklyXp: number;
+  isSupplemental?: boolean;
+}
+
+export type LeaderboardPeriod = "weekly" | "overall";
+export type LeaderboardScope = "all" | "culture";
+
+export interface LeaderboardOptions {
+  period?: LeaderboardPeriod;
+  scope?: LeaderboardScope;
+  hsk?: string;
+  search?: string;
+  limit?: number;
+  offset?: number;
+  includeCurrent?: boolean;
+}
+
+interface LeaderboardResult {
+  users: LeaderboardEntry[];
+  totalCount: number;
+  filteredCount: number;
+  totalXp: number;
+  highestStreak: number;
+  error: string;
 }
 
 interface AuthSnapshot {
@@ -323,40 +349,145 @@ export async function uploadAvatar(file: File) {
     user: { ...currentUser, avatarUrl },
     error: "",
   });
-  void refreshLeaderboard();
+  window.dispatchEvent(new Event(PROGRESS_SYNCED_EVENT));
   return avatarUrl;
 }
 
-let leaderboardSnapshot: LeaderboardEntry[] = [];
-let leaderboardLoading = false;
-let leaderboardError = "";
-let leaderboardRevision = 0;
-const leaderboardSubscribers = new Set<() => void>();
-
-function emitLeaderboard() {
-  leaderboardRevision++;
-  leaderboardSubscribers.forEach((subscriber) => subscriber());
-}
-
-export async function refreshLeaderboard() {
+async function refreshLegacyLeaderboard(
+  options: LeaderboardOptions,
+  rpcError: string,
+): Promise<LeaderboardResult> {
   if (!supabase) {
-    leaderboardSnapshot = [];
-    leaderboardError = SUPABASE_CONFIGURATION_MESSAGE;
-    emitLeaderboard();
-    return;
+    return {
+      users: [],
+      totalCount: 0,
+      filteredCount: 0,
+      totalXp: 0,
+      highestStreak: 0,
+      error: SUPABASE_CONFIGURATION_MESSAGE,
+    };
   }
-  leaderboardLoading = true;
-  emitLeaderboard();
+
   const { data, error } = await supabase
     .from("public_leaderboard")
-    .select("user_id, display_name, username, avatar_url, xp, weekly_xp, completed, average_score, streak, hsk")
-    .order("xp", { ascending: false })
-    .limit(100);
-  leaderboardLoading = false;
-  leaderboardError = error?.message || "";
-  leaderboardSnapshot = error
-    ? leaderboardSnapshot
-    : (data || []).map((row) => ({
+    .select(
+      "user_id, display_name, username, avatar_url, xp, weekly_xp, completed, average_score, streak, hsk",
+    )
+    .limit(1000);
+
+  if (error) {
+    return {
+      users: [],
+      totalCount: 0,
+      filteredCount: 0,
+      totalXp: 0,
+      highestStreak: 0,
+      error: `${rpcError}; fallback: ${error.message}`,
+    };
+  }
+
+  // Compatibility path for projects that have not applied the new RPC yet.
+  // The legacy view has no culture-only columns, so that scope remains empty
+  // until the culture/scoring migrations are deployed instead of showing an
+  // incorrect ranking built from general XP.
+  if ((options.scope ?? "all") === "culture") {
+    return {
+      users: [],
+      totalCount: 0,
+      filteredCount: 0,
+      totalXp: 0,
+      highestStreak: 0,
+      error: "",
+    };
+  }
+
+  const period = options.period ?? "overall";
+  const normalizedHsk = options.hsk?.trim() || "";
+  const search = options.search?.trim().toLocaleLowerCase("vi") || "";
+  const limit = Math.min(100, Math.max(1, options.limit ?? 100));
+  const offset = Math.max(0, options.offset ?? 0);
+  const base = ((data as any[]) || [])
+    .map<LeaderboardEntry>((row: any) => ({
+      rank: 0,
+      id: row.user_id,
+      name: row.display_name,
+      username: row.username,
+      xp: Number(row.xp) || 0,
+      weeklyXp: Number(row.weekly_xp) || 0,
+      completed: Number(row.completed) || 0,
+      averageScore: Number(row.average_score) || 0,
+      streak: Number(row.streak) || 0,
+      hsk: row.hsk,
+      avatarUrl: row.avatar_url || undefined,
+      cultureXp: 0,
+      cultureWeeklyXp: 0,
+    }))
+    .filter((entry) => !normalizedHsk || entry.hsk === normalizedHsk)
+    .sort((first, second) => {
+      const firstXp = period === "weekly" ? first.weeklyXp : first.xp;
+      const secondXp = period === "weekly" ? second.weeklyXp : second.xp;
+      return secondXp - firstXp || second.streak - first.streak || first.id.localeCompare(second.id);
+    })
+    .map((entry, index) => ({ ...entry, rank: index + 1 }));
+  const matches = (entry: LeaderboardEntry) =>
+    !search ||
+    entry.name.toLocaleLowerCase("vi").includes(search) ||
+    entry.username.toLocaleLowerCase("vi").includes(search);
+  const matched = base.filter(matches);
+  const pageRows = matched.slice(offset, offset + limit);
+  const selected = new Map<string, LeaderboardEntry>(
+    pageRows.map((entry) => [entry.id, { ...entry, isSupplemental: false }]),
+  );
+
+  if (options.includeCurrent && authSnapshot.user) {
+    const current = base.find((entry) => entry.id === authSnapshot.user?.id);
+    const previous = current ? base.find((entry) => entry.rank === current.rank - 1) : undefined;
+    for (const entry of [current, previous]) {
+      if (entry && !selected.has(entry.id))
+        selected.set(entry.id, { ...entry, isSupplemental: true });
+    }
+  }
+  for (const entry of base.slice(0, 3)) {
+    if (!selected.has(entry.id))
+      selected.set(entry.id, { ...entry, isSupplemental: true });
+  }
+
+  return {
+    users: [...selected.values()].sort((first, second) => first.rank - second.rank),
+    totalCount: base.length,
+    filteredCount: matched.length,
+    totalXp: base.reduce(
+      (sum, entry) => sum + (period === "weekly" ? entry.weeklyXp : entry.xp),
+      0,
+    ),
+    highestStreak: base.reduce((highest, entry) => Math.max(highest, entry.streak), 0),
+    error: "",
+  };
+}
+
+export async function refreshLeaderboard(options: LeaderboardOptions = {}): Promise<LeaderboardResult> {
+  if (!supabase) {
+    return {
+      users: [] as LeaderboardEntry[],
+      totalCount: 0,
+      filteredCount: 0,
+      totalXp: 0,
+      highestStreak: 0,
+      error: SUPABASE_CONFIGURATION_MESSAGE,
+    };
+  }
+  const { data, error } = await supabase.rpc("get_public_leaderboard", {
+    p_period: options.period ?? "overall",
+    p_scope: options.scope ?? "all",
+    p_hsk: options.hsk || null,
+    p_search: options.search?.trim() || null,
+    p_limit: Math.min(100, Math.max(1, options.limit ?? 100)),
+    p_offset: Math.max(0, options.offset ?? 0),
+    p_include_current: options.includeCurrent ?? false,
+  });
+  if (error) return refreshLegacyLeaderboard(options, error.message);
+  const users: LeaderboardEntry[] = ((data as any[]) || []).map((row: any) => ({
+        rank: Number(row.rank),
         id: row.user_id,
         name: row.display_name,
         username: row.username,
@@ -367,24 +498,74 @@ export async function refreshLeaderboard() {
         streak: row.streak,
         hsk: row.hsk,
         avatarUrl: row.avatar_url || undefined,
+        cultureXp: row.culture_xp,
+        cultureWeeklyXp: row.culture_weekly_xp,
+        isSupplemental: row.is_supplemental,
       }));
-  emitLeaderboard();
-}
-
-function subscribeLeaderboard(subscriber: () => void) {
-  leaderboardSubscribers.add(subscriber);
-  if (leaderboardSubscribers.size === 1) void refreshLeaderboard();
-  return () => leaderboardSubscribers.delete(subscriber);
-}
-
-window.addEventListener(PROGRESS_SYNCED_EVENT, () => void refreshLeaderboard());
-
-export function useLeaderboard() {
-  useSyncExternalStore(subscribeLeaderboard, () => leaderboardRevision);
   return {
-    users: leaderboardSnapshot,
-    loading: leaderboardLoading,
-    error: leaderboardError,
-    refresh: refreshLeaderboard,
+    users,
+    totalCount: data?.length ? Number(data[0].total_count) : 0,
+    filteredCount: data?.length ? Number(data[0].filtered_count) : 0,
+    totalXp: data?.length ? Number(data[0].period_xp) : 0,
+    highestStreak: data?.length ? Number(data[0].highest_streak) : 0,
+    error: "",
+  };
+}
+
+export function useLeaderboard(options: LeaderboardOptions = {}) {
+  const period = options.period ?? "overall";
+  const scope = options.scope ?? "all";
+  const hsk = options.hsk || "";
+  const search = options.search?.trim() || "";
+  const limit = options.limit ?? 100;
+  const offset = options.offset ?? 0;
+  const includeCurrent = options.includeCurrent ?? false;
+  const [users, setUsers] = useState<LeaderboardEntry[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [filteredCount, setFilteredCount] = useState(0);
+  const [totalXp, setTotalXp] = useState(0);
+  const [highestStreak, setHighestStreak] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const requestRevision = useRef(0);
+
+  const refresh = useCallback(async () => {
+    const revision = ++requestRevision.current;
+    setLoading(true);
+    const result = await refreshLeaderboard({
+      period,
+      scope,
+      hsk,
+      search,
+      limit,
+      offset,
+      includeCurrent,
+    });
+    if (revision !== requestRevision.current) return;
+    setUsers(result.users);
+    setTotalCount(result.totalCount);
+    setFilteredCount(result.filteredCount);
+    setTotalXp(result.totalXp);
+    setHighestStreak(result.highestStreak);
+    setError(result.error);
+    setLoading(false);
+  }, [period, scope, hsk, search, limit, offset, includeCurrent]);
+
+  useEffect(() => {
+    void refresh();
+    const handleSync = () => void refresh();
+    window.addEventListener(PROGRESS_SYNCED_EVENT, handleSync);
+    return () => window.removeEventListener(PROGRESS_SYNCED_EVENT, handleSync);
+  }, [refresh]);
+
+  return {
+    users,
+    totalCount,
+    filteredCount,
+    totalXp,
+    highestStreak,
+    loading,
+    error,
+    refresh,
   };
 }

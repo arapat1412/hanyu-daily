@@ -16,9 +16,11 @@ import {
   LevelShell,
   WordCard,
 } from "../components/HskLearning";
-import { Headphones } from "lucide-react";
+import { Headphones, Zap, Sparkles } from "lucide-react";
 import { FlashcardModal } from "../components/FlashcardModal";
 import { HanziStrokeModal } from "../components/HanziStrokeModal";
+import { SentenceScrambleModal } from "../components/SentenceScrambleModal";
+import { WordMatchGameModal } from "../components/WordMatchGameModal";
 import { PracticeSession } from "../components/PracticeSession";
 import { useHandsFreePlayer } from "../lib/hands-free-context";
 import type { VocabularyWord } from "../types";
@@ -83,6 +85,8 @@ function LessonContent({
   );
   const vocabularyGroup = isVocabularyGroupLevel(data.code);
   const [flashOpen, setFlashOpen] = useState(mode === "journey");
+  const [scrambleOpen, setScrambleOpen] = useState(false);
+  const [matchOpen, setMatchOpen] = useState(false);
   const [stroke, setStroke] = useState<VocabularyWord | null>(null);
   const progress = useProgress();
   const { playWordList } = useHandsFreePlayer();
@@ -185,6 +189,25 @@ function LessonContent({
                 : `Đánh dấu đã học ${vocabularyGroup ? "mục" : "bài"}`}
             </button>
           </div>
+
+          <div className="mt-3 flex flex-wrap gap-2.5">
+            <button
+              type="button"
+              onClick={() => setMatchOpen(true)}
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-50 hover:bg-amber-100/80 border border-amber-300/80 px-4 py-2.5 text-xs font-bold text-amber-950 shadow-2xs transition-all active:scale-95 cursor-pointer"
+            >
+              <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
+              <span>Nối từ 30s Blitz</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setScrambleOpen(true)}
+              className="inline-flex items-center gap-2 rounded-xl bg-sky-50 hover:bg-sky-100/80 border border-sky-300/80 px-4 py-2.5 text-xs font-bold text-sky-950 shadow-2xs transition-all active:scale-95 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+              <span>Sắp xếp câu ví dụ</span>
+            </button>
+          </div>
           <p className="mt-2 text-xs text-muted">
             “Đánh dấu đã học {vocabularyGroup ? "mục" : "bài"}” là tự xác
             nhận, không phải kết quả kiểm tra.
@@ -252,6 +275,18 @@ function LessonContent({
         isOpen={!!stroke}
         word={stroke}
         onClose={() => setStroke(null)}
+      />
+      <SentenceScrambleModal
+        isOpen={scrambleOpen}
+        onClose={() => setScrambleOpen(false)}
+        words={words}
+        title={`Sắp xếp câu · ${data.code.toUpperCase()} Bài ${lesson.number}`}
+      />
+      <WordMatchGameModal
+        isOpen={matchOpen}
+        onClose={() => setMatchOpen(false)}
+        words={words}
+        title={`Nối từ 30s · ${data.code.toUpperCase()} Bài ${lesson.number}`}
       />
     </>
   );

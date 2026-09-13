@@ -11,7 +11,7 @@ import {
 import { VocabularyWord } from "../types";
 import HanziWriter from "hanzi-writer";
 import { useModalFocus } from "./HskLearning";
-import { speakChinese } from "../lib/hsk";
+import { recordSkillPractice, speakChinese } from "../lib/hsk";
 
 interface HanziStrokeModalProps {
   isOpen: boolean;
@@ -136,6 +136,7 @@ export const HanziStrokeModal: React.FC<HanziStrokeModalProps> = ({
       writerRef.current.quiz({
         onComplete: () => {
           setQuizFinished(true);
+          recordSkillPractice("hanzi", 100);
         },
       });
     }

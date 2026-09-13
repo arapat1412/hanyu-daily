@@ -13,15 +13,25 @@ import {
   Award,
   ChevronRight,
   Compass,
-  CheckCircle2
+  CheckCircle2,
+  Zap,
+  BellRing,
+  CalendarClock
 } from 'lucide-react';
 import { BobaTeaModal } from '../components/BobaTeaModal';
-import { useProgress, fetchWordsByIds } from '../lib/hsk';
+import {
+  useProgress,
+  fetchWordsByIds,
+  getDueSrsWordIds,
+  getSrsSummary,
+} from '../lib/hsk';
 import { submitFeedback, useAuth, useLeaderboard } from '../lib/auth';
 import { calculateProgressStats } from '../lib/progress-stats';
 import { VocabularyModal, type VocabularyTab } from '../components/VocabularyModal';
 import { FlashcardModal } from '../components/FlashcardModal';
 import { HanziStrokeModal } from '../components/HanziStrokeModal';
+import { SentenceScrambleModal } from '../components/SentenceScrambleModal';
+import { WordMatchGameModal } from '../components/WordMatchGameModal';
 import { SAMPLE_VOCABULARY } from '../data/sampleVocab';
 import type { VocabularyWord } from '../types';
 import { PandaWalking } from '../components/PandaWalking';
@@ -54,10 +64,13 @@ const FLOATING_HANZI = [
 export const DashboardPage: React.FC = () => {
   const progress = useProgress();
   const { user } = useAuth();
-  const { users: leaderboardUsers } = useLeaderboard();
+  const [leaderboardTab, setLeaderboardTab] = useState<'weekly' | 'overall'>('weekly');
+  const { users: leaderboardUsers } = useLeaderboard({ period: leaderboardTab, limit: 3 });
 
   const completedCount = Object.values(progress.lessons).filter((l) => l.completed).length;
   const stats = useMemo(() => calculateProgressStats(progress), [progress]);
+  const dueSrsWordIds = useMemo(() => getDueSrsWordIds(progress), [progress.srs]);
+  const srsSummary = useMemo(() => getSrsSummary(progress), [progress.srs]);
 
   // Modals state
   const [vocabModalOpen, setVocabModalOpen] = useState(false);
@@ -66,12 +79,18 @@ export const DashboardPage: React.FC = () => {
   const [flashcardOpen, setFlashcardOpen] = useState(false);
   const [flashcardWords, setFlashcardWords] = useState<VocabularyWord[]>([]);
   const [flashcardLoading, setFlashcardLoading] = useState(false);
+  const [flashcardTitle, setFlashcardTitle] = useState('Ôn tập Từ vựng Phản xạ');
 
   const [strokeWord, setStrokeWord] = useState<VocabularyWord | null>(null);
   const [bobaOpen, setBobaOpen] = useState(false);
 
-  // Leaderboard
-  const [leaderboardTab, setLeaderboardTab] = useState<'weekly' | 'overall'>('weekly');
+  const [scrambleOpen, setScrambleOpen] = useState(false);
+  const [scrambleWords, setScrambleWords] = useState<VocabularyWord[]>([]);
+  const [scrambleLoading, setScrambleLoading] = useState(false);
+
+  const [matchOpen, setMatchOpen] = useState(false);
+  const [matchWords, setMatchWords] = useState<VocabularyWord[]>([]);
+  const [matchLoading, setMatchLoading] = useState(false);
 
   // Feedback state
   const [feedback, setFeedback] = useState('');
@@ -84,8 +103,7 @@ export const DashboardPage: React.FC = () => {
       stars: leaderboardTab === 'weekly' ? item.weeklyXp : item.xp,
       avatar: item.avatarUrl || null,
     }))
-    .sort((first, second) => second.stars - first.stars)
-    .slice(0, 3);
+    .sort((first, second) => first.rank - second.rank);
 
   const handleOpenVocab = (tab: VocabularyTab) => {
     setVocabTab(tab);
@@ -93,6 +111,7 @@ export const DashboardPage: React.FC = () => {
   };
 
   const handleStartFlashcard = async () => {
+    setFlashcardTitle('Ôn tập Từ vựng Phản xạ');
     if (progress.bookmarks.length === 0) {
       setFlashcardWords(SAMPLE_VOCABULARY.hsk1 || []);
       setFlashcardOpen(true);
@@ -108,6 +127,61 @@ export const DashboardPage: React.FC = () => {
       setFlashcardOpen(true);
     } finally {
       setFlashcardLoading(false);
+    }
+  };
+
+  const handleStartDueReview = async () => {
+    if (dueSrsWordIds.length === 0) return;
+    setFlashcardLoading(true);
+    try {
+      const words = await fetchWordsByIds(dueSrsWordIds);
+      setFlashcardWords(words);
+      setFlashcardTitle(`Ôn tập SRS hôm nay · ${words.length} từ`);
+      setFlashcardOpen(true);
+    } catch {
+      setFlashcardWords([]);
+      setFlashcardTitle('Ôn tập SRS hôm nay');
+      setFlashcardOpen(true);
+    } finally {
+      setFlashcardLoading(false);
+    }
+  };
+
+  const handleStartSentenceScramble = async () => {
+    if (progress.bookmarks.length === 0) {
+      setScrambleWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setScrambleOpen(true);
+      return;
+    }
+    setScrambleLoading(true);
+    try {
+      const words = await fetchWordsByIds(progress.bookmarks);
+      setScrambleWords(words.length > 0 ? words : SAMPLE_VOCABULARY.hsk1 || []);
+      setScrambleOpen(true);
+    } catch {
+      setScrambleWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setScrambleOpen(true);
+    } finally {
+      setScrambleLoading(false);
+    }
+  };
+
+  const handleStartWordMatch = async () => {
+    if (progress.bookmarks.length === 0) {
+      setMatchWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setMatchOpen(true);
+      return;
+    }
+    setMatchLoading(true);
+    try {
+      const words = await fetchWordsByIds(progress.bookmarks);
+      setMatchWords(words.length >= 5 ? words : SAMPLE_VOCABULARY.hsk1 || []);
+      setMatchOpen(true);
+    } catch {
+      setMatchWords(SAMPLE_VOCABULARY.hsk1 || []);
+      setMatchOpen(true);
+    } finally {
+      setMatchLoading(false);
     }
   };
 
@@ -332,6 +406,52 @@ export const DashboardPage: React.FC = () => {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        <section className={`relative mb-8 overflow-hidden rounded-3xl border p-5 sm:p-6 shadow-sm ${
+          srsSummary.dueToday > 0
+            ? 'border-amber-200 bg-gradient-to-r from-amber-50 via-white to-sky-50'
+            : 'border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-sky-50'
+        }`}>
+          <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-sky-200/30 blur-3xl pointer-events-none" />
+          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3.5">
+              <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${
+                srsSummary.dueToday > 0
+                  ? 'bg-amber-100 text-amber-700'
+                  : 'bg-emerald-100 text-emerald-700'
+              }`}>
+                {srsSummary.dueToday > 0 ? <BellRing className="h-5 w-5" /> : <CheckCircle2 className="h-5 w-5" />}
+              </div>
+              <div>
+                <h2 className="font-display text-base font-black text-slate-900 sm:text-lg">
+                  {srsSummary.dueToday > 0
+                    ? `🔔 Hôm nay bạn có ${srsSummary.dueToday} từ cần ôn tập theo chu kỳ`
+                    : '🎉 Tuyệt vời! Bạn đã hoàn thành toàn bộ từ vựng cần ôn hôm nay.'}
+                </h2>
+                <p className="mt-1 max-w-2xl text-xs leading-relaxed text-slate-600 sm:text-sm">
+                  {srsSummary.dueToday > 0
+                    ? 'Ôn tập đúng thời điểm vàng giúp từ vựng khắc sâu vào trí nhớ dài hạn.'
+                    : 'Hãy học bài mới hoặc quay lại vào ngày mai!'}
+                </p>
+                <div className="mt-2 flex items-center gap-3 text-[11px] font-semibold text-slate-500">
+                  <span className="inline-flex items-center gap-1"><CalendarClock className="h-3.5 w-3.5" /> Đang học: {srsSummary.learning}</span>
+                  <span>Ghi nhớ sâu: {srsSummary.mastered}</span>
+                </div>
+              </div>
+            </div>
+            {srsSummary.dueToday > 0 && (
+              <button
+                type="button"
+                onClick={() => void handleStartDueReview()}
+                disabled={flashcardLoading}
+                className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-3 text-xs font-black text-white shadow-md shadow-amber-500/20 transition hover:from-amber-600 hover:to-orange-600 active:scale-95 disabled:opacity-60"
+              >
+                <BellRing className="h-4 w-4" />
+                {flashcardLoading ? 'Đang tải...' : `Ôn tập ngay (${srsSummary.dueToday} từ)`}
+              </button>
+            )}
           </div>
         </section>
 
@@ -591,6 +711,28 @@ export const DashboardPage: React.FC = () => {
                   <PenTool className="w-3.5 h-3.5 text-pink-500" />
                   <span>Tập viết chữ Hán ô Mễ</span>
                 </button>
+
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
+                  <button
+                    type="button"
+                    onClick={handleStartWordMatch}
+                    disabled={matchLoading}
+                    className="py-2.5 px-3 rounded-2xl bg-amber-50 hover:bg-amber-100/70 text-amber-900 font-bold text-xs transition-all active:scale-98 cursor-pointer border border-amber-200/80 flex items-center justify-center gap-1.5 shadow-2xs"
+                  >
+                    <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
+                    <span>{matchLoading ? 'Đang tải...' : 'Nối từ 30s'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleStartSentenceScramble}
+                    disabled={scrambleLoading}
+                    className="py-2.5 px-3 rounded-2xl bg-sky-50 hover:bg-sky-100/70 text-sky-900 font-bold text-xs transition-all active:scale-98 cursor-pointer border border-sky-200/80 flex items-center justify-center gap-1.5 shadow-2xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+                    <span>{scrambleLoading ? 'Đang tải...' : 'Sắp xếp câu'}</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -730,7 +872,7 @@ export const DashboardPage: React.FC = () => {
         isOpen={flashcardOpen}
         onClose={() => setFlashcardOpen(false)}
         words={flashcardWords}
-        title="Ôn tập Từ vựng Phản xạ"
+        title={flashcardTitle}
       />
 
       <HanziStrokeModal
@@ -742,6 +884,18 @@ export const DashboardPage: React.FC = () => {
       <BobaTeaModal
         isOpen={bobaOpen}
         onClose={() => setBobaOpen(false)}
+      />
+
+      <SentenceScrambleModal
+        isOpen={scrambleOpen}
+        onClose={() => setScrambleOpen(false)}
+        words={scrambleWords}
+      />
+
+      <WordMatchGameModal
+        isOpen={matchOpen}
+        onClose={() => setMatchOpen(false)}
+        words={matchWords}
       />
 
     </div>

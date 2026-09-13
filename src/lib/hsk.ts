@@ -16,7 +16,12 @@ import {
   getCurrentAccountId,
 } from "./auth";
 import { supabase } from "./supabase";
-
+import {
+  calculateNextSrsState,
+  createSrsCard,
+  type SrsCard,
+  type SrsRating,
+} from "./srs";
 export { manifest, enrichment };
 export type LevelCode = keyof typeof manifest.levels;
 export interface Lesson {
@@ -264,10 +269,28 @@ export interface ScoreAttempt {
   score: number;
   at: string;
 }
+export type SkillPracticeMode =
+  | "pinyin"
+  | "meaning"
+  | "listening"
+  | "typing"
+  | "cloze"
+  | "scramble"
+  | "matching"
+  | "handsFree"
+  | "hanzi";
+
+export interface SkillPracticeEvent {
+  id: string;
+  mode: SkillPracticeMode;
+  score?: number;
+  at: string;
+}
 export interface Progress {
   version: 1;
   bookmarks: string[];
   known: string[];
+  knownAt?: Record<string, string>;
   mistakes: string[];
   lessons: Record<
     string,
@@ -275,18 +298,24 @@ export interface Progress {
       completed: boolean;
       score?: number;
       scoreUpdatedAt?: string;
+      completedAt?: string;
       updatedAt: string;
     }
   >;
   attempts: ScoreAttempt[];
+  srs?: Record<string, SrsCard>;
+  practiceHistory?: SkillPracticeEvent[];
 }
 const empty: Progress = {
   version: 1,
   bookmarks: [],
   known: [],
+  knownAt: {},
   mistakes: [],
   lessons: {},
   attempts: [],
+  srs: {},
+  practiceHistory: [],
 };
 const baseStorageKey = "hsk30-learning-v1";
 function progressStorageKey() {
@@ -307,6 +336,20 @@ function parseProgress(value: any): Progress {
           ),
         ]
       : [];
+  const known = ids(value.known);
+  const knownSet = new Set(known);
+  const knownAt: Record<string, string> = {};
+  if (value.knownAt && typeof value.knownAt === "object") {
+    for (const [wordId, timestamp] of Object.entries(value.knownAt)) {
+      if (
+        /^(?:hsk30|meiday)-\d+$/.test(wordId) &&
+        typeof timestamp === "string" &&
+        Number.isFinite(Date.parse(timestamp))
+      ) {
+        knownAt[wordId] = timestamp;
+      }
+    }
+  }
   const lessons: Progress["lessons"] = {};
   if (value.lessons && typeof value.lessons === "object")
     for (const [key, entry] of Object.entries(value.lessons)) {
@@ -318,25 +361,93 @@ function parseProgress(value: any): Progress {
         typeof entry.completed === "boolean"
       ) {
         const item = entry as Progress["lessons"][string];
+        const updatedAt = typeof item.updatedAt === "string" ? item.updatedAt : "";
+        const explicitCompletedAt =
+          typeof item.completedAt === "string" && Number.isFinite(Date.parse(item.completedAt))
+            ? item.completedAt
+            : undefined;
         lessons[key] = {
           completed: item.completed,
-          updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : "",
+          updatedAt,
+          completedAt: item.completed
+            ? explicitCompletedAt || (Number.isFinite(Date.parse(updatedAt)) ? updatedAt : undefined)
+            : undefined,
           scoreUpdatedAt:
-            typeof item.scoreUpdatedAt === "string"
+            typeof item.scoreUpdatedAt === "string" &&
+            Number.isFinite(Date.parse(item.scoreUpdatedAt))
               ? item.scoreUpdatedAt
-              : undefined,
+              : typeof item.score === "number" && Number.isFinite(Date.parse(updatedAt))
+                ? updatedAt
+                : undefined,
           score:
             typeof item.score === "number" && item.score >= 0 && item.score <= 100
-              ? item.score
+              ? Math.round(item.score)
               : undefined,
         };
       }
     }
+  const srs: Record<string, SrsCard> = {};
+  if (value.srs && typeof value.srs === "object") {
+    for (const [wordId, entry] of Object.entries(value.srs)) {
+      if (!entry || typeof entry !== "object") continue;
+      const card = entry as Partial<SrsCard>;
+      const dueTime = typeof card.dueDate === "string" ? Date.parse(card.dueDate) : NaN;
+      const reviewedTime =
+        typeof card.lastReviewed === "string" ? Date.parse(card.lastReviewed) : NaN;
+      if (
+        card.wordId !== wordId ||
+        !Number.isInteger(card.repetition) ||
+        (card.repetition ?? -1) < 0 ||
+        !Number.isInteger(card.interval) ||
+        (card.interval ?? -1) < 0 ||
+        typeof card.easeFactor !== "number" ||
+        !Number.isFinite(card.easeFactor) ||
+        card.easeFactor < 1.3 ||
+        !Number.isFinite(dueTime) ||
+        !Number.isFinite(reviewedTime) ||
+        !Number.isInteger(card.lapses) ||
+        (card.lapses ?? -1) < 0
+      ) {
+        continue;
+      }
+      srs[wordId] = card as SrsCard;
+    }
+  }
+  const skillModes = new Set<SkillPracticeMode>([
+    "pinyin",
+    "meaning",
+    "listening",
+    "typing",
+    "cloze",
+    "scramble",
+    "matching",
+    "handsFree",
+    "hanzi",
+  ]);
+  const practiceHistory = Array.isArray(value.practiceHistory)
+    ? value.practiceHistory
+        .filter((entry: unknown): entry is SkillPracticeEvent => {
+          if (!entry || typeof entry !== "object") return false;
+          const item = entry as Partial<SkillPracticeEvent>;
+          return (
+            typeof item.id === "string" &&
+            item.id.length > 0 &&
+            typeof item.mode === "string" &&
+            skillModes.has(item.mode as SkillPracticeMode) &&
+            (item.score === undefined ||
+              (typeof item.score === "number" && item.score >= 0 && item.score <= 100)) &&
+            typeof item.at === "string" &&
+            Number.isFinite(Date.parse(item.at))
+          );
+        })
+        .slice(-500)
+    : [];
   return {
     version: 1,
     bookmarks: ids(value.bookmarks),
-    known: ids(value.known),
-    mistakes: ids(value.mistakes),
+    known,
+    knownAt,
+    mistakes: ids(value.mistakes).filter((id) => !knownSet.has(id)),
     lessons,
     attempts: Array.isArray(value.attempts)
       ? value.attempts
@@ -352,10 +463,17 @@ function parseProgress(value: any): Progress {
               attempt.score >= 0 &&
               attempt.score <= 100 &&
               "at" in attempt &&
-              typeof attempt.at === "string",
+              typeof attempt.at === "string" &&
+              Number.isFinite(Date.parse(attempt.at)),
           )
+          .map((attempt: ScoreAttempt) => ({
+            ...attempt,
+            score: Math.round(attempt.score),
+          }))
           .slice(-500)
       : [],
+    srs,
+    practiceHistory,
   };
 }
 
@@ -417,6 +535,12 @@ function mergeProgress(first: Progress, second: Progress): Progress {
       (current.score === undefined || candidate.score > current.score);
     lessons[id] = {
       completed: current.completed || candidate.completed,
+      completedAt:
+        current.completedAt && candidate.completedAt
+          ? Date.parse(current.completedAt) <= Date.parse(candidate.completedAt)
+            ? current.completedAt
+            : candidate.completedAt
+          : current.completedAt || candidate.completedAt,
       score:
         current.score === undefined
           ? candidate.score
@@ -444,13 +568,45 @@ function mergeProgress(first: Progress, second: Progress): Progress {
     )
     .sort((a, b) => Date.parse(a.at) - Date.parse(b.at))
     .slice(-500);
+  const srs: Record<string, SrsCard> = { ...(first.srs ?? {}) };
+  for (const [wordId, candidate] of Object.entries(second.srs ?? {})) {
+    const current = srs[wordId];
+    if (
+      !current ||
+      Date.parse(candidate.lastReviewed) > Date.parse(current.lastReviewed)
+    ) {
+      srs[wordId] = candidate;
+    }
+  }
+  const practiceHistory = [
+    ...(first.practiceHistory ?? []),
+    ...(second.practiceHistory ?? []),
+  ]
+    .filter(
+      (entry, index, all) =>
+        all.findIndex((candidate) => candidate.id === entry.id) === index,
+    )
+    .sort((firstEntry, secondEntry) => Date.parse(firstEntry.at) - Date.parse(secondEntry.at))
+    .slice(-500);
+  const known = [...new Set([...first.known, ...second.known])];
+  const knownSet = new Set(known);
+  const knownAt: Record<string, string> = { ...(first.knownAt ?? {}) };
+  for (const [wordId, candidate] of Object.entries(second.knownAt ?? {})) {
+    const current = knownAt[wordId];
+    if (!current || Date.parse(candidate) < Date.parse(current)) knownAt[wordId] = candidate;
+  }
   return {
     version: 1,
     bookmarks: [...new Set([...first.bookmarks, ...second.bookmarks])],
-    known: [...new Set([...first.known, ...second.known])],
-    mistakes: [...new Set([...first.mistakes, ...second.mistakes])],
+    known,
+    knownAt,
+    mistakes: [...new Set([...first.mistakes, ...second.mistakes])].filter(
+      (id) => !knownSet.has(id),
+    ),
     lessons,
     attempts,
+    srs,
+    practiceHistory,
   };
 }
 
@@ -541,42 +697,119 @@ export function toggleBookmark(id: string) {
   });
 }
 export function recordAnswer(id: string, correct: boolean) {
+  const now = new Date().toISOString();
   save({
     ...progress,
     known: correct
       ? [...new Set([...progress.known, id])]
       : progress.known.filter((item) => item !== id),
+    knownAt: correct
+      ? { ...(progress.knownAt ?? {}), [id]: progress.knownAt?.[id] || now }
+      : progress.knownAt,
     mistakes: correct
       ? progress.mistakes.filter((item) => item !== id)
       : [...new Set([...progress.mistakes, id])],
   });
 }
+export function recordSrsAnswer(wordId: string, rating: SrsRating): void {
+  const current = progress.srs?.[wordId] ?? createSrsCard(wordId);
+  const nextCard = calculateNextSrsState(current, rating);
+  save({
+    ...progress,
+    srs: { ...progress.srs, [wordId]: nextCard },
+    known:
+      rating >= 3
+        ? [...new Set([...progress.known, wordId])]
+        : progress.known.filter((id) => id !== wordId),
+    knownAt:
+      rating >= 3
+        ? {
+            ...(progress.knownAt ?? {}),
+            [wordId]: progress.knownAt?.[wordId] || nextCard.lastReviewed,
+          }
+        : progress.knownAt,
+    mistakes:
+      rating === 1
+        ? [...new Set([...progress.mistakes, wordId])]
+        : progress.mistakes.filter((id) => id !== wordId),
+  });
+}
+
+export function getDueSrsWordIds(
+  value: Progress,
+  now = new Date(),
+): string[] {
+  const nowTime = now.getTime();
+  return Object.values(value.srs ?? {})
+    .filter((card) => Date.parse(card.dueDate) <= nowTime)
+    .sort((first, second) => Date.parse(first.dueDate) - Date.parse(second.dueDate))
+    .map((card) => card.wordId);
+}
+
+export function getSrsSummary(value: Progress, now = new Date()) {
+  const cards = Object.values(value.srs ?? {});
+  const nowTime = now.getTime();
+  return {
+    dueToday: cards.filter((card) => Date.parse(card.dueDate) <= nowTime).length,
+    learning: cards.filter((card) => card.interval < 21).length,
+    mastered: cards.filter((card) => card.interval >= 21).length,
+  };
+}
+export function recordSkillPractice(
+  mode: SkillPracticeMode,
+  score?: number,
+): void {
+  const at = new Date().toISOString();
+  const id =
+    typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+      ? crypto.randomUUID()
+      : `${at}-${mode}-${Math.random().toString(36).slice(2)}`;
+  const event: SkillPracticeEvent = {
+    id,
+    mode,
+    at,
+    ...(typeof score === "number"
+      ? { score: Math.max(0, Math.min(100, Math.round(score))) }
+      : {}),
+  };
+  save({
+    ...progress,
+    practiceHistory: [...(progress.practiceHistory ?? []), event].slice(-500),
+  });
+}
 export function completeLesson(id: string, score?: number) {
   const previous = progress.lessons[id];
   const now = new Date().toISOString();
+  const normalizedScore =
+    typeof score === "number"
+      ? Math.max(0, Math.min(100, Math.round(score)))
+      : undefined;
   const improved =
-    score !== undefined &&
-    (previous?.score === undefined || score > previous.score);
+    normalizedScore !== undefined &&
+    (previous?.score === undefined || normalizedScore > previous.score);
+  const becomesCompleted =
+    !previous?.completed && (normalizedScore === undefined || normalizedScore >= 80);
   save({
     ...progress,
     lessons: {
       ...progress.lessons,
       [id]: {
         completed: Boolean(
-          previous?.completed || score === undefined || score >= 80,
+          previous?.completed || normalizedScore === undefined || normalizedScore >= 80,
         ),
+        completedAt: previous?.completedAt || (becomesCompleted ? now : undefined),
         score:
-          score === undefined
+          normalizedScore === undefined
             ? previous?.score
-            : Math.max(previous?.score || 0, score),
+            : Math.max(previous?.score || 0, normalizedScore),
         scoreUpdatedAt: improved ? now : previous?.scoreUpdatedAt,
         updatedAt: now,
       },
     },
     attempts:
-      score === undefined
+      normalizedScore === undefined
         ? progress.attempts
-        : [...progress.attempts, { lessonId: id, score, at: now }].slice(-500),
+        : [...progress.attempts, { lessonId: id, score: normalizedScore, at: now }].slice(-500),
   });
 }
 // Cache voices and prewarm SpeechSynthesis for iOS/Safari & Android

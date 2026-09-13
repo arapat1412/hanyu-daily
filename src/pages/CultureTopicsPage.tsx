@@ -7,9 +7,16 @@ import { syncAllCultureProgress } from "../lib/culture-progress";
 
 export const CultureTopicsPage: React.FC = () => {
   const { user } = useAuth();
-  const { users: leaderboardUsers } = useLeaderboard();
   const [showRankModal, setShowRankModal] = useState(false);
   const [rankTab, setRankTab] = useState<"weekly" | "overall">("weekly");
+  const [rankPage, setRankPage] = useState(0);
+  const { users: leaderboardUsers, totalCount: leaderboardTotal } = useLeaderboard({
+    period: rankTab,
+    scope: "culture",
+    offset: rankPage * 100,
+  });
+
+  useEffect(() => setRankPage(0), [rankTab]);
 
   // Read progress for all 7 topics
   const [revision, setRevision] = useState(0);
@@ -81,9 +88,20 @@ export const CultureTopicsPage: React.FC = () => {
           <div className="flex items-center gap-3 min-w-0">
             <Link
               to="/kham-pha"
-              className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-[11px] bg-[#D7EFFF] shadow-inner"
+              className="group flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-white/25 p-0.5 shadow-sm transition-transform hover:scale-105"
             >
-              <img src="/logo-meiday.png" alt="每" className="h-[82%] w-[82%] object-contain" />
+              <img
+                src="/logo.png"
+                alt="Hanyu Daily"
+                className="h-full w-full object-cover scale-[1.35]"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                  const parent = (e.target as HTMLElement).parentElement;
+                  if (parent) {
+                    parent.innerHTML = '<span class="font-display text-base font-black text-slate-800">汉</span>';
+                  }
+                }}
+              />
             </Link>
             <div className="leading-tight min-w-0 truncate">
               <div className="text-[11px] text-white/75 font-semibold">Game · 中国文化常识</div>
@@ -302,8 +320,8 @@ export const CultureTopicsPage: React.FC = () => {
 
             {/* List */}
             <div className="max-h-[50vh] divide-y divide-line/60 overflow-y-auto">
-              {leaderboardUsers.length > 0 ? (
-                leaderboardUsers.map((u, idx) => (
+              {leaderboardUsers.some((u) => !u.isSupplemental) ? (
+                leaderboardUsers.filter((u) => !u.isSupplemental).map((u) => (
                   <div
                     key={u.id}
                     className={`flex items-center justify-between py-2.5 px-2 text-xs ${
@@ -312,7 +330,7 @@ export const CultureTopicsPage: React.FC = () => {
                   >
                     <div className="flex items-center gap-3">
                       <span className="font-mono font-bold text-muted w-5 text-center">
-                        {idx + 1}
+                        {u.rank}
                       </span>
                       <span className="font-bold text-ink truncate max-w-[160px]">{u.name}</span>
                       {u.id === user?.id && (
@@ -322,7 +340,7 @@ export const CultureTopicsPage: React.FC = () => {
                       )}
                     </div>
                     <span className="font-mono font-bold text-brand">
-                      {(rankTab === "weekly" ? u.weeklyXp : u.xp).toLocaleString("vi-VN")} XP
+                      {(rankTab === "weekly" ? u.cultureWeeklyXp : u.cultureXp).toLocaleString("vi-VN")} XP
                     </span>
                   </div>
                 ))
@@ -332,6 +350,30 @@ export const CultureTopicsPage: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {leaderboardTotal > 100 && (
+              <div className="mt-4 flex items-center justify-between text-[11px] text-muted">
+                <span>Trang {rankPage + 1}/{Math.ceil(leaderboardTotal / 100)}</span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    disabled={rankPage === 0}
+                    onClick={() => setRankPage((page) => Math.max(0, page - 1))}
+                    className="rounded-lg border border-line px-2.5 py-1 disabled:opacity-40"
+                  >
+                    Trước
+                  </button>
+                  <button
+                    type="button"
+                    disabled={(rankPage + 1) * 100 >= leaderboardTotal}
+                    onClick={() => setRankPage((page) => page + 1)}
+                    className="rounded-lg border border-line px-2.5 py-1 disabled:opacity-40"
+                  >
+                    Sau
+                  </button>
+                </div>
+              </div>
+            )}
 
             <div className="mt-5">
               <Link

@@ -4,6 +4,7 @@ import { Sparkles, ArrowRight, Zap } from "lucide-react";
 import { CULTURE_TOPICS, getTopicProgress } from "../data/cultureTopics";
 import { CHENGYU_STORIES, getChengyuProgress } from "../data/chengyuStories";
 import { TANG_POEMS, getPoetryProgress } from "../data/tangPoems";
+import { YCT1_WORDS, getYctProgress } from "../data/yct1Data";
 
 export const DiscoverPage: React.FC = () => {
   // 1. Calculate overall game stats across all 7 topics
@@ -41,6 +42,15 @@ export const DiscoverPage: React.FC = () => {
     return { readCount, quizCount, total, percent, xp: prog.xp };
   }, []);
 
+  // 4. Calculate YCT stats
+  const yctStats = useMemo(() => {
+    const prog = getYctProgress();
+    const learnedCount = prog.learnedWordIds.length;
+    const total = YCT1_WORDS.length;
+    const percent = total > 0 ? Math.round((learnedCount / total) * 100) : 0;
+    return { learnedCount, total, percent, xp: prog.xp };
+  }, []);
+
   return (
     <div className="min-h-screen bg-cream pb-24 selection:bg-brand/20 selection:text-brand-dark">
       {/* Top Header Container */}
@@ -57,8 +67,8 @@ export const DiscoverPage: React.FC = () => {
           </p>
         </div>
 
-        {/* ================= 3 FEATURED HUBS GRID ================= */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ================= 4 FEATURED HUBS GRID ================= */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* 1. 1000 CÂU HỎI VĂN HÓA TRUNG QUỐC */}
           <Link
             to="/kham-pha/van-hoa-trung-quoc"
@@ -298,6 +308,87 @@ export const DiscoverPage: React.FC = () => {
 
               <span className="text-[11px] font-medium whitespace-nowrap text-white/85">
                 🌸 Thi họa & Dịch thơ
+              </span>
+            </div>
+          </Link>
+
+          {/* 4. GÓC THIẾU NHI · GIÁO TRÌNH CHUẨN YCT 1 */}
+          <Link
+            to="/kham-pha/yct"
+            className="group relative flex min-h-[245px] flex-col gap-3.5 overflow-hidden rounded-[24px] px-6 py-6 text-white no-underline shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            style={{
+              background: "linear-gradient(150deg,#D97706 0%,#C2410C 55%,#9A3412 100%)",
+              boxShadow: "0 12px 32px rgba(194,65,12,.35)",
+            }}
+          >
+            {/* Giant Chinese Character Watermark */}
+            <span
+              className="pointer-events-none absolute right-[-14px] bottom-[-34px] select-none font-hanzi text-[150px] font-black leading-[0.8] transition-transform duration-500 group-hover:scale-105"
+              style={{ color: "rgba(255,255,255,.09)" }}
+            >
+              幼
+            </span>
+
+            {/* Badge pill */}
+            <div className="relative flex items-center gap-2">
+              <span
+                className="w-fit rounded-full px-3 py-1.5 text-[11px] font-extrabold tracking-[0.08em] shadow-xs"
+                style={{ color: "#9A3412", background: "#FFF7ED" }}
+              >
+                少儿 · 80 TỪ CỐT LÕI
+              </span>
+              {yctStats.xp > 0 && (
+                <span className="flex items-center gap-1 rounded-full bg-amber-400/20 px-2.5 py-1 text-[11px] font-mono font-bold text-amber-300">
+                  <Zap className="h-3 w-3 fill-amber-300" />
+                  {yctStats.xp} XP
+                </span>
+              )}
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="relative">
+              <div className="font-hanzi text-xl font-black leading-tight text-white">
+                Góc Thiếu Nhi · YCT 1
+              </div>
+              <div className="mt-1.5 text-xs font-bold" style={{ color: "#FED7AA" }}>
+                YCT 标准教程 1 · Flashcard & Quiz
+              </div>
+            </div>
+
+            {/* Progress indicator if player started */}
+            {yctStats.learnedCount > 0 ? (
+              <div className="relative max-w-xs">
+                <div className="flex items-center justify-between text-[11px] text-white/80">
+                  <span>Tiến độ từ vựng</span>
+                  <span className="font-mono font-bold text-amber-300">
+                    {yctStats.learnedCount}/{yctStats.total} ({yctStats.percent}%)
+                  </span>
+                </div>
+                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/20">
+                  <div
+                    className="h-full rounded-full bg-amber-400 transition-all duration-500"
+                    style={{ width: `${yctStats.percent}%` }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="relative text-xs text-orange-100/80">
+                Chào hỏi, số đếm, gia đình, động vật, đồ ăn, sách PDF...
+              </div>
+            )}
+
+            {/* Bottom CTA Row */}
+            <div className="relative mt-auto flex items-end justify-between gap-2 pt-2">
+              <span
+                className="inline-flex items-center gap-1.5 rounded-[12px] px-4 py-2 text-[12.5px] font-extrabold whitespace-nowrap shadow-md transition-all group-hover:bg-amber-300"
+                style={{ background: "#F0C64C", color: "#40300A" }}
+              >
+                <span>{yctStats.learnedCount > 0 ? "▶ Tiếp tục" : "▶ Khám phá"}</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+
+              <span className="text-[11px] font-medium whitespace-nowrap text-white/85">
+                🐼 Tranh ảnh & PDF
               </span>
             </div>
           </Link>

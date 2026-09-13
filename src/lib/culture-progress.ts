@@ -18,6 +18,7 @@ async function persistCultureProgress(topic: CultureTopic) {
       done_count: Math.min(topic.totalLessons, progress.doneCount),
       xp: Math.min(topic.maxXp, progress.xp),
       weekly_xp: Math.min(topic.maxXp, progress.weeklyXp),
+      xp_events: progress.xpEvents,
       updated_at: new Date().toISOString(),
     },
     { onConflict: "user_id,topic_slug" },

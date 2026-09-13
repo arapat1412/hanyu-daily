@@ -31,6 +31,7 @@ const ChengyuHubPage = lazy(() => import('./pages/ChengyuHubPage').then((module)
 const ChengyuDetailPage = lazy(() => import('./pages/ChengyuDetailPage').then((module) => ({ default: module.ChengyuDetailPage })));
 const TangPoetryHubPage = lazy(() => import('./pages/TangPoetryHubPage').then((module) => ({ default: module.TangPoetryHubPage })));
 const TangPoetryDetailPage = lazy(() => import('./pages/TangPoetryDetailPage').then((module) => ({ default: module.TangPoetryDetailPage })));
+const YctHubPage = lazy(() => import('./pages/YctHubPage').then((module) => ({ default: module.YctHubPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.TermsPage })));
 const PrivacyPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.PrivacyPage })));
 
@@ -92,6 +93,8 @@ export const App: React.FC = () => {
               <Route path="/kham-pha/thanh-ngu-dien-co/:id" element={<ChengyuDetailPage />} />
               <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
               <Route path="/kham-pha/tho-duong/:id" element={<TangPoetryDetailPage />} />
+              <Route path="/kham-pha/yct" element={<YctHubPage />} />
+              <Route path="/kham-pha/yct/:tab" element={<YctHubPage />} />
               <Route path="/xep-hang" element={<LeaderboardPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />

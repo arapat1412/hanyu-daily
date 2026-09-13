@@ -134,26 +134,54 @@ export function getTopicBySlug(slug: string): CultureTopic | undefined {
   return CULTURE_TOPICS.find((t) => t.slug === slug);
 }
 
-export function getTopicProgress(storageKey: string): { doneCount: number; xp: number; weeklyXp: number } {
+export interface CultureXpEvent {
+  amount: number;
+  earnedAt: string;
+}
+
+export function getTopicProgress(storageKey: string): {
+  doneCount: number;
+  xp: number;
+  weeklyXp: number;
+  xpEvents: Record<string, CultureXpEvent>;
+} {
   try {
     const raw = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    const weekStart = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const now = new Date();
+    const bangkokNow = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+    const dayFromMonday = (bangkokNow.getUTCDay() + 6) % 7;
+    const weekStart = Date.UTC(
+      bangkokNow.getUTCFullYear(),
+      bangkokNow.getUTCMonth(),
+      bangkokNow.getUTCDate() - dayFromMonday,
+    ) - 7 * 60 * 60 * 1000;
+    const weekEnd = weekStart + 7 * 24 * 60 * 60 * 1000;
     const xpLog = raw.xpLog && typeof raw.xpLog === "object" ? raw.xpLog : {};
     const xpDates = raw.xpDates && typeof raw.xpDates === "object" ? raw.xpDates : {};
-    const weeklyXp = Object.entries(xpLog).reduce((sum, [key, amount]) => {
+    const xpEvents = Object.entries(xpLog).reduce<Record<string, CultureXpEvent>>((events, [key, amount]) => {
       const earnedAt = Date.parse(typeof xpDates[key] === "string" ? xpDates[key] : "");
-      return sum + (
-        typeof amount === "number" && amount > 0 && Number.isFinite(earnedAt) && earnedAt >= weekStart
-          ? amount
-          : 0
-      );
-    }, 0);
+      if (typeof amount === "number" && amount > 0 && Number.isFinite(earnedAt)) {
+        events[key] = { amount, earnedAt: new Date(earnedAt).toISOString() };
+      }
+      return events;
+    }, {});
+    const weeklyXp = Object.values(xpEvents).reduce(
+      (sum, event) => {
+        const earnedAt = Date.parse(event.earnedAt);
+        return sum +
+          (earnedAt >= weekStart && earnedAt < weekEnd && earnedAt <= now.getTime() + 5 * 60 * 1000
+            ? event.amount
+            : 0);
+      },
+      0,
+    );
     return {
       doneCount: Object.values(raw.done || {}).filter(Boolean).length,
       xp: typeof raw.xp === "number" ? raw.xp : 0,
       weeklyXp,
+      xpEvents,
     };
   } catch {
-    return { doneCount: 0, xp: 0, weeklyXp: 0 };
+    return { doneCount: 0, xp: 0, weeklyXp: 0, xpEvents: {} };
   }
 }

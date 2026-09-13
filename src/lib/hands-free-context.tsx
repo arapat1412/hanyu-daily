@@ -12,6 +12,7 @@ import {
   getBestChineseVoice,
   getBestVietnameseVoice,
   isAppleDevice,
+  recordSkillPractice,
 } from './hsk';
 
 export type PlaybackMode = 'zh_vi' | 'zh_only';
@@ -435,6 +436,7 @@ export const HandsFreePlayerProvider: React.FC<{ children: React.ReactNode }> = 
     (req: PlayListRequest) => {
       if (!req.words || req.words.length === 0) return;
 
+      recordSkillPractice('handsFree');
       cancelAll();
       setTitle(req.title || 'Luyện nghe rảnh tay');
       setRawWords(req.words);

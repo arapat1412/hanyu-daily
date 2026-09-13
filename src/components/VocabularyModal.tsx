@@ -15,6 +15,8 @@ import {
   Check,
   Download,
   Headphones,
+  Clock3,
+  Brain,
 } from "lucide-react";
 import type { VocabularyWord } from "../types";
 import {
@@ -24,12 +26,72 @@ import {
   speakChinese,
   fetchWordsByIds,
   normalizeSearch,
+  getDueSrsWordIds,
+  getSrsSummary,
 } from "../lib/hsk";
 import { HanziStrokeModal } from "./HanziStrokeModal";
 import { FlashcardModal } from "./FlashcardModal";
 import { useHandsFreePlayer } from "../lib/hands-free-context";
 
-export type VocabularyTab = "known" | "bookmarks" | "mistakes";
+export type VocabularyTab =
+  | "known"
+  | "bookmarks"
+  | "mistakes"
+  | "due"
+  | "learning"
+  | "mastered";
+
+const TAB_CONTENT: Record<VocabularyTab, { title: string; description: string; label: string; empty: string; exportName: string }> = {
+  known: {
+    title: "Từ vựng đã thuộc",
+    description: "Các từ vựng bạn đã trả lời chính xác khi luyện tập (+2 XP/từ)",
+    label: "Đã thuộc",
+    empty: "Chưa có từ vựng đã thuộc",
+    exportName: "da-thuoc",
+  },
+  bookmarks: {
+    title: "Từ vựng đã đánh dấu",
+    description: "Bộ sưu tập các từ vựng bạn đã đánh dấu để ghi nhớ đặc biệt",
+    label: "Đã đánh dấu",
+    empty: "Chưa có từ vựng được đánh dấu",
+    exportName: "da-luu",
+  },
+  mistakes: {
+    title: "Từ vựng cần ôn lại",
+    description: "Các từ từng làm sai, cần ôn tập thêm để nắm vững kiến thức",
+    label: "Cần ôn lại",
+    empty: "Không có từ vựng cần ôn lại",
+    exportName: "can-on-lai",
+  },
+  due: {
+    title: "Từ đến hạn hôm nay",
+    description: "Các thẻ đã đến thời điểm vàng để ôn lại theo chu kỳ SRS",
+    label: "Đến hạn",
+    empty: "Hôm nay không có thẻ SRS nào đến hạn",
+    exportName: "den-han-hom-nay",
+  },
+  learning: {
+    title: "Từ vựng đang học",
+    description: "Các thẻ SRS có khoảng cách ôn tập dưới 21 ngày",
+    label: "Đang học",
+    empty: "Chưa có từ vựng trong giai đoạn đang học",
+    exportName: "dang-hoc-srs",
+  },
+  mastered: {
+    title: "Từ vựng đã ghi nhớ sâu",
+    description: "Các thẻ SRS đã đạt khoảng cách ôn tập từ 21 ngày trở lên",
+    label: "Ghi nhớ sâu",
+    empty: "Chưa có từ vựng đạt mức ghi nhớ sâu",
+    exportName: "ghi-nho-sau",
+  },
+};
+
+function formatDueBadge(dueDate: string): string {
+  const difference = Date.parse(dueDate) - Date.now();
+  if (!Number.isFinite(difference) || difference <= 0) return "Đến hạn hôm nay";
+  const days = Math.max(1, Math.ceil(difference / (24 * 60 * 60 * 1000)));
+  return `Còn ${days} ngày`;
+}
 
 interface VocabularyModalProps {
   isOpen: boolean;
@@ -52,6 +114,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
   const [strokeWord, setStrokeWord] = useState<VocabularyWord | null>(null);
   const [isFlashcardOpen, setIsFlashcardOpen] = useState(false);
   const [audioError, setAudioError] = useState("");
+  const srsSummary = useMemo(() => getSrsSummary(progress), [progress.srs]);
 
   // Sync activeTab when initialTab changes on open
   useEffect(() => {
@@ -66,8 +129,19 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
   const activeIds = useMemo(() => {
     if (activeTab === "known") return progress.known;
     if (activeTab === "bookmarks") return progress.bookmarks;
-    return progress.mistakes;
-  }, [activeTab, progress.known, progress.bookmarks, progress.mistakes]);
+    if (activeTab === "mistakes") return progress.mistakes;
+    if (activeTab === "due") return getDueSrsWordIds(progress);
+    const cards = Object.values(progress.srs ?? {});
+    return cards
+      .filter((card) => activeTab === "learning" ? card.interval < 21 : card.interval >= 21)
+      .map((card) => card.wordId);
+  }, [
+    activeTab,
+    progress.known,
+    progress.bookmarks,
+    progress.mistakes,
+    progress.srs,
+  ]);
 
   // Fetch words details when activeIds changes or modal opens
   useEffect(() => {
@@ -136,15 +210,9 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
 
-    const tabNames: Record<VocabularyTab, string> = {
-      bookmarks: "da-luu",
-      mistakes: "can-on-lai",
-      known: "da-thuoc",
-    };
-
     const a = document.createElement("a");
     a.href = url;
-    a.download = `hanyu-tu-vung-${tabNames[activeTab] || activeTab}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `hanyu-tu-vung-${TAB_CONTENT[activeTab].exportName}-${new Date().toISOString().slice(0, 10)}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -182,17 +250,13 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
               <span>Kho Dữ Liệu Từ Vựng · 词汇库</span>
             </div>
             <h2 className="mt-1 font-display text-xl sm:text-2xl font-bold text-white">
-              {activeTab === "known" && "Từ vựng đã thuộc"}
-              {activeTab === "bookmarks" && "Từ vựng đã đánh dấu"}
-              {activeTab === "mistakes" && "Từ vựng cần ôn lại"}
+              {TAB_CONTENT[activeTab].title}
             </h2>
             <p className="mt-0.5 text-xs text-white/80">
-              {activeTab === "known" && "Các từ vựng bạn đã trả lời chính xác khi luyện tập (+2 XP/từ)"}
-              {activeTab === "bookmarks" && "Bộ sưu tập các từ vựng bạn đã đánh dấu để ghi nhớ đặc biệt"}
-              {activeTab === "mistakes" && "Các từ từng làm sai, cần ôn tập thêm để nắm vững kiến thức"}
+              {TAB_CONTENT[activeTab].description}
             </p>
 
-            {/* 3 Tab Switcher Buttons */}
+            {/* Legacy notebook and SRS filters */}
             <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none momentum-scroll overscroll-x-contain">
               <button
                 type="button"
@@ -253,6 +317,54 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
                   {progress.mistakes.length}
                 </span>
               </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("due")}
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
+                  activeTab === "due"
+                    ? "bg-white text-rose-800 shadow-md ring-2 ring-rose-300"
+                    : "bg-white/15 text-white hover:bg-white/25"
+                }`}
+              >
+                <Clock3 className="h-3.5 w-3.5" />
+                <span>Đến hạn</span>
+                <span className={`rounded-full px-1.5 text-[10px] font-mono font-bold ${activeTab === "due" ? "bg-rose-100 text-rose-800" : "bg-white/20"}`}>
+                  {srsSummary.dueToday}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("learning")}
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
+                  activeTab === "learning"
+                    ? "bg-white text-sky-800 shadow-md ring-2 ring-sky-300"
+                    : "bg-white/15 text-white hover:bg-white/25"
+                }`}
+              >
+                <Zap className="h-3.5 w-3.5" />
+                <span>Đang học</span>
+                <span className={`rounded-full px-1.5 text-[10px] font-mono font-bold ${activeTab === "learning" ? "bg-sky-100 text-sky-800" : "bg-white/20"}`}>
+                  {srsSummary.learning}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("mastered")}
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all whitespace-nowrap active:scale-95 touch-manipulation ${
+                  activeTab === "mastered"
+                    ? "bg-white text-indigo-800 shadow-md ring-2 ring-indigo-300"
+                    : "bg-white/15 text-white hover:bg-white/25"
+                }`}
+              >
+                <Brain className="h-3.5 w-3.5" />
+                <span>Ghi nhớ sâu</span>
+                <span className={`rounded-full px-1.5 text-[10px] font-mono font-bold ${activeTab === "mastered" ? "bg-indigo-100 text-indigo-800" : "bg-white/20"}`}>
+                  {srsSummary.mastered}
+                </span>
+              </button>
             </div>
           </div>
 
@@ -301,13 +413,8 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
                   <button
                     type="button"
                     onClick={() => {
-                      const tabLabels = {
-                        bookmarks: 'Từ đã lưu',
-                        mistakes: 'Cần ôn lại',
-                        known: 'Đã thuộc',
-                      };
                       playWordList({
-                        title: `Sổ tay: ${tabLabels[activeTab]} (${filteredWords.length} từ)`,
+                        title: `Sổ tay: ${TAB_CONTENT[activeTab].label} (${filteredWords.length} từ)`,
                         words: filteredWords,
                       });
                       onClose();
@@ -363,14 +470,13 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
                   {activeTab === "known" && "🌱"}
                   {activeTab === "bookmarks" && "⭐"}
                   {activeTab === "mistakes" && "🎉"}
+                  {activeTab === "due" && "⏰"}
+                  {activeTab === "learning" && "🌿"}
+                  {activeTab === "mastered" && "🧠"}
                 </div>
                 <h3 className="font-display text-base font-bold text-ink mb-1">
                   {words.length === 0
-                    ? activeTab === "known"
-                      ? "Chưa có từ vựng đã thuộc"
-                      : activeTab === "bookmarks"
-                      ? "Chưa có từ vựng được đánh dấu"
-                      : "Không có từ vựng cần ôn lại"
+                    ? TAB_CONTENT[activeTab].empty
                     : "Không tìm thấy từ phù hợp với bộ lọc"}
                 </h3>
                 <p className="text-xs text-muted max-w-sm mx-auto leading-relaxed mb-4">
@@ -379,7 +485,9 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
                       ? "Hãy tham gia luyện tập và làm bài tập HSK để mở khóa các từ vựng đã thuộc!"
                       : activeTab === "bookmarks"
                       ? "Bạn có thể bấm vào biểu tượng ngôi sao/bookmark ở các bài học để lưu từ quan trọng vào đây."
-                      : "Tuyệt vời! Hiện tại bạn không có từ nào bị trả lời sai cần khắc phục."
+                      : activeTab === "mistakes"
+                        ? "Tuyệt vời! Hiện tại bạn không có từ nào bị trả lời sai cần khắc phục."
+                        : "Hãy luyện Flashcard để hệ thống bắt đầu xây dựng lịch ôn tập phù hợp cho bạn."
                     : "Hãy thử đổi từ khóa tìm kiếm hoặc chọn lại cấp độ HSK khác."}
                 </p>
                 <a
@@ -396,6 +504,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
                   const isSaved = progress.bookmarks.includes(word.id);
                   const isKnown = progress.known.includes(word.id);
                   const isMistake = progress.mistakes.includes(word.id);
+                  const srsCard = progress.srs?.[word.id];
 
                   return (
                     <article
@@ -474,9 +583,21 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
 
                       {/* Bottom Footer Status row */}
                       <div className="mt-3 flex items-center justify-between border-t border-line/60 pt-2.5 text-[11px]">
-                        <span className="font-mono font-bold uppercase text-muted tracking-wider">
-                          {word.hskLevel ? word.hskLevel.toUpperCase() : "HSK"}
-                        </span>
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="font-mono font-bold uppercase text-muted tracking-wider">
+                            {word.hskLevel ? word.hskLevel.toUpperCase() : "HSK"}
+                          </span>
+                          {srsCard && (
+                            <span className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 font-semibold ${
+                              Date.parse(srsCard.dueDate) <= Date.now()
+                                ? "bg-rose-50 text-rose-700"
+                                : "bg-sky-50 text-sky-700"
+                            }`}>
+                              <Clock3 size={11} />
+                              {formatDueBadge(srsCard.dueDate)}
+                            </span>
+                          )}
+                        </div>
 
                         <div className="flex items-center gap-1.5">
                           {/* If in mistakes, allow marking as known */}
@@ -541,9 +662,7 @@ export const VocabularyModal: React.FC<VocabularyModalProps> = ({
         isOpen={isFlashcardOpen}
         onClose={() => setIsFlashcardOpen(false)}
         words={filteredWords}
-        title={`Luyện Flashcard · ${
-          activeTab === "known" ? "Từ đã thuộc" : activeTab === "bookmarks" ? "Từ đã đánh dấu" : "Từ cần ôn lại"
-        }`}
+        title={`Luyện Flashcard · ${TAB_CONTENT[activeTab].label}`}
       />
     </>
   );

@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Volume2, X } from "lucide-react";
 import type { VocabularyWord } from "../types";
-import { recordAnswer, speakChinese } from "../lib/hsk";
+import { recordSrsAnswer, speakChinese, useProgress } from "../lib/hsk";
+import {
+  createSrsCard,
+  previewNextIntervals,
+  type SrsRating,
+} from "../lib/srs";
 import { useModalFocus } from "./HskLearning";
 import ExampleSentence from "./ExampleSentence";
 
@@ -18,9 +23,10 @@ export function FlashcardModal({
 }) {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [ratings, setRatings] = useState<Record<string, boolean>>({});
+  const [ratings, setRatings] = useState<Record<string, SrsRating>>({});
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState("");
+  const progress = useProgress();
   const ref = useModalFocus(isOpen, onClose);
   useEffect(() => {
     if (isOpen) {
@@ -31,18 +37,33 @@ export function FlashcardModal({
       setError("");
     }
   }, [isOpen]);
-  if (!isOpen) return null;
   const word = words[Math.min(index, words.length - 1)];
-  const count = Object.values(ratings).filter(Boolean).length;
-  function rate(correct: boolean) {
-    setRatings((previous) => ({ ...previous, [word.id]: correct }));
-    recordAnswer(word.id, correct);
+  const count = Object.values(ratings).filter((rating) => rating >= 3).length;
+  const intervals = word
+    ? previewNextIntervals(progress.srs?.[word.id] ?? createSrsCard(word.id))
+    : null;
+  function rate(rating: SrsRating) {
+    if (!word) return;
+    setRatings((previous) => ({ ...previous, [word.id]: rating }));
+    recordSrsAnswer(word.id, rating);
     if (index >= words.length - 1) setFinished(true);
     else {
       setIndex((value) => value + 1);
       setFlipped(false);
     }
   }
+  useEffect(() => {
+    if (!isOpen || !flipped || finished || !word) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.repeat || !/^[1-4]$/.test(event.key)) return;
+      event.preventDefault();
+      rate(Number(event.key) as SrsRating);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, flipped, finished, word, index, words.length]);
+
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-sm animate-fadeIn">
       <div
@@ -156,7 +177,33 @@ export function FlashcardModal({
                 {error}
               </p>
             )}
-            <div className="flex items-center gap-2 sm:gap-2.5">
+            {flipped && intervals && (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {([
+                  [1, "Quên", intervals[1], "border-rose-300 bg-rose-50 text-rose-800 hover:bg-rose-100"],
+                  [2, "Khó", intervals[2], "border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100"],
+                  [3, "Nhớ tốt", intervals[3], "border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"],
+                  [4, "Rất dễ", intervals[4], "border-sky-300 bg-sky-50 text-sky-800 hover:bg-sky-100"],
+                ] as const).map(([rating, label, interval, color]) => (
+                  <button
+                    key={rating}
+                    type="button"
+                    onClick={() => rate(rating)}
+                    aria-label={`${rating}. ${label}, ôn lại sau ${interval}`}
+                    className={`min-h-[58px] rounded-2xl border py-2.5 px-2 text-sm font-bold shadow-2xs transition active:scale-95 touch-manipulation ${color}`}
+                  >
+                    <span className="block">{rating} · {label}</span>
+                    <span className="mt-0.5 block text-[11px] font-semibold opacity-75">{interval}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {!flipped && (
+              <p className="rounded-2xl bg-page px-4 py-3 text-center text-xs font-medium text-muted">
+                Lật thẻ để chọn mức độ ghi nhớ
+              </p>
+            )}
+            <div className="mt-2 flex items-center justify-between gap-2">
               <button
                 aria-label="Thẻ trước"
                 disabled={index === 0}
@@ -168,18 +215,9 @@ export function FlashcardModal({
               >
                 <ChevronLeft size={20} />
               </button>
-              <button
-                onClick={() => rate(false)}
-                className="flex-1 min-h-[48px] rounded-2xl bg-amber-50 hover:bg-amber-100 py-3 text-sm font-bold text-amber-900 shadow-2xs transition active:scale-95 touch-manipulation flex items-center justify-center"
-              >
-                Chưa nhớ
-              </button>
-              <button
-                onClick={() => rate(true)}
-                className="flex-1 min-h-[48px] rounded-2xl bg-emerald-600 hover:bg-emerald-700 py-3 text-sm font-bold text-white shadow-2xs transition active:scale-95 touch-manipulation flex items-center justify-center"
-              >
-                Đã nhớ
-              </button>
+              <span className="text-center text-[11px] font-medium text-muted">
+                {flipped ? "Phím tắt: 1 · 2 · 3 · 4" : "Dùng mũi tên để đổi thẻ"}
+              </span>
               <button
                 aria-label="Thẻ tiếp"
                 disabled={index === words.length - 1}

@@ -8,6 +8,10 @@ import {
   answerKey,
   isClozeEligible,
   maskVietnameseHint,
+  isSentenceScrambleEligible,
+  tokenizeChineseSentence,
+  buildSentenceScrambleQuestions,
+  buildWordMatchingPairs,
 } from "../src/lib/practice.mjs";
 const words = [
   {
@@ -199,5 +203,81 @@ test("maskVietnameseHint masks target hanzi, quotes, and pinyin in translation",
   assert.equal(maskVietnameseHint(null, "包子"), "");
   assert.equal(maskVietnameseHint(undefined, "包子"), "");
 });
+
+test("isSentenceScrambleEligible validates presence of valid chinese & vietnamese sentences", () => {
+  assert.ok(isSentenceScrambleEligible(words[0]));
+  assert.ok(isSentenceScrambleEligible(words[1]));
+  assert.ok(!isSentenceScrambleEligible(words[2])); // no exampleSentence
+  assert.ok(
+    !isSentenceScrambleEligible({
+      id: "9",
+      hanzi: "车",
+      exampleSentence: {
+        chinese: "车。",
+        vietnamese: "Xe.",
+      },
+    }),
+  ); // too short
+  assert.ok(
+    !isSentenceScrambleEligible({
+      id: "10",
+      hanzi: "白天",
+      exampleSentence: {
+        chinese: "你知道“白天”是什么意思吗？",
+        vietnamese: "Bạn có biết...",
+        source: "generated-template",
+      },
+    }),
+  ); // template fallback
+});
+
+test("tokenizeChineseSentence segments sentences into 4-7 meaningful chunks preserving punctuation & target word", () => {
+  const result1 = tokenizeChineseSentence("他是我的好朋友。", "朋友");
+  assert.equal(result1.punctuation, "。");
+  assert.equal(result1.fullSentence, "他是我的好朋友。");
+  assert.ok(result1.tokens.length >= 3 && result1.tokens.length <= 7);
+  assert.equal(result1.tokens.join(""), "他是我的好朋友");
+  // Target word preserved intact
+  assert.ok(result1.tokens.some((tok) => tok.includes("朋友")));
+
+  const result2 = tokenizeChineseSentence("明天我想去商店买很多好吃的零食！", "商店");
+  assert.equal(result2.punctuation, "！");
+  assert.ok(result2.tokens.length >= 4 && result2.tokens.length <= 7);
+  assert.equal(result2.tokens.join(""), "明天我想去商店买很多好吃的零食");
+  assert.ok(result2.tokens.some((tok) => tok.includes("商店")));
+});
+
+test("buildSentenceScrambleQuestions constructs solvable scrambled questions", () => {
+  const scrambleQuestions = buildSentenceScrambleQuestions(words, () => 0.4);
+  assert.equal(scrambleQuestions.length, 2);
+  for (const q of scrambleQuestions) {
+    assert.ok(q.tokens.length >= 3);
+    assert.equal(q.scrambledTokens.length, q.tokens.length);
+    assert.equal(
+      q.scrambledTokens.map((t) => t.text).sort().join(""),
+      q.tokens.slice().sort().join(""),
+    );
+    assert.equal(q.fullSentence, q.tokens.join("") + q.punctuation);
+    assert.ok(q.vietnamese.length > 0);
+  }
+});
+
+test("buildWordMatchingPairs generates matched and distinct pairs", () => {
+  const round = buildWordMatchingPairs(words, 3, () => 0.5);
+  assert.ok(round);
+  assert.equal(round.words.length, 3);
+  assert.equal(round.leftCards.length, 3);
+  assert.equal(round.rightCards.length, 3);
+
+  // Left cards are hanzi, right cards are meaning
+  assert.ok(round.leftCards.every((c) => c.type === "hanzi" && c.text.length > 0));
+  assert.ok(round.rightCards.every((c) => c.type === "meaning" && c.text.length > 0));
+
+  // Every wordId in left exists in right
+  const leftIds = round.leftCards.map((c) => c.wordId).sort();
+  const rightIds = round.rightCards.map((c) => c.wordId).sort();
+  assert.deepEqual(leftIds, rightIds);
+});
+
 
 

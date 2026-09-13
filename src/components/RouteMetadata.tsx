@@ -23,6 +23,8 @@ function metadataFor(pathname: string) {
     return { title: "300 Bài Thơ Đường Bất Hủ | Hanyu Daily", description: "Đắm mình trong thi họa cổ phong Đường thi, ngâm thơ chuẩn, bản dịch thơ kinh điển và thử thách thi ca." };
   if (pathname.startsWith("/kham-pha/thanh-ngu-dien-co"))
     return { title: "Điển Cố & Thành Ngữ Trung Hoa | Hanyu Daily", description: "Học thành ngữ tiếng Trung qua các câu chuyện ngụ ngôn và điển tích lịch sử kinh điển kèm mini quiz." };
+  if (pathname.startsWith("/kham-pha/yct"))
+    return { title: "Góc Thiếu Nhi · Giáo Trình Chuẩn YCT 1 | Hanyu Daily", description: "Học tiếng Trung thiếu nhi chuẩn YCT 1 với 80 từ vựng cốt lõi, flashcard lật 3D, mini quiz trắc nghiệm và tải trọn bộ sách PDF." };
   if (pathname === "/kham-pha" || pathname.startsWith("/kham-pha/"))
     return { title: "Khám phá văn hóa Trung Quốc | Hanyu Daily", description: "Học và chơi qua các chuyên đề lịch sử, văn học, nghệ thuật, khoa học và văn hóa Trung Quốc." };
   if (pathname === "/xep-hang")

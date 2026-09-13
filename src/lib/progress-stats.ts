@@ -23,6 +23,7 @@ export interface WeekDayInfo {
 
 interface ProgressLike {
   known?: unknown[];
+  knownAt?: Record<string, string>;
   bookmarks?: unknown[];
   mistakes?: unknown[];
   lessons?: Record<
@@ -32,6 +33,7 @@ interface ProgressLike {
       score?: number;
       updatedAt?: string;
       scoreUpdatedAt?: string;
+      completedAt?: string;
     }
   >;
   attempts?: Array<{
@@ -39,6 +41,32 @@ interface ProgressLike {
     score?: number;
     at?: string;
   }> | unknown[];
+}
+
+const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
+
+/** Start of the current Monday-Sunday leaderboard week in Asia/Bangkok. */
+export function bangkokWeekStart(baseDate: Date = new Date()): number {
+  const shifted = new Date(baseDate.getTime() + BANGKOK_OFFSET_MS);
+  const dayFromMonday = (shifted.getUTCDay() + 6) % 7;
+  const start = Date.UTC(
+    shifted.getUTCFullYear(),
+    shifted.getUTCMonth(),
+    shifted.getUTCDate() - dayFromMonday,
+  );
+  return start - BANGKOK_OFFSET_MS;
+}
+
+/** YYYY-MM-DD in Asia/Bangkok, independent of the learner's device timezone. */
+export function bangkokDateKey(value: string | number | Date = new Date()): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  const shifted = new Date(date.getTime() + BANGKOK_OFFSET_MS);
+  return [
+    shifted.getUTCFullYear(),
+    String(shifted.getUTCMonth() + 1).padStart(2, "0"),
+    String(shifted.getUTCDate()).padStart(2, "0"),
+  ].join("-");
 }
 
 /**
@@ -62,12 +90,12 @@ export function hasActivityOnDate(
 ): boolean {
   const activitySet =
     activityDaysInput instanceof Set ? activityDaysInput : new Set(activityDaysInput);
-  const key = localDateKey(date);
+  const key = bangkokDateKey(date);
   return Boolean(key && activitySet.has(key));
 }
 
 /**
- * Returns info for the 7 days of the current week (Monday to Sunday in local time)
+ * Returns the Monday-Sunday leaderboard week in Asia/Bangkok.
  */
 export function getWeekDays(
   activityDaysInput: Set<string> | string[] = [],
@@ -75,22 +103,14 @@ export function getWeekDays(
 ): WeekDayInfo[] {
   const activitySet =
     activityDaysInput instanceof Set ? activityDaysInput : new Set(activityDaysInput);
-  const todayKey = localDateKey(new Date());
-
-  // In JS Date: Sunday=0, Monday=1, ..., Saturday=6
-  // We want Monday as index 0 ... Sunday as index 6
-  const dayOfWeek = (baseDate.getDay() + 6) % 7;
-  const monday = new Date(
-    baseDate.getFullYear(),
-    baseDate.getMonth(),
-    baseDate.getDate() - dayOfWeek
-  );
+  const todayKey = bangkokDateKey(baseDate);
+  const mondayTime = bangkokWeekStart(baseDate);
   const labels = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
   const weekDays: WeekDayInfo[] = [];
   for (let i = 0; i < 7; i++) {
-    const date = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
-    const dateKey = localDateKey(date);
+    const date = new Date(mondayTime + i * 24 * 60 * 60 * 1000);
+    const dateKey = bangkokDateKey(date);
     const isToday = dateKey === todayKey;
     const isPast = dateKey < todayKey;
     const isFuture = dateKey > todayKey;
@@ -100,7 +120,7 @@ export function getWeekDays(
       date,
       dateKey,
       label: labels[i],
-      dayNumber: date.getDate(),
+      dayNumber: Number(dateKey.slice(-2)),
       isToday,
       isPast,
       isFuture,
@@ -113,29 +133,43 @@ export function getWeekDays(
 /**
  * Calculate comprehensive progress stats, activity days, and streaks
  */
-export function calculateProgressStats(value: ProgressLike = {}): ProgressStats {
+export function calculateProgressStats(
+  value: ProgressLike = {},
+  baseDate: Date = new Date(),
+): ProgressStats {
   const lessons =
     value.lessons && typeof value.lessons === "object"
       ? Object.entries(value.lessons)
       : [];
-  const known = Array.isArray(value.known) ? new Set(value.known).size : 0;
+  const knownIds = new Set(Array.isArray(value.known) ? value.known : []);
+  const known = knownIds.size;
   const completed = lessons.filter(([, entry]) => entry?.completed).length;
   const scored = lessons.filter(([, entry]) => typeof entry?.score === "number");
   const scoreTotal = scored.reduce((sum, [, entry]) => sum + (entry.score || 0), 0);
   const averageScore = scored.length ? Math.round(scoreTotal / scored.length) : 0;
-  const weekStart = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const weekStart = bangkokWeekStart(baseDate);
+  const weekEnd = weekStart + 7 * 24 * 60 * 60 * 1000;
+  const isInCurrentWeek = (timestamp: number) =>
+    Number.isFinite(timestamp) &&
+    timestamp >= weekStart &&
+    timestamp < weekEnd &&
+    timestamp <= baseDate.getTime() + 5 * 60 * 1000;
 
-  const weeklyXp = lessons.reduce((sum, [, entry]) => {
-    const completionActivity = Date.parse(entry?.updatedAt || "");
+  const weeklyKnownXp = Object.entries(value.knownAt ?? {}).reduce((sum, [id, at]) => {
+    if (!knownIds.has(id)) return sum;
+    return sum + (isInCurrentWeek(Date.parse(at)) ? 2 : 0);
+  }, 0);
+
+  const weeklyXp = weeklyKnownXp + lessons.reduce((sum, [, entry]) => {
+    const completionActivity = Date.parse(entry?.completedAt || "");
     const scoreActivity = Date.parse(entry?.scoreUpdatedAt || entry?.updatedAt || "");
     return (
       sum +
-      (entry?.completed && Number.isFinite(completionActivity) && completionActivity >= weekStart
+      (entry?.completed && isInCurrentWeek(completionActivity)
         ? 25
         : 0) +
       (typeof entry?.score === "number" &&
-      Number.isFinite(scoreActivity) &&
-      scoreActivity >= weekStart
+      isInCurrentWeek(scoreActivity)
         ? entry.score
         : 0)
     );
@@ -143,6 +177,10 @@ export function calculateProgressStats(value: ProgressLike = {}): ProgressStats 
 
   // 1. Aggregate activity days from BOTH lessons (updatedAt, scoreUpdatedAt) AND quiz attempts (at)
   const rawDates: string[] = [];
+
+  for (const at of Object.values(value.knownAt ?? {})) {
+    if (typeof at === "string") rawDates.push(at);
+  }
 
   for (const [, entry] of lessons) {
     if (entry?.updatedAt && typeof entry.updatedAt === "string") {
@@ -168,25 +206,25 @@ export function calculateProgressStats(value: ProgressLike = {}): ProgressStats 
   const activityDaysSet = new Set(
     rawDates
       .filter((dateStr) => !Number.isNaN(Date.parse(dateStr)))
-      .map((dateStr) => localDateKey(dateStr))
+      .map((dateStr) => bangkokDateKey(dateStr))
       .filter(Boolean)
   );
 
   // 2. Streak calculation
-  const today = new Date();
-  const todayKey = localDateKey(today);
+  const today = new Date(baseDate);
+  const todayKey = bangkokDateKey(today);
   const hasStudiedToday = activityDaysSet.has(todayKey);
 
-  const cursor = new Date(today);
+  let cursorTime = Date.parse(`${todayKey}T12:00:00+07:00`);
   // If not studied today yet, evaluate streak continuity starting from yesterday
   if (!hasStudiedToday) {
-    cursor.setDate(cursor.getDate() - 1);
+    cursorTime -= 24 * 60 * 60 * 1000;
   }
 
   let streak = 0;
-  while (activityDaysSet.has(localDateKey(cursor))) {
+  while (activityDaysSet.has(bangkokDateKey(cursorTime))) {
     streak++;
-    cursor.setDate(cursor.getDate() - 1);
+    cursorTime -= 24 * 60 * 60 * 1000;
   }
 
   // 3. Today's practice count
@@ -198,14 +236,14 @@ export function calculateProgressStats(value: ProgressLike = {}): ProgressStats 
       "at" in attempt &&
       typeof (attempt as { at?: unknown }).at === "string"
     ) {
-      if (localDateKey((attempt as { at: string }).at) === todayKey) {
+      if (bangkokDateKey((attempt as { at: string }).at) === todayKey) {
         todayCount++;
       }
     }
   }
   for (const [, entry] of lessons) {
-    const u = entry?.updatedAt ? localDateKey(entry.updatedAt) : "";
-    const s = entry?.scoreUpdatedAt ? localDateKey(entry.scoreUpdatedAt) : "";
+    const u = entry?.updatedAt ? bangkokDateKey(entry.updatedAt) : "";
+    const s = entry?.scoreUpdatedAt ? bangkokDateKey(entry.scoreUpdatedAt) : "";
     if (u === todayKey || s === todayKey) {
       todayCount++;
     }

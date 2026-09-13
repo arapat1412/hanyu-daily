@@ -26,12 +26,19 @@ import {
   User,
   History,
   Check,
+  Lightbulb,
 } from "lucide-react";
 import { logoutAccount, uploadAvatar, useAuth, useLeaderboard } from "../lib/auth";
 import { useProgress } from "../lib/hsk";
 import { calculateProgressStats } from "../lib/progress-stats";
 import { HSK_LEVELS } from "../data/hskLevels";
 import { VocabularyModal, type VocabularyTab } from "../components/VocabularyModal";
+import { SkillRadarChart } from "../components/SkillRadarChart";
+import {
+  analyzeSkills,
+  getSkillLevelLabel,
+  type SkillAnalysisResult,
+} from "../lib/skills";
 
 function initials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -59,10 +66,99 @@ function getScoreBadge(score: number) {
   return { label: "Cần ôn", style: "text-rose-700 bg-rose-50 border-rose-300" };
 }
 
+function SkillAnalysisCard({ analysis, className = "" }: { analysis: SkillAnalysisResult; className?: string }) {
+  return (
+    <section className={`overflow-hidden rounded-3xl border border-sky-200/70 bg-white shadow-card ${className}`}>
+      <div className="border-b border-line bg-gradient-to-r from-sky-50 via-white to-pink-50 px-5 py-5 sm:px-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#17303F] text-white shadow-sm">
+              <Target className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="font-display text-base font-black text-[#17303F] sm:text-lg">
+                Bản Đồ Năng Lực Học Viên (Skill Matrix)
+              </h2>
+              <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted">
+                Phân tích trực quan 4 kỹ năng cốt lõi giúp bạn phát hiện điểm mạnh và điểm hổng cần bù đắp.
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0 rounded-2xl border border-sky-200 bg-white px-4 py-2.5 text-center shadow-xs">
+            <div className="font-mono text-xl font-black text-sky-700">{analysis.averageScore}/100</div>
+            <div className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+              Hạng {getSkillLevelLabel(analysis.averageScore)}
+            </div>
+          </div>
+        </div>
+        {analysis.isEstimated && (
+          <p className="mt-3 rounded-xl border border-sky-100 bg-white/80 px-3 py-2 text-[11px] font-medium text-sky-800">
+            Điểm ước tính ban đầu — Hãy hoàn thành thêm bài test để điểm số chuẩn xác hơn.
+          </p>
+        )}
+      </div>
+
+      <div className="grid items-center gap-4 p-4 sm:p-6 lg:grid-cols-2 lg:gap-7">
+        <div className="flex min-w-0 justify-center rounded-2xl bg-slate-50/70 px-1 py-2 sm:px-4">
+          <SkillRadarChart skills={analysis.skills} />
+        </div>
+
+        <div className="space-y-4">
+          {analysis.skills.map((skill) => (
+            <div key={skill.key}>
+              <div className="mb-1.5 flex items-center justify-between gap-3 text-xs">
+                <div className="min-w-0">
+                  <span className="mr-1.5">{skill.icon}</span>
+                  <span className="font-bold text-ink">{skill.label}</span>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="font-mono font-black" style={{ color: skill.color }}>{skill.score}%</span>
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">
+                    {skill.levelLabel}
+                  </span>
+                </div>
+              </div>
+              <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className="h-full rounded-full transition-[width] duration-700 ease-out"
+                  style={{ width: `${skill.score}%`, backgroundColor: skill.color }}
+                />
+              </div>
+              <p className="mt-1 text-[10.5px] leading-relaxed text-muted">{skill.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-4 mb-4 flex flex-col gap-3 rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-pink-50 p-4 sm:mx-6 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-2.5">
+          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+          <div>
+            <div className="text-xs font-black text-amber-900">
+              Điểm cần bứt phá: {analysis.weakestSkill.label} · {analysis.weakestSkill.score}%
+            </div>
+            <p className="mt-1 text-[11px] leading-relaxed text-amber-900/80">{analysis.summaryFeedback}</p>
+          </div>
+        </div>
+        <Link
+          to={analysis.weakestSkill.actionRoute}
+          className="inline-flex min-h-[42px] shrink-0 items-center justify-center gap-1.5 rounded-xl bg-[#17303F] px-4 py-2.5 text-xs font-black text-white shadow-sm transition hover:bg-sky-800 active:scale-95"
+        >
+          {analysis.weakestSkill.actionText}
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 export function MePage() {
   const { user, isReady, isConfigured } = useAuth();
   const progress = useProgress();
-  const { users: leaderboardUsers } = useLeaderboard();
+  const { users: leaderboardUsers } = useLeaderboard({
+    period: "overall",
+    includeCurrent: true,
+  });
 
   const avatarInput = useRef<HTMLInputElement>(null);
   const [avatarBusy, setAvatarBusy] = useState(false);
@@ -77,13 +173,19 @@ export function MePage() {
   };
 
   const stats = useMemo(() => calculateProgressStats(progress), [progress]);
+  const skillAnalysis = useMemo(() => analyzeSkills(progress), [
+    progress.known,
+    progress.mistakes,
+    progress.lessons,
+    progress.attempts,
+    progress.practiceHistory,
+  ]);
 
   // Leaderboard Rank
-  const userRankIndex = useMemo(() => {
-    if (!user) return -1;
-    return leaderboardUsers.findIndex((u) => u.id === user.id);
+  const userRank = useMemo(() => {
+    if (!user) return null;
+    return leaderboardUsers.find((u) => u.id === user.id)?.rank ?? null;
   }, [leaderboardUsers, user]);
-  const userRank = userRankIndex !== -1 ? userRankIndex + 1 : null;
 
   // Scored Lessons & Attempts
   const scoredLessons = useMemo(() => {
@@ -228,6 +330,8 @@ export function MePage() {
                 </div>
               </div>
             </div>
+
+            <SkillAnalysisCard analysis={skillAnalysis} className="mt-6" />
 
             {/* Local Vocabulary & Flashcard Cards for Guest */}
             <div className="mt-6 border-t border-line/60 pt-6">
@@ -554,6 +658,8 @@ export function MePage() {
             </div>
           </div>
         </div>
+
+        <SkillAnalysisCard analysis={skillAnalysis} />
 
         {/* ================= KHO DỮ LIỆU TỪ VỰNG ================= */}
         <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-6">
@@ -895,4 +1001,3 @@ export function MePage() {
     </div>
   );
 }
-
