@@ -174,8 +174,7 @@ export const LeaderboardPage: React.FC = () => {
               Bảng Vàng Phong Vân
             </h1>
             <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
-              Nơi vinh danh nỗ lực kiên trì chinh phục từng con chữ mỗi ngày. Tích luỹ XP qua bài học New HSK 3.0,
-              flashcard từ vựng và bài kiểm tra tiến độ.
+              Một hệ XP chung cho New HSK 3.0, Boya, YCT, Thành ngữ, Thơ Đường và trò chơi Văn hóa Trung Quốc.
             </p>
             <p className="mt-2 text-xs text-slate-300">
               Tiến độ do người học tự ghi nhận; bảng xếp hạng không phải kết quả thi có giám sát.
@@ -410,10 +409,10 @@ export const LeaderboardPage: React.FC = () => {
 
               <div className="flex items-center gap-2 sm:shrink-0">
                 <Link
-                  to="/hsk"
+                  to="/giao-trinh"
                   className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-all hover:bg-brand-dark active:scale-95 sm:w-auto"
                 >
-                  <span>Luyện tập kiếm XP</span>
+                  <span>Chọn nội dung kiếm XP</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -860,9 +859,9 @@ export const LeaderboardPage: React.FC = () => {
                 <Sparkles className="h-4.5 w-4.5" />
               </div>
               <h3 className="mt-3 text-xs font-bold text-ink">Ghi nhớ từ vựng</h3>
-              <div className="mt-0.5 font-mono text-sm font-black text-brand">+2 XP / từ</div>
+              <div className="mt-0.5 font-mono text-sm font-black text-brand">+2–5 XP / từ</div>
               <p className="mt-1 text-[11px] text-muted leading-relaxed">
-                Áp dụng khi học qua Flashcard và đánh dấu &quot;Đã thuộc&quot; vào kho từ cá nhân.
+                +2 XP cho từ HSK/Boya đã thuộc; +5 XP cho mỗi từ YCT đánh dấu lần đầu.
               </p>
             </div>
 
@@ -872,21 +871,21 @@ export const LeaderboardPage: React.FC = () => {
                 <Target className="h-4.5 w-4.5" />
               </div>
               <h3 className="mt-3 text-xs font-bold text-ink">Kiểm tra & Thi thử</h3>
-              <div className="mt-0.5 font-mono text-sm font-black text-brand">Điểm số = XP</div>
+              <div className="mt-0.5 font-mono text-sm font-black text-brand">Tối đa 100 XP</div>
               <p className="mt-1 text-[11px] text-muted leading-relaxed">
-                Đạt 100% trong bài trắc nghiệm nhận trọn vẹn 100 XP cộng thẳng vào thứ hạng.
+                Điểm tốt nhất bài HSK và phần thưởng quiz/trò chơi YCT đều cộng vào cùng tổng XP.
               </p>
             </div>
 
             {/* Rule 4 */}
             <div className="rounded-2xl border border-line/70 bg-cream/50 p-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-100 text-rose-700">
-                <Flame className="h-4.5 w-4.5" />
+                <GraduationCap className="h-4.5 w-4.5" />
               </div>
-              <h3 className="mt-3 text-xs font-bold text-ink">Chuỗi ngày học liên tục</h3>
-              <div className="mt-0.5 font-mono text-sm font-black text-rose-600">Ưu tiên thứ hạng</div>
+              <h3 className="mt-3 text-xs font-bold text-ink">Khám phá văn hóa</h3>
+              <div className="mt-0.5 font-mono text-sm font-black text-rose-600">+5–10 XP / câu</div>
               <p className="mt-1 text-[11px] text-muted leading-relaxed">
-                Khi bằng điểm XP, học viên có chuỗi học tập dài hơn sẽ xếp ở vị trí cao hơn.
+                Quiz Thành ngữ, Thơ Đường và 1000 câu hỏi Văn hóa đều ghi vào Bảng Vàng.
               </p>
             </div>
           </div>
@@ -895,8 +894,8 @@ export const LeaderboardPage: React.FC = () => {
             <div className="flex items-start gap-2">
               <CheckCircle2 className="h-4 w-4 shrink-0 text-brand mt-0.5" />
               <div>
-                <strong>Bảo mật danh tính:</strong> Bảng trực tuyến chỉ hiển thị tên công khai, ảnh đại diện và thành tích
-                học tập. Địa chỉ email và thông tin cá nhân luôn được mã hoá và giữ an toàn tuyệt đối.
+                <strong>Một tài khoản, một tổng XP:</strong> thành tích được chống cộng lặp theo mã hoạt động và đồng bộ
+                giữa các thiết bị. Khi bằng XP, chuỗi ngày học dài hơn được ưu tiên xếp hạng.
               </div>
             </div>
           </div>

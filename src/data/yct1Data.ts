@@ -1,4 +1,5 @@
 import type { VocabularyWord } from "../types";
+import { awardDailyXp, awardXp } from "../lib/hsk";
 
 export interface YctWord {
   id: string;
@@ -261,10 +262,13 @@ export function toggleLearnedWord(wordId: string): YctProgress {
     : [...current.learnedWordIds, wordId];
   
   const xpGain = exists ? 0 : 5;
+  const earnedXp = exists
+    ? 0
+    : awardXp(`yct:1:word:${encodeURIComponent(wordId)}`, "yct", xpGain);
   const updated: YctProgress = {
     ...current,
     learnedWordIds: nextLearned,
-    xp: current.xp + xpGain,
+    xp: current.xp + earnedXp,
   };
   saveYctProgress(updated);
   return updated;
@@ -272,7 +276,8 @@ export function toggleLearnedWord(wordId: string): YctProgress {
 
 export function recordQuizCompletion(score: number, total: number): { progress: YctProgress; earnedXp: number } {
   const current = getYctProgress();
-  const earnedXp = Math.round((score / total) * 30);
+  const reward = total > 0 ? Math.round((score / total) * 30) : 0;
+  const earnedXp = reward > 0 ? awardDailyXp("yct:1:quiz", "yct", reward) : 0;
   const updated: YctProgress = {
     ...current,
     quizzesPassed: current.quizzesPassed + 1,

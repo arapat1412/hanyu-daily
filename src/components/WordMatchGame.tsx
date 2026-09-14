@@ -22,6 +22,7 @@ interface WordMatchGameProps {
   words: VocabularyWord[];
   onComplete?: (stats: { matchedPairs: number; points: number; maxStreak: number }) => void;
   onExit?: () => void;
+  recordVocabularyProgress?: boolean;
 }
 
 const TOTAL_TIME_MS = 30000; // 30 seconds
@@ -30,6 +31,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
   words,
   onComplete,
   onExit,
+  recordVocabularyProgress = true,
 }) => {
   const [gameState, setGameState] = useState<'playing' | 'gameover'>('playing');
   const [timeLeftMs, setTimeLeftMs] = useState(TOTAL_TIME_MS);
@@ -155,7 +157,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
 
       playSfx('correct');
       speakChinese(hanziText);
-      recordAnswer(card.word.id, true);
+      if (recordVocabularyProgress) recordAnswer(card.word.id, true);
 
       // Trigger a local floating score effect at the click coordinate.
       if (containerRef.current) {

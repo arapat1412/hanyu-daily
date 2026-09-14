@@ -63,6 +63,35 @@ test("retrying an old completed lesson does not renew its weekly completion bonu
   assert.equal(stats.weeklyXp, 0);
 });
 
+test("unified XP events contribute to overall, weekly XP, activity and streak", () => {
+  const now = new Date("2026-09-13T12:00:00.000Z");
+  const stats = calculateProgressStats(
+    {
+      known: ["boya1-1-1"],
+      knownAt: { "boya1-1-1": "2026-09-08T01:00:00.000Z" },
+      lessons: {},
+      attempts: [],
+      xpEvents: {
+        "chengyu:quiz:shou-zhu-dai-tu": {
+          source: "chengyu",
+          amount: 10,
+          earnedAt: "2026-09-13T01:00:00.000Z",
+        },
+        "yct:1:legacy": {
+          source: "yct",
+          amount: 30,
+          earnedAt: "1970-01-01T00:00:00.000Z",
+        },
+      },
+    },
+    now,
+  );
+  assert.equal(stats.xp, 42);
+  assert.equal(stats.weeklyXp, 12);
+  assert.equal(stats.hasStudiedToday, true);
+  assert.equal(stats.streak, 1);
+});
+
 test("an incomplete high-level attempt does not change skill targets", () => {
   const baseProgress = {
     version: 1,

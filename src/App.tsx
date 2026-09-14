@@ -8,6 +8,7 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { useGlobalSearch } from './lib/search';
 import { HandsFreePlayerProvider } from './lib/hands-free-context';
 import { HandsFreePlayer } from './components/HandsFreePlayer';
+import { VisitorTracker } from './components/VisitorTracker';
 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then((module) => ({ default: module.GlobalSearchModal })));
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
@@ -29,10 +30,13 @@ const ChengyuHubPage = lazy(() => import('./pages/ChengyuHubPage').then((module)
 const ChengyuDetailPage = lazy(() => import('./pages/ChengyuDetailPage').then((module) => ({ default: module.ChengyuDetailPage })));
 const TangPoetryHubPage = lazy(() => import('./pages/TangPoetryHubPage').then((module) => ({ default: module.TangPoetryHubPage })));
 const TangPoetryDetailPage = lazy(() => import('./pages/TangPoetryDetailPage').then((module) => ({ default: module.TangPoetryDetailPage })));
+const CultureTopicsPage = lazy(() => import('./pages/CultureTopicsPage').then((module) => ({ default: module.CultureTopicsPage })));
+const CultureGamePlayerPage = lazy(() => import('./pages/CultureGamePlayerPage').then((module) => ({ default: module.CultureGamePlayerPage })));
 const YctSeriesHubPage = lazy(() => import('./pages/YctSeriesHubPage').then((module) => ({ default: module.YctSeriesHubPage })));
 const YctHubPage = lazy(() => import('./pages/YctHubPage').then((module) => ({ default: module.YctHubPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.TermsPage })));
 const PrivacyPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.PrivacyPage })));
+const AdminPage = lazy(() => import('./pages/AdminPage').then((module) => ({ default: module.AdminPage })));
 
 // Auto scroll to top on route change
 function ScrollToTop() {
@@ -54,6 +58,7 @@ export const App: React.FC = () => {
     <BrowserRouter>
       <HandsFreePlayerProvider>
         <ScrollToTop />
+        <VisitorTracker />
         <RouteMetadata />
         <div className="flex flex-col min-h-screen bg-cream w-full overflow-x-clip">
           <Navbar />
@@ -89,11 +94,12 @@ export const App: React.FC = () => {
               <Route path="/hsk79/*" element={<Hsk79Page />} />
               <Route path="/csca" element={<CscaPage />} />
               <Route path="/kham-pha" element={<Navigate to="/" replace />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc" element={<Navigate to="/" replace />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc/*" element={<Navigate to="/" replace />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc" element={<CultureTopicsPage />} />
+              <Route path="/kham-pha/van-hoa-trung-quoc/:slug" element={<CultureGamePlayerPage />} />
               <Route path="/kham-pha/thanh-ngu-dien-co" element={<ChengyuHubPage />} />
               <Route path="/kham-pha/thanh-ngu-dien-co/:id" element={<ChengyuDetailPage />} />
               <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
+              <Route path="/kham-pha/tho-duong/:id" element={<TangPoetryDetailPage />} />
               {/* Giáo trình Tiếng Trung Thiếu Nhi YCT */}
               <Route path="/yct" element={<YctSeriesHubPage />} />
               <Route path="/yct/:level" element={<YctHubPage />} />
@@ -106,6 +112,7 @@ export const App: React.FC = () => {
               <Route path="/me" element={<MePage />} />
               <Route path="/dieu-khoan" element={<TermsPage />} />
               <Route path="/chinh-sach-bao-mat" element={<PrivacyPage />} />
+              <Route path="/admin" element={<AdminPage />} />
               
               {/* Fallback to Dashboard */}
               <Route path="*" element={<DashboardPage />} />

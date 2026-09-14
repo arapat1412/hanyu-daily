@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Zap } from "lucide-react";
 import { CHENGYU_STORIES, getChengyuProgress } from "../data/chengyuStories";
 import { TANG_POEMS, getPoetryProgress } from "../data/tangPoems";
+import { getXpByPrefix, useProgress } from "../lib/hsk";
 
 export const DiscoverPage: React.FC = () => {
+  const unifiedProgress = useProgress();
   // 1. Calculate chengyu idioms stats
   const chengyuStats = useMemo(() => {
     const prog = getChengyuProgress();
@@ -12,8 +14,8 @@ export const DiscoverPage: React.FC = () => {
     const quizCount = prog.quizPassedIds.length;
     const total = CHENGYU_STORIES.length;
     const percent = total > 0 ? Math.round((readCount / total) * 100) : 0;
-    return { readCount, quizCount, total, percent, xp: prog.xp };
-  }, []);
+    return { readCount, quizCount, total, percent, xp: getXpByPrefix(unifiedProgress, "chengyu:") };
+  }, [unifiedProgress]);
 
   // 2. Calculate tang poetry stats
   const poetryStats = useMemo(() => {
@@ -22,8 +24,8 @@ export const DiscoverPage: React.FC = () => {
     const quizCount = prog.quizPassedIds.length;
     const total = TANG_POEMS.length;
     const percent = total > 0 ? Math.round((readCount / total) * 100) : 0;
-    return { readCount, quizCount, total, percent, xp: prog.xp };
-  }, []);
+    return { readCount, quizCount, total, percent, xp: getXpByPrefix(unifiedProgress, "poetry:") };
+  }, [unifiedProgress]);
 
   return (
     <div className="min-h-screen bg-cream pb-24 selection:bg-brand/20 selection:text-brand-dark">
@@ -210,4 +212,3 @@ export const DiscoverPage: React.FC = () => {
     </div>
   );
 };
-

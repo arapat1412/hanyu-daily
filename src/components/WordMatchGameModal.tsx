@@ -10,6 +10,7 @@ interface WordMatchGameModalProps {
   words: VocabularyWord[];
   title?: string;
   onComplete?: (stats: { matchedPairs: number; points: number; maxStreak: number }) => void;
+  recordVocabularyProgress?: boolean;
 }
 
 export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
@@ -18,6 +19,7 @@ export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
   words,
   title = 'Nối từ phản xạ 30 giây',
   onComplete,
+  recordVocabularyProgress = true,
 }) => {
   const ref = useModalFocus(isOpen, onClose);
 
@@ -60,6 +62,7 @@ export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
             words={words}
             onComplete={onComplete}
             onExit={onClose}
+            recordVocabularyProgress={recordVocabularyProgress}
           />
         </div>
       </div>

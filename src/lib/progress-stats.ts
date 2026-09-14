@@ -41,6 +41,13 @@ interface ProgressLike {
     score?: number;
     at?: string;
   }> | unknown[];
+  xpEvents?: Record<
+    string,
+    {
+      amount?: number;
+      earnedAt?: string;
+    }
+  >;
 }
 
 const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
@@ -146,6 +153,15 @@ export function calculateProgressStats(
   const completed = lessons.filter(([, entry]) => entry?.completed).length;
   const scored = lessons.filter(([, entry]) => typeof entry?.score === "number");
   const scoreTotal = scored.reduce((sum, [, entry]) => sum + (entry.score || 0), 0);
+  const xpEvents = Object.values(value.xpEvents ?? {}).filter(
+    (event) =>
+      event &&
+      Number.isInteger(event.amount) &&
+      (event.amount ?? 0) > 0 &&
+      typeof event.earnedAt === "string" &&
+      Number.isFinite(Date.parse(event.earnedAt)),
+  );
+  const eventXp = xpEvents.reduce((sum, event) => sum + (event.amount || 0), 0);
   const averageScore = scored.length ? Math.round(scoreTotal / scored.length) : 0;
   const weekStart = bangkokWeekStart(baseDate);
   const weekEnd = weekStart + 7 * 24 * 60 * 60 * 1000;
@@ -160,7 +176,11 @@ export function calculateProgressStats(
     return sum + (isInCurrentWeek(Date.parse(at)) ? 2 : 0);
   }, 0);
 
-  const weeklyXp = weeklyKnownXp + lessons.reduce((sum, [, entry]) => {
+  const weeklyEventXp = xpEvents.reduce(
+    (sum, event) => sum + (isInCurrentWeek(Date.parse(event.earnedAt || "")) ? event.amount || 0 : 0),
+    0,
+  );
+  const weeklyXp = weeklyKnownXp + weeklyEventXp + lessons.reduce((sum, [, entry]) => {
     const completionActivity = Date.parse(entry?.completedAt || "");
     const scoreActivity = Date.parse(entry?.scoreUpdatedAt || entry?.updatedAt || "");
     return (
@@ -201,6 +221,9 @@ export function calculateProgressStats(
     ) {
       rawDates.push((attempt as { at: string }).at);
     }
+  }
+  for (const event of xpEvents) {
+    if (event.earnedAt) rawDates.push(event.earnedAt);
   }
 
   const activityDaysSet = new Set(
@@ -248,6 +271,9 @@ export function calculateProgressStats(
       todayCount++;
     }
   }
+  for (const event of xpEvents) {
+    if (event.earnedAt && bangkokDateKey(event.earnedAt) === todayKey) todayCount++;
+  }
 
   // 4. Highest HSK level rank
   const levelRank = (lessonId: string) => {
@@ -262,7 +288,7 @@ export function calculateProgressStats(
   );
 
   return {
-    xp: known * 2 + completed * 25 + scoreTotal,
+    xp: known * 2 + completed * 25 + scoreTotal + eventXp,
     weeklyXp,
     completed,
     averageScore,

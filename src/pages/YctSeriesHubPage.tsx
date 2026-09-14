@@ -19,6 +19,7 @@ import {
 import { getYctProgress, YCT1_WORDS, YCT_PDF_RESOURCES } from '../data/yct1Data';
 import { getYct2Progress, YCT2_WORDS } from '../data/yct2Data';
 import { getYct3Progress, YCT3_WORDS } from '../data/yct3Data';
+import { getXpByPrefix, useProgress } from '../lib/hsk';
 
 export interface YctBookItem {
   id: string;
@@ -49,12 +50,13 @@ export interface YctBookItem {
 }
 
 export const YctSeriesHubPage: React.FC = () => {
+  const unifiedProgress = useProgress();
   const yct1Progress = useMemo(() => getYctProgress(), []);
   const yct2Progress = useMemo(() => getYct2Progress(), []);
   const yct3Progress = useMemo(() => getYct3Progress(), []);
   const totalLearnedWords = yct1Progress.learnedWordIds.length + yct2Progress.learnedWordIds.length + yct3Progress.learnedWordIds.length;
   const totalWords = YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length;
-  const totalXp = yct1Progress.xp + yct2Progress.xp + yct3Progress.xp;
+  const totalXp = getXpByPrefix(unifiedProgress, "yct:");
 
   // Danh sách 6 quyển trong bộ giáo trình chuẩn YCT (Youth Chinese Test)
   const yctSeries: YctBookItem[] = [
@@ -136,7 +138,7 @@ export const YctSeriesHubPage: React.FC = () => {
       highlights: [
         '335 từ vựng hoạt hình kèm audio & ví dụ',
         '11 bài học SGK & 20 chủ đề phân loại',
-        'Trò chơi nối từ 30s & Đố vui nhận điểm sao',
+        'Trò chơi nối từ 30s & Đố vui nhận XP',
         'Trọn bộ PDF Sách bài học & bài tập',
       ],
       cardBg: 'bg-gradient-to-br from-white via-sky-50/40 to-blue-100/50',
@@ -299,7 +301,7 @@ export const YctSeriesHubPage: React.FC = () => {
                     {totalLearnedWords}/{totalWords} từ
                   </div>
                   <div className="text-[10px] sm:text-[11px] text-amber-100 font-semibold mt-1 truncate">
-                    Tiến độ YCT ({totalXp} sao)
+                    Tiến độ YCT ({totalXp} XP)
                   </div>
                 </div>
               </div>
@@ -625,7 +627,7 @@ export const YctSeriesHubPage: React.FC = () => {
               <div className="text-2xl mb-2">🎮</div>
               <div className="font-bold text-xs text-slate-800">Trò chơi ghép từ 30s</div>
               <div className="text-[11px] text-slate-500 mt-1">
-                Game tương tác lật thẻ và nối chữ Hán với nghĩa tiếng Việt, tích lũy điểm sao thưởng vui vẻ.
+                Game tương tác lật thẻ và nối chữ Hán với nghĩa tiếng Việt, tích lũy XP vào cùng tài khoản.
               </div>
             </div>
 

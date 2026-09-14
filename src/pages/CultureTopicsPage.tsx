@@ -4,9 +4,11 @@ import { Trophy, ArrowLeft, Zap, Sparkles, X, ChevronRight, Award } from "lucide
 import { CULTURE_TOPICS, getTopicProgress, CultureTopic } from "../data/cultureTopics";
 import { useAuth, useLeaderboard } from "../lib/auth";
 import { syncAllCultureProgress } from "../lib/culture-progress";
+import { getXpByPrefix, useProgress } from "../lib/hsk";
 
 export const CultureTopicsPage: React.FC = () => {
   const { user } = useAuth();
+  const unifiedProgress = useProgress();
   const [showRankModal, setShowRankModal] = useState(false);
   const [rankTab, setRankTab] = useState<"weekly" | "overall">("weekly");
   const [rankPage, setRankPage] = useState(0);
@@ -45,14 +47,14 @@ export const CultureTopicsPage: React.FC = () => {
       return {
         topic,
         done: prog.doneCount,
-        xp: prog.xp,
+        xp: getXpByPrefix(unifiedProgress, `culture:${topic.slug}:`),
         pct,
         stars,
         cta,
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [revision]);
+  }, [revision, unifiedProgress]);
 
   const totalDone = useMemo(
     () => topicsProgress.reduce((sum, item) => sum + item.done, 0),

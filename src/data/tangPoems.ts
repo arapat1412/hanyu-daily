@@ -1,3 +1,5 @@
+import { awardXp } from "../lib/hsk";
+
 export interface TangPoemLine {
   chinese: string;
   pinyin: string;
@@ -980,16 +982,9 @@ export function recordPoemQuizPass(poemId: string, xpReward = 10): { progress: P
     if (!current.readIds.includes(poemId)) {
       current.readIds.push(poemId);
     }
-    justEarned = true;
+    justEarned = awardXp(`poetry:quiz:${poemId}`, "poetry", xpReward) > 0;
     try {
       localStorage.setItem(POETRY_STORAGE_KEY, JSON.stringify(current));
-      // Also add to global stats in localStorage if available
-      const progressRaw = localStorage.getItem('hanyu_user_progress');
-      if (progressRaw) {
-        const p = JSON.parse(progressRaw);
-        p.xp = (p.xp || 0) + xpReward;
-        localStorage.setItem('hanyu_user_progress', JSON.stringify(p));
-      }
     } catch (e) {
       console.warn('Cannot save poem quiz pass status', e);
     }

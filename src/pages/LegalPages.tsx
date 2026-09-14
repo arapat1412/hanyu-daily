@@ -15,7 +15,7 @@ function LegalLayout({
           ← Về trang chủ
         </Link>
         <h1 className="mt-5 font-display text-3xl font-black text-ink">{title}</h1>
-        <p className="mt-2 text-sm text-muted">Cập nhật lần cuối: 07/09/2026</p>
+        <p className="mt-2 text-sm text-muted">Cập nhật lần cuối: 14/09/2026</p>
         <div className="mt-8 space-y-7 text-[15px] leading-7 text-ink-2">{children}</div>
       </article>
     </div>
@@ -85,6 +85,11 @@ export const PrivacyPage: React.FC = () => (
         phản hồi bạn chủ động gửi.
       </p>
       <p>
+        Khi bạn truy cập website, kể cả khi chưa đăng nhập, hệ thống ghi nhận địa chỉ IP, mã khách
+        ẩn danh lưu trên trình duyệt, trang đã xem, trang giới thiệu và thông tin kỹ thuật của trình
+        duyệt/thiết bị. Nếu đã đăng nhập, lượt truy cập có thể được liên kết với tài khoản của bạn.
+      </p>
+      <p>
         Mật khẩu được Supabase Auth xử lý; mã nguồn ứng dụng và các bảng dữ liệu công khai không
         lưu mật khẩu của bạn.
       </p>
@@ -92,7 +97,8 @@ export const PrivacyPage: React.FC = () => (
     <Section title="2. Mục đích sử dụng">
       <p>
         Dữ liệu được dùng để đăng nhập, đồng bộ tiến độ giữa các thiết bị, hiển thị trải nghiệm
-        cá nhân, vận hành bảng xếp hạng và tiếp nhận góp ý để cải thiện dịch vụ.
+        cá nhân, vận hành bảng xếp hạng, thống kê lưu lượng, phát hiện hành vi bất thường và tiếp
+        nhận góp ý để cải thiện dịch vụ.
       </p>
     </Section>
     <Section title="3. Dữ liệu công khai">
@@ -102,12 +108,13 @@ export const PrivacyPage: React.FC = () => (
         được hiển thị công khai.
       </p>
     </Section>
-    <Section title="4. Lưu trữ trên thiết bị và nhà cung cấp">
+    <Section title="4. Lưu trữ và thời hạn lưu giữ">
       <p>
-        Trình duyệt sử dụng localStorage để giữ tiến độ và trạng thái game trên thiết bị. Dữ liệu
-        tài khoản, tiến độ, ảnh đại diện và phản hồi được lưu trên Supabase. Website cũng tải phông
-        chữ và một số thư viện giao diện từ các CDN bên thứ ba; các nhà cung cấp này có thể nhận
-        thông tin kỹ thuật thông thường như địa chỉ IP và chuỗi trình duyệt.
+        Trình duyệt sử dụng localStorage để giữ tiến độ, trạng thái game và mã khách ẩn danh trên
+        thiết bị. Dữ liệu tài khoản, tiến độ, ảnh đại diện, phản hồi và nhật ký truy cập được lưu
+        trên Supabase. Nhật ký truy cập được tự động xóa sau 90 ngày. Website cũng tải phông chữ
+        và một số thư viện giao diện từ các CDN bên thứ ba; các nhà cung cấp này có thể nhận thông
+        tin kỹ thuật thông thường như địa chỉ IP và chuỗi trình duyệt.
       </p>
     </Section>
     <Section title="5. Lựa chọn của bạn">

@@ -1,4 +1,5 @@
 import type { VocabularyWord } from "../types";
+import { awardDailyXp, awardXp } from "../lib/hsk";
 import { YCT_PDF_RESOURCES, type YctPdfResource } from "./yct1Data";
 
 export interface YctWord {
@@ -1890,10 +1891,13 @@ export function toggleLearnedWord2(wordId: string): Yct2Progress {
     : [...current.learnedWordIds, wordId];
 
   const xpGain = exists ? 0 : 5;
+  const earnedXp = exists
+    ? 0
+    : awardXp(`yct:2:word:${encodeURIComponent(wordId)}`, "yct", xpGain);
   const updated: Yct2Progress = {
     ...current,
     learnedWordIds: nextLearned,
-    xp: current.xp + xpGain,
+    xp: current.xp + earnedXp,
   };
   saveYct2Progress(updated);
   return updated;
@@ -1904,7 +1908,8 @@ export function recordQuizCompletion2(
   total: number
 ): { progress: Yct2Progress; earnedXp: number } {
   const current = getYct2Progress();
-  const earnedXp = Math.round((score / total) * 30);
+  const reward = total > 0 ? Math.round((score / total) * 30) : 0;
+  const earnedXp = reward > 0 ? awardDailyXp("yct:2:quiz", "yct", reward) : 0;
   const updated: Yct2Progress = {
     ...current,
     quizzesPassed: current.quizzesPassed + 1,

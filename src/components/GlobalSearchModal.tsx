@@ -105,6 +105,15 @@ const QUICK_LINKS: SearchResultItem[] = [
     url: '/yct',
   },
   {
+    id: 'link-culture-game',
+    type: 'link',
+    title: '1000 câu hỏi Văn hóa Trung Quốc',
+    subtitle: 'Lịch sử, văn học, nghệ thuật, khoa học và đời sống',
+    tag: 'Văn hóa',
+    tagColor: 'bg-violet-100 text-violet-800 border-violet-200',
+    url: '/kham-pha/van-hoa-trung-quoc',
+  },
+  {
     id: 'link-chengyu',
     type: 'link',
     title: 'Thành ngữ điển cố Trung Hoa',

@@ -15,13 +15,14 @@ Default development URL: `http://localhost:3005/hsk`. The host must serve `index
 
 ## Supabase accounts and deployment
 
-The account, score and leaderboard system uses Supabase Auth + Postgres. Learners register with only a username and a password of at least 6 characters; the app creates an internal, non-user-facing Auth email. The browser keeps a local progress cache for instant rendering and offline resilience, then debounces writes to Supabase. Passwords are handled only by Supabase Auth; they are never stored in the app database or source code. Leaderboard weeks run from Monday 00:00 through Sunday 23:59 in `Asia/Bangkok`; weekly XP and streaks are derived at query time so inactive rows expire without requiring a client sync.
+The account, score and leaderboard system uses Supabase Auth + Postgres. Learners register with only a username and a password of at least 6 characters; the app creates an internal, non-user-facing Auth email. The browser keeps a local progress cache for instant rendering and offline resilience, then debounces writes to Supabase. Passwords are handled only by Supabase Auth; they are never stored in the app database or source code. Leaderboard weeks run from Monday 00:00 through Sunday 23:59 in `Asia/Bangkok`; weekly XP and streaks are derived at query time so inactive rows expire without requiring a client sync. XP from New HSK 3.0, Boya, YCT, Chengyu, Tang poetry and the culture games is stored in the same account progress and contributes to the same overall/weekly leaderboard.
 
 1. Create a Supabase project on the free plan.
-2. Open **SQL Editor**, then run every file in `supabase/migrations/` in filename order. The production-hardening migration removes direct client writes to leaderboard statistics and adds private feedback storage.
+2. Open **SQL Editor**, then run the files in `supabase/migrations/` in filename order through `202609140001_unified_xp.sql`. The production-hardening migration removes direct client writes to leaderboard statistics and adds private feedback storage.
 3. Copy `.env.example` to `.env.local`, then fill in the project URL and **publishable** key from **Project Settings → API**.
 4. In **Authentication → Providers → Email**, turn off **Confirm email**. This app intentionally uses username-only accounts and does not send confirmation or password-recovery email.
-5. Restart `npm run dev`. For Vercel, Netlify or Cloudflare Pages, add the same two `VITE_...` values in the hosting provider's environment-variable settings. SPA fallback is included in `vercel.json` and `public/_redirects`.
+5. Start the app and register the intended administrator username `mogiadev` once. Then run `202609140002_admin_analytics.sql`. That migration deliberately fails if this exact account does not already exist, and its schema enforces a single administrator.
+6. Restart `npm run dev`. For Vercel, Netlify or Cloudflare Pages, add the same two `VITE_...` values in the hosting provider's environment-variable settings. SPA fallback is included in `vercel.json` and `public/_redirects`.
 
 ```env
 VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
@@ -32,6 +33,8 @@ VITE_SITE_URL=https://YOUR_PUBLIC_DOMAIN
 `VITE_SITE_URL` should be the final HTTPS origin without a trailing slash. It is used for canonical and social-sharing URLs; the production build automatically emits `robots.txt` and `sitemap.xml` when this value is configured.
 
 Never expose a Supabase `service_role` or secret key in a `VITE_` variable. The included migration enables Row Level Security: learners can access only their own progress. The public leaderboard view contains display name, username and learning statistics only; it does not expose the internal Auth email. Because accounts do not use a real email address, automatic password recovery is unavailable; an administrator must handle forgotten-password resets.
+
+The private dashboard is available at `/admin`. Its summary, visitor/IP log, account list and feedback inbox are served only through database functions that verify the signed-in administrator; the underlying tables have no client-readable policy. Page-view collection also covers anonymous visitors, rate-limits duplicates/abuse and removes logs older than 90 days opportunistically. IP values come from the trusted proxy headers visible to Supabase and may be unavailable when an upstream proxy does not provide them. The administrator password remains exclusively in Supabase Auth and must never be added to a migration or frontend environment variable.
 
 Learners can add or replace their own profile picture on `/me`. The browser center-crops and compresses the image to WebP at no more than 512×512 before upload, keeping page loads light. The public `avatars` bucket is limited to 2 MB per stored file; Storage RLS permits uploads only inside the signed-in user's own folder.
 
@@ -101,7 +104,7 @@ CVDICT-derived annotation data and its adaptations retain CC BY-SA 4.0. This doe
 - Flashcards record each word's latest rating once, finish correctly on the last card, and store words to revisit.
 - Practice: pinyin choice, Vietnamese meaning where available, listening, typed tone-marked pinyin. Homophones are excluded from listening distractors. Answer keys ignore spacing/case but preserve tones.
 - Quizzes show per-question feedback, totals and wrong-answer review. Only full-lesson assessment modes can update the lesson score; 80% is required for quiz completion. Sentence scramble and timed word matching are ungraded practice and never overwrite a lesson's best score. The separate manual completion button is explicitly self-reported. Best scores are retained; retrying only wrong answers cannot inflate a lesson score.
-- Storage is versioned and validated; reload and other-tab changes are supported. Supabase accounts require a unique username and a password of at least 6 characters. Auth sessions and password security are managed by Supabase. Progress and scores sync across devices, while a local cache keeps the UI fast. The online leaderboard derives XP from remembered words, completed sections and best full-test scores.
+- Storage is versioned and validated; reload and other-tab changes are supported. Supabase accounts require a unique username and a password of at least 6 characters. Auth sessions and password security are managed by Supabase. Progress and scores sync across devices, while a local cache keeps the UI fast. The online leaderboard combines remembered HSK/Boya words, completed HSK sections, best HSK test scores and validated XP events from YCT and culture/discovery content. One-time achievements use stable event IDs; YCT quiz and matching rewards keep only the best result per level and Bangkok calendar day.
 
 ## Checks
 

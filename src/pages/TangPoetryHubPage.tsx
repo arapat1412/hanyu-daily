@@ -19,13 +19,15 @@ import {
   getPoetryProgress,
   type TangPoemItem,
 } from "../data/tangPoems";
-import { speakChinese, normalizeSearch } from "../lib/hsk";
+import { getXpByPrefix, speakChinese, normalizeSearch, useProgress } from "../lib/hsk";
 
 export const TangPoetryHubPage: React.FC = () => {
   const [selectedForm, setSelectedForm] = useState<string>("all");
   const [selectedAuthor, setSelectedAuthor] = useState<string>("Tất cả tác giả");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const progress = useMemo(() => getPoetryProgress(), []);
+  const unifiedProgress = useProgress();
+  const unifiedXp = getXpByPrefix(unifiedProgress, "poetry:");
 
   // Filter poems
   const filteredPoems = useMemo(() => {
@@ -114,7 +116,7 @@ export const TangPoetryHubPage: React.FC = () => {
                 <div className="text-[10px] font-semibold text-amber-300 uppercase">Điểm thưởng</div>
                 <div className="flex items-center justify-center gap-1 font-mono text-lg font-black text-amber-300">
                   <Zap size={14} className="fill-amber-300" />
-                  <span>{progress.xp} XP</span>
+                  <span>{unifiedXp} XP</span>
                 </div>
               </div>
             </div>

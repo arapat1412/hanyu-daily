@@ -1,3 +1,5 @@
+import { awardXp } from "../lib/hsk";
+
 export interface ChengyuQuiz {
   question: string;
   options: string[];
@@ -754,16 +756,9 @@ export function recordQuizPass(storyId: string, xpReward = 10): { progress: Chen
     if (!current.readIds.includes(storyId)) {
       current.readIds.push(storyId);
     }
-    justEarned = true;
+    justEarned = awardXp(`chengyu:quiz:${storyId}`, "chengyu", xpReward) > 0;
     try {
       localStorage.setItem(CHENGYU_STORAGE_KEY, JSON.stringify(current));
-      // Also add to global stats in localStorage if available
-      const progressRaw = localStorage.getItem('hanyu_user_progress');
-      if (progressRaw) {
-        const p = JSON.parse(progressRaw);
-        p.xp = (p.xp || 0) + xpReward;
-        localStorage.setItem('hanyu_user_progress', JSON.stringify(p));
-      }
     } catch (e) {
       console.warn('Cannot save quiz pass status', e);
     }

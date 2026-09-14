@@ -23,6 +23,8 @@ function metadataFor(pathname: string) {
     return { title: "Đường Thi Tuyển Tập | Hanyu Daily", description: "Đắm mình trong thi họa cổ phong Đường thi, ngâm thơ chuẩn, bản dịch thơ kinh điển và thử thách thi ca." };
   if (pathname.startsWith("/kham-pha/thanh-ngu-dien-co"))
     return { title: "Điển Cố & Thành Ngữ Trung Hoa | Hanyu Daily", description: "Học thành ngữ tiếng Trung qua các câu chuyện ngụ ngôn và điển tích lịch sử kinh điển kèm mini quiz." };
+  if (pathname.startsWith("/kham-pha/van-hoa-trung-quoc"))
+    return { title: "1000 câu hỏi Văn hóa Trung Quốc | Hanyu Daily", description: "Học lịch sử, văn học, nghệ thuật, khoa học và đời sống Trung Quốc qua trò chơi có thưởng XP." };
   if (pathname.startsWith("/yct"))
     return { title: "Tủ Sách Tiếng Trung Thiếu Nhi YCT (1 – 6) | Hanyu Daily", description: "Giáo trình tiếng Trung thiếu nhi chuẩn quốc tế Youth Chinese Test (YCT 1 – 6) với hình ảnh minh họa, phát âm và PDF sách." };
   if (pathname === "/giao-trinh")
@@ -43,6 +45,8 @@ function metadataFor(pathname: string) {
     return { title: "Điều khoản dịch vụ | Hanyu Daily", description: "Điều khoản sử dụng website và dịch vụ học tiếng Trung Hanyu Daily." };
   if (pathname === "/chinh-sach-bao-mat")
     return { title: "Chính sách bảo mật | Hanyu Daily", description: "Thông tin về cách Hanyu Daily thu thập, sử dụng và bảo vệ dữ liệu người học." };
+  if (pathname === "/admin")
+    return { title: "Quản trị | Hanyu Daily", description: "Khu vực quản trị riêng của Hanyu Daily." };
   return { title: "Hanyu Daily — 泡菜学汉语", description: DEFAULT_DESCRIPTION };
 }
 
@@ -73,6 +77,10 @@ export function RouteMetadata() {
     setMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
     setMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
     setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: `${origin}/gautruc.png` });
+    setMeta('meta[name="robots"]', {
+      name: "robots",
+      content: pathname === "/admin" ? "noindex, nofollow, noarchive" : "index, follow",
+    });
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {

@@ -286,6 +286,12 @@ export interface SkillPracticeEvent {
   score?: number;
   at: string;
 }
+export type XpSource = "yct" | "chengyu" | "poetry" | "culture";
+export interface XpEvent {
+  source: XpSource;
+  amount: number;
+  earnedAt: string;
+}
 export interface Progress {
   version: 1;
   bookmarks: string[];
@@ -305,6 +311,7 @@ export interface Progress {
   attempts: ScoreAttempt[];
   srs?: Record<string, SrsCard>;
   practiceHistory?: SkillPracticeEvent[];
+  xpEvents?: Record<string, XpEvent>;
 }
 const empty: Progress = {
   version: 1,
@@ -316,6 +323,7 @@ const empty: Progress = {
   attempts: [],
   srs: {},
   practiceHistory: [],
+  xpEvents: {},
 };
 const baseStorageKey = "hsk30-learning-v1";
 function progressStorageKey() {
@@ -331,7 +339,8 @@ function parseProgress(value: any): Progress {
           ...new Set(
             list.filter(
               (id): id is string =>
-                typeof id === "string" && /^(?:hsk30|meiday)-\d+$/.test(id),
+                typeof id === "string" &&
+                (/^(?:hsk30|meiday)-\d+$/.test(id) || /^boya[12]-\d+-\d+$/.test(id)),
             ),
           ),
         ]
@@ -342,7 +351,7 @@ function parseProgress(value: any): Progress {
   if (value.knownAt && typeof value.knownAt === "object") {
     for (const [wordId, timestamp] of Object.entries(value.knownAt)) {
       if (
-        /^(?:hsk30|meiday)-\d+$/.test(wordId) &&
+        (/^(?:hsk30|meiday)-\d+$/.test(wordId) || /^boya[12]-\d+-\d+$/.test(wordId)) &&
         typeof timestamp === "string" &&
         Number.isFinite(Date.parse(timestamp))
       ) {
@@ -442,6 +451,27 @@ function parseProgress(value: any): Progress {
         })
         .slice(-500)
     : [];
+  const xpSources = new Set<XpSource>(["yct", "chengyu", "poetry", "culture"]);
+  const xpEvents: Record<string, XpEvent> = {};
+  if (value.xpEvents && typeof value.xpEvents === "object") {
+    for (const [eventId, rawEvent] of Object.entries(value.xpEvents)) {
+      if (!rawEvent || typeof rawEvent !== "object") continue;
+      const event = rawEvent as Partial<XpEvent>;
+      if (
+        eventId.length > 0 &&
+        eventId.length <= 180 &&
+        typeof event.source === "string" &&
+        xpSources.has(event.source as XpSource) &&
+        Number.isInteger(event.amount) &&
+        (event.amount ?? 0) > 0 &&
+        (event.amount ?? 0) <= 100_000 &&
+        typeof event.earnedAt === "string" &&
+        Number.isFinite(Date.parse(event.earnedAt))
+      ) {
+        xpEvents[eventId] = event as XpEvent;
+      }
+    }
+  }
   return {
     version: 1,
     bookmarks: ids(value.bookmarks),
@@ -474,13 +504,97 @@ function parseProgress(value: any): Progress {
       : [],
     srs,
     practiceHistory,
+    xpEvents,
   };
+}
+
+const LEGACY_XP_DATE = "1970-01-01T00:00:00.000Z";
+
+function addLegacyXpEvent(
+  events: Record<string, XpEvent>,
+  eventId: string,
+  source: XpSource,
+  amount: number,
+  earnedAt = LEGACY_XP_DATE,
+) {
+  if (!events[eventId] && Number.isInteger(amount) && amount > 0) {
+    events[eventId] = { source, amount, earnedAt };
+  }
+}
+
+function readLegacyJson(key: string): any {
+  try {
+    return JSON.parse(localStorage.getItem(key) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function migrateLegacyLocalXp(value: Progress): Progress {
+  const xpEvents = { ...(value.xpEvents ?? {}) };
+  try {
+    const chengyu = readLegacyJson("hanyu_chengyu_progress");
+    for (const id of Array.isArray(chengyu?.quizPassedIds) ? chengyu.quizPassedIds : []) {
+      if (typeof id === "string") addLegacyXpEvent(xpEvents, `chengyu:quiz:${id}`, "chengyu", 10);
+    }
+
+    const poetry = readLegacyJson("hanyu_poetry_progress");
+    for (const id of Array.isArray(poetry?.quizPassedIds) ? poetry.quizPassedIds : []) {
+      if (typeof id === "string") addLegacyXpEvent(xpEvents, `poetry:quiz:${id}`, "poetry", 10);
+    }
+
+    const yctStores = [
+      [1, "hanyu.yct1.progress.v1"],
+      [2, "hanyu.yct2.progress.v1"],
+      [3, "hanyu.yct3.progress.v1"],
+    ] as const;
+    for (const [level, key] of yctStores) {
+      const legacy = readLegacyJson(key);
+      if (!legacy || Object.keys(xpEvents).some((id) => id.startsWith(`yct:${level}:`))) continue;
+      const learned = Array.isArray(legacy.learnedWordIds) ? legacy.learnedWordIds : [];
+      for (const id of learned) {
+        if (typeof id === "string")
+          addLegacyXpEvent(xpEvents, `yct:${level}:word:${encodeURIComponent(id)}`, "yct", 5);
+      }
+      const recordedXp = Number.isFinite(legacy.xp) ? Math.max(0, Math.round(legacy.xp)) : 0;
+      const remainder = Math.min(100_000, Math.max(0, recordedXp - learned.length * 5));
+      addLegacyXpEvent(xpEvents, `yct:${level}:legacy`, "yct", remainder);
+    }
+
+    const cultureStores = [
+      ["lich-su", "meiday.game.lichsu.v2"],
+      ["van-hoc", "meiday.game.vanhoc.v1"],
+      ["van-hoa", "meiday.game.vanhoa.v1"],
+      ["nghe-thuat", "meiday.game.nghethuat.v1"],
+      ["khoa-hoc", "meiday.game.khoahoc.v1"],
+      ["thien-van", "meiday.game.thienvan.v1"],
+      ["doi-song", "meiday.game.doisong.v1"],
+    ] as const;
+    for (const [topic, key] of cultureStores) {
+      const legacy = readLegacyJson(key);
+      const log = legacy?.xpLog && typeof legacy.xpLog === "object" ? legacy.xpLog : {};
+      const dates = legacy?.xpDates && typeof legacy.xpDates === "object" ? legacy.xpDates : {};
+      for (const [id, rawAmount] of Object.entries(log)) {
+        const amount = typeof rawAmount === "number" ? rawAmount : 0;
+        const rawDate = typeof dates[id] === "string" ? dates[id] : LEGACY_XP_DATE;
+        const earnedAt = Number.isFinite(Date.parse(rawDate)) ? new Date(rawDate).toISOString() : LEGACY_XP_DATE;
+        addLegacyXpEvent(xpEvents, `culture:${topic}:${id}`, "culture", amount, earnedAt);
+      }
+    }
+  } catch {
+    // A malformed legacy store must not prevent the primary progress from loading.
+  }
+  return { ...value, xpEvents };
 }
 
 function readProgress(): Progress {
   try {
-    const value = JSON.parse(localStorage.getItem(activeStorageKey) || "null");
-    return parseProgress(value);
+    const stored = localStorage.getItem(activeStorageKey);
+    const value = JSON.parse(stored || "null");
+    const migrated = migrateLegacyLocalXp(parseProgress(value));
+    const serialized = JSON.stringify(migrated);
+    if (stored !== serialized) localStorage.setItem(activeStorageKey, serialized);
+    return migrated;
   } catch {
     return { ...empty };
   }
@@ -588,6 +702,17 @@ function mergeProgress(first: Progress, second: Progress): Progress {
     )
     .sort((firstEntry, secondEntry) => Date.parse(firstEntry.at) - Date.parse(secondEntry.at))
     .slice(-500);
+  const xpEvents: Record<string, XpEvent> = { ...(first.xpEvents ?? {}) };
+  for (const [eventId, candidate] of Object.entries(second.xpEvents ?? {})) {
+    const current = xpEvents[eventId];
+    if (!current) xpEvents[eventId] = candidate;
+    else if (
+      /^yct:[123]:(?:quiz|match):\d{4}-\d{2}-\d{2}$/.test(eventId) &&
+      candidate.amount > current.amount
+    ) {
+      xpEvents[eventId] = { ...candidate, earnedAt: current.earnedAt };
+    }
+  }
   const known = [...new Set([...first.known, ...second.known])];
   const knownSet = new Set(known);
   const knownAt: Record<string, string> = { ...(first.knownAt ?? {}) };
@@ -607,6 +732,7 @@ function mergeProgress(first: Progress, second: Progress): Progress {
     attempts,
     srs,
     practiceHistory,
+    xpEvents,
   };
 }
 
@@ -687,6 +813,93 @@ function subscribe(fn: () => void) {
 export function useProgress() {
   useSyncExternalStore(subscribe, () => progressRevision);
   return { ...progress, storageError, syncStatus, syncError };
+}
+export function awardXp(
+  eventId: string,
+  source: XpSource,
+  amount: number,
+  earnedAt = new Date().toISOString(),
+): number {
+  const normalizedAmount = Math.round(amount);
+  if (
+    !eventId ||
+    eventId.length > 180 ||
+    !["yct", "chengyu", "poetry", "culture"].includes(source) ||
+    !Number.isInteger(normalizedAmount) ||
+    normalizedAmount <= 0 ||
+    normalizedAmount > 100_000 ||
+    !Number.isFinite(Date.parse(earnedAt)) ||
+    progress.xpEvents?.[eventId]
+  ) return 0;
+  save({
+    ...progress,
+    xpEvents: {
+      ...(progress.xpEvents ?? {}),
+      [eventId]: { source, amount: normalizedAmount, earnedAt: new Date(earnedAt).toISOString() },
+    },
+  });
+  return normalizedAmount;
+}
+
+export function awardBestXp(
+  eventId: string,
+  source: XpSource,
+  totalAmount: number,
+  earnedAt = new Date().toISOString(),
+): number {
+  const normalizedAmount = Math.round(totalAmount);
+  const previous = progress.xpEvents?.[eventId];
+  if (!previous) return awardXp(eventId, source, normalizedAmount, earnedAt);
+  if (
+    previous.source !== source ||
+    !Number.isInteger(normalizedAmount) ||
+    normalizedAmount <= previous.amount ||
+    normalizedAmount > 100_000
+  ) return 0;
+  save({
+    ...progress,
+    xpEvents: {
+      ...(progress.xpEvents ?? {}),
+      [eventId]: { source, amount: normalizedAmount, earnedAt: previous.earnedAt },
+    },
+  });
+  return normalizedAmount - previous.amount;
+}
+
+export function importXpEvents(events: Record<string, XpEvent>): number {
+  const next = { ...(progress.xpEvents ?? {}) };
+  let earned = 0;
+  for (const [eventId, event] of Object.entries(events)) {
+    if (next[eventId]) continue;
+    if (
+      !eventId || eventId.length > 180 ||
+      !["yct", "chengyu", "poetry", "culture"].includes(event.source) ||
+      !Number.isInteger(event.amount) || event.amount <= 0 || event.amount > 100_000 ||
+      !Number.isFinite(Date.parse(event.earnedAt))
+    ) continue;
+    next[eventId] = { ...event, earnedAt: new Date(event.earnedAt).toISOString() };
+    earned += event.amount;
+  }
+  if (earned > 0) save({ ...progress, xpEvents: next });
+  return earned;
+}
+
+export function awardDailyXp(prefix: string, source: XpSource, amount: number): number {
+  const now = new Date();
+  const bangkok = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+  const dateKey = [
+    bangkok.getUTCFullYear(),
+    String(bangkok.getUTCMonth() + 1).padStart(2, "0"),
+    String(bangkok.getUTCDate()).padStart(2, "0"),
+  ].join("-");
+  return awardBestXp(`${prefix}:${dateKey}`, source, amount, now.toISOString());
+}
+
+export function getXpByPrefix(value: Pick<Progress, "xpEvents">, prefix: string): number {
+  return Object.entries(value.xpEvents ?? {}).reduce(
+    (sum, [eventId, event]) => sum + (eventId.startsWith(prefix) ? event.amount : 0),
+    0,
+  );
 }
 export function toggleBookmark(id: string) {
   save({
@@ -986,7 +1199,7 @@ export async function fetchWordsByIds(ids: string[]): Promise<VocabularyWord[]> 
   if (!ids || ids.length === 0) return [];
   const neededLevels = new Set<LevelCode>();
   for (const id of ids) {
-    neededLevels.add(guessLevelForWordId(id));
+    if (!/^boya[12]-/.test(id)) neededLevels.add(guessLevelForWordId(id));
   }
 
   const levelDataList = await Promise.all(
@@ -1006,13 +1219,22 @@ export async function fetchWordsByIds(ids: string[]): Promise<VocabularyWord[]> 
     }
   }
 
+  if (ids.some((id) => id.startsWith("boya1-"))) {
+    const { BOYA1_VOCABULARY } = await import("../data/boya1Data");
+    for (const word of BOYA1_VOCABULARY) wordMap.set(word.id, word);
+  }
+  if (ids.some((id) => id.startsWith("boya2-"))) {
+    const { BOYA2_VOCABULARY } = await import("../data/boya2Data");
+    for (const word of BOYA2_VOCABULARY) wordMap.set(word.id, word);
+  }
+
   const localList = Object.values(SAMPLE_VOCABULARY).flat();
   for (const w of localList) {
     if (!wordMap.has(w.id)) wordMap.set(w.id, w);
   }
 
   const missing = ids.filter((id) => !wordMap.has(id));
-  if (missing.length > 0) {
+  if (missing.some((id) => !id.startsWith("boya"))) {
     const allLevels: LevelCode[] = ["hsk1", "hsk2", "hsk3", "hsk4", "hsk5", "hsk6", "hsk7-9"];
     const remaining = allLevels.filter((c) => !neededLevels.has(c));
     const moreData = await Promise.all(

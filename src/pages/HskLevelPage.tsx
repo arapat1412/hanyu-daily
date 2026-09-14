@@ -151,35 +151,35 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
   return (
     <>
       <div
-        className="relative mb-6 overflow-hidden rounded-3xl p-6 text-white sm:p-8"
+        className="relative mb-6 overflow-hidden rounded-3xl p-6 text-white sm:p-8 shadow-md"
         style={{
           background: `linear-gradient(120deg, ${level.badgeColor}, ${level.accentColor})`,
         }}
       >
-        <span className="pointer-events-none absolute -right-1 top-0 font-hanzi text-[140px] font-black leading-none text-white/10">
+        <span className="pointer-events-none absolute -right-1 top-0 font-hanzi text-[140px] font-black leading-none text-white/10 select-none">
           {tab === "overview" ? "汉语" : "课"}
         </span>
-        <span className="relative text-[11px] font-bold uppercase tracking-widest text-white/80">
+        <span className="relative inline-block text-[11px] font-bold uppercase tracking-widest text-white/80">
           HSK 3.0 · Đề cương 2026
         </span>
-        <h1 className="relative mt-2 text-3xl font-bold">{title}</h1>
-        <p className="relative mt-3 max-w-xl text-sm text-white/85">
+        <h1 className="relative mt-2 text-3xl font-bold tracking-tight text-white drop-shadow-xs">{title}</h1>
+        <p className="relative mt-3 max-w-xl text-sm text-white/90 leading-relaxed font-medium">
           {data.lessons.length} {vocabularyGroups ? "mục" : "bài"} ·{" "}
           {data.words.length.toLocaleString("vi-VN")} từ · {data.grammar.length}{" "}
           mục ngữ pháp
         </p>
         <div className="relative mt-5 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-white/15 px-3 py-1.5">
+          <span className="rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-xs font-semibold border border-white/20">
             {data.words
               .filter((word) => word.meaning)
               .length.toLocaleString("vi-VN")}
             /{data.words.length.toLocaleString("vi-VN")} từ có nghĩa Việt
           </span>
-          <span className="rounded-full bg-white/15 px-3 py-1.5">
+          <span className="rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-xs font-semibold border border-white/20">
             ✓ {completed}/{data.lessons.length}{" "}
             {vocabularyGroups ? "mục" : "bài"} hoàn thành
           </span>
-          <span className="rounded-full bg-white/15 px-3 py-1.5">
+          <span className="rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-xs font-semibold border border-white/20">
             {known} từ đã nhớ
           </span>
         </div>
