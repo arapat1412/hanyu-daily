@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Activity,
   AtSign,
+  Ban,
   BarChart3,
   ChevronLeft,
   ChevronRight,
@@ -22,17 +23,21 @@ import {
   AdminSummary,
   AdminUser,
   AdminVisit,
+  BlockedIp,
+  blockIp,
   checkAdminAccess,
   fetchAdminFeedback,
   fetchAdminSummary,
   fetchAdminUsers,
   fetchAdminVisits,
+  fetchBlockedIps,
+  unblockIp,
   VisitKind,
 } from "../lib/admin";
 import { loginAccount, logoutAccount, useAuth } from "../lib/auth";
 
 type AccessState = "checking" | "signed-out" | "denied" | "allowed";
-type AdminTab = "overview" | "visits" | "users" | "feedback";
+type AdminTab = "overview" | "visits" | "blocked" | "users" | "feedback";
 
 const PAGE_SIZE = 30;
 
@@ -109,6 +114,12 @@ function AdminDashboard({ username }: { username: string }) {
   const [visits, setVisits] = useState<AdminVisit[]>([]);
   const [visitsLoading, setVisitsLoading] = useState(false);
 
+  const [blockedIps, setBlockedIps] = useState<BlockedIp[]>([]);
+  const [blockedLoading, setBlockedLoading] = useState(false);
+  const [blockActionIp, setBlockActionIp] = useState("");
+  const [manualIp, setManualIp] = useState("");
+  const [blockReason, setBlockReason] = useState("");
+
   const [userDraft, setUserDraft] = useState("");
   const [userSearch, setUserSearch] = useState("");
   const [userPage, setUserPage] = useState(0);
@@ -154,6 +165,17 @@ function AdminDashboard({ username }: { username: string }) {
   }, [tab, userSearch, userPage, refreshKey]);
 
   useEffect(() => {
+    if (tab !== "blocked" && tab !== "visits") return;
+    let active = true;
+    setBlockedLoading(true);
+    fetchBlockedIps({ limit: 200 })
+      .then((value) => active && setBlockedIps(value))
+      .catch((reason) => active && setError(reason instanceof Error ? reason.message : "Không tải được danh sách chặn."))
+      .finally(() => active && setBlockedLoading(false));
+    return () => { active = false; };
+  }, [tab, refreshKey]);
+
+  useEffect(() => {
     if (tab !== "feedback") return;
     let active = true;
     setFeedbackLoading(true);
@@ -168,6 +190,7 @@ function AdminDashboard({ username }: { username: string }) {
   const tabs: Array<{ id: AdminTab; label: string; icon: React.ReactNode }> = [
     { id: "overview", label: "Tổng quan", icon: <BarChart3 className="h-4 w-4" /> },
     { id: "visits", label: "Truy cập & IP", icon: <Eye className="h-4 w-4" /> },
+    { id: "blocked", label: "IP đã chặn", icon: <Ban className="h-4 w-4" /> },
     { id: "users", label: "Người dùng", icon: <Users className="h-4 w-4" /> },
     { id: "feedback", label: "Phản hồi", icon: <MessageSquare className="h-4 w-4" /> },
   ];
@@ -179,7 +202,40 @@ function AdminDashboard({ username }: { username: string }) {
     { label: "Lượt chưa đăng nhập", value: summary?.anonymousToday || 0, icon: UserX, tone: "bg-amber-50 text-amber-700" },
     { label: "Lượt đã đăng nhập", value: summary?.authenticatedToday || 0, icon: UserCheck, tone: "bg-emerald-50 text-emerald-700" },
     { label: "Tổng tài khoản", value: summary?.totalUsers || 0, icon: Users, tone: "bg-rose-50 text-rose-700" },
+    { label: "IP đang bị chặn", value: summary?.blockedIps || 0, icon: Ban, tone: "bg-red-50 text-red-700" },
   ];
+
+  const blockedSet = new Set(blockedIps.map((item) => item.ipAddress));
+
+  const handleBlockIp = async (ipAddress: string, reason = "") => {
+    if (!ipAddress || !window.confirm(`Chặn IP ${ipAddress} truy cập website?`)) return;
+    setBlockActionIp(ipAddress);
+    setError("");
+    try {
+      await blockIp(ipAddress, reason);
+      setManualIp("");
+      setBlockReason("");
+      setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không chặn được IP.");
+    } finally {
+      setBlockActionIp("");
+    }
+  };
+
+  const handleUnblockIp = async (ipAddress: string) => {
+    if (!window.confirm(`Bỏ chặn IP ${ipAddress}?`)) return;
+    setBlockActionIp(ipAddress);
+    setError("");
+    try {
+      await unblockIp(ipAddress);
+      setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không bỏ chặn được IP.");
+    } finally {
+      setBlockActionIp("");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 px-3 py-6 sm:px-6 lg:px-8">
@@ -278,8 +334,8 @@ function AdminDashboard({ username }: { username: string }) {
               </form>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[980px] text-left text-xs">
-                <thead className="bg-slate-50 text-slate-500"><tr><th className="px-4 py-3">Thời gian</th><th className="px-4 py-3">IP</th><th className="px-4 py-3">Khách / tài khoản</th><th className="px-4 py-3">Trang</th><th className="px-4 py-3">Thiết bị</th></tr></thead>
+              <table className="w-full min-w-[1080px] text-left text-xs">
+                <thead className="bg-slate-50 text-slate-500"><tr><th className="px-4 py-3">Thời gian</th><th className="px-4 py-3">IP</th><th className="px-4 py-3">Khách / tài khoản</th><th className="px-4 py-3">Trang</th><th className="px-4 py-3">Thiết bị</th><th className="px-4 py-3">Quản lý</th></tr></thead>
                 <tbody className="divide-y divide-slate-100">
                   {visits.map((visit) => (
                     <tr key={`${visit.visitorId}-${visit.visitedAt}`} className="align-top hover:bg-slate-50/70">
@@ -288,6 +344,15 @@ function AdminDashboard({ username }: { username: string }) {
                       <td className="px-4 py-3"><div className="font-semibold text-slate-800">{visit.username ? `@${visit.username}` : "Khách ẩn danh"}</div><div title={visit.visitorId} className="mt-1 font-mono text-[10px] text-slate-400">{compactId(visit.visitorId)}</div></td>
                       <td className="px-4 py-3"><div className="font-semibold text-slate-800">{visit.path}</div>{visit.referrer && <div title={visit.referrer} className="mt-1 max-w-xs truncate text-[10px] text-slate-400">Từ: {visit.referrer}</div>}</td>
                       <td title={visit.userAgent || ""} className="max-w-xs px-4 py-3 text-slate-500"><span className="line-clamp-2">{visit.userAgent || "Không xác định"}</span></td>
+                      <td className="px-4 py-3">
+                        {visit.ipAddress ? (
+                          blockedSet.has(visit.ipAddress) ? (
+                            <button type="button" disabled={blockActionIp === visit.ipAddress} onClick={() => void handleUnblockIp(visit.ipAddress!)} className="whitespace-nowrap rounded-lg bg-emerald-50 px-3 py-2 font-bold text-emerald-700 disabled:opacity-50">Bỏ chặn</button>
+                          ) : (
+                            <button type="button" disabled={blockActionIp === visit.ipAddress} onClick={() => void handleBlockIp(visit.ipAddress!)} className="whitespace-nowrap rounded-lg bg-red-50 px-3 py-2 font-bold text-red-700 disabled:opacity-50">Chặn IP</button>
+                          )
+                        ) : <span className="text-slate-300">—</span>}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -298,10 +363,43 @@ function AdminDashboard({ username }: { username: string }) {
           </section>
         )}
 
+        {tab === "blocked" && (
+          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-100 p-5">
+              <h2 className="font-bold text-slate-900">Danh sách IP bị chặn</h2>
+              <p className="mt-1 text-xs leading-5 text-slate-500">Lệnh chặn có hiệu lực trên website production sau tối đa 30 giây. Trang quản trị luôn được giữ lại để bạn có thể bỏ chặn.</p>
+              <form
+                className="mt-4 grid gap-2 md:grid-cols-[minmax(180px,0.7fr)_minmax(240px,1.3fr)_auto]"
+                onSubmit={(event) => { event.preventDefault(); void handleBlockIp(manualIp, blockReason); }}
+              >
+                <input required value={manualIp} onChange={(event) => setManualIp(event.target.value)} placeholder="Địa chỉ IPv4 hoặc IPv6" className="rounded-xl border border-slate-200 px-3 py-2.5 text-xs outline-none focus:border-slate-500" />
+                <input value={blockReason} maxLength={300} onChange={(event) => setBlockReason(event.target.value)} placeholder="Lý do chặn (không bắt buộc)" className="rounded-xl border border-slate-200 px-3 py-2.5 text-xs outline-none focus:border-slate-500" />
+                <button type="submit" disabled={Boolean(blockActionIp)} className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-bold text-white disabled:opacity-50"><Ban className="h-4 w-4" /> Chặn IP</button>
+              </form>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[720px] text-left text-xs">
+                <thead className="bg-slate-50 text-slate-500"><tr><th className="px-4 py-3">IP</th><th className="px-4 py-3">Lý do</th><th className="px-4 py-3">Thời gian chặn</th><th className="px-4 py-3">Thao tác</th></tr></thead>
+                <tbody className="divide-y divide-slate-100">
+                  {blockedIps.map((item) => (
+                    <tr key={item.ipAddress} className="hover:bg-slate-50/70">
+                      <td className="px-4 py-3 font-mono font-bold text-slate-900">{item.ipAddress}</td>
+                      <td className="max-w-md px-4 py-3 text-slate-600">{item.reason}</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-slate-500">{formatDate(item.blockedAt)}</td>
+                      <td className="px-4 py-3"><button type="button" disabled={blockActionIp === item.ipAddress} onClick={() => void handleUnblockIp(item.ipAddress)} className="rounded-lg bg-emerald-50 px-3 py-2 font-bold text-emerald-700 disabled:opacity-50">Bỏ chặn</button></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {!blockedIps.length && <EmptyState loading={blockedLoading} />}
+            </div>
+          </section>
+        )}
+
         {tab === "users" && (
           <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div className="flex flex-col gap-3 border-b border-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="font-bold text-slate-900">Danh sách tài khoản</h2>
+              <div><h2 className="font-bold text-slate-900">Danh sách tài khoản</h2><p className="mt-1 text-xs text-slate-500">Mật khẩu được Supabase lưu dưới dạng băm và không thể xem lại.</p></div>
               <form className="flex gap-2 sm:min-w-80" onSubmit={(event) => { event.preventDefault(); setUserSearch(userDraft); setUserPage(0); }}>
                 <div className="relative flex-1"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input value={userDraft} onChange={(event) => setUserDraft(event.target.value)} placeholder="Tên hoặc tài khoản…" className="w-full rounded-xl border border-slate-200 py-2 pl-9 pr-3 text-xs outline-none focus:border-slate-500" /></div>
                 <button className="rounded-xl bg-slate-900 px-3 text-xs font-bold text-white">Tìm</button>

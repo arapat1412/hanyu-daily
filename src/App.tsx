@@ -9,6 +9,7 @@ import { useGlobalSearch } from './lib/search';
 import { HandsFreePlayerProvider } from './lib/hands-free-context';
 import { HandsFreePlayer } from './components/HandsFreePlayer';
 import { VisitorTracker } from './components/VisitorTracker';
+import { IpAccessGuard } from './components/IpAccessGuard';
 
 const GlobalSearchModal = lazy(() => import('./components/GlobalSearchModal').then((module) => ({ default: module.GlobalSearchModal })));
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
@@ -60,6 +61,7 @@ export const App: React.FC = () => {
         <ScrollToTop />
         <VisitorTracker />
         <RouteMetadata />
+        <IpAccessGuard>
         <div className="flex flex-col min-h-screen bg-cream w-full overflow-x-clip">
           <Navbar />
           <main className="flex-1 pb-16 md:pb-0">
@@ -129,6 +131,7 @@ export const App: React.FC = () => {
             </Suspense>
           )}
         </div>
+        </IpAccessGuard>
       </HandsFreePlayerProvider>
     </BrowserRouter>
   );

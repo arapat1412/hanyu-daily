@@ -21,7 +21,7 @@ The account, score and leaderboard system uses Supabase Auth + Postgres. Learner
 2. Open **SQL Editor**, then run the files in `supabase/migrations/` in filename order through `202609140001_unified_xp.sql`. The production-hardening migration removes direct client writes to leaderboard statistics and adds private feedback storage.
 3. Copy `.env.example` to `.env.local`, then fill in the project URL and **publishable** key from **Project Settings → API**.
 4. In **Authentication → Providers → Email**, turn off **Confirm email**. This app intentionally uses username-only accounts and does not send confirmation or password-recovery email.
-5. Start the app and register the intended administrator username `mogiadev` once. Then run `202609140002_admin_analytics.sql`. That migration deliberately fails if this exact account does not already exist, and its schema enforces a single administrator.
+5. Start the app and register the intended administrator username `mogiadev` once. Then run `202609140002_admin_analytics.sql` followed by `202609140003_admin_ip_controls.sql`. The analytics migration deliberately fails if this exact account does not already exist, and its schema enforces a single administrator.
 6. Restart `npm run dev`. For Vercel, Netlify or Cloudflare Pages, add the same two `VITE_...` values in the hosting provider's environment-variable settings. SPA fallback is included in `vercel.json` and `public/_redirects`.
 
 ```env
@@ -30,11 +30,18 @@ VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_OR_ANON_KEY
 VITE_SITE_URL=https://YOUR_PUBLIC_DOMAIN
 ```
 
+For production IP blocking on Vercel, add two server-only variables in **Project Settings → Environment Variables**. Use a current Supabase secret key where possible; the legacy service-role variable remains supported during migration. Never prefix either variable with `VITE_`.
+
+```env
+SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+SUPABASE_SECRET_KEY=sb_secret_YOUR_SERVER_ONLY_KEY
+```
+
 `VITE_SITE_URL` should be the final HTTPS origin without a trailing slash. It is used for canonical and social-sharing URLs; the production build automatically emits `robots.txt` and `sitemap.xml` when this value is configured.
 
 Never expose a Supabase `service_role` or secret key in a `VITE_` variable. The included migration enables Row Level Security: learners can access only their own progress. The public leaderboard view contains display name, username and learning statistics only; it does not expose the internal Auth email. Because accounts do not use a real email address, automatic password recovery is unavailable; an administrator must handle forgotten-password resets.
 
-The private dashboard is available at `/admin`. Its summary, visitor/IP log, account list and feedback inbox are served only through database functions that verify the signed-in administrator; the underlying tables have no client-readable policy. Page-view collection also covers anonymous visitors, rate-limits duplicates/abuse and removes logs older than 90 days opportunistically. IP values come from the trusted proxy headers visible to Supabase and may be unavailable when an upstream proxy does not provide them. The administrator password remains exclusively in Supabase Auth and must never be added to a migration or frontend environment variable.
+The private dashboard is available at `/admin`. Its summary, visitor/IP log, denylist, account list and feedback inbox are served only through database functions that verify the signed-in administrator; the underlying tables have no client-readable policy. On Vercel, root `middleware.ts` checks the denylist before serving document routes and returns HTTP 403 for a blocked IP; `/admin` stays reachable for recovery. Page-view collection also covers anonymous visitors, rate-limits duplicates/abuse and removes logs older than 90 days opportunistically. IP values come from the proxy headers visible to Supabase/Vercel and may be unavailable when an upstream proxy does not provide them. Passwords are one-way bcrypt hashes in Supabase Auth, cannot be viewed by an administrator, and must never be added to a migration or frontend environment variable.
 
 Learners can add or replace their own profile picture on `/me`. The browser center-crops and compresses the image to WebP at no more than 512×512 before upload, keeping page loads light. The public `avatars` bucket is limited to 2 MB per stored file; Storage RLS permits uploads only inside the signed-in user's own folder.
 

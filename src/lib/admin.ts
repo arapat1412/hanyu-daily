@@ -11,6 +11,15 @@ export interface AdminSummary {
   authenticatedToday: number;
   totalUsers: number;
   totalFeedback: number;
+  blockedIps: number;
+}
+
+export interface BlockedIp {
+  ipAddress: string;
+  reason: string;
+  blockedAt: string;
+  blockedBy: string;
+  totalCount: number;
 }
 
 export interface AdminVisit {
@@ -62,8 +71,13 @@ function requireClient() {
 }
 
 function adminError(message?: string) {
-  if (message?.toLowerCase().includes("admin access required"))
+  const normalized = message?.toLowerCase() || "";
+  if (normalized.includes("admin access required"))
     return new Error("Tài khoản này không có quyền quản trị.");
+  if (normalized.includes("cannot block your current ip"))
+    return new Error("Không thể chặn IP bạn đang sử dụng để tránh tự khóa quyền truy cập.");
+  if (normalized.includes("invalid ip address"))
+    return new Error("Địa chỉ IP không hợp lệ.");
   return new Error("Không tải được dữ liệu quản trị. Vui lòng thử lại.");
 }
 
@@ -93,6 +107,14 @@ export async function checkAdminAccess() {
   return data === true;
 }
 
+export async function checkCurrentIpBlocked() {
+  if (!supabase || !isSupabaseConfigured) return false;
+  const { data, error } = await supabase.rpc("current_ip_is_blocked");
+  // Fail open when the database is unavailable or the migration is not installed.
+  if (error) return false;
+  return data === true;
+}
+
 export async function fetchAdminSummary(): Promise<AdminSummary> {
   const { data, error } = await requireClient().rpc("admin_get_summary");
   if (error) throw adminError(error.message);
@@ -106,7 +128,41 @@ export async function fetchAdminSummary(): Promise<AdminSummary> {
     authenticatedToday: asNumber(row.authenticated_today),
     totalUsers: asNumber(row.total_users),
     totalFeedback: asNumber(row.total_feedback),
+    blockedIps: asNumber(row.blocked_ips),
   };
+}
+
+export async function fetchBlockedIps(input: {
+  limit?: number;
+  offset?: number;
+} = {}): Promise<BlockedIp[]> {
+  const { data, error } = await requireClient().rpc("admin_get_blocked_ips", {
+    p_limit: input.limit || 100,
+    p_offset: input.offset || 0,
+  });
+  if (error) throw adminError(error.message);
+  return ((data || []) as RpcRow[]).map((row) => ({
+    ipAddress: String(row.ip_address || ""),
+    reason: String(row.reason || ""),
+    blockedAt: String(row.blocked_at || ""),
+    blockedBy: String(row.blocked_by || ""),
+    totalCount: asNumber(row.total_count),
+  }));
+}
+
+export async function blockIp(ipAddress: string, reason: string) {
+  const { error } = await requireClient().rpc("admin_block_ip", {
+    p_ip: ipAddress,
+    p_reason: reason.trim() || "Bị chặn bởi quản trị viên",
+  });
+  if (error) throw adminError(error.message);
+}
+
+export async function unblockIp(ipAddress: string) {
+  const { error } = await requireClient().rpc("admin_unblock_ip", {
+    p_ip: ipAddress,
+  });
+  if (error) throw adminError(error.message);
 }
 
 export async function fetchAdminVisits(input: {
