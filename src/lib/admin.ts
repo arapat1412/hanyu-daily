@@ -149,12 +149,32 @@ export async function checkAdminAccess() {
   return data === true;
 }
 
+const IP_BLOCK_CACHE_TTL_MS = 60 * 1000;
+let ipBlockCache: { blocked: boolean; expiresAt: number } | null = null;
+let ipBlockRequest: Promise<boolean> | null = null;
+
 export async function checkCurrentIpBlocked() {
   if (!supabase || !isSupabaseConfigured) return false;
-  const { data, error } = await supabase.rpc("current_ip_is_blocked");
-  // Fail open when the database is unavailable or the migration is not installed.
-  if (error) return false;
-  return data === true;
+  if (ipBlockCache && ipBlockCache.expiresAt > Date.now()) {
+    return ipBlockCache.blocked;
+  }
+  if (ipBlockRequest) return ipBlockRequest;
+
+  const request = Promise.resolve(supabase.rpc("current_ip_is_blocked"))
+    .then(({ data, error }) => {
+      // Fail open when the database is unavailable or the migration is not installed.
+      const blocked = error ? false : data === true;
+      ipBlockCache = {
+        blocked,
+        expiresAt: Date.now() + IP_BLOCK_CACHE_TTL_MS,
+      };
+      return blocked;
+    })
+    .finally(() => {
+      ipBlockRequest = null;
+    });
+  ipBlockRequest = request;
+  return request;
 }
 
 export async function fetchAdminSummary(): Promise<AdminSummary> {
@@ -274,7 +294,7 @@ export async function uploadSyntheticAvatar(learnerId: string, file: File) {
   const { error } = await client.storage.from("avatars").upload(path, avatar, {
     upsert: true,
     contentType: "image/webp",
-    cacheControl: "3600",
+    cacheControl: "31536000",
   });
   if (error) throw new Error(`Không tải được ảnh: ${error.message}`);
   const { data } = client.storage.from("avatars").getPublicUrl(path);

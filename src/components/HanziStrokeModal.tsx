@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { VocabularyWord } from "../types";
 import HanziWriter from "hanzi-writer";
-import { useModalFocus } from "./HskLearning";
+import { useModalFocus } from "../lib/modal-focus";
 import { recordSkillPractice, speakChinese } from "../lib/hsk";
 
 interface HanziStrokeModalProps {

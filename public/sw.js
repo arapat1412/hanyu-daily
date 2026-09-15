@@ -4,11 +4,20 @@
  * Optimized for instant load (~0.1s), offline learning, and safe Supabase bypass.
  */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = `hanyu-static-${CACHE_VERSION}`;
+const BUNDLE_CACHE = `hanyu-bundles-${CACHE_VERSION}`;
 const DATA_CACHE = `hanyu-data-${CACHE_VERSION}`;
 const CDN_CACHE = `hanyu-cdn-${CACHE_VERSION}`;
-const CURRENT_CACHES = [STATIC_CACHE, DATA_CACHE, CDN_CACHE];
+const CURRENT_CACHES = [STATIC_CACHE, BUNDLE_CACHE, DATA_CACHE, CDN_CACHE];
+
+async function trimCache(cacheName, maxEntries) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  const overflow = keys.length - maxEntries;
+  if (overflow <= 0) return;
+  await Promise.all(keys.slice(0, overflow).map((key) => cache.delete(key)));
+}
 
 // Core App Shell assets to pre-cache on install
 const PRECACHE_ASSETS = [
@@ -16,10 +25,9 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/manifest.webmanifest',
   '/favicon.ico',
-  '/logo.png',
-  '/gautruc.png',
-  '/icon-192.png',
-  '/icon-512.png',
+  '/gautruc-192.webp',
+  '/pwa-icon-192.png',
+  '/pwa-icon-512.png',
 ];
 
 // Install Event: pre-cache app shell assets
@@ -42,7 +50,6 @@ self.addEventListener('install', (event) => {
           })
         );
       })
-      .then(() => self.skipWaiting())
   );
 });
 
@@ -131,12 +138,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 4. External CDN Assets (Hanzi Writer stroke data, Google Fonts)
-  // Cache-First: Once fetched, keep cached for offline Hanzi stroke animation & fonts
-  const isCdn =
-    url.hostname.includes('cdn.jsdelivr.net') ||
-    url.hostname.includes('fonts.googleapis.com') ||
-    url.hostname.includes('fonts.gstatic.com');
+  // 4. External CDN Assets (Hanzi Writer stroke data)
+  // Cache-First: once fetched, keep cached for offline Hanzi stroke animation
+  const isCdn = url.hostname.includes('cdn.jsdelivr.net');
 
   if (isCdn) {
     event.respondWith(
@@ -147,7 +151,8 @@ self.addEventListener('fetch', (event) => {
         try {
           const response = await fetch(request);
           if (response && (response.ok || response.type === 'opaque')) {
-            cache.put(request, response.clone());
+            await cache.put(request, response.clone());
+            await trimCache(CDN_CACHE, 300);
           }
           return response;
         } catch (err) {
@@ -165,13 +170,14 @@ self.addEventListener('fetch', (event) => {
 
     if (isHashedAsset) {
       event.respondWith(
-        caches.open(STATIC_CACHE).then(async (cache) => {
+        caches.open(BUNDLE_CACHE).then(async (cache) => {
           const cached = await cache.match(request);
           if (cached) return cached;
 
           const response = await fetch(request);
           if (response && response.ok) {
-            cache.put(request, response.clone());
+            await cache.put(request, response.clone());
+            await trimCache(BUNDLE_CACHE, 120);
           }
           return response;
         })

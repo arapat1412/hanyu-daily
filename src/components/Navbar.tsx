@@ -106,8 +106,11 @@ export const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center gap-2 sm:gap-2.5 no-underline group shrink-0 min-w-0">
             <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-slate-200/70 p-0.5 shadow-2xs group-hover:scale-105 transition-transform">
               <img
-                src="/gautruc.png"
+                src="/gautruc-192.webp"
                 alt="Hanyu Daily"
+                width={192}
+                height={192}
+                decoding="async"
                 className="h-full w-full object-cover scale-[1.35]"
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -248,7 +251,7 @@ export const Navbar: React.FC = () => {
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 bg-slate-50/50">
               <div className="flex items-center gap-2.5">
-                <img src="/gautruc.png" alt="Hanyu Daily" className="w-8 h-8 rounded-xl shadow-xs" />
+                <img src="/gautruc-192.webp" alt="Hanyu Daily" width={192} height={192} decoding="async" className="w-8 h-8 rounded-xl shadow-xs" />
                 <div>
                   <h3 className="font-bold text-slate-900 text-sm">Hanyu Daily</h3>
                   <p className="text-[11px] text-slate-500">泡菜学汉语 · Kim Chi học tiếng Trung</p>

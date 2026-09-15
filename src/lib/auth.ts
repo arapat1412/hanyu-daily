@@ -46,6 +46,7 @@ export interface LeaderboardOptions {
   limit?: number;
   offset?: number;
   includeCurrent?: boolean;
+  enabled?: boolean;
 }
 
 interface LeaderboardResult {
@@ -69,6 +70,9 @@ let authSnapshot: AuthSnapshot = {
   error: isSupabaseConfigured ? "" : SUPABASE_CONFIGURATION_MESSAGE,
 };
 const authSubscribers = new Set<() => void>();
+const PROFILE_CACHE_TTL_MS = 5 * 60 * 1000;
+const profileCache = new Map<string, { user: AuthUser; expiresAt: number }>();
+const profileRequests = new Map<string, Promise<AuthUser>>();
 
 function emitAuth() {
   authSubscribers.forEach((subscriber) => subscriber());
@@ -119,19 +123,40 @@ function userFromMetadata(user: User): AuthUser {
 async function loadAuthUser(user: User | null) {
   if (!user || !supabase) return user ? userFromMetadata(user) : null;
   const fallback = userFromMetadata(user);
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("username, display_name, avatar_url, created_at")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (error || !data) return fallback;
-  return {
-    ...fallback,
-    name: data.display_name || fallback.name,
-    username: data.username || fallback.username,
-    avatarUrl: data.avatar_url || undefined,
-    createdAt: data.created_at || fallback.createdAt,
-  };
+  const cached = profileCache.get(user.id);
+  if (cached && cached.expiresAt > Date.now()) return cached.user;
+
+  const pending = profileRequests.get(user.id);
+  if (pending) return pending;
+
+  const request: Promise<AuthUser> = Promise.resolve(
+    supabase
+      .from("profiles")
+      .select("username, display_name, avatar_url, created_at")
+      .eq("id", user.id)
+      .maybeSingle(),
+  )
+    .then(({ data, error }) => {
+      const authUser: AuthUser =
+        error || !data
+          ? fallback
+          : {
+              ...fallback,
+              name: data.display_name || fallback.name,
+              username: data.username || fallback.username,
+              avatarUrl: data.avatar_url || undefined,
+              createdAt: data.created_at || fallback.createdAt,
+            };
+      profileCache.set(user.id, {
+        user: authUser,
+        expiresAt: Date.now() + PROFILE_CACHE_TTL_MS,
+      });
+      return authUser;
+    })
+    .finally(() => profileRequests.delete(user.id));
+
+  profileRequests.set(user.id, request);
+  return request;
 }
 
 if (supabase) {
@@ -283,9 +308,14 @@ export async function updateNickname(value: string) {
   // The profile row is authoritative. Keeping Auth metadata in sync provides a
   // correct fallback if the profile query is temporarily unavailable.
   await client.auth.updateUser({ data: { display_name: displayName } }).catch(() => undefined);
+  const updatedUser = { ...currentUser, name: displayName };
+  profileCache.set(currentUser.id, {
+    user: updatedUser,
+    expiresAt: Date.now() + PROFILE_CACHE_TTL_MS,
+  });
   setAuthSnapshot({
     ...authSnapshot,
-    user: { ...currentUser, name: displayName },
+    user: updatedUser,
     error: "",
   });
   window.dispatchEvent(new Event(PROGRESS_SYNCED_EVENT));
@@ -388,7 +418,7 @@ export async function uploadAvatar(file: File) {
     .upload(path, avatar, {
       upsert: true,
       contentType: "image/webp",
-      cacheControl: "3600",
+      cacheControl: "31536000",
     });
   if (uploadError) throw new Error(`Không tải được ảnh: ${uploadError.message}`);
 
@@ -401,9 +431,14 @@ export async function uploadAvatar(file: File) {
   if (profileError)
     throw new Error(`Ảnh đã tải lên nhưng chưa cập nhật được hồ sơ: ${profileError.message}`);
 
+  const updatedUser = { ...currentUser, avatarUrl };
+  profileCache.set(currentUser.id, {
+    user: updatedUser,
+    expiresAt: Date.now() + PROFILE_CACHE_TTL_MS,
+  });
   setAuthSnapshot({
     ...authSnapshot,
-    user: { ...currentUser, avatarUrl },
+    user: updatedUser,
     error: "",
   });
   window.dispatchEvent(new Event(PROGRESS_SYNCED_EVENT));
@@ -522,7 +557,7 @@ async function refreshLegacyLeaderboard(
   };
 }
 
-export async function refreshLeaderboard(options: LeaderboardOptions = {}): Promise<LeaderboardResult> {
+async function fetchLeaderboard(options: LeaderboardOptions = {}): Promise<LeaderboardResult> {
   if (!supabase) {
     return {
       users: [] as LeaderboardEntry[],
@@ -570,6 +605,58 @@ export async function refreshLeaderboard(options: LeaderboardOptions = {}): Prom
   };
 }
 
+const LEADERBOARD_CACHE_TTL_MS = 60 * 1000;
+const leaderboardCache = new Map<
+  string,
+  { result: LeaderboardResult; expiresAt: number }
+>();
+const leaderboardRequests = new Map<string, Promise<LeaderboardResult>>();
+
+function leaderboardCacheKey(options: LeaderboardOptions) {
+  return JSON.stringify([
+    options.period ?? "overall",
+    options.scope ?? "all",
+    options.hsk?.trim() || "",
+    options.search?.trim().toLocaleLowerCase("vi-VN") || "",
+    Math.min(100, Math.max(1, options.limit ?? 100)),
+    Math.max(0, options.offset ?? 0),
+    options.includeCurrent === true,
+    options.includeCurrent ? authSnapshot.user?.id || "anonymous" : "",
+  ]);
+}
+
+function clearLeaderboardCache() {
+  leaderboardCache.clear();
+}
+
+export async function refreshLeaderboard(
+  options: LeaderboardOptions = {},
+  force = false,
+): Promise<LeaderboardResult> {
+  const key = leaderboardCacheKey(options);
+  if (!force) {
+    const cached = leaderboardCache.get(key);
+    if (cached && cached.expiresAt > Date.now()) return cached.result;
+  }
+
+  const pending = leaderboardRequests.get(key);
+  if (pending) return pending;
+
+  const request = fetchLeaderboard(options)
+    .then((result) => {
+      if (!result.error) {
+        leaderboardCache.set(key, {
+          result,
+          expiresAt: Date.now() + LEADERBOARD_CACHE_TTL_MS,
+        });
+      }
+      return result;
+    })
+    .finally(() => leaderboardRequests.delete(key));
+  leaderboardRequests.set(key, request);
+  return request;
+}
+
 export function useLeaderboard(options: LeaderboardOptions = {}) {
   const period = options.period ?? "overall";
   const scope = options.scope ?? "all";
@@ -578,16 +665,18 @@ export function useLeaderboard(options: LeaderboardOptions = {}) {
   const limit = options.limit ?? 100;
   const offset = options.offset ?? 0;
   const includeCurrent = options.includeCurrent ?? false;
+  const enabled = options.enabled ?? true;
   const [users, setUsers] = useState<LeaderboardEntry[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [filteredCount, setFilteredCount] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
   const [highestStreak, setHighestStreak] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [error, setError] = useState("");
   const requestRevision = useRef(0);
 
-  const refresh = useCallback(async () => {
+  const runRefresh = useCallback(async (force = false) => {
+    if (!enabled) return;
     const revision = ++requestRevision.current;
     setLoading(true);
     const result = await refreshLeaderboard({
@@ -598,7 +687,7 @@ export function useLeaderboard(options: LeaderboardOptions = {}) {
       limit,
       offset,
       includeCurrent,
-    });
+    }, force);
     if (revision !== requestRevision.current) return;
     setUsers(result.users);
     setTotalCount(result.totalCount);
@@ -607,14 +696,24 @@ export function useLeaderboard(options: LeaderboardOptions = {}) {
     setHighestStreak(result.highestStreak);
     setError(result.error);
     setLoading(false);
-  }, [period, scope, hsk, search, limit, offset, includeCurrent]);
+  }, [period, scope, hsk, search, limit, offset, includeCurrent, enabled]);
+
+  const refresh = useCallback(() => runRefresh(true), [runRefresh]);
 
   useEffect(() => {
-    void refresh();
-    const handleSync = () => void refresh();
+    if (!enabled) {
+      requestRevision.current++;
+      setLoading(false);
+      return;
+    }
+    void runRefresh();
+    const handleSync = () => {
+      clearLeaderboardCache();
+      void runRefresh();
+    };
     window.addEventListener(PROGRESS_SYNCED_EVENT, handleSync);
     return () => window.removeEventListener(PROGRESS_SYNCED_EVENT, handleSync);
-  }, [refresh]);
+  }, [enabled, runRefresh]);
 
   return {
     users,

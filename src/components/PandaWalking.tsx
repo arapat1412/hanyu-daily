@@ -168,7 +168,7 @@ export const PandaWalking: React.FC = () => {
               x="68"
               y="45"
               textAnchor="middle"
-              fontFamily="'Noto Serif SC', serif"
+              fontFamily="'Microsoft YaHei', 'PingFang SC', sans-serif"
               fontWeight="900"
               fontSize={currentPhrase.chinese.length > 3 ? "16" : "21"}
               fill="#E11D48"

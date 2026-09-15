@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-4 md:col-span-1">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm flex items-center justify-center flex-shrink-0 bg-white/10">
-                  <img src="/gautruc.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.38]" />
+                  <img src="/gautruc-192.webp" alt="Hanyu Daily" width={192} height={192} loading="lazy" decoding="async" className="w-full h-full object-cover scale-[1.38]" />
                 </div>
                 <div>
                   <div className="text-lg font-bold text-white">Hanyu Daily</div>

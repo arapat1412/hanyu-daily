@@ -497,6 +497,7 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
               <LocalGrammarNotes code={data.code} query={query} />
               <GrammarList
                 items={items.slice((current - 1) * 20, current * 20)}
+                levelCode={data.code}
               />
               <Pager
                 page={current}

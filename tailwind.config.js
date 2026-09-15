@@ -48,9 +48,9 @@ export default {
         }
       },
       fontFamily: {
-        ui: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
-        hanzi: ['"Noto Sans SC"', 'sans-serif'],
-        display: ['"Noto Serif SC"', 'serif'],
+        ui: ['"Be Vietnam Pro"', '"Segoe UI"', 'system-ui', '-apple-system', 'sans-serif'],
+        hanzi: ['"Microsoft YaHei"', '"PingFang SC"', '"Noto Sans CJK SC"', '"Source Han Sans SC"', 'sans-serif'],
+        display: ['"Be Vietnam Pro"', '"Microsoft YaHei"', '"PingFang SC"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         card: '0 4px 20px -2px rgba(44, 86, 112, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',

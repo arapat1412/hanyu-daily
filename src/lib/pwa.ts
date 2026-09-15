@@ -12,6 +12,7 @@ export interface BeforeInstallPromptEvent extends Event {
 // Global state for deferred prompt
 let deferredPrompt: BeforeInstallPromptEvent | null = null;
 let updateWaitingRegistration: ServiceWorkerRegistration | null = null;
+let reloadAfterUpdateActivation = false;
 
 const listeners = new Set<() => void>();
 function notifyListeners() {
@@ -91,8 +92,15 @@ export async function promptInstall(): Promise<boolean> {
  */
 export function applyUpdate(): void {
   if (updateWaitingRegistration && updateWaitingRegistration.waiting) {
+    // Reload only after the waiting worker has actually activated. Reloading here
+    // can race with activation and may load the old application shell again.
+    reloadAfterUpdateActivation = true;
     updateWaitingRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    return;
   }
+
+  // Fallback for the rare case where the waiting worker disappeared between the
+  // update prompt and the user's click.
   window.location.reload();
 }
 
@@ -162,13 +170,13 @@ export function registerServiceWorker(): void {
         console.error('[PWA] Service Worker registration failed:', err);
       });
 
-    // Refresh page when the new Service Worker takes over (after skipWaiting)
-    let refreshing = false;
+    // A controller also appears when the site installs its very first worker.
+    // That must not reload a first-time visitor. Only an update explicitly
+    // accepted through applyUpdate() is allowed to refresh the page.
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (!refreshing) {
-        refreshing = true;
-        window.location.reload();
-      }
+      if (!reloadAfterUpdateActivation) return;
+      reloadAfterUpdateActivation = false;
+      window.location.reload();
     });
   });
 }

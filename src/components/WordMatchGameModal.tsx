@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Zap } from 'lucide-react';
 import type { VocabularyWord } from '../types';
-import { useModalFocus } from './HskLearning';
+import { useModalFocus } from '../lib/modal-focus';
 import { WordMatchGame } from './WordMatchGame';
 
 interface WordMatchGameModalProps {

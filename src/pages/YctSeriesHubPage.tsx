@@ -179,6 +179,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '语',
       hanziColor: 'text-purple-600/15',
       coverGradient: 'from-purple-400 via-violet-500 to-fuchsia-600',
+      coverImage: '/yct4.png',
       textbookUrl: YCT_PDF_RESOURCES[3]?.textbookUrl,
       workbookUrl: YCT_PDF_RESOURCES[3]?.workbookUrl,
     },
@@ -208,6 +209,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '乐',
       hanziColor: 'text-rose-600/15',
       coverGradient: 'from-rose-400 via-pink-500 to-amber-500',
+      coverImage: '/yct5.png',
     },
     {
       id: 'yct-6',
@@ -235,6 +237,7 @@ export const YctSeriesHubPage: React.FC = () => {
       hanzi: '智',
       hanziColor: 'text-indigo-600/15',
       coverGradient: 'from-indigo-500 via-blue-600 to-cyan-600',
+      coverImage: '/yct6.png',
     },
   ];
 

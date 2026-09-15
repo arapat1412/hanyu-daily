@@ -73,10 +73,10 @@ export function RouteMetadata() {
     setMeta('meta[property="og:title"]', { property: "og:title", content: title });
     setMeta('meta[property="og:description"]', { property: "og:description", content: description });
     setMeta('meta[property="og:url"]', { property: "og:url", content: canonicalUrl });
-    setMeta('meta[property="og:image"]', { property: "og:image", content: `${origin}/gautruc.png` });
+    setMeta('meta[property="og:image"]', { property: "og:image", content: `${origin}/pwa-icon-512.png` });
     setMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
     setMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
-    setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: `${origin}/gautruc.png` });
+    setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: `${origin}/pwa-icon-512.png` });
     setMeta('meta[name="robots"]', {
       name: "robots",
       content: pathname === "/admin" ? "noindex, nofollow, noarchive" : "index, follow",

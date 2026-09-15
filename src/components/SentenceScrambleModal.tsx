@@ -1,7 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import type { VocabularyWord } from '../types';
-import { useModalFocus } from './HskLearning';
+import { useModalFocus } from '../lib/modal-focus';
 import { SentenceScramblePractice } from './SentenceScramblePractice';
 
 interface SentenceScrambleModalProps {

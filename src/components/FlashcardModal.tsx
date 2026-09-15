@@ -7,7 +7,7 @@ import {
   previewNextIntervals,
   type SrsRating,
 } from "../lib/srs";
-import { useModalFocus } from "./HskLearning";
+import { useModalFocus } from "../lib/modal-focus";
 import ExampleSentence from "./ExampleSentence";
 
 export function FlashcardModal({

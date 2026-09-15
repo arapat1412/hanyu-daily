@@ -16,7 +16,7 @@ export function IpAccessGuard({ children }: { children: React.ReactNode }) {
     let active = true;
     checkCurrentIpBlocked().then((value) => active && setBlocked(value));
     return () => { active = false; };
-  }, [pathname, isAdminRoute]);
+  }, [isAdminRoute]);
 
   if (blocked && !isAdminRoute) {
     return (

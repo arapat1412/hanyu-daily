@@ -45,7 +45,7 @@ The private dashboard is available at `/admin`. Its summary, visitor/IP log, den
 
 The optional synthetic-learner migrations create leaderboard-only demo rows, not Auth accounts. Each simulated learner receives a deterministic daily XP amount based on the `Asia/Bangkok` date, so scores advance without cron or a deployment server. Simulated join dates and streaks are bounded by the site's 2026-09-10 launch date; the administrator can edit the current streak, which then continues advancing daily. They are labelled **Mô phỏng** publicly, never generate fake traffic/IP records, and can be added, edited, deleted, enabled or disabled globally or one at a time from the admin dashboard. Admin-managed pictures are resized to WebP and stored under the protected `avatars/synthetic/` prefix.
 
-Learners can add or replace their own profile picture on `/me`. The browser center-crops and compresses the image to WebP at no more than 512×512 before upload, keeping page loads light. The public `avatars` bucket is limited to 2 MB per stored file; Storage RLS permits uploads only inside the signed-in user's own folder.
+Learners can change their public nickname, verify their current password before setting a new one, and add or replace their own profile picture on `/me`. Password changes are handled only by Supabase Auth. The browser center-crops and compresses profile images to WebP at no more than 512×512 before upload, keeping page loads light. The public `avatars` bucket is limited to 2 MB per stored file; Storage RLS permits uploads only inside the signed-in user's own folder.
 
 ## Data and provenance
 

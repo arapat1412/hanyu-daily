@@ -1,4 +1,4 @@
-import React, { useDeferredValue, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Trophy,
@@ -58,11 +58,17 @@ export const LeaderboardPage: React.FC = () => {
   const [page, setPage] = useState(0);
   const [visibleCount, setVisibleCount] = useState(10);
   const [canSeeSyntheticLabels, setCanSeeSyntheticLabels] = useState(false);
-  const deferredSearch = useDeferredValue(searchQuery);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setDebouncedSearch(searchQuery), 350);
+    return () => window.clearTimeout(timer);
+  }, [searchQuery]);
+
   const { users, totalCount, filteredCount, totalXp, highestStreak, loading, error, refresh } = useLeaderboard({
     period: timeframe,
     hsk: selectedHsk === "Tất cả" ? undefined : selectedHsk,
-    search: deferredSearch,
+    search: debouncedSearch,
     limit: 20,
     offset: page * 20,
     includeCurrent: true,
@@ -71,7 +77,7 @@ export const LeaderboardPage: React.FC = () => {
   useEffect(() => {
     setPage(0);
     setVisibleCount(10);
-  }, [timeframe, selectedHsk, deferredSearch]);
+  }, [timeframe, selectedHsk, debouncedSearch]);
 
   useEffect(() => {
     let active = true;
@@ -199,7 +205,7 @@ export const LeaderboardPage: React.FC = () => {
               Bảng Vàng Phong Vân
             </h1>
             <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
-              Một hệ XP chung cho New HSK 3.0, Boya, YCT, Thành ngữ, Thơ Đường và trò chơi Văn hóa Trung Quốc.
+              Một hệ XP chung cho New HSK 3.0, Boya và YCT.
             </p>
             <p className="mt-2 text-xs text-slate-300">
               Tiến độ do người học tự ghi nhận; bảng xếp hạng không phải kết quả thi có giám sát.
@@ -918,10 +924,10 @@ export const LeaderboardPage: React.FC = () => {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-100 text-rose-700">
                 <GraduationCap className="h-4.5 w-4.5" />
               </div>
-              <h3 className="mt-3 text-xs font-bold text-ink">Khám phá văn hóa</h3>
+              <h3 className="mt-3 text-xs font-bold text-ink">Thử thách & Đố vui</h3>
               <div className="mt-0.5 font-mono text-sm font-black text-rose-600">+5–10 XP / câu</div>
               <p className="mt-1 text-[11px] text-muted leading-relaxed">
-                Quiz Thành ngữ, Thơ Đường và 1000 câu hỏi Văn hóa đều ghi vào Bảng Vàng.
+                Các câu hỏi đố vui và bài tập thử thách đều ghi nhận điểm vào Bảng Vàng.
               </p>
             </div>
           </div>

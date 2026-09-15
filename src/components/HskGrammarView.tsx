@@ -15,37 +15,56 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
-import {
-  HSK1_ENRICHED_GRAMMAR,
-  HSK1_GRAMMAR_CATEGORIES,
-  type EnrichedGrammarPoint,
-  type GrammarCategory
-} from '../data/hsk1GrammarData';
-import {
-  HSK2_ENRICHED_GRAMMAR,
-  HSK2_GRAMMAR_CATEGORIES
-} from '../data/hsk2GrammarData';
-import {
-  HSK3_ENRICHED_GRAMMAR,
-  HSK3_GRAMMAR_CATEGORIES
-} from '../data/hsk3GrammarData';
-import {
-  HSK4_ENRICHED_GRAMMAR,
-  HSK4_GRAMMAR_CATEGORIES
-} from '../data/hsk4GrammarData';
-import {
-  HSK5_ENRICHED_GRAMMAR,
-  HSK5_GRAMMAR_CATEGORIES
-} from '../data/hsk5GrammarData';
-import {
-  HSK6_ENRICHED_GRAMMAR,
-  HSK6_GRAMMAR_CATEGORIES
-} from '../data/hsk6GrammarData';
-import {
-  HSK79_ENRICHED_GRAMMAR,
-  HSK79_GRAMMAR_CATEGORIES
-} from '../data/hsk79GrammarData';
 import { speakChinese, toggleBookmark, useProgress, normalizeSearch } from '../lib/hsk';
+import { useGrammarLevel, type GrammarLevelData } from '../lib/hsk-grammar';
+
+const EMPTY_GRAMMAR: GrammarLevelData['grammarData'] = [];
+const EMPTY_CATEGORIES: GrammarLevelData['categories'] = [];
+
+const GRAMMAR_LEVEL_CONFIG = {
+  hsk1: {
+    levelTitle: 'Ngữ pháp HSK 1 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 1',
+    pointsCount: 70,
+    examplesCount: 204,
+  },
+  hsk2: {
+    levelTitle: 'Ngữ pháp HSK 2 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 2',
+    pointsCount: 78,
+    examplesCount: 195,
+  },
+  hsk3: {
+    levelTitle: 'Ngữ pháp HSK 3 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 3',
+    pointsCount: 96,
+    examplesCount: 302,
+  },
+  hsk4: {
+    levelTitle: 'Ngữ pháp HSK 4 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 4',
+    pointsCount: 95,
+    examplesCount: 365,
+  },
+  hsk5: {
+    levelTitle: 'Ngữ pháp HSK 5 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 5',
+    pointsCount: 70,
+    examplesCount: 245,
+  },
+  hsk6: {
+    levelTitle: 'Ngữ pháp HSK 6 Toàn diện & Dễ hiểu',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 6',
+    pointsCount: 50,
+    examplesCount: 147,
+  },
+  'hsk7-9': {
+    levelTitle: 'Ngữ pháp HSK 7–9 Cao cấp & Toàn diện',
+    levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 7–9',
+    pointsCount: 134,
+    examplesCount: 596,
+  },
+} as const;
 
 interface HskGrammarViewProps {
   levelCode: string; // 'hsk1' .. 'hsk7-9'
@@ -63,77 +82,17 @@ export const HskGrammarView: React.FC<HskGrammarViewProps> = ({ levelCode }) => 
   const [showTranslation, setShowTranslation] = useState(true);
   const [playingSentence, setPlayingSentence] = useState<string | null>(null);
 
-  // Dynamic Level Config
-  const { grammarData, categories, levelTitle, levelBadge, pointsCount, examplesCount } = useMemo(() => {
-    if (levelCode === 'hsk2') {
-      return {
-        grammarData: HSK2_ENRICHED_GRAMMAR,
-        categories: HSK2_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 2 Toàn diện & Dễ hiểu',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 2',
-        pointsCount: 78,
-        examplesCount: 195,
-      };
-    }
-    if (levelCode === 'hsk3') {
-      return {
-        grammarData: HSK3_ENRICHED_GRAMMAR,
-        categories: HSK3_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 3 Toàn diện & Dễ hiểu',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 3',
-        pointsCount: 96,
-        examplesCount: 302,
-      };
-    }
-    if (levelCode === 'hsk4') {
-      return {
-        grammarData: HSK4_ENRICHED_GRAMMAR,
-        categories: HSK4_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 4 Toàn diện & Dễ hiểu',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 4',
-        pointsCount: 95,
-        examplesCount: 365,
-      };
-    }
-    if (levelCode === 'hsk5') {
-      return {
-        grammarData: HSK5_ENRICHED_GRAMMAR,
-        categories: HSK5_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 5 Toàn diện & Dễ hiểu',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 5',
-        pointsCount: 70,
-        examplesCount: 245,
-      };
-    }
-    if (levelCode === 'hsk6') {
-      return {
-        grammarData: HSK6_ENRICHED_GRAMMAR,
-        categories: HSK6_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 6 Toàn diện & Dễ hiểu',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 6',
-        pointsCount: 50,
-        examplesCount: 147,
-      };
-    }
-    if (levelCode === 'hsk7-9') {
-      return {
-        grammarData: HSK79_ENRICHED_GRAMMAR,
-        categories: HSK79_GRAMMAR_CATEGORIES,
-        levelTitle: 'Ngữ pháp HSK 7–9 Cao cấp & Toàn diện',
-        levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 7–9',
-        pointsCount: 134,
-        examplesCount: 596,
-      };
-    }
-    return {
-      grammarData: HSK1_ENRICHED_GRAMMAR,
-      categories: HSK1_GRAMMAR_CATEGORIES,
-      levelTitle: 'Ngữ pháp HSK 1 Toàn diện & Dễ hiểu',
-      levelBadge: 'Chương trình New HSK 3.0 · Cấp độ HSK 1',
-      pointsCount: 70,
-      examplesCount: 204,
-    };
-  }, [levelCode]);
+  const {
+    data: grammarLevel,
+    loading: grammarLoading,
+    error: grammarLoadError,
+  } = useGrammarLevel(levelCode);
+  const grammarData = grammarLevel?.grammarData ?? EMPTY_GRAMMAR;
+  const categories = grammarLevel?.categories ?? EMPTY_CATEGORIES;
+  const levelConfig =
+    GRAMMAR_LEVEL_CONFIG[levelCode as keyof typeof GRAMMAR_LEVEL_CONFIG] ??
+    GRAMMAR_LEVEL_CONFIG.hsk1;
+  const { levelTitle, levelBadge, pointsCount, examplesCount } = levelConfig;
 
   // Search & Filter
   const normalizedQuery = normalizeSearch(searchQuery);
@@ -182,6 +141,22 @@ export const HskGrammarView: React.FC<HskGrammarViewProps> = ({ levelCode }) => 
     speakChinese(text, () => setPlayingSentence(null));
     setTimeout(() => setPlayingSentence(null), 2000);
   };
+
+  if (grammarLoading && !grammarLevel) {
+    return (
+      <p role="status" className="rounded-2xl border border-line bg-white p-6 text-sm text-muted">
+        Đang tải dữ liệu ngữ pháp…
+      </p>
+    );
+  }
+
+  if (grammarLoadError || !grammarLevel) {
+    return (
+      <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-700">
+        Không thể tải dữ liệu ngữ pháp. Vui lòng tải lại trang để thử lại.
+      </p>
+    );
+  }
 
   return (
     <div className="space-y-6">

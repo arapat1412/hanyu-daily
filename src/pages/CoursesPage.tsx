@@ -8,9 +8,7 @@ import {
   GraduationCap,
   Users,
   Clock,
-  ShoppingBag,
   MessageCircle,
-  ExternalLink,
   Flame,
   ShieldCheck,
   Award,
@@ -18,7 +16,6 @@ import {
 
 export const CoursesPage: React.FC = () => {
   const zaloUrl = 'https://zalo.me/0772550044';
-  const shopeeUrl = 'https://s.shopee.vn/3qMS28qXGA';
 
   const highlights = [
     {
@@ -111,6 +108,7 @@ export const CoursesPage: React.FC = () => {
     },
   ];
 
+
   return (
     <div className="min-h-screen bg-cream text-ink">
       <div className="mx-auto flex max-w-[1180px] flex-col gap-8 px-4 sm:px-7 pt-6 pb-20">
@@ -176,8 +174,12 @@ export const CoursesPage: React.FC = () => {
             {/* Avatar Container with fixed dimensions */}
             <div className="relative h-24 w-24 sm:h-28 sm:w-28 flex-shrink-0 overflow-hidden rounded-full border-4 border-white shadow-md bg-white">
               <img
-                src="/kimchi.png"
+                src="/kimchi-320.webp"
                 alt="Cô Nguyễn Thị Kim Chi"
+                width={320}
+                height={361}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover object-[50%_20%]"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
@@ -238,106 +240,196 @@ export const CoursesPage: React.FC = () => {
           </div>
         </section>
 
-        {/* 2 Learning Materials Cards (Side-by-Side) */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Textbook Shopee Card */}
-          <div className="group flex items-center gap-4 rounded-3xl border border-line bg-white p-5 sm:p-6 shadow-sm transition-all hover:border-amber-400/60 hover:shadow-md">
-            <div className="h-20 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-line/80 shadow-xs transition-transform group-hover:scale-105">
-              <img
-                src="/hsk1-textbook-cover.jpg"
-                alt="Giáo trình New HSK 1"
-                className="h-full w-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="inline-flex items-center gap-1 text-[10.5px] font-bold text-amber-700 uppercase tracking-wider mb-1">
-                <ShoppingBag size={12} /> Sách & Giáo trình chuẩn
+        {/* Free Learning Resources & Roadmaps */}
+        <section className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand">
+                <BookOpen size={13} />
+                <span>Tài liệu & Lộ trình tự học</span>
               </div>
-              <h4 className="text-sm font-bold text-ink truncate">
-                Giáo trình & SBT New HSK 1, 2
-              </h4>
-              <p className="mt-1 text-xs text-ink-2 line-clamp-2 leading-relaxed">
-                Đủ bộ giáo trình chính và sách bài tập chuẩn bản quyền dùng xuyên suốt trong khóa học.
-              </p>
-              <div className="mt-3">
-                <a
-                  href={shopeeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-50 px-3.5 py-1.5 text-xs font-bold text-amber-900 transition-all hover:bg-amber-100 hover:scale-[1.02] active:scale-98"
-                >
-                  <span>Mua trên Shopee</span>
-                  <ExternalLink size={12} />
-                </a>
-              </div>
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-ink mt-1">
+                Hệ thống giáo trình & Lộ trình miễn phí
+              </h3>
             </div>
+            <p className="text-xs text-muted max-w-md sm:text-right">
+              Tích hợp đầy đủ từ vựng chuẩn, bài tập tương tác, audio và file PDF tải về miễn phí.
+            </p>
           </div>
 
-          {/* Boya Hub Card */}
-          <div className="group flex items-center gap-4 rounded-3xl border border-line bg-white p-5 sm:p-6 shadow-sm transition-all hover:border-brand/40 hover:shadow-md">
-            <div className="h-20 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-line/80 shadow-xs transition-transform group-hover:scale-105">
-              <img
-                src="/boyasocap1.png"
-                alt="Giáo trình Hán ngữ Boya Sơ cấp 1"
-                className="h-full w-full object-cover"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Card 1: HSK 3.0 */}
+            <div className="group relative flex flex-col justify-between rounded-3xl border border-line bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/60 hover:shadow-md">
+              <div>
+                <div className="flex items-start gap-4">
+                  <div className="h-24 w-18 flex-shrink-0 overflow-hidden rounded-2xl border border-line/80 shadow-xs transition-transform duration-300 group-hover:scale-105 bg-amber-50/40">
+                    <img
+                      src="/hsk1-textbook-cover.jpg"
+                      alt="Lộ trình New HSK 3.0"
+                      className="h-full w-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-amber-100/70 px-2.5 py-1 text-[10.5px] font-bold text-amber-900 tracking-wide uppercase">
+                      <GraduationCap size={12} /> Lộ trình chuẩn
+                    </span>
+                    <h4 className="mt-2 text-[15px] font-bold text-ink group-hover:text-amber-700 transition-colors leading-snug">
+                      New HSK 3.0 (Cấp 1 – 9)
+                    </h4>
+                    <p className="mt-1 text-xs font-semibold text-amber-800/80">
+                      9 cấp độ · 11.000+ từ vựng
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-xs text-ink-2 leading-relaxed">
+                  Lộ trình học toàn diện theo chuẩn HSK 3.0 mới nhất, kèm tra cứu từ vựng, ngữ pháp chi tiết và luyện tập phản xạ.
+                </p>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-line/60">
+                <Link
+                  to="/hsk"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 py-2.5 text-xs font-bold text-white shadow-2xs transition-all hover:bg-amber-600 hover:scale-[1.01] active:scale-98"
+                >
+                  <span>Khám phá lộ trình HSK</span>
+                  <ArrowRight size={13} />
+                </Link>
+              </div>
             </div>
 
-            <div className="flex-1 min-w-0">
-              <div className="inline-flex items-center gap-1 text-[10.5px] font-bold text-brand uppercase tracking-wider mb-1">
-                <BookOpen size={12} /> Kho tài liệu tự học
+            {/* Card 2: Boya */}
+            <div className="group relative flex flex-col justify-between rounded-3xl border border-line bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-md">
+              <div>
+                <div className="flex items-start gap-4">
+                  <div className="h-24 w-18 flex-shrink-0 overflow-hidden rounded-2xl border border-line/80 shadow-xs transition-transform duration-300 group-hover:scale-105 bg-tint/40">
+                    <img
+                      src="/boyasocap1.png"
+                      alt="Giáo trình Hán ngữ Boya Sơ cấp 1"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-brand/10 px-2.5 py-1 text-[10.5px] font-bold text-brand tracking-wide uppercase">
+                      <BookOpen size={12} /> Kho tài liệu tự học
+                    </span>
+                    <h4 className="mt-2 text-[15px] font-bold text-ink group-hover:text-brand transition-colors leading-snug">
+                      Giáo trình Boya Sơ cấp 1
+                    </h4>
+                    <p className="mt-1 text-xs font-semibold text-brand-dark/80">
+                      30 bài học · 678 từ vựng
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-xs text-ink-2 leading-relaxed">
+                  Trọn bộ 30 bài học kèm audio phát âm chuẩn, bài tập trắc nghiệm củng cố và flashcard thông minh hoàn toàn miễn phí.
+                </p>
               </div>
-              <h4 className="text-sm font-bold text-ink truncate">
-                Giáo trình Hán ngữ Boya Sơ cấp 1
-              </h4>
-              <p className="mt-1 text-xs text-ink-2 line-clamp-2 leading-relaxed">
-                Trọn bộ 30 bài, 678 từ vựng kèm audio, trắc nghiệm và flashcard tương tác miễn phí trên app.
-              </p>
-              <div className="mt-3">
+
+              <div className="mt-5 pt-3 border-t border-line/60">
                 <Link
                   to="/boya/so-cap-1"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-tint px-3.5 py-1.5 text-xs font-bold text-brand transition-all hover:bg-brand hover:text-white hover:scale-[1.02] active:scale-98"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand py-2.5 text-xs font-bold text-white shadow-2xs transition-all hover:bg-brand-dark hover:scale-[1.01] active:scale-98"
                 >
-                  <span>Vào học miễn phí</span>
-                  <ArrowRight size={12} />
+                  <span>Vào học Boya miễn phí</span>
+                  <ArrowRight size={13} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: YCT */}
+            <div className="group relative flex flex-col justify-between rounded-3xl border border-line bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-md">
+              <div>
+                <div className="flex items-start gap-4">
+                  <div className="h-24 w-18 flex-shrink-0 overflow-hidden rounded-2xl border border-line/80 shadow-xs transition-transform duration-300 group-hover:scale-105 bg-emerald-50/40">
+                    <img
+                      src="/yct1.png"
+                      alt="Tủ Sách Tiếng Trung Thiếu Nhi YCT"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100/70 px-2.5 py-1 text-[10.5px] font-bold text-emerald-800 tracking-wide uppercase">
+                      <Sparkles size={12} /> Tiếng Trung thiếu nhi
+                    </span>
+                    <h4 className="mt-2 text-[15px] font-bold text-ink group-hover:text-emerald-700 transition-colors leading-snug">
+                      Tủ Sách YCT (Cấp 1 – 6)
+                    </h4>
+                    <p className="mt-1 text-xs font-semibold text-emerald-800/80">
+                      6 cấp độ · Trọn bộ PDF SGK & SBT
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-xs text-ink-2 leading-relaxed">
+                  Giáo trình chuẩn quốc tế cho học sinh 6–15 tuổi với tranh vẽ sinh động, audio bản xứ và link tải file PDF miễn phí.
+                </p>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-line/60">
+                <Link
+                  to="/yct"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-xs font-bold text-white shadow-2xs transition-all hover:bg-emerald-700 hover:scale-[1.01] active:scale-98"
+                >
+                  <span>Khám phá sách YCT</span>
+                  <ArrowRight size={13} />
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 3 Core Value Cards */}
-        <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {highlights.map((h) => (
-            <div
-              key={h.title}
-              className="group relative flex flex-col items-center justify-center rounded-3xl border border-line bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-md"
-            >
+        {/* Course Highlights / Quality Commitment Strip */}
+        <section className="rounded-3xl border border-line/80 bg-white p-6 sm:p-7 shadow-xs">
+          <div className="mb-4 sm:mb-5 pb-3 border-b border-line/60 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted">
+              Đặc quyền khi tham gia lớp học cùng cô Kim Chi
+            </span>
+            <span className="text-[11px] font-semibold text-brand">
+              Kèm cặp 1-1 · Sửa phát âm & bài tập mỗi ngày
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line/70 gap-5 md:gap-0">
+            {highlights.map((h, index) => (
               <div
-                className="flex h-14 w-14 items-center justify-center rounded-2xl font-display text-2xl font-black shadow-2xs transition-transform group-hover:scale-110"
-                style={{ background: h.bg, color: h.fg }}
+                key={h.title}
+                className={`flex items-start gap-4 ${
+                  index === 0
+                    ? 'md:pr-6'
+                    : index === 1
+                    ? 'md:px-6 pt-5 md:pt-0'
+                    : 'md:pl-6 pt-5 md:pt-0'
+                }`}
               >
-                {h.hz}
+                <div
+                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl font-display text-xl font-black shadow-2xs transition-transform hover:scale-105"
+                  style={{ background: h.bg, color: h.fg }}
+                >
+                  {h.hz}
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-ink">
+                    {h.title}
+                  </h4>
+                  <p className="mt-1 text-xs text-ink-2 leading-relaxed">
+                    {h.text}
+                  </p>
+                </div>
               </div>
-              <h3 className="mt-4 text-sm font-bold text-ink">
-                {h.title}
-              </h3>
-              <p className="mt-1.5 text-xs text-ink-2 leading-relaxed max-w-[260px]">
-                {h.text}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
 
         {/* Discount Coupon Banner */}
-        <section className="relative overflow-hidden rounded-2xl border border-dashed border-[#E3B863] bg-gradient-to-r from-[#FFF9EE] via-[#FFF3D6] to-[#FFF9EE] px-6 py-4 shadow-2xs">
+        <section className="relative overflow-hidden rounded-2xl border border-dashed border-[#E3B863] bg-gradient-to-r from-[#FFF9EE] via-[#FFF3D6] to-[#FFF9EE] px-5 sm:px-6 py-4 shadow-2xs">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[#E0A62A] text-white font-black text-sm shadow-xs">
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#E0A62A] text-white font-black text-base shadow-xs">
                 %
               </span>
               <div>
@@ -345,7 +437,7 @@ export const CoursesPage: React.FC = () => {
                   Ưu đãi học nhóm: Giảm 200.000đ học phí mỗi bạn
                 </span>
                 <p className="text-xs text-[#8A6A1E] mt-0.5">
-                  Áp dụng khi đăng ký từ 2 học viên trở lên cho bất kỳ khóa học nào.
+                  Áp dụng khi đăng ký từ 2 học viên trở lên cho bất kỳ khóa học nào trong tháng này.
                 </p>
               </div>
             </div>
@@ -354,13 +446,14 @@ export const CoursesPage: React.FC = () => {
               href={zaloUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#B07A12] px-4 py-2 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#8F630E] hover:scale-105 active:scale-98"
+              className="inline-flex items-center gap-1.5 flex-shrink-0 rounded-xl bg-[#B07A12] px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-all hover:bg-[#8F630E] hover:scale-105 active:scale-98"
             >
               <span>Nhận ưu đãi qua Zalo</span>
               <ArrowRight size={12} />
             </a>
           </div>
         </section>
+
 
         {/* 3 Course Tier Cards */}
         <section className="space-y-4">

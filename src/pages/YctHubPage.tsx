@@ -1717,7 +1717,7 @@ export const YctHubPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {YCT_PDF_RESOURCES.map((res) => {
                 const isCurrentLevel = res.level === levelNum;
-                const cover = res.level === 1 ? "/yct1.png" : res.level === 2 ? "/yct2.png" : res.level === 3 ? "/yct3.png" : undefined;
+                const cover = `/yct${res.level}.png`;
 
                 return (
                   <div

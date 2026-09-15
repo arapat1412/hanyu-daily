@@ -604,6 +604,8 @@ let storageError = "";
 let syncStatus: "local" | "syncing" | "synced" | "error" = "local";
 let syncError = "";
 let syncTimer: ReturnType<typeof setTimeout> | null = null;
+let pendingCloudSync: { accountId: string; value: Progress } | null = null;
+const syncedProgressByAccount = new Map<string, string>();
 let progressRevision = 0;
 const subscribers = new Set<() => void>();
 function emit() {
@@ -618,6 +620,8 @@ window.addEventListener("storage", (event) => {
 });
 window.addEventListener(AUTH_CHANGED_EVENT, () => {
   if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = null;
+  pendingCloudSync = null;
   activeStorageKey = progressStorageKey();
   const accountId = getCurrentAccountId();
   if (accountId && !localStorage.getItem(activeStorageKey)) {
@@ -751,16 +755,29 @@ async function loadCloudProgress(accountId: string) {
     return;
   }
   const remote = parseProgress(data?.progress);
+  const remoteSerialized = JSON.stringify(remote);
   progress = mergeProgress(progress, remote);
+  const mergedSerialized = JSON.stringify(progress);
+  syncedProgressByAccount.set(accountId, remoteSerialized);
+  const needsCloudUpdate = mergedSerialized !== remoteSerialized;
+  syncStatus = needsCloudUpdate ? "syncing" : "synced";
+  syncError = "";
   try {
-    localStorage.setItem(activeStorageKey, JSON.stringify(progress));
+    localStorage.setItem(activeStorageKey, mergedSerialized);
   } catch {}
   emit();
-  await syncCloudProgress(accountId, progress);
+  if (needsCloudUpdate) await syncCloudProgress(accountId, progress);
 }
 
 async function syncCloudProgress(accountId: string, value: Progress) {
   if (!supabase || getCurrentAccountId() !== accountId) return;
+  const serialized = JSON.stringify(value);
+  if (syncedProgressByAccount.get(accountId) === serialized) {
+    syncStatus = "synced";
+    syncError = "";
+    emit();
+    return;
+  }
   syncStatus = "syncing";
   syncError = "";
   emit();
@@ -774,6 +791,7 @@ async function syncCloudProgress(accountId: string, value: Progress) {
     syncStatus = "error";
     syncError = "Tiến độ đang lưu trên máy nhưng chưa đồng bộ được lên Supabase.";
   } else {
+    syncedProgressByAccount.set(accountId, serialized);
     syncStatus = "synced";
     syncError = "";
     window.dispatchEvent(new Event(PROGRESS_SYNCED_EVENT));
@@ -781,17 +799,31 @@ async function syncCloudProgress(accountId: string, value: Progress) {
   emit();
 }
 
+function flushScheduledCloudSync() {
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = null;
+  const pending = pendingCloudSync;
+  pendingCloudSync = null;
+  if (pending) void syncCloudProgress(pending.accountId, pending.value);
+}
+
 function scheduleCloudSync(value: Progress) {
   const accountId = getCurrentAccountId();
   if (!accountId || !supabase) return;
   syncStatus = "syncing";
   syncError = "";
+  pendingCloudSync = { accountId, value };
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(() => {
-    syncTimer = null;
-    void syncCloudProgress(accountId, value);
-  }, 700);
+    flushScheduledCloudSync();
+  }, 2000);
 }
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") flushScheduledCloudSync();
+});
+window.addEventListener("pagehide", flushScheduledCloudSync);
+
 function save(next: Progress) {
   progress = next;
   try {

@@ -395,8 +395,14 @@ export const DashboardPage: React.FC = () => {
             <div className="relative shrink-0">
               <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl overflow-hidden ring-4 ring-pink-200/90 shadow-[0_0_45px_rgba(244,114,182,0.4)]">
                 <img
-                  src="/kimchi.png"
+                  src="/kimchi-640.webp"
+                  srcSet="/kimchi-320.webp 320w, /kimchi-640.webp 640w"
+                  sizes="(min-width: 640px) 176px, 144px"
                   alt="Cô Nguyễn Thị Kim Chi"
+                  width={640}
+                  height={723}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-[50%_20%]"
                 />
               </div>
@@ -811,8 +817,12 @@ export const DashboardPage: React.FC = () => {
                   </span>
 
                   <img
-                    src="/tra-sua-icon.png"
+                    src="/tra-sua-icon-128.webp"
                     alt="Trà sữa"
+                    width={128}
+                    height={192}
+                    loading="lazy"
+                    decoding="async"
                     className="relative w-11 h-11 object-contain transition-all duration-300 ease-out group-hover:animate-boba-wiggle drop-shadow-xs group-hover:drop-shadow-lg"
                   />
                 </div>

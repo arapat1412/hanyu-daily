@@ -130,7 +130,7 @@ export const PwaInstallPrompt: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200/80 p-0.5 shadow-md overflow-hidden flex items-center justify-center shrink-0">
-              <img src="/gautruc.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.35]" />
+              <img src="/gautruc-192.webp" alt="Hanyu Daily" width={192} height={192} decoding="async" className="w-full h-full object-cover scale-[1.35]" />
             </div>
             <div>
               <h3 className="font-bold text-base text-stone-900">Cài đặt Hanyu Daily trên iPhone</h3>
@@ -207,8 +207,11 @@ export const PwaInstallPrompt: React.FC = () => {
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 p-0.5 shadow-xs overflow-hidden flex items-center justify-center shrink-0">
               <img
-                src="/gautruc.png"
+                src="/gautruc-192.webp"
                 alt="Hanyu Daily"
+                width={192}
+                height={192}
+                decoding="async"
                 className="w-full h-full object-cover scale-[1.35]"
               />
             </div>

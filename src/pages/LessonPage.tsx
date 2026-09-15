@@ -221,7 +221,7 @@ function LessonContent({
               ? "Các mục ngữ pháp trọng tâm theo bài học, kèm tiêu đề tiếng Việt, công thức trực quan, giải thích và ví dụ có phiên âm."
               : "Các mục ngữ pháp nguyên bản được phân bổ luân phiên từ đề cương."}
           </p>
-          <GrammarList items={grammar} />
+          <GrammarList items={grammar} levelCode={data.code} />
         </>
       )}
       {mode === "test" && (

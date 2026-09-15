@@ -16,6 +16,7 @@ export const CultureTopicsPage: React.FC = () => {
     period: rankTab,
     scope: "culture",
     offset: rankPage * 100,
+    enabled: showRankModal,
   });
 
   useEffect(() => setRankPage(0), [rankTab]);
@@ -93,8 +94,11 @@ export const CultureTopicsPage: React.FC = () => {
               className="group flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-white/25 p-0.5 shadow-sm transition-transform hover:scale-105"
             >
               <img
-                src="/gautruc.png"
+                src="/gautruc-192.webp"
                 alt="Hanyu Daily"
+                width={192}
+                height={192}
+                decoding="async"
                 className="h-full w-full object-cover scale-[1.35]"
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';

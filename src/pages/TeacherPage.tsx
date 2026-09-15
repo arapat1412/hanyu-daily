@@ -121,8 +121,12 @@ export const TeacherPage: React.FC = () => {
             {/* Avatar Container */}
             <div className="relative mb-4 flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white/30 bg-white shadow-elevated">
               <img
-                src="/kimchi.png"
+                src="/kimchi-320.webp"
                 alt="Cô Nguyễn Thị Kim Chi"
+                width={320}
+                height={361}
+                fetchPriority="high"
+                decoding="async"
                 className="h-full w-full object-cover object-[50%_20%]"
               />
               <span

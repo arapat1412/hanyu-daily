@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
@@ -14,23 +14,6 @@ import {
 } from "lucide-react";
 import { HSK_LEVELS } from "../data/hskLevels";
 import { SAMPLE_GRAMMAR } from "../data/grammarPoints";
-import { HSK1_ENRICHED_GRAMMAR } from "../data/hsk1GrammarData";
-import { HSK2_ENRICHED_GRAMMAR } from "../data/hsk2GrammarData";
-import { HSK3_ENRICHED_GRAMMAR } from "../data/hsk3GrammarData";
-import { HSK4_ENRICHED_GRAMMAR } from "../data/hsk4GrammarData";
-import { HSK5_ENRICHED_GRAMMAR } from "../data/hsk5GrammarData";
-import { HSK6_ENRICHED_GRAMMAR } from "../data/hsk6GrammarData";
-import { HSK79_ENRICHED_GRAMMAR } from "../data/hsk79GrammarData";
-
-const ALL_ENRICHED_GRAMMAR = [
-  ...HSK1_ENRICHED_GRAMMAR,
-  ...HSK2_ENRICHED_GRAMMAR,
-  ...HSK3_ENRICHED_GRAMMAR,
-  ...HSK4_ENRICHED_GRAMMAR,
-  ...HSK5_ENRICHED_GRAMMAR,
-  ...HSK6_ENRICHED_GRAMMAR,
-  ...HSK79_ENRICHED_GRAMMAR,
-];
 import {
   manifest,
   enrichment,
@@ -41,6 +24,7 @@ import {
   type Lesson,
   type SyllabusGrammar,
 } from "../lib/hsk";
+import { useGrammarLevel } from "../lib/hsk-grammar";
 import type { VocabularyWord } from "../types";
 import ExampleSentence from "./ExampleSentence";
 
@@ -679,8 +663,28 @@ export function WordCard({
     </article>
   );
 }
-export function GrammarList({ items }: { items: SyllabusGrammar[] }) {
+export function GrammarList({
+  items,
+  levelCode,
+}: {
+  items: SyllabusGrammar[];
+  levelCode: string;
+}) {
   const [error, setError] = useState("");
+  const { data: grammarLevel, loading: grammarLoading } = useGrammarLevel(
+    levelCode,
+    items.length > 0,
+  );
+  const enrichedGrammar = grammarLevel?.grammarData ?? [];
+
+  if (grammarLoading && items.length > 0) {
+    return (
+      <p role="status" className="rounded-2xl border border-line bg-white p-5 text-sm text-muted">
+        Đang tải nội dung ngữ pháp…
+      </p>
+    );
+  }
+
   return (
     <div className="space-y-3">
       {error && (
@@ -692,7 +696,7 @@ export function GrammarList({ items }: { items: SyllabusGrammar[] }) {
         const cleanContent = (item.content || "").replace(/\s+/g, "");
         const cleanDetail = (item.grammarDetail || "").replace(/\s+/g, "");
 
-        const enriched = ALL_ENRICHED_GRAMMAR.find((e) => {
+        const enriched = enrichedGrammar.find((e) => {
           const eZh = (e.titleZh || "").replace(/\s+/g, "");
           const eDetail = (e.grammarDetail || "").replace(/\s+/g, "");
           if (cleanContent && eZh === cleanContent) return true;
@@ -818,55 +822,4 @@ export function GrammarList({ items }: { items: SyllabusGrammar[] }) {
       )}
     </div>
   );
-}
-
-export function useModalFocus(open: boolean, close: () => void) {
-  const ref = useRef<HTMLDivElement>(null);
-  const closeRef = useRef(close);
-  closeRef.current = close;
-  useEffect(() => {
-    if (!open) return;
-    const previous = document.activeElement as HTMLElement | null;
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    ref.current?.focus();
-    function keydown(event: KeyboardEvent) {
-      if (event.key === "Escape") closeRef.current();
-      if (event.key !== "Tab") return;
-      const elements = Array.from(
-        ref.current?.querySelectorAll<HTMLElement>(
-          'button:not(:disabled), a[href], input, select, [tabindex="0"]',
-        ) || [],
-      );
-      const first = elements[0],
-        last = elements[elements.length - 1];
-      if (!first) {
-        event.preventDefault();
-        return;
-      }
-      if (
-        event.shiftKey &&
-        (document.activeElement === first ||
-          document.activeElement === ref.current)
-      ) {
-        event.preventDefault();
-        last?.focus();
-      } else if (
-        !event.shiftKey &&
-        (document.activeElement === last ||
-          document.activeElement === ref.current)
-      ) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-    document.addEventListener("keydown", keydown);
-    return () => {
-      document.body.style.overflow = overflow;
-      document.removeEventListener("keydown", keydown);
-      previous?.focus();
-      window.speechSynthesis?.cancel();
-    };
-  }, [open]);
-  return ref;
 }

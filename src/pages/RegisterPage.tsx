@@ -40,7 +40,7 @@ export const RegisterPage: React.FC = () => {
         <div className="text-center space-y-2">
           <Link to="/" className="inline-flex items-center gap-2 mb-2">
             <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
-              <img src="/gautruc.png" alt="Hanyu Daily" className="w-full h-full object-cover scale-[1.38]" />
+              <img src="/gautruc-192.webp" alt="Hanyu Daily" width={192} height={192} decoding="async" className="w-full h-full object-cover scale-[1.38]" />
             </div>
           </Link>
           <h2 className="font-display text-2xl font-bold text-ink">
