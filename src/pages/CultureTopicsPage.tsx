@@ -340,6 +340,11 @@ export const CultureTopicsPage: React.FC = () => {
                           Bạn
                         </span>
                       )}
+                      {u.isSynthetic && (
+                        <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 text-[9px] font-bold text-indigo-600">
+                          Mô phỏng
+                        </span>
+                      )}
                     </div>
                     <span className="font-mono font-bold text-brand">
                       {(rankTab === "weekly" ? u.cultureWeeklyXp : u.cultureXp).toLocaleString("vi-VN")} XP

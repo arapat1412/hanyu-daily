@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { Lock, ArrowRight, AtSign } from 'lucide-react';
+import { Lock, ArrowRight, AtSign, CircleUserRound, Info } from 'lucide-react';
 import { registerAccount, useAuth } from '../lib/auth';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, isReady, isConfigured } = useAuth();
   const [username, setUsername] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -19,7 +20,7 @@ export const RegisterPage: React.FC = () => {
     try {
       if (password !== confirmPassword)
         throw new Error('Mật khẩu xác nhận chưa khớp.');
-      const result = await registerAccount({ username, password });
+      const result = await registerAccount({ username, displayName, password });
       if (result.requiresEmailConfirmation)
         throw new Error('Supabase vẫn đang yêu cầu xác nhận email. Quản trị viên cần tắt Confirm email.');
       navigate('/me');
@@ -46,12 +47,38 @@ export const RegisterPage: React.FC = () => {
             Đăng Ký Tài Khoản
           </h2>
           <p className="text-xs text-muted">
-            Tạo tài khoản để lưu lại tiến độ học và tích luỹ điểm EXP
+            Tạo tài khoản để lưu lại tiến độ học và tích luỹ điểm XP
           </p>
         </div>
 
         {/* Register Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex gap-2.5 rounded-2xl border border-sky-100 bg-sky-50 p-3 text-[11px] leading-5 text-sky-800">
+            <Info className="mt-0.5 h-4 w-4 shrink-0" />
+            <p><strong>Nickname</strong> là tên công khai trên bảng xếp hạng. <strong>Tên đăng nhập</strong> chỉ dùng để vào tài khoản.</p>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-ink-2 mb-1.5">
+              Nickname
+            </label>
+            <div className="relative">
+              <CircleUserRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+              <input
+                type="text"
+                required
+                autoComplete="name"
+                autoCapitalize="words"
+                minLength={2}
+                maxLength={80}
+                value={displayName}
+                onChange={(event) => setDisplayName(event.target.value)}
+                placeholder="vd: Nguyễn Văn An"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-line text-xs focus:outline-none focus:border-brand bg-page/40"
+              />
+            </div>
+            <p className="mt-1 text-[10px] text-muted">Nickname sẽ được hiển thị công khai trên bảng xếp hạng.</p>
+          </div>
+
           <div>
             <label className="block text-xs font-semibold text-ink-2 mb-1.5">
               Tên đăng nhập
@@ -71,7 +98,7 @@ export const RegisterPage: React.FC = () => {
                 className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-line text-xs focus:outline-none focus:border-brand bg-page/40"
               />
             </div>
-            <p className="mt-1 text-[10px] text-muted">Chữ thường không dấu, số, dấu chấm hoặc gạch dưới.</p>
+            <p className="mt-1 text-[10px] text-muted">Dùng để đăng nhập: chữ thường không dấu, số, dấu chấm hoặc gạch dưới.</p>
           </div>
 
           <div>

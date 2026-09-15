@@ -857,9 +857,9 @@ export const YctHubPage: React.FC = () => {
         {activeTab === "vocab" && (
           <div className="space-y-8">
             
-            {/* Thanh điều hướng chế độ chia bài như XieHanzi */}
+            {/* Thanh điều hướng chế độ chia bài */}
             <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b ${isLevel3 ? "border-sky-100" : isLevel2 ? "border-emerald-100" : "border-amber-100"} pb-4`}>
-                {/* 2 nút lớn: Bài học vs Chủ đề (Phong cách XieHanzi) */}
+                {/* 2 nút lớn: Bài học vs Chủ đề */}
                 <div className={`grid grid-cols-2 sm:flex items-center gap-1.5 rounded-2xl border-2 ${isLevel3 ? "border-sky-200" : isLevel2 ? "border-emerald-200" : "border-amber-200"} bg-white p-1.5 shadow-xs w-full sm:w-auto`}>
                   <button
                     type="button"
@@ -916,12 +916,12 @@ export const YctHubPage: React.FC = () => {
               </div>
 
             {/* ========================================================
-                CHẾ ĐỘ 1: XEM THEO BÀI HỌC (CHUẨN XIEHANZI)
+                CHẾ ĐỘ 1: XEM THEO BÀI HỌC
             ======================================================== */}
             {viewMode === "lessons" && (
               <div className="space-y-8">
                 
-                {/* 1.1 Khi đang xem TẤT CẢ các bài -> Hiển thị Lưới 10 Card Bài Học như XieHanzi */}
+                {/* 1.1 Khi đang xem TẤT CẢ các bài -> Hiển thị Lưới Card Bài Học */}
                 {selectedLesson === "all" && !searchQuery.trim() && (
                   <div>
                     <div className="mb-4 flex items-center justify-between">
@@ -939,14 +939,14 @@ export const YctHubPage: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Lưới 10 Card bài học (Thiết kế phong cách XieHanzi với watermark số lớn) */}
+                    {/* Lưới 10 Card bài học (Thiết kế hiện đại với watermark số lớn) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                       {lessonsWithStats.map((l) => (
                         <div
                           key={l.lessonNumber}
                           className={`group relative overflow-hidden rounded-3xl border-3 ${theme.lessonCard} bg-white p-5 transition-all hover:-translate-y-1`}
                         >
-                          {/* Số hiệu watermark lớn góc dưới phải chuẩn XieHanzi */}
+                          {/* Số hiệu watermark lớn góc dưới phải */}
                           <span className={`pointer-events-none absolute -right-2 -bottom-4 font-hanzi text-7xl font-black leading-none ${theme.lessonCardWatermark} transition-colors select-none`}>
                             {String(l.lessonNumber).padStart(2, "0")}
                           </span>

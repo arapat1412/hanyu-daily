@@ -100,11 +100,11 @@ export const Navbar: React.FC = () => {
     <>
       {/* Header thanh lịch, 1 hàng duy nhất, nền kính mờ hiện đại */}
       <header className="sticky top-0 z-30 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.03)] pt-safe">
-        <div className="mx-auto flex max-w-7xl w-full items-center justify-between gap-3 px-4 sm:px-6 h-16 sm:h-[68px]">
+        <div className="mx-auto flex max-w-7xl w-full items-center justify-between gap-2 sm:gap-3 px-3 sm:px-6 h-14 sm:h-16">
           
           {/* 1. Logo & Tên nền tảng */}
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 no-underline group shrink-0">
-            <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-slate-200/70 p-0.5 shadow-2xs group-hover:scale-105 transition-transform">
+          <Link to="/" className="flex items-center gap-2 sm:gap-2.5 no-underline group shrink-0 min-w-0">
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-slate-200/70 p-0.5 shadow-2xs group-hover:scale-105 transition-transform">
               <img
                 src="/gautruc.png"
                 alt="Hanyu Daily"
@@ -118,11 +118,11 @@ export const Navbar: React.FC = () => {
                 }}
               />
             </div>
-            <div className="leading-tight">
-              <div className="text-base sm:text-lg font-black tracking-tight text-slate-900 group-hover:text-teal-700 transition-colors">
+            <div className="leading-tight min-w-0">
+              <div className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 group-hover:text-teal-700 transition-colors truncate">
                 Hanyu Daily
               </div>
-              <div className="text-[10px] text-teal-700 font-bold uppercase tracking-wider hidden xs:block">
+              <div className="text-[10px] text-teal-700 font-bold uppercase tracking-wider hidden sm:block">
                 泡菜学汉语 · Kim Chi học tiếng Trung
               </div>
             </div>
@@ -149,7 +149,7 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* 3. Tiện ích bên phải: Tra cứu, Chuỗi ngày, Tài khoản */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             
             {/* Nút tìm kiếm nhanh Desktop */}
             <button
@@ -166,8 +166,8 @@ export const Navbar: React.FC = () => {
             </button>
 
             {/* Streak Pill */}
-            <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200/80 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-amber-900 select-none shadow-2xs">
-              <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-xl bg-amber-50 border border-amber-200/80 px-2 sm:px-2.5 py-1 text-xs font-bold text-amber-900 select-none shadow-2xs shrink-0">
+              <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" />
               <span>{accountStats?.streak || 0}</span>
               <span className="hidden sm:inline font-medium text-amber-800/80">ngày</span>
             </span>
@@ -177,17 +177,17 @@ export const Navbar: React.FC = () => {
               type="button"
               onClick={openGlobalSearch}
               aria-label="Tìm kiếm nhanh"
-              className="lg:hidden flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 text-slate-700 active:scale-95 transition-all"
+              className="lg:hidden flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 text-slate-700 active:scale-95 transition-all shrink-0"
             >
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Tài khoản Người dùng */}
+            {/* Tài khoản Người dùng (Avatar) - Luôn hiển thị trọn vẹn, không bị che */}
             {user ? (
               <Link
                 to="/me"
                 title={`Tài khoản ${user.name}`}
-                className="group relative flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-full overflow-hidden ring-2 ring-slate-200 hover:ring-teal-500 transition-all hover:scale-105 active:scale-95 no-underline bg-slate-100"
+                className="group relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full overflow-hidden ring-2 ring-teal-500/60 hover:ring-teal-500 transition-all hover:scale-105 active:scale-95 no-underline bg-slate-100 shadow-2xs"
               >
                 {user.avatarUrl ? (
                   <img
@@ -212,7 +212,7 @@ export const Navbar: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 hover:bg-slate-800 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition-all hover:scale-[1.02] active:scale-98 no-underline whitespace-nowrap"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 hover:bg-slate-800 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-xs font-bold text-white shadow-xs transition-all hover:scale-[1.02] active:scale-98 no-underline whitespace-nowrap shrink-0"
               >
                 Đăng nhập
               </Link>
@@ -223,7 +223,7 @@ export const Navbar: React.FC = () => {
               type="button"
               onClick={() => setDrawerOpen(true)}
               aria-label="Mở thực đơn di động"
-              className="md:hidden flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 text-slate-700 active:scale-95 transition-all"
+              className="md:hidden flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 text-slate-700 active:scale-95 transition-all shrink-0"
             >
               <Menu className="w-4 h-4" />
             </button>

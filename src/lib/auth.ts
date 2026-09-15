@@ -32,6 +32,7 @@ export interface LeaderboardEntry {
   cultureXp: number;
   cultureWeeklyXp: number;
   isSupplemental?: boolean;
+  isSynthetic?: boolean;
 }
 
 export type LeaderboardPeriod = "weekly" | "overall";
@@ -183,19 +184,27 @@ function friendlyAuthError(message: string) {
     return "Không thể tạo hồ sơ. Tên đăng nhập có thể đã được sử dụng.";
   if (normalized.includes("rate limit"))
     return "Bạn thao tác quá nhanh. Vui lòng đợi một lát rồi thử lại.";
+  if (normalized.includes("password should be at least") || normalized.includes("weak password"))
+    return "Mật khẩu mới phải có ít nhất 6 ký tự.";
+  if (normalized.includes("new password should be different"))
+    return "Mật khẩu mới phải khác mật khẩu hiện tại.";
   return message;
 }
 
 export async function registerAccount(input: {
   username: string;
+  displayName: string;
   password: string;
 }) {
   const client = requireSupabase();
   const username = normalizeUsername(input.username);
+  const displayName = input.displayName.trim().replace(/\s+/g, " ");
   if (!/^[a-z0-9._]{3,24}$/.test(username))
     throw new Error(
       "Tên đăng nhập cần 3–24 ký tự, chỉ gồm chữ thường không dấu, số, dấu chấm hoặc gạch dưới.",
     );
+  if (displayName.length < 2 || displayName.length > 80 || /[\u0000-\u001f\u007f]/.test(displayName))
+    throw new Error("Nickname cần từ 2 đến 80 ký tự và không chứa ký tự điều khiển.");
   if (input.password.length < 6)
     throw new Error("Mật khẩu phải có ít nhất 6 ký tự.");
 
@@ -211,7 +220,7 @@ export async function registerAccount(input: {
   const { data, error } = await client.auth.signUp({
     email: internalEmail(username),
     password: input.password,
-    options: { data: { display_name: username, username } },
+    options: { data: { display_name: displayName, username } },
   });
   if (error) {
     if (error.message.toLowerCase().includes("rate limit"))
@@ -257,6 +266,54 @@ export async function logoutAccount() {
   if (error) throw new Error(friendlyAuthError(error.message));
 }
 
+export async function updateNickname(value: string) {
+  const client = requireSupabase();
+  const currentUser = authSnapshot.user;
+  if (!currentUser) throw new Error("Bạn cần đăng nhập để đổi Nickname.");
+  const displayName = value.trim().replace(/\s+/g, " ");
+  if (displayName.length < 2 || displayName.length > 80 || /[\u0000-\u001f\u007f]/.test(displayName))
+    throw new Error("Nickname cần từ 2 đến 80 ký tự và không chứa ký tự điều khiển.");
+
+  const { error } = await client
+    .from("profiles")
+    .update({ display_name: displayName, updated_at: new Date().toISOString() })
+    .eq("id", currentUser.id);
+  if (error) throw new Error("Chưa cập nhật được Nickname. Vui lòng thử lại.");
+
+  // The profile row is authoritative. Keeping Auth metadata in sync provides a
+  // correct fallback if the profile query is temporarily unavailable.
+  await client.auth.updateUser({ data: { display_name: displayName } }).catch(() => undefined);
+  setAuthSnapshot({
+    ...authSnapshot,
+    user: { ...currentUser, name: displayName },
+    error: "",
+  });
+  window.dispatchEvent(new Event(PROGRESS_SYNCED_EVENT));
+  return displayName;
+}
+
+export async function changePassword(currentPassword: string, newPassword: string) {
+  const client = requireSupabase();
+  const currentUser = authSnapshot.user;
+  if (!currentUser) throw new Error("Bạn cần đăng nhập để đổi mật khẩu.");
+  if (!currentPassword) throw new Error("Hãy nhập mật khẩu hiện tại.");
+  if (newPassword.length < 6) throw new Error("Mật khẩu mới phải có ít nhất 6 ký tự.");
+  if (currentPassword === newPassword) throw new Error("Mật khẩu mới phải khác mật khẩu hiện tại.");
+
+  const { data: authData, error: userError } = await client.auth.getUser();
+  const email = authData.user?.email;
+  if (userError || !email) throw new Error("Không xác minh được tài khoản. Hãy đăng nhập lại rồi thử lại.");
+
+  const { error: verifyError } = await client.auth.signInWithPassword({
+    email,
+    password: currentPassword,
+  });
+  if (verifyError) throw new Error("Mật khẩu hiện tại không đúng.");
+
+  const { error: updateError } = await client.auth.updateUser({ password: newPassword });
+  if (updateError) throw new Error(friendlyAuthError(updateError.message));
+}
+
 export async function submitFeedback(message: string) {
   const client = requireSupabase();
   const currentUser = authSnapshot.user;
@@ -277,7 +334,7 @@ export async function submitFeedback(message: string) {
   }
 }
 
-async function resizeAvatar(file: File) {
+export async function resizeAvatarImage(file: File) {
   if (!file.type.startsWith("image/"))
     throw new Error("Hãy chọn một tệp ảnh JPG, PNG hoặc WebP.");
   if (file.size > 8 * 1024 * 1024)
@@ -324,7 +381,7 @@ export async function uploadAvatar(file: File) {
   const client = requireSupabase();
   const currentUser = authSnapshot.user;
   if (!currentUser) throw new Error("Bạn cần đăng nhập để đổi ảnh đại diện.");
-  const avatar = await resizeAvatar(file);
+  const avatar = await resizeAvatarImage(file);
   const path = `${currentUser.id}/avatar.webp`;
   const { error: uploadError } = await client.storage
     .from("avatars")
@@ -501,6 +558,7 @@ export async function refreshLeaderboard(options: LeaderboardOptions = {}): Prom
         cultureXp: row.culture_xp,
         cultureWeeklyXp: row.culture_weekly_xp,
         isSupplemental: row.is_supplemental,
+        isSynthetic: row.is_synthetic === true,
       }));
   return {
     users,

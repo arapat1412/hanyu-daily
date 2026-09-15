@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Award,
@@ -27,8 +27,21 @@ import {
   History,
   Check,
   Lightbulb,
+  KeyRound,
+  Pencil,
+  Save,
+  Settings,
+  ChevronDown,
+  X,
 } from "lucide-react";
-import { logoutAccount, uploadAvatar, useAuth, useLeaderboard } from "../lib/auth";
+import {
+  changePassword,
+  logoutAccount,
+  updateNickname,
+  uploadAvatar,
+  useAuth,
+  useLeaderboard,
+} from "../lib/auth";
 import { useProgress } from "../lib/hsk";
 import { calculateProgressStats } from "../lib/progress-stats";
 import { HSK_LEVELS } from "../data/hskLevels";
@@ -163,9 +176,23 @@ export function MePage() {
   const avatarInput = useRef<HTMLInputElement>(null);
   const [avatarBusy, setAvatarBusy] = useState(false);
   const [avatarMessage, setAvatarMessage] = useState<{ text: string; isError?: boolean } | null>(null);
+  const [nickname, setNickname] = useState("");
+  const [nicknameBusy, setNicknameBusy] = useState(false);
+  const [nicknameMessage, setNicknameMessage] = useState<{ text: string; isError?: boolean } | null>(null);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordBusy, setPasswordBusy] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState<{ text: string; isError?: boolean } | null>(null);
   const [examTab, setExamTab] = useState<"best" | "recent">("best");
   const [vocabModalOpen, setVocabModalOpen] = useState(false);
   const [vocabInitialTab, setVocabInitialTab] = useState<VocabularyTab>("known");
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [settingsTab, setSettingsTab] = useState<"nickname" | "password">("nickname");
+
+  useEffect(() => {
+    if (user) setNickname(user.name);
+  }, [user?.id, user?.name]);
 
   const handleOpenVocab = (tab: VocabularyTab) => {
     setVocabInitialTab(tab);
@@ -219,6 +246,48 @@ export function MePage() {
     } finally {
       setAvatarBusy(false);
       setTimeout(() => setAvatarMessage(null), 4000);
+    }
+  };
+
+  const handleNickname = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setNicknameBusy(true);
+    setNicknameMessage(null);
+    try {
+      const savedName = await updateNickname(nickname);
+      setNickname(savedName);
+      setNicknameMessage({ text: "Nickname đã được cập nhật trên bảng xếp hạng." });
+    } catch (reason) {
+      setNicknameMessage({
+        text: reason instanceof Error ? reason.message : "Không thể cập nhật Nickname.",
+        isError: true,
+      });
+    } finally {
+      setNicknameBusy(false);
+    }
+  };
+
+  const handlePassword = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setPasswordMessage(null);
+    if (newPassword !== confirmPassword) {
+      setPasswordMessage({ text: "Hai lần nhập mật khẩu mới chưa trùng nhau.", isError: true });
+      return;
+    }
+    setPasswordBusy(true);
+    try {
+      await changePassword(currentPassword, newPassword);
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setPasswordMessage({ text: "Mật khẩu đã được thay đổi thành công." });
+    } catch (reason) {
+      setPasswordMessage({
+        text: reason instanceof Error ? reason.message : "Không thể thay đổi mật khẩu.",
+        isError: true,
+      });
+    } finally {
+      setPasswordBusy(false);
     }
   };
 
@@ -443,14 +512,24 @@ export function MePage() {
         </div>
 
         <div className="relative mx-auto max-w-5xl">
-          {/* Top Status & Fast Nav */}
-          <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 font-semibold text-amber-300 backdrop-blur-sm">
-              <Sparkles className="h-3.5 w-3.5 animate-pulse text-amber-300" />
-              <span>HÁN NGỮ SĨ TỬ · 学海无涯</span>
-            </div>
+          {/* Top Bar: Settings Toggle + Sync Status + Logout */}
+          <div className="flex items-center justify-between gap-2 text-xs mb-4">
+            {/* Nút Cài đặt tài khoản nằm TRÊN ô HÁN NGỮ SĨ TỬ */}
+            <button
+              type="button"
+              onClick={() => setIsSettingsOpen((prev) => !prev)}
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all shadow-xs backdrop-blur-md active:scale-95 ${
+                isSettingsOpen
+                  ? "border-amber-400 bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20"
+                  : "border-white/20 bg-white/10 text-white hover:bg-white/20"
+              }`}
+            >
+              <Settings className={`h-3.5 w-3.5 transition-transform duration-300 ${isSettingsOpen ? "rotate-90 text-slate-950" : "text-white/80"}`} />
+              <span>Cài đặt</span>
+              <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isSettingsOpen ? "rotate-180 text-slate-950" : "text-white/70"}`} />
+            </button>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Cloud sync status indicator */}
               <span className="flex items-center gap-1.5 text-slate-300 text-[11px] sm:text-xs">
                 <span className="relative flex h-2 w-2">
@@ -473,29 +552,226 @@ export function MePage() {
                     }`}
                   />
                 </span>
-                {progress.syncStatus === "synced" && "Đồng bộ dữ liệu an toàn"}
-                {progress.syncStatus === "syncing" && "Đang đồng bộ đám mây…"}
-                {progress.syncStatus === "local" && "Lưu trên thiết bị"}
-                {progress.syncStatus === "error" && "Chưa đồng bộ được"}
+                <span className="hidden sm:inline">
+                  {progress.syncStatus === "synced" && "Đồng bộ an toàn"}
+                  {progress.syncStatus === "syncing" && "Đang đồng bộ…"}
+                  {progress.syncStatus === "local" && "Lưu trên máy"}
+                  {progress.syncStatus === "error" && "Chưa đồng bộ"}
+                </span>
               </span>
 
               {/* Logout Button */}
               <button
                 type="button"
                 onClick={() => void logoutAccount()}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
               >
                 <LogOut size={13} />
-                <span>Đăng xuất</span>
+                <span className="hidden xs:inline">Đăng xuất</span>
               </button>
             </div>
           </div>
 
+          {/* ================= COLLAPSIBLE ACCOUNT SETTINGS PANEL (SIMPLIFIED & COMPACT) ================= */}
+          {isSettingsOpen && (
+            <div className="mb-6 max-w-lg rounded-2xl border border-white/20 bg-white text-slate-900 shadow-2xl transition-all animate-in fade-in slide-in-from-top-2 duration-200">
+              {/* Header with minimal tab switcher & close button */}
+              <div className="flex items-center justify-between border-b border-line px-4 py-3 sm:px-5">
+                <div className="flex items-center rounded-xl bg-slate-100 p-1 text-xs font-bold">
+                  <button
+                    type="button"
+                    onClick={() => setSettingsTab("nickname")}
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+                      settingsTab === "nickname"
+                        ? "bg-white text-sky-800 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <Pencil size={13} />
+                    <span>Đổi tên</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSettingsTab("password")}
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all ${
+                      settingsTab === "password"
+                        ? "bg-white text-amber-800 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <KeyRound size={13} />
+                    <span>Đổi mật khẩu</span>
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsSettingsOpen(false)}
+                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition active:scale-95"
+                  title="Đóng cài đặt"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              {/* Tab 1: Đổi Nickname */}
+              {settingsTab === "nickname" && (
+                <form onSubmit={handleNickname} className="p-4 sm:p-5">
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label htmlFor="settings-nickname" className="text-xs font-bold text-slate-700">
+                        Tên hiển thị công khai
+                      </label>
+                      <span className="text-[11px] font-mono text-slate-400">@{user.username}</span>
+                    </div>
+                    <input
+                      id="settings-nickname"
+                      required
+                      minLength={2}
+                      maxLength={80}
+                      value={nickname}
+                      onChange={(event) => setNickname(event.target.value)}
+                      placeholder="Nhập nickname mới..."
+                      className="w-full rounded-xl border border-line bg-slate-50/60 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-100"
+                    />
+                    <p className="mt-1.5 text-[11px] text-slate-400">
+                      Tên này hiển thị trên Bảng Xếp Hạng và hồ sơ của bạn.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsSettingsOpen(false)}
+                      className="rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-100 transition"
+                    >
+                      Đóng
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={nicknameBusy || nickname.trim() === user.name}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-sky-700 px-4 py-1.5 text-xs font-bold text-white transition hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50 active:scale-95"
+                    >
+                      <Save size={13} />
+                      <span>{nicknameBusy ? "Đang lưu…" : "Lưu thay đổi"}</span>
+                    </button>
+                  </div>
+
+                  {nicknameMessage && (
+                    <p
+                      className={`mt-2.5 rounded-lg px-3 py-1.5 text-xs font-semibold ${
+                        nicknameMessage.isError
+                          ? "bg-rose-50 text-rose-600 border border-rose-200"
+                          : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                      }`}
+                    >
+                      {nicknameMessage.text}
+                    </p>
+                  )}
+                </form>
+              )}
+
+              {/* Tab 2: Đổi Mật khẩu */}
+              {settingsTab === "password" && (
+                <form onSubmit={handlePassword} className="p-4 sm:p-5">
+                  <div className="space-y-3">
+                    <div>
+                      <label htmlFor="settings-current-pwd" className="mb-1 block text-xs font-bold text-slate-700">
+                        Mật khẩu hiện tại
+                      </label>
+                      <input
+                        id="settings-current-pwd"
+                        required
+                        type="password"
+                        autoComplete="current-password"
+                        placeholder="••••••••"
+                        value={currentPassword}
+                        onChange={(event) => setCurrentPassword(event.target.value)}
+                        className="w-full rounded-xl border border-line bg-slate-50/60 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="settings-new-pwd" className="mb-1 block text-xs font-bold text-slate-700">
+                          Mật khẩu mới
+                        </label>
+                        <input
+                          id="settings-new-pwd"
+                          required
+                          type="password"
+                          minLength={6}
+                          autoComplete="new-password"
+                          placeholder="Ít nhất 6 ký tự"
+                          value={newPassword}
+                          onChange={(event) => setNewPassword(event.target.value)}
+                          className="w-full rounded-xl border border-line bg-slate-50/60 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="settings-confirm-pwd" className="mb-1 block text-xs font-bold text-slate-700">
+                          Nhập lại mật khẩu mới
+                        </label>
+                        <input
+                          id="settings-confirm-pwd"
+                          required
+                          type="password"
+                          minLength={6}
+                          autoComplete="new-password"
+                          placeholder="Nhập lại mật khẩu"
+                          value={confirmPassword}
+                          onChange={(event) => setConfirmPassword(event.target.value)}
+                          className="w-full rounded-xl border border-line bg-slate-50/60 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsSettingsOpen(false)}
+                      className="rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-100 transition"
+                    >
+                      Đóng
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={passwordBusy}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-1.5 text-xs font-bold text-slate-950 transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-50 active:scale-95"
+                    >
+                      <KeyRound size={13} />
+                      <span>{passwordBusy ? "Đang đổi…" : "Cập nhật mật khẩu"}</span>
+                    </button>
+                  </div>
+
+                  {passwordMessage && (
+                    <p
+                      className={`mt-2.5 rounded-lg px-3 py-1.5 text-xs font-semibold ${
+                        passwordMessage.isError
+                          ? "bg-rose-50 text-rose-600 border border-rose-200"
+                          : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                      }`}
+                    >
+                      {passwordMessage.text}
+                    </p>
+                  )}
+                </form>
+              )}
+            </div>
+          )}
+
+          {/* Ô HÁN NGỮ SĨ TỬ */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 font-semibold text-amber-300 backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5 animate-pulse text-amber-300" />
+            <span>HÁN NGỮ SĨ TỬ · 学海无涯</span>
+          </div>
+
           {/* User Profile Card Header */}
-          <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+          <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 text-center sm:text-left">
             {/* Avatar with Camera Overlay */}
             <div className="group relative shrink-0">
-              <div className="flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center overflow-hidden rounded-3xl border-2 border-amber-400/80 bg-tint font-black text-brand text-3xl shadow-xl ring-4 ring-amber-400/20 sm:text-4xl">
+              <div className="flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-amber-400/80 bg-tint font-black text-brand text-2xl sm:text-3xl shadow-xl ring-4 ring-amber-400/20">
                 {user.avatarUrl ? (
                   <img src={user.avatarUrl} alt={`Ảnh đại diện ${user.name}`} className="h-full w-full object-cover" />
                 ) : (
@@ -516,16 +792,17 @@ export function MePage() {
                 disabled={avatarBusy}
                 onClick={() => avatarInput.current?.click()}
                 title="Thay đổi ảnh đại diện"
-                className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500 text-slate-950 shadow-md transition-all hover:bg-amber-400 active:scale-95 disabled:opacity-50"
+                className="absolute -bottom-1 -right-1 flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-amber-500 text-slate-950 shadow-md transition-all hover:bg-amber-400 active:scale-95 disabled:opacity-50"
               >
-                <Camera size={16} />
+                <Camera size={14} className="sm:hidden" />
+                <Camera size={16} className="hidden sm:block" />
               </button>
             </div>
 
             {/* Profile Info */}
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h1 className="truncate font-display text-2xl font-bold sm:text-3xl lg:text-4xl text-white">
+                <h1 className="truncate font-display text-xl font-bold sm:text-2xl lg:text-3xl text-white">
                   {user.name}
                 </h1>
                 <span className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-mono font-medium text-amber-200">
@@ -536,7 +813,7 @@ export function MePage() {
                 </span>
               </div>
 
-              <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs text-slate-300">
+              <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs text-slate-300">
                 {joinDate && (
                   <span className="flex items-center gap-1">
                     <Calendar size={13} className="text-amber-300" />
@@ -560,17 +837,17 @@ export function MePage() {
               </div>
 
               {/* Fast Action Buttons */}
-              <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+              <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-2">
                 <Link
                   to="/hsk"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 px-4 py-2 text-xs font-bold text-slate-900 shadow-sm transition-all hover:bg-amber-300 active:scale-95"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 px-3.5 py-1.5 sm:py-2 text-xs font-bold text-slate-900 shadow-sm transition-all hover:bg-amber-300 active:scale-95"
                 >
                   <BookOpen size={14} />
                   <span>Vào học tiếp</span>
                 </Link>
                 <Link
                   to="/xep-hang"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/10 px-3.5 py-1.5 sm:py-2 text-xs font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
                 >
                   <Trophy size={14} className="text-amber-400" />
                   <span>Bảng Phong Vân</span>
@@ -592,78 +869,80 @@ export function MePage() {
       </div>
 
       {/* ================= MAIN DASHBOARD CONTAINER ================= */}
-      <div className="mx-auto mt-8 sm:mt-10 max-w-5xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <div className="mx-auto mt-6 sm:mt-8 max-w-5xl px-3.5 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
         {/* ================= 4 CORE STATS CARDS ================= */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-4">
           {/* 1. Tổng XP */}
-          <div className="rounded-2xl border border-line bg-white p-4 shadow-card sm:p-5">
+          <div className="rounded-2xl border border-line bg-white p-3.5 sm:p-5 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-muted uppercase">Tổng XP</span>
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-                <Zap className="h-4 w-4 fill-amber-500" />
+              <span className="text-[11px] sm:text-xs font-bold text-muted uppercase tracking-wide">Tổng XP</span>
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-amber-500" />
               </div>
             </div>
-            <div className="mt-2 font-mono text-2xl font-black text-brand sm:text-3xl">
+            <div className="mt-1.5 sm:mt-2 font-mono text-xl sm:text-2xl lg:text-3xl font-black text-brand truncate">
               {stats.xp.toLocaleString("vi-VN")}
             </div>
-            <div className="mt-1 text-[11px] font-semibold text-emerald-600">
-              +{stats.weeklyXp.toLocaleString("vi-VN")} XP trong tuần này
+            <div className="mt-1 text-[10.5px] sm:text-[11px] font-semibold text-emerald-600 truncate">
+              +{stats.weeklyXp.toLocaleString("vi-VN")} XP tuần này
             </div>
           </div>
 
           {/* 2. Bài hoàn thành */}
-          <div className="rounded-2xl border border-line bg-white p-4 shadow-card sm:p-5">
+          <div className="rounded-2xl border border-line bg-white p-3.5 sm:p-5 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-muted uppercase">Bài hoàn thành</span>
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                <BookOpen className="h-4 w-4" />
+              <span className="text-[11px] sm:text-xs font-bold text-muted uppercase tracking-wide">Bài hoàn thành</span>
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </div>
             </div>
-            <div className="mt-2 font-mono text-2xl font-black text-brand sm:text-3xl">
+            <div className="mt-1.5 sm:mt-2 font-mono text-xl sm:text-2xl lg:text-3xl font-black text-brand truncate">
               {stats.completed}
             </div>
-            <div className="mt-1 text-[11px] text-muted">Chuẩn New HSK 3.0</div>
+            <div className="mt-1 text-[10.5px] sm:text-[11px] text-muted truncate">Chuẩn New HSK 3.0</div>
           </div>
 
           {/* 3. Điểm trung bình */}
-          <div className="rounded-2xl border border-line bg-white p-4 shadow-card sm:p-5">
+          <div className="rounded-2xl border border-line bg-white p-3.5 sm:p-5 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-muted uppercase">Điểm kiểm tra TB</span>
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                <Target className="h-4 w-4" />
+              <span className="text-[11px] sm:text-xs font-bold text-muted uppercase tracking-wide">Điểm TB test</span>
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                <Target className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </div>
             </div>
-            <div className="mt-2 font-mono text-2xl font-black text-brand sm:text-3xl">
+            <div className="mt-1.5 sm:mt-2 font-mono text-xl sm:text-2xl lg:text-3xl font-black text-brand truncate">
               {stats.averageScore}%
             </div>
-            <div className="mt-1 text-[11px] text-muted">
+            <div className="mt-1 text-[10.5px] sm:text-[11px] text-muted truncate">
               {stats.averageScore >= 80 ? "Năng lực xuất sắc" : "Cần rèn luyện thêm"}
             </div>
           </div>
 
           {/* 4. Chuỗi streak */}
-          <div className="rounded-2xl border border-line bg-white p-4 shadow-card sm:p-5">
+          <div className="rounded-2xl border border-line bg-white p-3.5 sm:p-5 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-muted uppercase">Chuỗi liên tục</span>
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
-                <Flame className="h-4 w-4 fill-rose-500 text-rose-500" />
+              <span className="text-[11px] sm:text-xs font-bold text-muted uppercase tracking-wide">Chuỗi streak</span>
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+                <Flame className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-rose-500 text-rose-500" />
               </div>
             </div>
-            <div className="mt-2 font-mono text-2xl font-black text-brand sm:text-3xl">
+            <div className="mt-1.5 sm:mt-2 font-mono text-xl sm:text-2xl lg:text-3xl font-black text-brand truncate">
               {stats.streak}
               <span className="text-xs font-bold text-muted ml-1">ngày</span>
             </div>
-            <div className="mt-1 text-[11px] text-rose-600 font-semibold">
-              Giữ vững ngọn lửa học tập
+            <div className="mt-1 text-[10.5px] sm:text-[11px] text-rose-600 font-semibold truncate">
+              Giữ vững ngọn lửa
             </div>
           </div>
         </div>
 
+
+
         <SkillAnalysisCard analysis={skillAnalysis} />
 
         {/* ================= KHO DỮ LIỆU TỪ VỰNG ================= */}
-        <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-line pb-4">
+        <div className="rounded-3xl border border-line bg-white p-4 sm:p-6 shadow-card">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-3 border-b border-line pb-3.5 sm:pb-4">
             <div>
               <h2 className="flex items-center gap-2 font-display text-base font-bold text-ink sm:text-lg">
                 <Brain className="h-5 w-5 text-brand" />
@@ -675,27 +954,27 @@ export function MePage() {
             </div>
             <Link
               to="/hsk"
-              className="inline-flex items-center gap-1 text-xs font-bold text-brand hover:text-brand-dark"
+              className="inline-flex items-center gap-1 text-xs font-bold text-brand hover:text-brand-dark self-start sm:self-auto"
             >
               <span>Luyện Flashcard</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-3.5 sm:mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
             {/* 1. Từ đã thuộc */}
             <button
               type="button"
               onClick={() => handleOpenVocab("known")}
               title="Bấm để xem danh sách từ vựng đã thuộc"
-              className="group flex items-center justify-between rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/80 to-emerald-50/30 p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-emerald-300 active:scale-98"
+              className="group flex items-center justify-between rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/80 to-emerald-50/30 p-3.5 sm:p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-emerald-300 active:scale-98"
             >
-              <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 transition-transform group-hover:scale-105">
-                  <CheckCircle2 className="h-6 w-6" />
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 transition-transform group-hover:scale-105">
+                  <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <div>
-                  <div className="font-mono text-2xl font-black text-emerald-800">
+                  <div className="font-mono text-xl sm:text-2xl font-black text-emerald-800">
                     {progress.known.length.toLocaleString("vi-VN")}
                   </div>
                   <div className="text-xs font-bold text-emerald-900">Từ vựng đã thuộc</div>
@@ -712,17 +991,17 @@ export function MePage() {
               type="button"
               onClick={() => handleOpenVocab("bookmarks")}
               title="Bấm để xem danh sách từ vựng đã đánh dấu"
-              className="group flex items-center justify-between rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/80 to-amber-50/30 p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-amber-300 active:scale-98"
+              className="group flex items-center justify-between rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50/80 to-amber-50/30 p-3.5 sm:p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-amber-300 active:scale-98"
             >
-              <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 transition-transform group-hover:scale-105">
-                  <Bookmark className="h-6 w-6 fill-amber-700/20" />
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 transition-transform group-hover:scale-105">
+                  <Bookmark className="h-5 w-5 sm:h-6 sm:w-6 fill-amber-700/20" />
                 </div>
                 <div>
-                  <div className="font-mono text-2xl font-black text-amber-800">
+                  <div className="font-mono text-xl sm:text-2xl font-black text-amber-800">
                     {progress.bookmarks.length.toLocaleString("vi-VN")}
                   </div>
-                  <div className="text-xs font-bold text-amber-900">Từ vựng đã đánh dấu</div>
+                  <div className="text-xs font-bold text-amber-900">Từ đã đánh dấu</div>
                   <div className="text-[10px] text-amber-700">Bộ sưu tập quan trọng</div>
                 </div>
               </div>
@@ -736,18 +1015,18 @@ export function MePage() {
               type="button"
               onClick={() => handleOpenVocab("mistakes")}
               title="Bấm để xem danh sách từ vựng cần ôn lại"
-              className="group flex items-center justify-between rounded-2xl border border-rose-200 bg-gradient-to-br from-rose-50/80 to-rose-50/30 p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-rose-300 active:scale-98"
+              className="group flex items-center justify-between rounded-2xl border border-rose-200 bg-gradient-to-br from-rose-50/80 to-rose-50/30 p-3.5 sm:p-4 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-rose-300 active:scale-98"
             >
-              <div className="flex items-center gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-rose-100 text-rose-700 transition-transform group-hover:scale-105">
-                  <AlertCircle className="h-6 w-6" />
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-rose-100 text-rose-700 transition-transform group-hover:scale-105">
+                  <AlertCircle className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <div>
-                  <div className="font-mono text-2xl font-black text-rose-800">
+                  <div className="font-mono text-xl sm:text-2xl font-black text-rose-800">
                     {progress.mistakes.length.toLocaleString("vi-VN")}
                   </div>
-                  <div className="text-xs font-bold text-rose-900">Từ vựng cần ôn lại</div>
-                  <div className="text-[10px] text-rose-700">Từng trả lời sai khi luyện tập</div>
+                  <div className="text-xs font-bold text-rose-900">Từ cần ôn lại</div>
+                  <div className="text-[10px] text-rose-700">Từng trả lời sai</div>
                 </div>
               </div>
               <span className="rounded-lg bg-rose-100/90 px-2 py-1 text-[10.5px] font-bold text-rose-800 opacity-80 group-hover:opacity-100 group-hover:bg-rose-200 transition-all shrink-0">
@@ -828,8 +1107,8 @@ export function MePage() {
         </div>
 
         {/* ================= BẢNG ĐIỂM & LỊCH SỬ THI THỬ ================= */}
-        <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-line pb-4">
+        <div className="rounded-3xl border border-line bg-white p-4 sm:p-6 shadow-card">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-line pb-3.5 sm:pb-4">
             <div>
               <h2 className="flex items-center gap-2 font-display text-base font-bold text-ink sm:text-lg">
                 <Trophy className="h-5 w-5 text-gold" />
@@ -841,11 +1120,11 @@ export function MePage() {
             </div>
 
             {/* Tab Switcher */}
-            <div className="flex rounded-xl bg-tint p-1 text-xs font-semibold">
+            <div className="flex rounded-xl bg-tint p-1 text-xs font-semibold self-start sm:self-auto">
               <button
                 type="button"
                 onClick={() => setExamTab("best")}
-                className={`rounded-lg px-3 py-1.5 transition-all ${
+                className={`rounded-lg px-2.5 sm:px-3 py-1.5 transition-all text-[11px] sm:text-xs ${
                   examTab === "best"
                     ? "bg-white text-brand shadow-xs font-bold"
                     : "text-ink-2 hover:text-brand"
@@ -856,7 +1135,7 @@ export function MePage() {
               <button
                 type="button"
                 onClick={() => setExamTab("recent")}
-                className={`rounded-lg px-3 py-1.5 transition-all ${
+                className={`rounded-lg px-2.5 sm:px-3 py-1.5 transition-all text-[11px] sm:text-xs ${
                   examTab === "recent"
                     ? "bg-white text-brand shadow-xs font-bold"
                     : "text-ink-2 hover:text-brand"

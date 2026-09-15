@@ -19,6 +19,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { useAuth, useLeaderboard } from "../lib/auth";
+import { checkAdminAccess } from "../lib/admin";
 import { useProgress } from "../lib/hsk";
 import { calculateProgressStats } from "../lib/progress-stats";
 
@@ -55,16 +56,32 @@ export const LeaderboardPage: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [page, setPage] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const [canSeeSyntheticLabels, setCanSeeSyntheticLabels] = useState(false);
   const deferredSearch = useDeferredValue(searchQuery);
   const { users, totalCount, filteredCount, totalXp, highestStreak, loading, error, refresh } = useLeaderboard({
     period: timeframe,
     hsk: selectedHsk === "Tất cả" ? undefined : selectedHsk,
     search: deferredSearch,
-    offset: page * 100,
+    limit: 20,
+    offset: page * 20,
     includeCurrent: true,
   });
 
-  useEffect(() => setPage(0), [timeframe, selectedHsk, deferredSearch]);
+  useEffect(() => {
+    setPage(0);
+    setVisibleCount(10);
+  }, [timeframe, selectedHsk, deferredSearch]);
+
+  useEffect(() => {
+    let active = true;
+    setCanSeeSyntheticLabels(false);
+    if (!currentUser) return () => { active = false; };
+    checkAdminAccess().then((allowed) => {
+      if (active) setCanSeeSyntheticLabels(allowed);
+    });
+    return () => { active = false; };
+  }, [currentUser?.id]);
 
   // The database owns ordering and tie-breaking; supplemental rows only provide
   // the signed-in learner's standing when it falls outside the current page.
@@ -76,6 +93,7 @@ export const LeaderboardPage: React.FC = () => {
   }, [users, timeframe]);
 
   const pageUsers = sortedUsers.filter((u) => !u.isSupplemental);
+  const visiblePageUsers = pageUsers.slice(0, page === 0 ? visibleCount : 20);
 
   // Top 3 from sorted list
   const top1 = sortedUsers.find((u) => u.rank === 1) || null;
@@ -112,6 +130,8 @@ export const LeaderboardPage: React.FC = () => {
   const handleManualRefresh = async () => {
     if (isRefreshing) return;
     setIsRefreshing(true);
+    setPage(0);
+    setVisibleCount(10);
     try {
       await refresh();
     } finally {
@@ -120,10 +140,15 @@ export const LeaderboardPage: React.FC = () => {
   };
 
   // Determine if Podium should be shown: only when not searching and viewing "Tất cả", and we have at least 1 user
-  const isPodiumActive = selectedHsk === "Tất cả" && !searchQuery.trim() && pageUsers.length > 0;
+  const isPodiumActive = page === 0 && selectedHsk === "Tất cả" && !searchQuery.trim() && pageUsers.length > 0;
 
   // Table items: if podium is active, skip top 3; otherwise show all filtered items
-  const tableUsers = isPodiumActive ? pageUsers.filter((u) => u.rank > 3) : pageUsers;
+  const tableUsers = isPodiumActive ? visiblePageUsers.filter((u) => u.rank > 3) : visiblePageUsers;
+  const canExpandFirstPage = page === 0 && visibleCount < Math.min(20, filteredCount);
+  const pageCount = Math.max(1, Math.ceil(filteredCount / 20));
+  const showPagination = pageCount > 1 && (page > 0 || visibleCount >= 20);
+  const firstVisibleRank = filteredCount ? page * 20 + 1 : 0;
+  const lastVisibleRank = Math.min(filteredCount, page * 20 + (page === 0 ? visibleCount : 20));
 
   return (
     <div className="min-h-screen bg-page pb-24 selection:bg-brand/20 selection:text-brand-dark">
@@ -179,6 +204,11 @@ export const LeaderboardPage: React.FC = () => {
             <p className="mt-2 text-xs text-slate-300">
               Tiến độ do người học tự ghi nhận; bảng xếp hạng không phải kết quả thi có giám sát.
             </p>
+            {canSeeSyntheticLabels && (
+              <p className="mt-1 text-xs text-indigo-200">
+                Nhãn “Mô phỏng” chỉ hiển thị cho quản trị viên và không phải tài khoản đăng nhập thật.
+              </p>
+            )}
           </div>
 
           {/* 4 Summary Stat Cards */}
@@ -494,6 +524,7 @@ export const LeaderboardPage: React.FC = () => {
                       <div className="mt-2 max-w-[100px] truncate text-center text-xs font-bold text-ink sm:max-w-[140px] sm:text-sm">
                         {top2.name}
                       </div>
+                      {canSeeSyntheticLabels && top2.isSynthetic && <span className="mt-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[9px] font-bold text-indigo-600">Mô phỏng</span>}
                       <div className="mt-0.5 flex items-center gap-1 text-[11px] font-mono font-bold text-brand">
                         <Zap className="h-3 w-3 fill-brand" />
                         {top2.displayXp.toLocaleString("vi-VN")} XP
@@ -544,6 +575,7 @@ export const LeaderboardPage: React.FC = () => {
                       <div className="mt-2 max-w-[120px] truncate text-center text-sm font-extrabold text-ink sm:max-w-[160px] sm:text-base">
                         {top1.name}
                       </div>
+                      {canSeeSyntheticLabels && top1.isSynthetic && <span className="mt-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[9px] font-bold text-indigo-600">Mô phỏng</span>}
                       <div className="mt-0.5 flex items-center gap-1 font-mono text-xs font-black text-amber-600 sm:text-sm">
                         <Zap className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
                         {top1.displayXp.toLocaleString("vi-VN")} XP
@@ -593,6 +625,7 @@ export const LeaderboardPage: React.FC = () => {
                       <div className="mt-2 max-w-[100px] truncate text-center text-xs font-bold text-ink sm:max-w-[140px] sm:text-sm">
                         {top3.name}
                       </div>
+                      {canSeeSyntheticLabels && top3.isSynthetic && <span className="mt-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[9px] font-bold text-indigo-600">Mô phỏng</span>}
                       <div className="mt-0.5 flex items-center gap-1 text-[11px] font-mono font-bold text-brand">
                         <Zap className="h-3 w-3 fill-brand" />
                         {top3.displayXp.toLocaleString("vi-VN")} XP
@@ -713,6 +746,11 @@ export const LeaderboardPage: React.FC = () => {
                               Bạn
                             </span>
                           )}
+                          {canSeeSyntheticLabels && user.isSynthetic && (
+                            <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[9px] font-bold text-indigo-600">
+                              Mô phỏng
+                            </span>
+                          )}
                           <span
                             className={`rounded-full border px-2 py-0.5 font-mono text-[10px] font-bold ${getHskBadgeStyle(
                               user.hsk
@@ -784,28 +822,26 @@ export const LeaderboardPage: React.FC = () => {
               )}
             </div>
           )}
-          {filteredCount > 100 && (
-            <div className="flex items-center justify-between border-t border-line bg-cream/50 px-5 py-3 text-xs">
-              <span className="text-muted">
-                Trang {page + 1} / {Math.ceil(filteredCount / 100)}
-              </span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  disabled={page === 0 || loading}
-                  onClick={() => setPage((current) => Math.max(0, current - 1))}
-                  className="rounded-lg border border-line bg-white px-3 py-1.5 font-semibold text-ink-2 disabled:opacity-40"
-                >
-                  Trang trước
-                </button>
-                <button
-                  type="button"
-                  disabled={(page + 1) * 100 >= filteredCount || loading}
-                  onClick={() => setPage((current) => current + 1)}
-                  className="rounded-lg border border-line bg-white px-3 py-1.5 font-semibold text-ink-2 disabled:opacity-40"
-                >
-                  Trang sau
-                </button>
+          {canExpandFirstPage && (
+            <div className="flex flex-col items-center gap-2 border-t border-line bg-cream/50 px-5 py-4">
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => setVisibleCount(20)}
+                className="inline-flex items-center gap-2 rounded-xl border border-brand/20 bg-white px-5 py-2.5 text-xs font-bold text-brand shadow-sm transition hover:border-brand/40 hover:bg-tint disabled:opacity-50"
+              >
+                <Users className="h-4 w-4" />
+                {loading ? "Đang tải…" : "Xem thêm học viên"}
+              </button>
+              <span className="text-[11px] text-muted">Hiển thị Top 10 trong tổng số {filteredCount.toLocaleString("vi-VN")} học viên</span>
+            </div>
+          )}
+          {showPagination && (
+            <div className="flex flex-col gap-3 border-t border-line bg-cream/50 px-5 py-4 text-xs sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-center text-muted sm:text-left">Trang {page + 1}/{pageCount} · Hạng {firstVisibleRank.toLocaleString("vi-VN")}–{lastVisibleRank.toLocaleString("vi-VN")}</span>
+              <div className="flex justify-center gap-2">
+                <button type="button" disabled={page === 0 || loading} onClick={() => { setPage((current) => Math.max(0, current - 1)); setVisibleCount(20); }} className="rounded-xl border border-line bg-white px-4 py-2 font-bold text-ink-2 hover:bg-tint disabled:opacity-40">Trang trước</button>
+                <button type="button" disabled={page + 1 >= pageCount || loading} onClick={() => { setPage((current) => Math.min(pageCount - 1, current + 1)); setVisibleCount(20); }} className="rounded-xl bg-brand px-4 py-2 font-bold text-white hover:bg-brand-dark disabled:opacity-40">Trang sau</button>
               </div>
             </div>
           )}

@@ -134,7 +134,7 @@ export const YctSeriesHubPage: React.FC = () => {
       lessonsCount: '11 bài học · 20 chủ đề',
       status: 'ready',
       link: '/yct/3',
-      description: 'Mở rộng lên 335 từ vựng chuẩn quốc tế, 11 bài học SGK kết hợp 20 chủ đề toàn diện từ XieHanzi, luyện Flashcard và đố vui.',
+      description: 'Mở rộng lên 335 từ vựng chuẩn quốc tế, 11 bài học SGK kết hợp 20 chủ đề toàn diện, luyện Flashcard và đố vui.',
       highlights: [
         '335 từ vựng hoạt hình kèm audio & ví dụ',
         '11 bài học SGK & 20 chủ đề phân loại',

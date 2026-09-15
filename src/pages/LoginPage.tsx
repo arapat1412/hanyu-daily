@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { AtSign, Lock, ArrowRight } from 'lucide-react';
+import { AtSign, Lock, ArrowRight, Info } from 'lucide-react';
 import { loginAccount, useAuth } from '../lib/auth';
 
 export const LoginPage: React.FC = () => {
@@ -47,9 +47,13 @@ export const LoginPage: React.FC = () => {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex gap-2.5 rounded-2xl border border-sky-100 bg-sky-50 p-3 text-[11px] leading-5 text-sky-800">
+            <Info className="mt-0.5 h-4 w-4 shrink-0" />
+            <p>Hãy đăng nhập bằng <strong>tên đăng nhập</strong> đã tạo, không phải Nickname hiển thị trên bảng xếp hạng.</p>
+          </div>
           <div>
             <label className="block text-xs font-semibold text-ink-2 mb-1.5">
-              Tên tài khoản
+              Tên đăng nhập
             </label>
             <div className="relative">
               <AtSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
@@ -65,6 +69,7 @@ export const LoginPage: React.FC = () => {
                 className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-line text-xs focus:outline-none focus:border-brand bg-page/40"
               />
             </div>
+            <p className="mt-1 text-[10px] text-muted">Tên đăng nhập là chuỗi chữ thường không dấu bạn đã dùng khi đăng ký.</p>
           </div>
 
           <div>

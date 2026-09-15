@@ -4,19 +4,26 @@ import {
   AtSign,
   Ban,
   BarChart3,
+  Bot,
   ChevronLeft,
   ChevronRight,
   Eye,
   Globe2,
+  ImagePlus,
   LockKeyhole,
   LogOut,
   MessageSquare,
+  Pencil,
+  Plus,
   RefreshCw,
+  Save,
   Search,
   ShieldCheck,
+  Trash2,
   UserCheck,
   Users,
   UserX,
+  X,
 } from "lucide-react";
 import {
   AdminFeedback,
@@ -26,20 +33,45 @@ import {
   BlockedIp,
   blockIp,
   checkAdminAccess,
+  createSyntheticLearner,
+  deleteSyntheticLearner,
   fetchAdminFeedback,
   fetchAdminSummary,
   fetchAdminUsers,
   fetchAdminVisits,
   fetchBlockedIps,
+  fetchSyntheticLearners,
+  removeSyntheticAvatar,
+  setSyntheticLearnerEnabled,
+  setSyntheticLearnersEnabled,
+  SyntheticLearner,
+  SyntheticLearnerInput,
   unblockIp,
+  updateSyntheticLearner,
+  uploadSyntheticAvatar,
   VisitKind,
 } from "../lib/admin";
 import { loginAccount, logoutAccount, useAuth } from "../lib/auth";
 
 type AccessState = "checking" | "signed-out" | "denied" | "allowed";
-type AdminTab = "overview" | "visits" | "blocked" | "users" | "feedback";
+type AdminTab = "overview" | "visits" | "blocked" | "users" | "synthetic" | "feedback";
 
 const PAGE_SIZE = 30;
+const HSK_OPTIONS = ["Mới học", "HSK 1", "HSK 2", "HSK 3", "HSK 4", "HSK 5", "HSK 6", "HSK 7-9"];
+const SITE_LAUNCH_UTC = Date.UTC(2026, 8, 10);
+
+function currentSiteAgeDays() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Bangkok",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  }).formatToParts(new Date());
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((part) => part.type === type)?.value || 0);
+  const bangkokDayUtc = Date.UTC(value("year"), value("month") - 1, value("day"));
+  return Math.max(1, Math.floor((bangkokDayUtc - SITE_LAUNCH_UTC) / 86_400_000) + 1);
+}
 
 function formatDate(value: string | null) {
   if (!value) return "Chưa ghi nhận";
@@ -100,12 +132,98 @@ function EmptyState({ loading }: { loading: boolean }) {
   );
 }
 
+function SyntheticLearnerEditor({
+  learner,
+  busy,
+  onClose,
+  onSave,
+}: {
+  learner: SyntheticLearner | null;
+  busy: boolean;
+  onClose: () => void;
+  onSave: (input: SyntheticLearnerInput, avatarFile: File | null) => void;
+}) {
+  const [displayName, setDisplayName] = useState(learner?.displayName || "");
+  const [xp, setXp] = useState(String(learner?.xp ?? 0));
+  const [hsk, setHsk] = useState(learner?.hsk || "Mới học");
+  const [dailyMin, setDailyMin] = useState(String(learner?.dailyXpMin ?? 5));
+  const [dailyMax, setDailyMax] = useState(String(learner?.dailyXpMax ?? 30));
+  const [streakDays, setStreakDays] = useState(String(learner?.streakDays ?? 1));
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(learner?.avatarUrl || null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const maxStreakDays = learner?.maxStreakDays || currentSiteAgeDays();
+
+  useEffect(() => {
+    if (!avatarFile) { setPreviewUrl(null); return; }
+    const nextUrl = URL.createObjectURL(avatarFile);
+    setPreviewUrl(nextUrl);
+    return () => URL.revokeObjectURL(nextUrl);
+  }, [avatarFile]);
+
+  const submit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSave({
+      displayName,
+      xp: Number(xp),
+      hsk,
+      dailyXpMin: Number(dailyMin),
+      dailyXpMax: Number(dailyMax),
+      streakDays: Number(streakDays),
+      avatarUrl,
+    }, avatarFile);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="synthetic-editor-title">
+      <form onSubmit={submit} className="max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 id="synthetic-editor-title" className="text-lg font-black text-slate-950">{learner ? "Sửa học viên mô phỏng" : "Thêm học viên mô phỏng"}</h2>
+            <p className="mt-1 text-xs text-slate-500">XP hiện tại có thể chỉnh trực tiếp và sẽ tiếp tục tăng theo mức mỗi ngày.</p>
+          </div>
+          <button type="button" disabled={busy} onClick={onClose} className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700" aria-label="Đóng"><X className="h-5 w-5" /></button>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 text-slate-400">
+            {previewUrl || avatarUrl ? <img src={previewUrl || avatarUrl || ""} alt="Ảnh đại diện xem trước" className="h-full w-full object-cover" /> : <Bot className="h-9 w-9" />}
+          </div>
+          <div className="space-y-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-indigo-50 px-3 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-100">
+              <ImagePlus className="h-4 w-4" /> Chọn ảnh
+              <input type="file" className="hidden" accept="image/jpeg,image/png,image/webp" onChange={(event) => setAvatarFile(event.target.files?.[0] || null)} />
+            </label>
+            {(avatarUrl || avatarFile) && <button type="button" onClick={() => { setAvatarFile(null); setAvatarUrl(null); }} className="ml-2 text-xs font-semibold text-red-600 hover:underline">Gỡ ảnh</button>}
+            <p className="text-[11px] leading-5 text-slate-400">JPG, PNG hoặc WebP; ảnh được cắt vuông và nén tối đa 512×512.</p>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <label className="sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-slate-700">Tên hiển thị</span><input required minLength={2} maxLength={80} value={displayName} onChange={(event) => setDisplayName(event.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-500" /></label>
+          <label><span className="mb-1.5 block text-xs font-bold text-slate-700">XP hiện tại</span><input required type="number" min={0} max={10000000} step={1} value={xp} onChange={(event) => setXp(event.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-500" /></label>
+          <label><span className="mb-1.5 block text-xs font-bold text-slate-700">Cấp độ</span><select value={hsk} onChange={(event) => setHsk(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-indigo-500">{HSK_OPTIONS.map((item) => <option key={item}>{item}</option>)}</select></label>
+          <label><span className="mb-1.5 block text-xs font-bold text-slate-700">XP/ngày tối thiểu</span><input required type="number" min={0} max={500} step={1} value={dailyMin} onChange={(event) => setDailyMin(event.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-500" /></label>
+          <label><span className="mb-1.5 block text-xs font-bold text-slate-700">XP/ngày tối đa</span><input required type="number" min={0} max={500} step={1} value={dailyMax} onChange={(event) => setDailyMax(event.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-500" /></label>
+          <label className="sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-slate-700">Chuỗi ngày học</span><input required type="number" min={0} max={maxStreakDays} step={1} value={streakDays} onChange={(event) => setStreakDays(event.target.value)} className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-500" /><span className="mt-1.5 block text-[11px] text-slate-400">Tối đa {maxStreakDays} ngày, bằng số ngày website đã hoạt động.</span></label>
+        </div>
+
+        <div className="mt-6 flex justify-end gap-2">
+          <button type="button" disabled={busy} onClick={onClose} className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-50">Hủy</button>
+          <button type="submit" disabled={busy} className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-50"><Save className="h-4 w-4" /> {busy ? "Đang lưu…" : "Lưu học viên"}</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 function AdminDashboard({ username }: { username: string }) {
   const [tab, setTab] = useState<AdminTab>("overview");
   const [refreshKey, setRefreshKey] = useState(0);
   const [error, setError] = useState("");
   const [summary, setSummary] = useState<AdminSummary | null>(null);
   const [summaryLoading, setSummaryLoading] = useState(true);
+  const [syntheticBusy, setSyntheticBusy] = useState(false);
 
   const [visitKind, setVisitKind] = useState<VisitKind>("all");
   const [visitDraft, setVisitDraft] = useState("");
@@ -125,6 +243,14 @@ function AdminDashboard({ username }: { username: string }) {
   const [userPage, setUserPage] = useState(0);
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [usersLoading, setUsersLoading] = useState(false);
+
+  const [syntheticDraft, setSyntheticDraft] = useState("");
+  const [syntheticSearch, setSyntheticSearch] = useState("");
+  const [syntheticPage, setSyntheticPage] = useState(0);
+  const [syntheticLearners, setSyntheticLearners] = useState<SyntheticLearner[]>([]);
+  const [syntheticLoading, setSyntheticLoading] = useState(false);
+  const [syntheticEditor, setSyntheticEditor] = useState<SyntheticLearner | "new" | null>(null);
+  const [syntheticAction, setSyntheticAction] = useState("");
 
   const [feedbackPage, setFeedbackPage] = useState(0);
   const [feedback, setFeedback] = useState<AdminFeedback[]>([]);
@@ -176,6 +302,18 @@ function AdminDashboard({ username }: { username: string }) {
   }, [tab, refreshKey]);
 
   useEffect(() => {
+    if (tab !== "synthetic") return;
+    let active = true;
+    setSyntheticLoading(true);
+    setError("");
+    fetchSyntheticLearners({ search: syntheticSearch, limit: PAGE_SIZE, offset: syntheticPage * PAGE_SIZE })
+      .then((value) => active && setSyntheticLearners(value))
+      .catch((reason) => active && setError(reason instanceof Error ? reason.message : "Không tải được học viên mô phỏng."))
+      .finally(() => active && setSyntheticLoading(false));
+    return () => { active = false; };
+  }, [tab, syntheticSearch, syntheticPage, refreshKey]);
+
+  useEffect(() => {
     if (tab !== "feedback") return;
     let active = true;
     setFeedbackLoading(true);
@@ -192,6 +330,7 @@ function AdminDashboard({ username }: { username: string }) {
     { id: "visits", label: "Truy cập & IP", icon: <Eye className="h-4 w-4" /> },
     { id: "blocked", label: "IP đã chặn", icon: <Ban className="h-4 w-4" /> },
     { id: "users", label: "Người dùng", icon: <Users className="h-4 w-4" /> },
+    { id: "synthetic", label: "Học viên mô phỏng", icon: <Bot className="h-4 w-4" /> },
     { id: "feedback", label: "Phản hồi", icon: <MessageSquare className="h-4 w-4" /> },
   ];
 
@@ -202,6 +341,7 @@ function AdminDashboard({ username }: { username: string }) {
     { label: "Lượt chưa đăng nhập", value: summary?.anonymousToday || 0, icon: UserX, tone: "bg-amber-50 text-amber-700" },
     { label: "Lượt đã đăng nhập", value: summary?.authenticatedToday || 0, icon: UserCheck, tone: "bg-emerald-50 text-emerald-700" },
     { label: "Tổng tài khoản", value: summary?.totalUsers || 0, icon: Users, tone: "bg-rose-50 text-rose-700" },
+    { label: "Học viên mô phỏng", value: summary?.syntheticUsers || 0, icon: Bot, tone: "bg-indigo-50 text-indigo-700" },
     { label: "IP đang bị chặn", value: summary?.blockedIps || 0, icon: Ban, tone: "bg-red-50 text-red-700" },
   ];
 
@@ -234,6 +374,74 @@ function AdminDashboard({ username }: { username: string }) {
       setError(reasonValue instanceof Error ? reasonValue.message : "Không bỏ chặn được IP.");
     } finally {
       setBlockActionIp("");
+    }
+  };
+
+  const handleSetAllSynthetic = async (enabled: boolean) => {
+    setSyntheticBusy(true);
+    setSyntheticAction("all");
+    setError("");
+    try {
+      await setSyntheticLearnersEnabled(enabled);
+      setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không thay đổi được dữ liệu mô phỏng.");
+    } finally {
+      setSyntheticBusy(false);
+      setSyntheticAction("");
+    }
+  };
+
+  const handleSyntheticToggle = async () => {
+    await handleSetAllSynthetic(!(summary?.syntheticEnabled ?? false));
+  };
+
+  const handleToggleSyntheticLearner = async (learner: SyntheticLearner) => {
+    setSyntheticAction(learner.learnerId);
+    setError("");
+    try {
+      await setSyntheticLearnerEnabled(learner.learnerId, !learner.active);
+      setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không đổi được trạng thái học viên mô phỏng.");
+    } finally {
+      setSyntheticAction("");
+    }
+  };
+
+  const handleSaveSynthetic = async (input: SyntheticLearnerInput, avatarFile: File | null) => {
+    const current = syntheticEditor === "new" ? null : syntheticEditor;
+    setSyntheticAction(current?.learnerId || "new");
+    setError("");
+    let createdId = "";
+    try {
+      const learnerId = current?.learnerId || await createSyntheticLearner({ ...input, avatarUrl: null });
+      if (!current) createdId = learnerId;
+      const avatarUrl = avatarFile ? await uploadSyntheticAvatar(learnerId, avatarFile) : input.avatarUrl;
+      if (current || avatarFile) await updateSyntheticLearner(learnerId, { ...input, avatarUrl });
+      if (current?.avatarUrl && !avatarUrl) await removeSyntheticAvatar(learnerId);
+      setSyntheticEditor(null);
+      setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      if (createdId) await deleteSyntheticLearner(createdId).catch(() => undefined);
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không lưu được học viên mô phỏng.");
+    } finally {
+      setSyntheticAction("");
+    }
+  };
+
+  const handleDeleteSynthetic = async (learner: SyntheticLearner) => {
+    if (!window.confirm(`Xóa học viên mô phỏng “${learner.displayName}”? Thao tác này không thể hoàn tác.`)) return;
+    setSyntheticAction(learner.learnerId);
+    setError("");
+    try {
+      await deleteSyntheticLearner(learner.learnerId);
+      if (syntheticLearners.length === 1 && syntheticPage > 0) setSyntheticPage((page) => page - 1);
+      else setRefreshKey((value) => value + 1);
+    } catch (reasonValue) {
+      setError(reasonValue instanceof Error ? reasonValue.message : "Không xóa được học viên mô phỏng.");
+    } finally {
+      setSyntheticAction("");
     }
   };
 
@@ -302,6 +510,23 @@ function AdminDashboard({ username }: { username: string }) {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Phản hồi</p>
                 <p className="mt-2 text-3xl font-black text-slate-950">{summaryLoading ? "…" : (summary?.totalFeedback || 0).toLocaleString("vi-VN")}</p>
                 <button type="button" onClick={() => setTab("feedback")} className="mt-1 text-sm font-semibold text-brand hover:underline">Mở hộp phản hồi →</button>
+              </article>
+              <article className="rounded-2xl border border-indigo-100 bg-indigo-50/60 p-5 shadow-sm md:col-span-2">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-500"><Bot className="h-4 w-4" /> Dữ liệu mô phỏng</p>
+                    <p className="mt-2 text-sm font-bold text-slate-900">{summary?.syntheticEnabled ? "Đang hiển thị trên bảng xếp hạng" : "Đang tắt khỏi bảng xếp hạng"}</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">{(summary?.syntheticUsers || 0).toLocaleString("vi-VN")} học viên mô phỏng nhận XP theo ngày Bangkok. Không tạo tài khoản đăng nhập, IP hay lượt truy cập giả.</p>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={summaryLoading || syntheticBusy || !summary?.syntheticUsers}
+                    onClick={() => void handleSyntheticToggle()}
+                    className={`shrink-0 rounded-xl px-4 py-2.5 text-xs font-bold text-white disabled:opacity-50 ${summary?.syntheticEnabled ? "bg-slate-700 hover:bg-slate-800" : "bg-indigo-600 hover:bg-indigo-700"}`}
+                  >
+                    {syntheticBusy ? "Đang cập nhật…" : summary?.syntheticEnabled ? "Tắt mô phỏng" : "Bật mô phỏng"}
+                  </button>
+                </div>
               </article>
             </div>
           </section>
@@ -420,6 +645,52 @@ function AdminDashboard({ username }: { username: string }) {
           </section>
         )}
 
+        {tab === "synthetic" && (
+          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="flex flex-col gap-4 border-b border-slate-100 p-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="font-bold text-slate-900">Quản lý học viên mô phỏng</h2>
+                <p className="mt-1 text-xs leading-5 text-slate-500">Thêm, sửa hoặc xóa dữ liệu mẫu. XP và chuỗi ngày tiếp tục tăng hằng ngày sau khi bạn chỉnh.</p>
+              </div>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <form className="flex min-w-0 gap-2 sm:min-w-72" onSubmit={(event) => { event.preventDefault(); setSyntheticSearch(syntheticDraft); setSyntheticPage(0); }}>
+                  <div className="relative flex-1"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input value={syntheticDraft} onChange={(event) => setSyntheticDraft(event.target.value)} placeholder="Tên hoặc mã mô phỏng…" className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-xs outline-none focus:border-indigo-500" /></div>
+                  <button className="rounded-xl bg-slate-900 px-3 text-xs font-bold text-white">Tìm</button>
+                </form>
+                <button type="button" onClick={() => setSyntheticEditor("new")} className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-indigo-700"><Plus className="h-4 w-4" /> Thêm học viên</button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <div><p className="text-xs font-bold text-slate-700">Hiển thị trên bảng xếp hạng</p><p className="mt-0.5 text-[11px] text-slate-500">Có thể điều khiển toàn bộ tại đây hoặc bấm trực tiếp vào trạng thái của từng học viên.</p></div>
+              <div className="flex gap-2">
+                <button type="button" disabled={syntheticBusy || Boolean(syntheticAction)} onClick={() => void handleSetAllSynthetic(true)} className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white hover:bg-emerald-700 disabled:opacity-50"><UserCheck className="h-4 w-4" /> Bật toàn bộ</button>
+                <button type="button" disabled={syntheticBusy || Boolean(syntheticAction)} onClick={() => void handleSetAllSynthetic(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-slate-700 px-3 py-2 text-xs font-bold text-white hover:bg-slate-800 disabled:opacity-50"><UserX className="h-4 w-4" /> Tắt toàn bộ</button>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[1040px] text-left text-xs">
+                <thead className="bg-slate-50 text-slate-500"><tr><th className="px-4 py-3">Học viên</th><th className="px-4 py-3">XP hiện tại</th><th className="px-4 py-3">Tuần này</th><th className="px-4 py-3">XP mỗi ngày</th><th className="px-4 py-3">Chuỗi ngày</th><th className="px-4 py-3">Cấp độ</th><th className="px-4 py-3">Trạng thái</th><th className="px-4 py-3 text-right">Thao tác</th></tr></thead>
+                <tbody className="divide-y divide-slate-100">
+                  {syntheticLearners.map((learner) => (
+                    <tr key={learner.learnerId} className="hover:bg-slate-50/70">
+                      <td className="px-4 py-3"><div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-indigo-50 text-indigo-500">{learner.avatarUrl ? <img src={learner.avatarUrl} alt="" className="h-full w-full object-cover" /> : <Bot className="h-5 w-5" />}</div><div><div className="font-bold text-slate-900">{learner.displayName}</div><div className="text-[10px] text-slate-400">@{learner.username}</div></div></div></td>
+                      <td className="px-4 py-3 font-bold text-slate-900">{learner.xp.toLocaleString("vi-VN")}</td>
+                      <td className="px-4 py-3 text-slate-600">{learner.weeklyXp.toLocaleString("vi-VN")}</td>
+                      <td className="px-4 py-3 text-slate-600">{learner.dailyXpMin}–{learner.dailyXpMax} XP</td>
+                      <td className="px-4 py-3 font-semibold text-rose-600">{learner.streakDays} ngày</td>
+                      <td className="px-4 py-3"><span className="rounded-full bg-indigo-50 px-2 py-1 font-bold text-indigo-700">{learner.hsk}</span></td>
+                      <td className="px-4 py-3"><button type="button" disabled={Boolean(syntheticAction)} onClick={() => void handleToggleSyntheticLearner(learner)} title={learner.active ? "Bấm để tắt học viên này" : "Bấm để bật học viên này"} className={`rounded-full px-2.5 py-1.5 font-bold transition disabled:opacity-50 ${learner.active ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{syntheticAction === learner.learnerId ? "Đang đổi…" : learner.active ? "Đang bật" : "Đang tắt"}</button></td>
+                      <td className="px-4 py-3"><div className="flex justify-end gap-2"><button type="button" disabled={Boolean(syntheticAction)} onClick={() => setSyntheticEditor(learner)} className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-2 font-bold text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"><Pencil className="h-3.5 w-3.5" /> Sửa</button><button type="button" disabled={Boolean(syntheticAction)} onClick={() => void handleDeleteSynthetic(learner)} className="inline-flex items-center gap-1.5 rounded-lg bg-red-50 px-3 py-2 font-bold text-red-700 hover:bg-red-100 disabled:opacity-50"><Trash2 className="h-3.5 w-3.5" /> Xóa</button></div></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {!syntheticLearners.length && <EmptyState loading={syntheticLoading} />}
+            </div>
+            <Pagination page={syntheticPage} total={syntheticLearners[0]?.totalCount || 0} onChange={setSyntheticPage} />
+          </section>
+        )}
+
         {tab === "feedback" && (
           <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div className="border-b border-slate-100 p-4"><h2 className="font-bold text-slate-900">Phản hồi từ người học</h2><p className="mt-1 text-xs text-slate-500">Nội dung này chỉ tài khoản quản trị có thể đọc.</p></div>
@@ -433,6 +704,15 @@ function AdminDashboard({ username }: { username: string }) {
           </section>
         )}
       </div>
+      {syntheticEditor && (
+        <SyntheticLearnerEditor
+          key={syntheticEditor === "new" ? "new" : syntheticEditor.learnerId}
+          learner={syntheticEditor === "new" ? null : syntheticEditor}
+          busy={Boolean(syntheticAction)}
+          onClose={() => setSyntheticEditor(null)}
+          onSave={(input, avatarFile) => void handleSaveSynthetic(input, avatarFile)}
+        />
+      )}
     </div>
   );
 }
