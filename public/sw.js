@@ -111,11 +111,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Lesson and Quiz Data (/data/hsk/, /data/hsk-annotations/, /hoc-va-choi/*.json)
+  // 3. Lesson and Quiz Data (/data/*)
   // Stale-While-Revalidate: Return cached content instantly (~0.1s) and refresh in background
-  const isLessonData =
-    url.pathname.startsWith('/data/') ||
-    (url.pathname.startsWith('/hoc-va-choi/') && url.pathname.endsWith('.json'));
+  const isLessonData = url.pathname.startsWith('/data/');
 
   if (isLessonData) {
     event.respondWith(

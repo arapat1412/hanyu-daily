@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const DEFAULT_DESCRIPTION =
-  "Học tiếng Trung New HSK 3.0 với từ vựng, ngữ pháp, luyện tập và trò chơi văn hóa mỗi ngày.";
+  "Học tiếng Trung New HSK 3.0 với từ vựng, ngữ pháp và bài luyện tập tương tác mỗi ngày.";
 
 function metadataFor(pathname: string) {
   if (pathname === "/")
@@ -19,14 +19,12 @@ function metadataFor(pathname: string) {
     return { title: "Học New HSK 3.0 | Hanyu Daily", description: "Từ vựng, ngữ pháp, flashcard và bài luyện tập New HSK 3.0." };
   if (pathname.startsWith("/lesson/"))
     return { title: "Bài học tiếng Trung | Hanyu Daily", description: "Bài học tiếng Trung với từ vựng, ví dụ, luyện nghe và kiểm tra tiến độ." };
-  if (pathname.startsWith("/kham-pha/tho-duong"))
-    return { title: "Đường Thi Tuyển Tập | Hanyu Daily", description: "Đắm mình trong thi họa cổ phong Đường thi, ngâm thơ chuẩn, bản dịch thơ kinh điển và thử thách thi ca." };
-  if (pathname.startsWith("/kham-pha/thanh-ngu-dien-co"))
-    return { title: "Điển Cố & Thành Ngữ Trung Hoa | Hanyu Daily", description: "Học thành ngữ tiếng Trung qua các câu chuyện ngụ ngôn và điển tích lịch sử kinh điển kèm mini quiz." };
-  if (pathname.startsWith("/kham-pha/van-hoa-trung-quoc"))
-    return { title: "1000 câu hỏi Văn hóa Trung Quốc | Hanyu Daily", description: "Học lịch sử, văn học, nghệ thuật, khoa học và đời sống Trung Quốc qua trò chơi có thưởng XP." };
   if (pathname.startsWith("/yct"))
     return { title: "Tủ Sách Tiếng Trung Thiếu Nhi YCT (1 – 6) | Hanyu Daily", description: "Giáo trình tiếng Trung thiếu nhi chuẩn quốc tế Youth Chinese Test (YCT 1 – 6) với hình ảnh minh họa, phát âm và PDF sách." };
+  if (pathname === "/tu-truyen" || pathname === "/mo-rong")
+    return { title: "Tủ Truyện Tiếng Trung Song Ngữ | Hanyu Daily", description: "Tủ truyện tranh tiếng Trung song ngữ Hán - Việt với hình ảnh minh họa sống động, phát âm chuẩn và từ vựng phong phú." };
+  if (pathname.startsWith("/tu-truyen/"))
+    return { title: "Đọc Truyện Tranh Tiếng Trung | Hanyu Daily", description: "Đọc truyện tranh song ngữ Hán - Việt với audio giọng đọc chuẩn, Pinyin và giải nghĩa chi tiết." };
   if (pathname === "/giao-trinh")
     return { title: "Bộ Giáo Trình Tiếng Trung Chuẩn (Boya & YCT) | Hanyu Daily", description: "Hệ thống tủ sách giáo trình tiếng Trung chuẩn hóa: Hán ngữ Boya và Thiếu nhi YCT." };
   if (pathname === "/xep-hang")

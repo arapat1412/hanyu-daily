@@ -72,8 +72,8 @@ test("unified XP events contribute to overall, weekly XP, activity and streak", 
       lessons: {},
       attempts: [],
       xpEvents: {
-        "chengyu:quiz:shou-zhu-dai-tu": {
-          source: "chengyu",
+        "yct:1:quiz:2026-09-13": {
+          source: "yct",
           amount: 10,
           earnedAt: "2026-09-13T01:00:00.000Z",
         },

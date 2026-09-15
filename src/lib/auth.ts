@@ -29,18 +29,14 @@ export interface LeaderboardEntry {
   streak: number;
   hsk: string;
   avatarUrl?: string;
-  cultureXp: number;
-  cultureWeeklyXp: number;
   isSupplemental?: boolean;
   isSynthetic?: boolean;
 }
 
 export type LeaderboardPeriod = "weekly" | "overall";
-export type LeaderboardScope = "all" | "culture";
 
 export interface LeaderboardOptions {
   period?: LeaderboardPeriod;
-  scope?: LeaderboardScope;
   hsk?: string;
   search?: string;
   limit?: number;
@@ -478,21 +474,6 @@ async function refreshLegacyLeaderboard(
     };
   }
 
-  // Compatibility path for projects that have not applied the new RPC yet.
-  // The legacy view has no culture-only columns, so that scope remains empty
-  // until the culture/scoring migrations are deployed instead of showing an
-  // incorrect ranking built from general XP.
-  if ((options.scope ?? "all") === "culture") {
-    return {
-      users: [],
-      totalCount: 0,
-      filteredCount: 0,
-      totalXp: 0,
-      highestStreak: 0,
-      error: "",
-    };
-  }
-
   const period = options.period ?? "overall";
   const normalizedHsk = options.hsk?.trim() || "";
   const search = options.search?.trim().toLocaleLowerCase("vi") || "";
@@ -511,8 +492,6 @@ async function refreshLegacyLeaderboard(
       streak: Number(row.streak) || 0,
       hsk: row.hsk,
       avatarUrl: row.avatar_url || undefined,
-      cultureXp: 0,
-      cultureWeeklyXp: 0,
     }))
     .filter((entry) => !normalizedHsk || entry.hsk === normalizedHsk)
     .sort((first, second) => {
@@ -570,7 +549,7 @@ async function fetchLeaderboard(options: LeaderboardOptions = {}): Promise<Leade
   }
   const { data, error } = await supabase.rpc("get_public_leaderboard", {
     p_period: options.period ?? "overall",
-    p_scope: options.scope ?? "all",
+    p_scope: "all",
     p_hsk: options.hsk || null,
     p_search: options.search?.trim() || null,
     p_limit: Math.min(100, Math.max(1, options.limit ?? 100)),
@@ -590,8 +569,6 @@ async function fetchLeaderboard(options: LeaderboardOptions = {}): Promise<Leade
         streak: row.streak,
         hsk: row.hsk,
         avatarUrl: row.avatar_url || undefined,
-        cultureXp: row.culture_xp,
-        cultureWeeklyXp: row.culture_weekly_xp,
         isSupplemental: row.is_supplemental,
         isSynthetic: row.is_synthetic === true,
       }));
@@ -615,7 +592,6 @@ const leaderboardRequests = new Map<string, Promise<LeaderboardResult>>();
 function leaderboardCacheKey(options: LeaderboardOptions) {
   return JSON.stringify([
     options.period ?? "overall",
-    options.scope ?? "all",
     options.hsk?.trim() || "",
     options.search?.trim().toLocaleLowerCase("vi-VN") || "",
     Math.min(100, Math.max(1, options.limit ?? 100)),
@@ -659,7 +635,6 @@ export async function refreshLeaderboard(
 
 export function useLeaderboard(options: LeaderboardOptions = {}) {
   const period = options.period ?? "overall";
-  const scope = options.scope ?? "all";
   const hsk = options.hsk || "";
   const search = options.search?.trim() || "";
   const limit = options.limit ?? 100;
@@ -681,7 +656,6 @@ export function useLeaderboard(options: LeaderboardOptions = {}) {
     setLoading(true);
     const result = await refreshLeaderboard({
       period,
-      scope,
       hsk,
       search,
       limit,
@@ -696,7 +670,7 @@ export function useLeaderboard(options: LeaderboardOptions = {}) {
     setHighestStreak(result.highestStreak);
     setError(result.error);
     setLoading(false);
-  }, [period, scope, hsk, search, limit, offset, includeCurrent, enabled]);
+  }, [period, hsk, search, limit, offset, includeCurrent, enabled]);
 
   const refresh = useCallback(() => runRefresh(true), [runRefresh]);
 

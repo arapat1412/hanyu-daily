@@ -286,7 +286,7 @@ export interface SkillPracticeEvent {
   score?: number;
   at: string;
 }
-export type XpSource = "yct" | "chengyu" | "poetry" | "culture";
+export type XpSource = "yct";
 export interface XpEvent {
   source: XpSource;
   amount: number;
@@ -451,7 +451,7 @@ function parseProgress(value: any): Progress {
         })
         .slice(-500)
     : [];
-  const xpSources = new Set<XpSource>(["yct", "chengyu", "poetry", "culture"]);
+  const xpSources = new Set<XpSource>(["yct"]);
   const xpEvents: Record<string, XpEvent> = {};
   if (value.xpEvents && typeof value.xpEvents === "object") {
     for (const [eventId, rawEvent] of Object.entries(value.xpEvents)) {
@@ -533,16 +533,6 @@ function readLegacyJson(key: string): any {
 function migrateLegacyLocalXp(value: Progress): Progress {
   const xpEvents = { ...(value.xpEvents ?? {}) };
   try {
-    const chengyu = readLegacyJson("hanyu_chengyu_progress");
-    for (const id of Array.isArray(chengyu?.quizPassedIds) ? chengyu.quizPassedIds : []) {
-      if (typeof id === "string") addLegacyXpEvent(xpEvents, `chengyu:quiz:${id}`, "chengyu", 10);
-    }
-
-    const poetry = readLegacyJson("hanyu_poetry_progress");
-    for (const id of Array.isArray(poetry?.quizPassedIds) ? poetry.quizPassedIds : []) {
-      if (typeof id === "string") addLegacyXpEvent(xpEvents, `poetry:quiz:${id}`, "poetry", 10);
-    }
-
     const yctStores = [
       [1, "hanyu.yct1.progress.v1"],
       [2, "hanyu.yct2.progress.v1"],
@@ -561,26 +551,6 @@ function migrateLegacyLocalXp(value: Progress): Progress {
       addLegacyXpEvent(xpEvents, `yct:${level}:legacy`, "yct", remainder);
     }
 
-    const cultureStores = [
-      ["lich-su", "meiday.game.lichsu.v2"],
-      ["van-hoc", "meiday.game.vanhoc.v1"],
-      ["van-hoa", "meiday.game.vanhoa.v1"],
-      ["nghe-thuat", "meiday.game.nghethuat.v1"],
-      ["khoa-hoc", "meiday.game.khoahoc.v1"],
-      ["thien-van", "meiday.game.thienvan.v1"],
-      ["doi-song", "meiday.game.doisong.v1"],
-    ] as const;
-    for (const [topic, key] of cultureStores) {
-      const legacy = readLegacyJson(key);
-      const log = legacy?.xpLog && typeof legacy.xpLog === "object" ? legacy.xpLog : {};
-      const dates = legacy?.xpDates && typeof legacy.xpDates === "object" ? legacy.xpDates : {};
-      for (const [id, rawAmount] of Object.entries(log)) {
-        const amount = typeof rawAmount === "number" ? rawAmount : 0;
-        const rawDate = typeof dates[id] === "string" ? dates[id] : LEGACY_XP_DATE;
-        const earnedAt = Number.isFinite(Date.parse(rawDate)) ? new Date(rawDate).toISOString() : LEGACY_XP_DATE;
-        addLegacyXpEvent(xpEvents, `culture:${topic}:${id}`, "culture", amount, earnedAt);
-      }
-    }
   } catch {
     // A malformed legacy store must not prevent the primary progress from loading.
   }
@@ -856,7 +826,7 @@ export function awardXp(
   if (
     !eventId ||
     eventId.length > 180 ||
-    !["yct", "chengyu", "poetry", "culture"].includes(source) ||
+    source !== "yct" ||
     !Number.isInteger(normalizedAmount) ||
     normalizedAmount <= 0 ||
     normalizedAmount > 100_000 ||
@@ -905,7 +875,7 @@ export function importXpEvents(events: Record<string, XpEvent>): number {
     if (next[eventId]) continue;
     if (
       !eventId || eventId.length > 180 ||
-      !["yct", "chengyu", "poetry", "culture"].includes(event.source) ||
+      event.source !== "yct" ||
       !Number.isInteger(event.amount) || event.amount <= 0 || event.amount > 100_000 ||
       !Number.isFinite(Date.parse(event.earnedAt))
     ) continue;

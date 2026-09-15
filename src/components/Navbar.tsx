@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Menu,
@@ -11,11 +11,13 @@ import {
   Download,
   LogOut,
   ChevronRight,
+  ChevronDown,
   Sparkles,
   Award,
   Search,
   User,
   Flame,
+  Compass,
 } from 'lucide-react';
 import { BobaTeaModal } from './BobaTeaModal';
 import { useProgress } from '../lib/hsk';
@@ -34,10 +36,30 @@ export const Navbar: React.FC = () => {
   const accountStats = user ? calculateProgressStats(progress) : null;
   const [bobaOpen, setBobaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [curriculumOpen, setCurriculumOpen] = useState(false);
+  const [extensionOpen, setExtensionOpen] = useState(false);
+  const curriculumRef = useRef<HTMLDivElement>(null);
+  const extensionRef = useRef<HTMLDivElement>(null);
 
-  // Close drawer automatically when route changes
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (curriculumRef.current && !curriculumRef.current.contains(e.target as Node)) {
+        setCurriculumOpen(false);
+      }
+      if (extensionRef.current && !extensionRef.current.contains(e.target as Node)) {
+        setExtensionOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close drawer and dropdowns automatically when route changes
   useEffect(() => {
     setDrawerOpen(false);
+    setCurriculumOpen(false);
+    setExtensionOpen(false);
   }, [location.pathname]);
 
   // Prevent background scroll when drawer is open
@@ -52,12 +74,13 @@ export const Navbar: React.FC = () => {
     };
   }, [drawerOpen]);
 
-  // Primary navigation links for desktop
-  const navLinks = [
+  // Primary navigation links for desktop: Before "Giáo trình"
+  const navLinksBefore = [
     { label: 'Trang chủ', href: '/' },
     { label: 'HSK 3.0', href: '/hsk' },
-    { label: 'Boya', href: '/boya' },
-    { label: 'YCT', href: '/yct' },
+  ];
+
+  const navLinksAfter = [
     { label: 'Khóa học', href: '/khoa-hoc' },
     { label: 'Xếp hạng', href: '/xep-hang' },
     { label: 'Giáo viên', href: '/giao-vien' },
@@ -67,8 +90,8 @@ export const Navbar: React.FC = () => {
   const drawerItems = [
     { label: 'Trang chủ', href: '/', icon: Home, desc: 'Bảng tin & bài học tiếp theo' },
     { label: 'Lộ trình New HSK 3.0', href: '/hsk', icon: GraduationCap, desc: 'HSK 1 đến HSK 6 & HSK 7-9' },
-    { label: 'Giáo trình Hán ngữ Boya', href: '/boya', icon: BookOpen, desc: 'Boya Sơ cấp 1 & Sơ cấp 2' },
-    { label: 'Tủ sách Thiếu Nhi YCT', href: '/yct', icon: Sparkles, desc: 'Giáo trình YCT 1 đến YCT 6 cho bé' },
+    { label: 'Tủ sách Giáo trình', href: '/giao-trinh', icon: BookOpen, desc: 'Giáo trình Boya & Thiếu nhi YCT' },
+    { label: 'Tủ truyện tiếng Trung', href: '/tu-truyen', icon: BookOpen, desc: 'Truyện tranh song ngữ Hán - Việt', badge: 'MỚI' },
     { label: 'Bảng xếp hạng tuần', href: '/xep-hang', icon: Trophy, desc: 'Thi đua sao & điểm kinh nghiệm' },
     { label: 'Khóa học tiếng Trung', href: '/khoa-hoc', icon: Sparkles, desc: 'Các lớp học cùng cô Kim Chi' },
     { label: 'Giới thiệu Giáo viên', href: '/giao-vien', icon: Award, desc: 'Cô Nguyễn Thị Kim Chi' },
@@ -76,6 +99,7 @@ export const Navbar: React.FC = () => {
 
   const isActive = (href: string) => {
     if (href === '/hsk' && location.pathname.startsWith('/lesson/')) return true;
+    if (href === '/giao-trinh' && (location.pathname.startsWith('/giao-trinh') || location.pathname.startsWith('/boya') || location.pathname.startsWith('/yct'))) return true;
     if (href === '/' && (location.pathname === '/' || location.pathname === '/dashboard')) return true;
     if (href !== '/' && location.pathname.startsWith(href)) return true;
     return false;
@@ -133,7 +157,197 @@ export const Navbar: React.FC = () => {
 
           {/* 2. Menu Điều Hướng Desktop (Hàng ngang tích hợp) */}
           <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 p-1 rounded-2xl border border-slate-200/50">
-            {navLinks.map((item) => {
+            {/* Các tab trước Mở rộng: Trang chủ, HSK 3.0, Boya, YCT */}
+            {navLinksBefore.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs transition-all ${
+                    active
+                      ? 'bg-gradient-to-r from-sky-100 to-pink-100 text-sky-950 font-black shadow-2xs border border-sky-200/80'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 font-bold'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            {/* Tab Giáo trình (Boya & YCT) */}
+            <div className="relative" ref={curriculumRef}>
+              <button
+                type="button"
+                onClick={() => setCurriculumOpen(!curriculumOpen)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer select-none ${
+                  location.pathname.startsWith('/giao-trinh') ||
+                  location.pathname.startsWith('/boya') ||
+                  location.pathname.startsWith('/yct')
+                    ? 'bg-gradient-to-r from-sky-100 to-pink-100 text-sky-950 font-black shadow-2xs border border-sky-200/80'
+                    : curriculumOpen
+                    ? 'bg-white text-slate-900 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                }`}
+                title="Giáo trình Hán ngữ chuẩn (Boya & YCT)"
+              >
+                <span>Giáo trình</span>
+                <ChevronDown
+                  className={`w-3 h-3 transition-transform duration-200 ${
+                    curriculumOpen ? 'rotate-180 text-teal-700' : 'text-slate-400'
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown Menu sổ xuống khi bấm vô Giáo trình */}
+              {curriculumOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-2.5 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between border-b border-slate-100 mb-1.5">
+                    <span>Tủ sách giáo trình</span>
+                    <span className="text-[10px] text-teal-700 font-extrabold bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
+                      Boya & YCT
+                    </span>
+                  </div>
+
+                  {/* Mục 1: Giáo trình Boya */}
+                  <Link
+                    to="/boya"
+                    onClick={() => setCurriculumOpen(false)}
+                    className="block p-2.5 rounded-xl bg-gradient-to-br from-sky-50/90 via-sky-50/40 to-indigo-50/30 border border-sky-200/80 hover:border-sky-400 transition-all group no-underline text-inherit shadow-2xs mb-1.5"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <span className="font-black text-slate-900 text-xs sm:text-sm group-hover:text-sky-700">
+                          Giáo trình Boya
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[9.5px] font-black uppercase tracking-wider border border-sky-200">
+                        ĐH Bắc Kinh
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 pl-9">
+                      Giáo trình chuẩn cho người lớn & sinh viên, phản xạ giao tiếp và ngữ pháp toàn diện.
+                    </p>
+                    <div className="mt-1.5 pl-9 flex items-center gap-1 text-[10.5px] font-bold text-sky-800 group-hover:translate-x-0.5 transition-transform">
+                      <span>Xem Boya Sơ cấp 1 & Sơ cấp 2</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+
+                  {/* Mục 2: Giáo trình YCT */}
+                  <Link
+                    to="/yct"
+                    onClick={() => setCurriculumOpen(false)}
+                    className="block p-2.5 rounded-xl bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-teal-50/30 border border-amber-200/80 hover:border-amber-400 transition-all group no-underline text-inherit shadow-2xs mb-1.5"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-xs">
+                          <Sparkles className="w-4 h-4" />
+                        </div>
+                        <span className="font-black text-slate-900 text-xs sm:text-sm group-hover:text-amber-900">
+                          Tủ sách Thiếu nhi YCT
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[9.5px] font-black uppercase tracking-wider border border-amber-300">
+                        Thiếu nhi
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 pl-9">
+                      Giáo trình chuẩn YCT 1 đến 6 tranh vẽ sinh động, trò chơi tương tác và audio cho bé.
+                    </p>
+                    <div className="mt-1.5 pl-9 flex items-center gap-1 text-[10.5px] font-bold text-amber-800 group-hover:translate-x-0.5 transition-transform">
+                      <span>Xem sách YCT 1 đến 6</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+
+                  {/* Link chân menu: Xem tổng quan hệ thống giáo trình */}
+                  <Link
+                    to="/giao-trinh"
+                    onClick={() => setCurriculumOpen(false)}
+                    className="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 text-[11px] font-bold text-slate-700 hover:text-slate-900 transition-colors border-t border-slate-100 pt-2 no-underline"
+                  >
+                    <span className="flex items-center gap-1.5 text-slate-500">
+                      <Compass className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Tổng quan tủ sách Giáo trình</span>
+                    </span>
+                    <ChevronRight className="w-3 h-3 text-slate-400" />
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Tab Mở rộng nằm ngay bên phải Tab Giáo trình */}
+            <div className="relative" ref={extensionRef}>
+              <button
+                type="button"
+                onClick={() => setExtensionOpen(!extensionOpen)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer select-none ${
+                  location.pathname.startsWith('/tu-truyen') ||
+                  location.pathname.startsWith('/mo-rong')
+                    ? 'bg-gradient-to-r from-sky-100 to-pink-100 text-sky-950 font-black shadow-2xs border border-sky-200/80'
+                    : extensionOpen
+                    ? 'bg-white text-slate-900 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                }`}
+                title="Khám phá các nội dung mở rộng"
+              >
+                <span>Mở rộng</span>
+                <ChevronDown
+                  className={`w-3 h-3 transition-transform duration-200 ${
+                    extensionOpen ? 'rotate-180 text-teal-700' : 'text-slate-400'
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown Menu sổ xuống khi bấm vô Mở rộng */}
+              {extensionOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-2.5 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between border-b border-slate-100 mb-1.5">
+                    <span>Kho tàng mở rộng</span>
+                    <span className="text-[10px] text-teal-700 font-extrabold bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200/60">
+                      Phong phú
+                    </span>
+                  </div>
+
+                  {/* Ô thứ 1: Tủ truyện (Điểm nhấn chính) */}
+                  <Link
+                    to="/tu-truyen"
+                    onClick={() => setExtensionOpen(false)}
+                    className="block p-2.5 rounded-xl bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-teal-50/30 border border-amber-200/80 hover:border-amber-400 transition-all group no-underline text-inherit shadow-2xs mb-1.5"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xs shadow-xs">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <span className="font-black text-slate-900 text-xs sm:text-sm group-hover:text-amber-900">
+                          Tủ truyện
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[9.5px] font-black uppercase tracking-wider shadow-2xs">
+                        MỚI
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 pl-9">
+                      Đọc truyện tranh song ngữ Hán - Việt, minh họa sống động, kèm audio & từ vựng.
+                    </p>
+                    <div className="mt-1.5 pl-9 flex items-center gap-1 text-[10.5px] font-bold text-amber-800 group-hover:translate-x-0.5 transition-transform">
+                      <span>Khám phá các truyện mới</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+
+                </div>
+              )}
+            </div>
+
+            {/* Các tab sau Mở rộng: Khóa học, Xếp hạng, Giáo viên */}
+            {navLinksAfter.map((item) => {
               const active = isActive(item.href);
               return (
                 <Link
@@ -370,7 +584,14 @@ export const Navbar: React.FC = () => {
                             <Icon className="w-4 h-4" />
                           </div>
                           <div>
-                            <p className="text-xs font-bold leading-tight">{item.label}</p>
+                            <div className="flex items-center gap-1.5">
+                              <p className="text-xs font-bold leading-tight">{item.label}</p>
+                              {'badge' in item && Boolean((item as any).badge) && (
+                                <span className="px-1.5 py-0.2 rounded-md bg-rose-500 text-white text-[9px] font-black uppercase shadow-2xs">
+                                  {(item as any).badge}
+                                </span>
+                              )}
+                            </div>
                             <p
                               className={`text-[10px] leading-tight ${
                                 active ? 'text-slate-100' : 'text-slate-400'

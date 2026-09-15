@@ -21,16 +21,16 @@ export const MobileBottomNav: React.FC = () => {
       isActive: (path: string) => path.startsWith('/hsk') || path.startsWith('/lesson/'),
     },
     {
-      label: 'Boya',
-      href: '/boya',
+      label: 'Giáo trình',
+      href: '/giao-trinh',
       icon: BookOpen,
-      isActive: (path: string) => path.startsWith('/boya'),
+      isActive: (path: string) => path.startsWith('/giao-trinh') || path.startsWith('/boya') || path.startsWith('/yct'),
     },
     {
-      label: 'YCT',
-      href: '/yct',
+      label: 'Tủ truyện',
+      href: '/tu-truyen',
       icon: Sparkles,
-      isActive: (path: string) => path.startsWith('/yct'),
+      isActive: (path: string) => path.startsWith('/tu-truyen') || path.startsWith('/mo-rong'),
     },
     {
       label: 'Của tôi',
@@ -39,6 +39,11 @@ export const MobileBottomNav: React.FC = () => {
       isActive: (path: string) => path === '/me' || path === '/login' || path === '/register',
     },
   ];
+
+  // Khi người dùng đang đọc một truyện cụ thể (/tu-truyen/:id), ẩn thanh điều hướng di động để trải nghiệm đọc truyện tràn viền
+  if (location.pathname.startsWith('/tu-truyen/') && location.pathname !== '/tu-truyen') {
+    return null;
+  }
 
   return (
     <nav

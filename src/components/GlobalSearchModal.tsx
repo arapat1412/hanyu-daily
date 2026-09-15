@@ -10,8 +10,6 @@ import {
   Trophy,
   Sparkles,
   Award,
-  Feather,
-  BookMarked,
   Home,
   User,
   ArrowRight,
@@ -24,13 +22,11 @@ import { BOYA1_VOCABULARY } from '../data/boya1Data';
 import { BOYA2_VOCABULARY } from '../data/boya2Data';
 import { HSK1_ENRICHED_GRAMMAR } from '../data/hsk1GrammarData';
 import { SAMPLE_GRAMMAR } from '../data/grammarPoints';
-import { CHENGYU_STORIES } from '../data/chengyuStories';
-import { TANG_POEMS } from '../data/tangPoems';
 import type { VocabularyWord } from '../types';
 
 interface SearchResultItem {
   id: string;
-  type: 'vocab' | 'grammar' | 'culture' | 'link';
+  type: 'vocab' | 'grammar' | 'link';
   title: string;
   subtitle?: string;
   details?: string;
@@ -103,33 +99,6 @@ const QUICK_LINKS: SearchResultItem[] = [
     tag: 'YCT',
     tagColor: 'bg-amber-100 text-amber-800 border-amber-200',
     url: '/yct',
-  },
-  {
-    id: 'link-culture-game',
-    type: 'link',
-    title: '1000 câu hỏi Văn hóa Trung Quốc',
-    subtitle: 'Lịch sử, văn học, nghệ thuật, khoa học và đời sống',
-    tag: 'Văn hóa',
-    tagColor: 'bg-violet-100 text-violet-800 border-violet-200',
-    url: '/kham-pha/van-hoa-trung-quoc',
-  },
-  {
-    id: 'link-chengyu',
-    type: 'link',
-    title: 'Thành ngữ điển cố Trung Hoa',
-    subtitle: 'Kho tàng 30 thành ngữ & câu chuyện lịch sử ngụ ngôn',
-    tag: 'Thành ngữ',
-    tagColor: 'bg-rose-100 text-rose-800 border-rose-200',
-    url: '/kham-pha/thanh-ngu-dien-co',
-  },
-  {
-    id: 'link-poetry',
-    type: 'link',
-    title: 'Thơ Đường tuyển tập',
-    subtitle: '30 thi phẩm Đường thi bất hủ kèm dịch thơ & phân tích',
-    tag: 'Thơ Đường',
-    tagColor: 'bg-teal-100 text-teal-800 border-teal-200',
-    url: '/kham-pha/tho-duong',
   },
   {
     id: 'link-leaderboard',
@@ -234,12 +203,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   }, [isOpen]);
 
   // Search calculations
-  const { vocabResults, grammarResults, cultureResults, linkResults } = useMemo(() => {
+  const { vocabResults, grammarResults, linkResults } = useMemo(() => {
     if (!debouncedQuery) {
       return {
         vocabResults: [] as SearchResultItem[],
         grammarResults: [] as SearchResultItem[],
-        cultureResults: [] as SearchResultItem[],
         linkResults: QUICK_LINKS.slice(0, 6),
       };
     }
@@ -387,56 +355,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
       }
     }
 
-    // 3. Culture Search (Chengyu & Tang Poems)
-    const matchedCulture: SearchResultItem[] = [];
-    // Chengyu
-    for (const c of CHENGYU_STORIES) {
-      if (matchedCulture.length >= 2) break;
-      const matchHanzi = c.hanzi.includes(raw);
-      const matchPinyin = normalizeSearch(c.pinyin).includes(q);
-      const matchSino = normalizeSearch(c.sinoVietnamese).includes(q);
-      const matchMeaning =
-        normalizeSearch(c.figurativeMeaning).includes(q) ||
-        normalizeSearch(c.literalMeaning).includes(q);
-
-      if (matchHanzi || matchPinyin || matchSino || matchMeaning) {
-        matchedCulture.push({
-          id: `chengyu-${c.id}`,
-          type: 'culture',
-          title: `${c.hanzi} (${c.sinoVietnamese})`,
-          subtitle: `${c.pinyin} · ${c.figurativeMeaning}`,
-          tag: 'Thành ngữ',
-          tagColor: 'bg-rose-100 text-rose-900 border-rose-200',
-          url: `/kham-pha/thanh-ngu-dien-co/${c.id}`,
-          hanziToSpeak: c.hanzi,
-        });
-      }
-    }
-
-    // Tang Poems
-    for (const p of TANG_POEMS) {
-      if (matchedCulture.length >= 4) break;
-      const matchTitle = p.title.includes(raw);
-      const matchPinyin = normalizeSearch(p.pinyinTitle).includes(q);
-      const matchSino = normalizeSearch(p.sinoTitle).includes(q);
-      const matchAuthor = normalizeSearch(p.author).includes(q);
-      const matchTrans = normalizeSearch(p.poeticTranslation).includes(q);
-
-      if (matchTitle || matchPinyin || matchSino || matchAuthor || matchTrans) {
-        matchedCulture.push({
-          id: `poem-${p.id}`,
-          type: 'culture',
-          title: `${p.title} (${p.sinoTitle})`,
-          subtitle: `Tác giả: ${p.author} · ${p.pinyinTitle}`,
-          tag: 'Đường thi',
-          tagColor: 'bg-teal-100 text-teal-900 border-teal-200',
-          url: `/kham-pha/tho-duong/${p.id}`,
-          hanziToSpeak: p.title,
-        });
-      }
-    }
-
-    // 4. Quick Links matching
+    // 3. Quick Links matching
     const matchedLinks = QUICK_LINKS.filter((link) => {
       const matchTitle = normalizeSearch(link.title).includes(q);
       const matchSub = normalizeSearch(link.subtitle || '').includes(q);
@@ -446,15 +365,14 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
     return {
       vocabResults: matchedVocab,
       grammarResults: matchedGrammar,
-      cultureResults: matchedCulture,
       linkResults: matchedLinks,
     };
   }, [debouncedQuery, hskWords]);
 
   // Flattened array of all visible results for linear keyboard navigation
   const allResults = useMemo(() => {
-    return [...vocabResults, ...grammarResults, ...cultureResults, ...linkResults];
-  }, [vocabResults, grammarResults, cultureResults, linkResults]);
+    return [...vocabResults, ...grammarResults, ...linkResults];
+  }, [vocabResults, grammarResults, linkResults]);
 
   // Execute selection
   const handleSelect = (item: SearchResultItem) => {
@@ -685,67 +603,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             </section>
           )}
 
-          {/* 3. Group: Thành ngữ & Thơ Đường */}
-          {cultureResults.length > 0 && (
-            <section>
-              <div className="flex items-center gap-2 text-[11px] font-bold text-stone-400 uppercase tracking-wider px-2 mb-1.5">
-                <Feather className="w-3.5 h-3.5 text-rose-600" />
-                <span>Thành ngữ điển cố & Thơ Đường ({cultureResults.length})</span>
-              </div>
-              <div className="space-y-1">
-                {cultureResults.map((item) => {
-                  const globalIdx = allResults.findIndex((r) => r.id === item.id);
-                  const isSelected = selectedIndex === globalIdx;
-
-                  return (
-                    <div
-                      key={item.id}
-                      onClick={() => handleSelect(item)}
-                      onMouseEnter={() => setSelectedIndex(globalIdx)}
-                      className={`group flex items-center justify-between p-2.5 rounded-xl transition-all cursor-pointer ${
-                        isSelected
-                          ? 'bg-rose-50/70 border-l-4 border-rose-600 pl-3'
-                          : 'hover:bg-stone-100/70'
-                      }`}
-                    >
-                      <div className="min-w-0 flex-1 pr-3">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-xs sm:text-sm text-stone-900">{item.title}</span>
-                          <span
-                            className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md border ${item.tagColor}`}
-                          >
-                            {item.tag}
-                          </span>
-                        </div>
-                        <div className="text-xs text-stone-600 truncate mt-0.5">{item.subtitle}</div>
-                      </div>
-
-                      <div className="flex items-center gap-2 shrink-0">
-                        {item.hanziToSpeak && (
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              speakChinese(item.hanziToSpeak!);
-                            }}
-                            title="Nghe phát âm"
-                            className="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-stone-200/50 transition-colors"
-                          >
-                            <Volume2 className="w-4 h-4" />
-                          </button>
-                        )}
-                        {isSelected && (
-                          <CornerDownLeft className="w-3.5 h-3.5 text-rose-600 hidden sm:block animate-pulse" />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {/* 4. Group: Điều hướng nhanh */}
+          {/* 3. Group: Điều hướng nhanh */}
           {debouncedQuery && linkResults.length > 0 && (
             <section>
               <div className="flex items-center gap-2 text-[11px] font-bold text-stone-400 uppercase tracking-wider px-2 mb-1.5">

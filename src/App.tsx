@@ -27,17 +27,13 @@ const LoginPage = lazy(() => import('./pages/LoginPage').then((module) => ({ def
 const RegisterPage = lazy(() => import('./pages/RegisterPage').then((module) => ({ default: module.RegisterPage })));
 const TeacherPage = lazy(() => import('./pages/TeacherPage').then((module) => ({ default: module.TeacherPage })));
 const MePage = lazy(() => import('./pages/MePage').then((module) => ({ default: module.MePage })));
-const ChengyuHubPage = lazy(() => import('./pages/ChengyuHubPage').then((module) => ({ default: module.ChengyuHubPage })));
-const ChengyuDetailPage = lazy(() => import('./pages/ChengyuDetailPage').then((module) => ({ default: module.ChengyuDetailPage })));
-const TangPoetryHubPage = lazy(() => import('./pages/TangPoetryHubPage').then((module) => ({ default: module.TangPoetryHubPage })));
-const TangPoetryDetailPage = lazy(() => import('./pages/TangPoetryDetailPage').then((module) => ({ default: module.TangPoetryDetailPage })));
-const CultureTopicsPage = lazy(() => import('./pages/CultureTopicsPage').then((module) => ({ default: module.CultureTopicsPage })));
-const CultureGamePlayerPage = lazy(() => import('./pages/CultureGamePlayerPage').then((module) => ({ default: module.CultureGamePlayerPage })));
 const YctSeriesHubPage = lazy(() => import('./pages/YctSeriesHubPage').then((module) => ({ default: module.YctSeriesHubPage })));
 const YctHubPage = lazy(() => import('./pages/YctHubPage').then((module) => ({ default: module.YctHubPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.TermsPage })));
 const PrivacyPage = lazy(() => import('./pages/LegalPages').then((module) => ({ default: module.PrivacyPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then((module) => ({ default: module.AdminPage })));
+const StoriesPage = lazy(() => import('./pages/StoriesPage').then((module) => ({ default: module.StoriesPage })));
+const StoryReaderPage = lazy(() => import('./pages/StoryReaderPage').then((module) => ({ default: module.StoryReaderPage })));
 
 // Auto scroll to top on route change
 function ScrollToTop() {
@@ -95,19 +91,18 @@ export const App: React.FC = () => {
               <Route path="/hsk79" element={<Navigate to="/hsk/hsk7-9" replace />} />
               <Route path="/hsk79/*" element={<Hsk79Page />} />
               <Route path="/csca" element={<CscaPage />} />
-              <Route path="/kham-pha" element={<Navigate to="/" replace />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc" element={<CultureTopicsPage />} />
-              <Route path="/kham-pha/van-hoa-trung-quoc/:slug" element={<CultureGamePlayerPage />} />
-              <Route path="/kham-pha/thanh-ngu-dien-co" element={<ChengyuHubPage />} />
-              <Route path="/kham-pha/thanh-ngu-dien-co/:id" element={<ChengyuDetailPage />} />
-              <Route path="/kham-pha/tho-duong" element={<TangPoetryHubPage />} />
-              <Route path="/kham-pha/tho-duong/:id" element={<TangPoetryDetailPage />} />
               {/* Giáo trình Tiếng Trung Thiếu Nhi YCT */}
               <Route path="/yct" element={<YctSeriesHubPage />} />
               <Route path="/yct/:level" element={<YctHubPage />} />
               <Route path="/yct/:level/:tab" element={<YctHubPage />} />
               <Route path="/kham-pha/yct" element={<Navigate to="/yct" replace />} />
               <Route path="/kham-pha/yct/:tab" element={<Navigate to="/yct" replace />} />
+
+              {/* Tủ truyện tiếng Trung & Khám phá mở rộng */}
+              <Route path="/tu-truyen" element={<StoriesPage />} />
+              <Route path="/tu-truyen/:id" element={<StoryReaderPage />} />
+              <Route path="/mo-rong" element={<Navigate to="/tu-truyen" replace />} />
+              <Route path="/mo-rong/tu-truyen" element={<Navigate to="/tu-truyen" replace />} />
               <Route path="/xep-hang" element={<LeaderboardPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />

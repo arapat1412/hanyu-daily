@@ -20,8 +20,7 @@ function seoFiles(siteUrl: string): Plugin {
       const routes = [
         '/', '/hsk', ...levels.map((level) => `/hsk/${level}`),
         '/boya', '/boya/so-cap-1', '/boya/so-cap-2',
-        '/khoa-hoc', '/giao-vien', '/kham-pha', '/kham-pha/van-hoa-trung-quoc',
-        '/kham-pha/thanh-ngu-dien-co', '/kham-pha/tho-duong',
+        '/khoa-hoc', '/giao-vien',
         '/xep-hang', '/dieu-khoan', '/chinh-sach-bao-mat',
       ];
       const sitemap = [
