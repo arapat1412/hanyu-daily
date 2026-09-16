@@ -168,12 +168,13 @@ self.addEventListener('fetch', (event) => {
 
   // 5. Static Assets (Vite hashed bundles, images, icons on same origin)
   if (url.origin === self.location.origin) {
-    const isVersionedStoryMedia =
-      url.pathname.startsWith('/stories/') && /\.v\d+(?:-thumb)?\.webp$/i.test(url.pathname);
-    const isSongMedia =
+    const isVersionedMedia =
+      (url.pathname.startsWith('/stories/') || url.pathname.startsWith('/songs/')) &&
+      /\.v\d+(?:-thumb)?\.webp$/i.test(url.pathname);
+    const isSongAudio =
       url.pathname.startsWith('/songs/') && /\.(?:mp3|m4a|ogg|wav)$/i.test(url.pathname);
 
-    if (isVersionedStoryMedia || isSongMedia) {
+    if (isVersionedMedia || isSongAudio) {
       event.respondWith(
         caches.open(MEDIA_CACHE).then(async (cache) => {
           const cached = await cache.match(request);

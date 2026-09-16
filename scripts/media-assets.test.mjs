@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, stat, readdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 
 const projectRoot = path.resolve(import.meta.dirname, '..');
@@ -51,4 +52,59 @@ test('every referenced local song file exists', async () => {
       assert.ok(metadata.size > 0, `${audioPath} must not be empty`);
     }),
   );
+});
+
+test('local song covers have versioned images and thumbnails', async () => {
+  const songData = await readFile(path.join(projectRoot, 'src/data/songsData.ts'), 'utf8');
+  const localCovers = uniqueMatches(songData, /\/songs\/[^']+\.webp/g);
+
+  assert.ok(localCovers.length > 0, 'at least one local song cover exists');
+  await Promise.all(
+    localCovers.flatMap((coverPath) => {
+      const basePath = coverPath.replace(/\.v\d+(?:-thumb)?\.webp$/i, '');
+      return ['.v1.webp', '.v1-thumb.webp'].map(async (suffix) => {
+        const file = path.join(projectRoot, 'public', `${basePath}${suffix}`);
+        const metadata = await stat(file);
+        assert.ok(metadata.size > 0, `${file} must not be empty`);
+      });
+    }),
+  );
+});
+
+test('song media entries and files have no duplicates', async () => {
+  const [songData, songCatalog] = await Promise.all([
+    readFile(path.join(projectRoot, 'src/data/songsData.ts'), 'utf8'),
+    readFile(path.join(projectRoot, 'src/data/songsCatalog.ts'), 'utf8'),
+  ]);
+
+  const extractIds = (source) =>
+    [...source.matchAll(/^    id: '([^']+)'/gm)].map((match) => match[1]);
+
+  const dataIds = extractIds(songData);
+  const catalogIds = extractIds(songCatalog);
+
+  assert.equal(dataIds.length, new Set(dataIds).size, 'songData IDs must be unique');
+  assert.equal(catalogIds.length, new Set(catalogIds).size, 'songCatalog IDs must be unique');
+
+  const audioMatches = [...songData.matchAll(/audioUrl:\s*'([^']+)'/g)].map((m) => m[1]);
+  assert.equal(
+    audioMatches.length,
+    new Set(audioMatches).size,
+    'all referenced audioUrls must be unique',
+  );
+
+  const songsDir = path.join(projectRoot, 'public', 'songs');
+  const songEntries = await readdir(songsDir);
+  const mp3Files = songEntries.filter((name) => name.endsWith('.mp3'));
+
+  const hashes = new Set();
+  for (const filename of mp3Files) {
+    const fileBuffer = await readFile(path.join(songsDir, filename));
+    const hash = createHash('sha256').update(fileBuffer).digest('hex');
+    assert.ok(
+      !hashes.has(hash),
+      `duplicate mp3 file detected: ${filename} shares content with another audio file`,
+    );
+    hashes.add(hash);
+  }
 });

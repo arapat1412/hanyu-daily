@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/stories/(.*)\\.v[0-9]+(?:-thumb)?\\.webp",
+      "source": "/(stories|songs)/(.*)\\.v[0-9]+(?:-thumb)?\\.webp",
       "headers": [
         {
           "key": "Cache-Control",

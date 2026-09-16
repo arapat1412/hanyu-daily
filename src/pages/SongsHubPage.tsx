@@ -15,6 +15,7 @@ import {
   Flame,
 } from 'lucide-react';
 import { getAllSongs } from '../data/songsCatalog';
+import { getOptimizedSongImage, getSongThumbnail } from '../lib/song-media';
 
 export const SongsHubPage: React.FC = () => {
   const songs = useMemo(() => getAllSongs(), []);
@@ -113,7 +114,7 @@ export const SongsHubPage: React.FC = () => {
               <div className="md:col-span-4 flex justify-center">
                 <div className="relative group w-40 xs:w-48 sm:w-56 md:w-60 aspect-square rounded-3xl overflow-hidden shadow-xl border-4 border-white transform transition-transform duration-300 hover:scale-[1.03]">
                   <img
-                    src={featuredSong.coverImage}
+                    src={getOptimizedSongImage(featuredSong.coverImage)}
                     alt={featuredSong.titleVi}
                     className="w-full h-full object-cover"
                     decoding="async"
@@ -276,7 +277,7 @@ export const SongsHubPage: React.FC = () => {
                 {/* Card Top / Image */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
                   <img
-                    src={song.coverImage}
+                    src={getSongThumbnail(song.coverImage)}
                     alt={song.titleVi}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"

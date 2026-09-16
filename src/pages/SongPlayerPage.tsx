@@ -24,12 +24,29 @@ import {
   Layers,
 } from 'lucide-react';
 import { getSongById, Song, SongLine, SongWordToken, SongVocabItem } from '../data/songsData';
+import { getAllSongs } from '../data/songsCatalog';
+import { getOptimizedSongImage } from '../lib/song-media';
 import { speakChinese, stopChineseSpeech } from '../lib/hsk';
 
 export const SongPlayerPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const song = useMemo(() => (id ? getSongById(id) : undefined), [id]);
+
+  const allSongs = useMemo(() => getAllSongs(), []);
+  const nextSong = useMemo(() => {
+    if (!song) return null;
+    const idx = allSongs.findIndex((s) => s.id === song.id);
+    return idx >= 0 && idx < allSongs.length - 1 ? allSongs[idx + 1] : null;
+  }, [song, allSongs]);
+
+  // Keep navigation fast without downloading everything upfront: only preload the next song cover
+  useEffect(() => {
+    if (!nextSong) return;
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = getOptimizedSongImage(nextSong.coverImage);
+  }, [nextSong]);
 
   // Audio & Playback States
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -250,7 +267,7 @@ export const SongPlayerPage: React.FC = () => {
           {/* Cover Art */}
           <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-md shrink-0 border-2 border-slate-100">
             <img
-              src={song.coverImage}
+              src={getOptimizedSongImage(song.coverImage)}
               alt={song.titleVi}
               className="w-full h-full object-cover"
               decoding="async"
