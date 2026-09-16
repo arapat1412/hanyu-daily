@@ -119,18 +119,20 @@ export const TeacherPage: React.FC = () => {
             </div>
 
             {/* Avatar Container */}
-            <div className="relative mb-4 flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white/30 bg-white shadow-elevated">
-              <img
-                src="/kimchi-320.webp"
-                alt="Cô Nguyễn Thị Kim Chi"
-                width={320}
-                height={361}
-                fetchPriority="high"
-                decoding="async"
-                className="h-full w-full object-cover object-[50%_20%]"
-              />
+            <div className="relative mb-4 flex-shrink-0">
+              <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-4 border-white/30 bg-white shadow-elevated">
+                <img
+                  src="/kimchi-320.webp"
+                  alt="Cô Nguyễn Thị Kim Chi"
+                  width={320}
+                  height={361}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-full w-full object-cover object-[50%_20%]"
+                />
+              </div>
               <span
-                className="absolute bottom-1 right-1 h-5 w-5 rounded-full border-2 border-white bg-emerald-500 shadow-xs"
+                className="absolute bottom-1.5 right-1.5 h-5.5 w-5.5 rounded-full border-[2.5px] border-white bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] ring-1 ring-emerald-600/20"
                 title="Giáo viên sẵn sàng tư vấn"
               />
             </div>

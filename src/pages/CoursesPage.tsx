@@ -172,22 +172,25 @@ export const CoursesPage: React.FC = () => {
         <section className="relative overflow-hidden rounded-3xl border border-line bg-gradient-to-br from-[#EBF2F6] via-[#E2EDF4] to-[#D5E5EF] p-6 sm:p-8 shadow-sm transition-all hover:shadow-md">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Avatar Container with fixed dimensions */}
-            <div className="relative h-24 w-24 sm:h-28 sm:w-28 flex-shrink-0 overflow-hidden rounded-full border-4 border-white shadow-md bg-white">
-              <img
-                src="/kimchi-320.webp"
-                alt="Cô Nguyễn Thị Kim Chi"
-                width={320}
-                height={361}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover object-[50%_20%]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces';
-                }}
-              />
+            <div className="relative flex-shrink-0">
+              <div className="h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full border-4 border-white shadow-md bg-white">
+                <img
+                  src="/kimchi-320.webp"
+                  alt="Cô Nguyễn Thị Kim Chi"
+                  width={320}
+                  height={361}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover object-[50%_20%]"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces';
+                  }}
+                />
+              </div>
+              {/* Trạng thái đang hoạt động (Online badge phong cách Messenger/Slack sang trọng) */}
               <span
-                className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white bg-emerald-500 shadow-xs"
+                className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 sm:border-[2.5px] border-white bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-1 ring-emerald-600/20"
                 title="Đang hoạt động"
               />
             </div>
