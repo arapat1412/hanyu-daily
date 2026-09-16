@@ -20,7 +20,9 @@ import {
   Award,
   X,
 } from 'lucide-react';
-import { getStoryById, getStoryProgress, saveStoryProgress, getPageTokens, StoryPage } from '../data/storiesData';
+import { getStoryById, getPageTokens, StoryPage } from '../data/storiesData';
+import { getStoryProgress, saveStoryProgress } from '../data/storyProgress';
+import { getOptimizedStoryImage, getStoryThumbnail } from '../lib/story-media';
 import { speakChinese, stopChineseSpeech, isAppleDevice } from '../lib/hsk';
 
 function HanziTextWithPinyin({
@@ -179,6 +181,15 @@ export const StoryReaderPage: React.FC = () => {
   }, [currentPageIndex, story]);
 
   const currentPage: StoryPage | undefined = story?.pages[currentPageIndex];
+
+  // Keep navigation instant without downloading every illustration up front.
+  useEffect(() => {
+    const nextPage = story?.pages[currentPageIndex + 1];
+    if (!nextPage) return;
+    const image = new Image();
+    image.decoding = 'async';
+    image.src = getOptimizedStoryImage(nextPage.image);
+  }, [currentPageIndex, story]);
 
   // TTS handler
   const handlePlaySpeech = useCallback((text: string) => {
@@ -465,9 +476,12 @@ export const StoryReaderPage: React.FC = () => {
               {/* Illustrated Image Display with responsive height constraints */}
               <div className="relative aspect-[4/5] sm:aspect-[4/3] md:aspect-[16/10] max-h-[48vh] sm:max-h-[56vh] md:max-h-[64vh] min-h-[220px] sm:min-h-[340px] bg-slate-950 flex items-center justify-center overflow-hidden">
                 <img
-                  src={currentPage.image}
+                  src={getOptimizedStoryImage(currentPage.image)}
                   alt={`Trang ${currentPage.pageNumber}`}
                   className="w-full h-full object-contain select-none pointer-events-none"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   draggable={false}
                 />
 
@@ -680,7 +694,13 @@ export const StoryReaderPage: React.FC = () => {
                         : 'border-slate-200 opacity-70 hover:opacity-100 active:scale-95'
                     }`}
                   >
-                    <img src={p.image} alt={`Trang ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img
+                      src={getStoryThumbnail(p.image)}
+                      alt={`Trang ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     <div className="absolute bottom-0 inset-x-0 bg-black/70 text-white text-[10px] text-center font-bold font-mono">
                       {idx + 1}
                     </div>
@@ -695,14 +715,21 @@ export const StoryReaderPage: React.FC = () => {
         {/* ================= VIEW MODE: CONTINUOUS SCROLL ================= */}
         {viewMode === 'scroll' && (
           <div className="space-y-6 sm:space-y-8">
-            {story.pages.map((page) => (
+            {story.pages.map((page, index) => (
               <div
                 key={page.pageNumber}
                 className="bg-white rounded-3xl overflow-hidden shadow-md border border-slate-200/90"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] sm:aspect-[16/9] max-h-[48vh] sm:max-h-[60vh] bg-slate-900 flex items-center justify-center">
-                  <img src={page.image} alt={`Trang ${page.pageNumber}`} className="w-full h-full object-contain" />
+                  <img
+                    src={getOptimizedStoryImage(page.image)}
+                    alt={`Trang ${page.pageNumber}`}
+                    className="w-full h-full object-contain"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchPriority={index === 0 ? 'high' : 'auto'}
+                  />
                   <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
                     <span className="px-2.5 py-1 rounded-full bg-black/60 text-white text-xs font-bold font-mono">
                       Trang {page.pageNumber} / {story.totalPages}

@@ -13,7 +13,9 @@ import {
   HelpCircle,
   Compass,
 } from 'lucide-react';
-import { getAllStories, getStoryProgress, Story } from '../data/storiesData';
+import { getAllStories } from '../data/storiesCatalog';
+import { getStoryProgress } from '../data/storyProgress';
+import { getOptimizedStoryImage, getStoryThumbnail } from '../lib/story-media';
 
 export const StoriesPage: React.FC = () => {
   const stories = useMemo(() => getAllStories(), []);
@@ -110,9 +112,11 @@ export const StoriesPage: React.FC = () => {
               <div className="md:col-span-4 flex justify-center">
                 <div className="relative group w-36 xs:w-44 sm:w-52 md:w-56 aspect-[3/4] rounded-2xl overflow-hidden shadow-lg sm:shadow-xl border-3 sm:border-4 border-white transform transition-transform duration-300 hover:scale-[1.02]">
                   <img
-                    src={featuredStory.coverImage}
+                    src={getOptimizedStoryImage(featuredStory.coverImage)}
                     alt={featuredStory.titleVi}
                     className="w-full h-full object-cover"
+                    decoding="async"
+                    fetchPriority="high"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
                   <div className="absolute bottom-2.5 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 text-center">
@@ -324,10 +328,11 @@ export const StoriesPage: React.FC = () => {
                     {/* Cover Aspect Ratio Card */}
                     <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
                       <img
-                        src={story.coverImage}
+                        src={getStoryThumbnail(story.coverImage)}
                         alt={story.titleVi}
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 

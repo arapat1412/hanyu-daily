@@ -4,12 +4,13 @@
  * Optimized for instant load (~0.1s), offline learning, and safe Supabase bypass.
  */
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const STATIC_CACHE = `hanyu-static-${CACHE_VERSION}`;
 const BUNDLE_CACHE = `hanyu-bundles-${CACHE_VERSION}`;
 const DATA_CACHE = `hanyu-data-${CACHE_VERSION}`;
 const CDN_CACHE = `hanyu-cdn-${CACHE_VERSION}`;
-const CURRENT_CACHES = [STATIC_CACHE, BUNDLE_CACHE, DATA_CACHE, CDN_CACHE];
+const MEDIA_CACHE = `hanyu-media-${CACHE_VERSION}`;
+const CURRENT_CACHES = [STATIC_CACHE, BUNDLE_CACHE, DATA_CACHE, CDN_CACHE, MEDIA_CACHE];
 
 async function trimCache(cacheName, maxEntries) {
   const cache = await caches.open(cacheName);
@@ -81,6 +82,10 @@ self.addEventListener('fetch', (event) => {
   if (!request.url.startsWith('http://') && !request.url.startsWith('https://')) return;
 
   const url = new URL(request.url);
+
+  // Let the browser/CDN handle byte-range requests used for audio seeking.
+  // Cache Storage cannot safely store partial 206 responses.
+  if (request.headers.has('range')) return;
 
   // 1. Supabase API / Auth: Network-Only. NEVER cache.
   if (
@@ -163,6 +168,28 @@ self.addEventListener('fetch', (event) => {
 
   // 5. Static Assets (Vite hashed bundles, images, icons on same origin)
   if (url.origin === self.location.origin) {
+    const isVersionedStoryMedia =
+      url.pathname.startsWith('/stories/') && /\.v\d+(?:-thumb)?\.webp$/i.test(url.pathname);
+    const isSongMedia =
+      url.pathname.startsWith('/songs/') && /\.(?:mp3|m4a|ogg|wav)$/i.test(url.pathname);
+
+    if (isVersionedStoryMedia || isSongMedia) {
+      event.respondWith(
+        caches.open(MEDIA_CACHE).then(async (cache) => {
+          const cached = await cache.match(request);
+          if (cached) return cached;
+
+          const response = await fetch(request);
+          if (response && response.ok) {
+            await cache.put(request, response.clone());
+            await trimCache(MEDIA_CACHE, 160);
+          }
+          return response;
+        })
+      );
+      return;
+    }
+
     // For hashed /assets/ bundles, Cache-First is fastest & safest (hashes change on every build)
     const isHashedAsset = url.pathname.startsWith('/assets/');
 

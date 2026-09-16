@@ -34,6 +34,8 @@ const PrivacyPage = lazy(() => import('./pages/LegalPages').then((module) => ({ 
 const AdminPage = lazy(() => import('./pages/AdminPage').then((module) => ({ default: module.AdminPage })));
 const StoriesPage = lazy(() => import('./pages/StoriesPage').then((module) => ({ default: module.StoriesPage })));
 const StoryReaderPage = lazy(() => import('./pages/StoryReaderPage').then((module) => ({ default: module.StoryReaderPage })));
+const SongsHubPage = lazy(() => import('./pages/SongsHubPage').then((module) => ({ default: module.SongsHubPage })));
+const SongPlayerPage = lazy(() => import('./pages/SongPlayerPage').then((module) => ({ default: module.SongPlayerPage })));
 
 // Auto scroll to top on route change
 function ScrollToTop() {
@@ -98,11 +100,14 @@ export const App: React.FC = () => {
               <Route path="/kham-pha/yct" element={<Navigate to="/yct" replace />} />
               <Route path="/kham-pha/yct/:tab" element={<Navigate to="/yct" replace />} />
 
-              {/* Tủ truyện tiếng Trung & Khám phá mở rộng */}
+              {/* Tủ truyện tiếng Trung, Âm nhạc & Khám phá mở rộng */}
               <Route path="/tu-truyen" element={<StoriesPage />} />
               <Route path="/tu-truyen/:id" element={<StoryReaderPage />} />
-              <Route path="/mo-rong" element={<Navigate to="/tu-truyen" replace />} />
+              <Route path="/am-nhac" element={<SongsHubPage />} />
+              <Route path="/am-nhac/:id" element={<SongPlayerPage />} />
+              <Route path="/mo-rong" element={<Navigate to="/am-nhac" replace />} />
               <Route path="/mo-rong/tu-truyen" element={<Navigate to="/tu-truyen" replace />} />
+              <Route path="/mo-rong/am-nhac" element={<Navigate to="/am-nhac" replace />} />
               <Route path="/xep-hang" element={<LeaderboardPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />

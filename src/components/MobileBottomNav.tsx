@@ -27,10 +27,10 @@ export const MobileBottomNav: React.FC = () => {
       isActive: (path: string) => path.startsWith('/giao-trinh') || path.startsWith('/boya') || path.startsWith('/yct'),
     },
     {
-      label: 'Tủ truyện',
+      label: 'Mở rộng',
       href: '/tu-truyen',
       icon: Sparkles,
-      isActive: (path: string) => path.startsWith('/tu-truyen') || path.startsWith('/mo-rong'),
+      isActive: (path: string) => path.startsWith('/tu-truyen') || path.startsWith('/am-nhac') || path.startsWith('/mo-rong'),
     },
     {
       label: 'Của tôi',

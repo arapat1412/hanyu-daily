@@ -18,6 +18,7 @@ import {
   User,
   Flame,
   Compass,
+  Music,
 } from 'lucide-react';
 import { BobaTeaModal } from './BobaTeaModal';
 import { useProgress } from '../lib/hsk';
@@ -91,7 +92,8 @@ export const Navbar: React.FC = () => {
     { label: 'Trang chủ', href: '/', icon: Home, desc: 'Bảng tin & bài học tiếp theo' },
     { label: 'Lộ trình New HSK 3.0', href: '/hsk', icon: GraduationCap, desc: 'HSK 1 đến HSK 6 & HSK 7-9' },
     { label: 'Tủ sách Giáo trình', href: '/giao-trinh', icon: BookOpen, desc: 'Giáo trình Boya & Thiếu nhi YCT' },
-    { label: 'Tủ truyện tiếng Trung', href: '/tu-truyen', icon: BookOpen, desc: 'Truyện tranh song ngữ Hán - Việt', badge: 'MỚI' },
+    { label: 'Tủ truyện tiếng Trung', href: '/tu-truyen', icon: BookOpen, desc: 'Truyện tranh song ngữ Hán - Việt' },
+    { label: 'Bài hát tiếng Trung', href: '/am-nhac', icon: Music, desc: 'Lyrics karaoke & từ vựng bài hát', badge: 'MỚI' },
     { label: 'Bảng xếp hạng tuần', href: '/xep-hang', icon: Trophy, desc: 'Thi đua sao & điểm kinh nghiệm' },
     { label: 'Khóa học tiếng Trung', href: '/khoa-hoc', icon: Sparkles, desc: 'Các lớp học cùng cô Kim Chi' },
     { label: 'Giới thiệu Giáo viên', href: '/giao-vien', icon: Award, desc: 'Cô Nguyễn Thị Kim Chi' },
@@ -288,6 +290,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setExtensionOpen(!extensionOpen)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer select-none ${
                   location.pathname.startsWith('/tu-truyen') ||
+                  location.pathname.startsWith('/am-nhac') ||
                   location.pathname.startsWith('/mo-rong')
                     ? 'bg-gradient-to-r from-sky-100 to-pink-100 text-sky-950 font-black shadow-2xs border border-sky-200/80'
                     : extensionOpen
@@ -314,7 +317,7 @@ export const Navbar: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Ô thứ 1: Tủ truyện (Điểm nhấn chính) */}
+                  {/* Ô thứ 1: Tủ truyện */}
                   <Link
                     to="/tu-truyen"
                     onClick={() => setExtensionOpen(false)}
@@ -329,8 +332,8 @@ export const Navbar: React.FC = () => {
                           Tủ truyện
                         </span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[9.5px] font-black uppercase tracking-wider shadow-2xs">
-                        MỚI
+                      <span className="px-2 py-0.5 rounded-full bg-amber-500 text-white text-[9.5px] font-black uppercase tracking-wider shadow-2xs">
+                        TRUYỆN TRANH
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 pl-9">
@@ -338,6 +341,34 @@ export const Navbar: React.FC = () => {
                     </p>
                     <div className="mt-1.5 pl-9 flex items-center gap-1 text-[10.5px] font-bold text-amber-800 group-hover:translate-x-0.5 transition-transform">
                       <span>Khám phá các truyện mới</span>
+                      <ChevronRight className="w-3 h-3" />
+                    </div>
+                  </Link>
+
+                  {/* Ô thứ 2: Bài hát tiếng Trung (MỚI) */}
+                  <Link
+                    to="/am-nhac"
+                    onClick={() => setExtensionOpen(false)}
+                    className="block p-2.5 rounded-xl bg-gradient-to-br from-pink-50/90 via-rose-50/40 to-amber-50/30 border border-pink-200/80 hover:border-pink-400 transition-all group no-underline text-inherit shadow-2xs"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-pink-500 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                          <Music className="w-4 h-4" />
+                        </div>
+                        <span className="font-black text-slate-900 text-xs sm:text-sm group-hover:text-pink-900">
+                          Bài hát tiếng Trung
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[9.5px] font-black uppercase tracking-wider shadow-2xs">
+                        MỚI
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2 pl-9">
+                      Học qua giai điệu Hoa ngữ, lời karaoke song ngữ, bấm chữ nghe phát âm & tra từ.
+                    </p>
+                    <div className="mt-1.5 pl-9 flex items-center gap-1 text-[10.5px] font-bold text-pink-700 group-hover:translate-x-0.5 transition-transform">
+                      <span>Khám phá kho bài hát</span>
                       <ChevronRight className="w-3 h-3" />
                     </div>
                   </Link>
