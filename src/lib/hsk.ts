@@ -1073,7 +1073,7 @@ export function getBestChineseVoice(): SpeechSynthesisVoice | undefined {
   // 1. Ưu tiên các giọng zh-CN cao cấp (Enhanced, Premium, Natural, Siri, Google)
   const premiumZhCn = voices.find(
     (v) =>
-      /^zh[-_](CN|Hans)/i.test(v.lang) &&
+      /^(zh|cmn)[-_](CN|Hans)/i.test(v.lang) &&
       /enhanced|premium|natural|siri|google/i.test(v.name)
   );
   if (premiumZhCn) return premiumZhCn;
@@ -1081,21 +1081,20 @@ export function getBestChineseVoice(): SpeechSynthesisVoice | undefined {
   // 2. Ưu tiên giọng chuẩn Ting-Ting trên iOS hoặc Xiaoxiao/Huihui trên Windows/Edge
   const standardNamedZhCn = voices.find(
     (v) =>
-      /^zh[-_](CN|Hans)/i.test(v.lang) &&
-      /ting-?ting|xiaoxiao|yaoyao|kangkang|huihui|zhiyu/i.test(v.name)
+      /ting-?ting|xiaoxiao|yaoyao|kangkang|huihui|zhiyu|sin-?ji|mei-?jia/i.test(v.name)
   );
   if (standardNamedZhCn) return standardNamedZhCn;
 
-  // 3. Bất kỳ giọng zh-CN / zh-Hans nào (Trung Quốc đại lục, Quan Thoại)
-  const anyZhCn = voices.find((v) => /^zh[-_](CN|Hans)/i.test(v.lang));
+  // 3. Bất kỳ giọng zh-CN / zh-Hans / cmn-CN nào (Trung Quốc đại lục, Quan Thoại)
+  const anyZhCn = voices.find((v) => /^(zh|cmn)[-_](CN|Hans)/i.test(v.lang));
   if (anyZhCn) return anyZhCn;
 
   // 4. Giọng tiếng Trung Quan Thoại Đài Loan (zh-TW/Hant) nếu không có zh-CN (tránh tiếng Quảng Đông zh-HK)
-  const anyZhTw = voices.find((v) => /^zh[-_](TW|Hant)/i.test(v.lang));
+  const anyZhTw = voices.find((v) => /^(zh|cmn)[-_](TW|Hant)/i.test(v.lang));
   if (anyZhTw) return anyZhTw;
 
-  // 5. Bất kỳ giọng zh nào còn lại
-  return voices.find((v) => /^zh/i.test(v.lang));
+  // 5. Bất kỳ giọng zh / cmn nào còn lại
+  return voices.find((v) => /^(zh|cmn)/i.test(v.lang));
 }
 
 /**
@@ -1123,20 +1122,78 @@ export function getBestVietnameseVoice(): SpeechSynthesisVoice | undefined {
   return voices.find((v) => /^vi/i.test(v.lang) || /vietnam/i.test(v.name));
 }
 
+export interface SpeakChineseOptions {
+  onStart?: () => void;
+  onEnd?: () => void;
+  onError?: (message: string) => void;
+  rate?: number;
+}
+
+// Giữ tham chiếu ở cấp module và window để chống WebKit Garbage Collection trên iOS Safari
+let activeUtterance: SpeechSynthesisUtterance | null = null;
+let keepAliveTimer: ReturnType<typeof setInterval> | null = null;
+
+export function stopChineseSpeech() {
+  if (keepAliveTimer) {
+    clearInterval(keepAliveTimer);
+    keepAliveTimer = null;
+  }
+  activeUtterance = null;
+  if (typeof window !== "undefined") {
+    (window as unknown as { __activeUtterance?: SpeechSynthesisUtterance | null }).__activeUtterance = null;
+    if ("speechSynthesis" in window) {
+      try {
+        if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+          window.speechSynthesis.cancel();
+        }
+      } catch {
+        // Ignore
+      }
+    }
+  }
+}
+
 export function speakChinese(
   text: string,
-  onError?: (message: string) => void,
+  optionsOrError?: ((message: string) => void) | SpeakChineseOptions,
 ) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-    onError?.("Trình duyệt này không hỗ trợ đọc văn bản.");
+    if (typeof optionsOrError === "function") {
+      optionsOrError("Trình duyệt này không hỗ trợ đọc văn bản.");
+    } else if (optionsOrError?.onError) {
+      optionsOrError.onError("Trình duyệt này không hỗ trợ đọc văn bản.");
+    }
     return;
   }
 
-  // Khắc phục lỗi iOS Safari tự động suspended/paused speech synthesis
-  if (window.speechSynthesis.paused) {
-    window.speechSynthesis.resume();
+  const onError = typeof optionsOrError === "function" ? optionsOrError : optionsOrError?.onError;
+  const onStart = typeof optionsOrError === "object" ? optionsOrError?.onStart : undefined;
+  const onEnd = typeof optionsOrError === "object" ? optionsOrError?.onEnd : undefined;
+  const customRate = typeof optionsOrError === "object" ? optionsOrError?.rate : undefined;
+
+  // Dọn dẹp keepalive timer cũ
+  if (keepAliveTimer) {
+    clearInterval(keepAliveTimer);
+    keepAliveTimer = null;
   }
-  window.speechSynthesis.cancel();
+
+  // Khắc phục lỗi iOS Safari tự động suspended/paused speech synthesis
+  try {
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+  } catch {
+    // Ignore
+  }
+
+  // Hủy lời nói trước nếu đang phát
+  try {
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+    }
+  } catch {
+    // Ignore
+  }
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "zh-CN";
@@ -1153,7 +1210,9 @@ export function speakChinese(
   // - Trên iOS: Với giọng mặc định Compact của Apple, nếu để rate < 1.0 (như 0.85) thì âm thanh bị bóp méo, rè và the the như robot.
   //   Nếu có giọng Enhanced/Premium/Siri thì đặt 0.95, nếu là giọng Compact thông thường thì giữ 1.0 để phát âm sắc nét và tự nhiên nhất.
   // - Trên Android / Windows: Google và Microsoft Neural TTS co dãn âm rất tốt, tốc độ 0.88 là chuẩn nhất cho người học.
-  if (isIOS) {
+  if (customRate !== undefined) {
+    utterance.rate = customRate;
+  } else if (isIOS) {
     const isEnhanced = bestVoice
       ? /enhanced|premium|natural|siri/i.test(bestVoice.name)
       : false;
@@ -1164,14 +1223,64 @@ export function speakChinese(
     utterance.pitch = 1.0;
   }
 
+  // Giữ tham chiếu mạnh chống Garbage Collection của Safari iOS
+  activeUtterance = utterance;
+  (window as unknown as { __activeUtterance?: SpeechSynthesisUtterance | null }).__activeUtterance = utterance;
+
+  const cleanup = () => {
+    if (keepAliveTimer) {
+      clearInterval(keepAliveTimer);
+      keepAliveTimer = null;
+    }
+    if (activeUtterance === utterance) {
+      activeUtterance = null;
+    }
+    if ((window as unknown as { __activeUtterance?: SpeechSynthesisUtterance | null }).__activeUtterance === utterance) {
+      (window as unknown as { __activeUtterance?: SpeechSynthesisUtterance | null }).__activeUtterance = null;
+    }
+  };
+
+  utterance.onstart = () => {
+    onStart?.();
+    // Keepalive cho đoạn văn dài trên Chrome / Safari (>15s timeout bug)
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      keepAliveTimer = setInterval(() => {
+        if (!window.speechSynthesis.speaking) {
+          cleanup();
+        } else {
+          try {
+            window.speechSynthesis.pause();
+            window.speechSynthesis.resume();
+          } catch {
+            // Ignore
+          }
+        }
+      }, 10000);
+    }
+  };
+
+  utterance.onend = () => {
+    cleanup();
+    onEnd?.();
+  };
+
   utterance.onerror = (event) => {
-    if (!["interrupted", "canceled"].includes(event.error))
+    cleanup();
+    if (!["interrupted", "canceled"].includes(event.error)) {
       onError?.(
         "Không phát được giọng tiếng Trung. Hãy kiểm tra giọng đọc và âm thanh của thiết bị.",
       );
+    }
+    onEnd?.();
   };
 
-  window.speechSynthesis.speak(utterance);
+  try {
+    window.speechSynthesis.speak(utterance);
+  } catch {
+    cleanup();
+    onError?.("Không thể phát âm thanh trên thiết bị.");
+    onEnd?.();
+  }
 }
 
 export function guessLevelForWordId(id: string): LevelCode {

@@ -18,8 +18,10 @@ import {
   Layers,
   HelpCircle,
   Award,
+  X,
 } from 'lucide-react';
 import { getStoryById, getStoryProgress, saveStoryProgress, getPageTokens, StoryPage } from '../data/storiesData';
+import { speakChinese, stopChineseSpeech, isAppleDevice } from '../lib/hsk';
 
 function HanziTextWithPinyin({
   page,
@@ -129,6 +131,7 @@ export const StoryReaderPage: React.FC = () => {
   // Audio / Speech Synthesis State
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
   const [audioSupported, setAudioSupported] = useState<boolean>(true);
+  const [showIosAudioTip, setShowIosAudioTip] = useState<boolean>(false);
 
   // Quiz State for completion
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
@@ -155,11 +158,18 @@ export const StoryReaderPage: React.FC = () => {
   // Stop audio on unmount or page change
   useEffect(() => {
     return () => {
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+      stopChineseSpeech();
+      setIsPlayingAudio(false);
     };
   }, [currentPageIndex]);
+
+  // Tự ẩn gợi ý chuông iPhone sau 7s
+  useEffect(() => {
+    if (showIosAudioTip) {
+      const timer = setTimeout(() => setShowIosAudioTip(false), 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [showIosAudioTip]);
 
   // Save progress when page changes
   useEffect(() => {
@@ -175,30 +185,30 @@ export const StoryReaderPage: React.FC = () => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
 
     if (isPlayingAudio) {
-      window.speechSynthesis.cancel();
+      stopChineseSpeech();
       setIsPlayingAudio(false);
       return;
     }
 
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.88; // friendly slightly slower pace for learners
+    // Hiển thị gợi ý nút gạt rung trên iPhone nếu người dùng đang dùng thiết bị iOS
+    if (isAppleDevice()) {
+      setShowIosAudioTip(true);
+    }
 
-    utterance.onstart = () => setIsPlayingAudio(true);
-    utterance.onend = () => setIsPlayingAudio(false);
-    utterance.onerror = () => setIsPlayingAudio(false);
-
-    window.speechSynthesis.speak(utterance);
+    setIsPlayingAudio(true);
+    speakChinese(text, {
+      onStart: () => setIsPlayingAudio(true),
+      onEnd: () => setIsPlayingAudio(false),
+      onError: () => setIsPlayingAudio(false),
+    });
   }, [isPlayingAudio]);
 
   const handleWordSpeak = useCallback((word: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.8;
-    window.speechSynthesis.speak(utterance);
+    if (isAppleDevice()) {
+      setShowIosAudioTip(true);
+    }
+    speakChinese(word);
   }, []);
 
   // Navigation handlers
@@ -883,6 +893,26 @@ export const StoryReaderPage: React.FC = () => {
           </div>
 
         </div>
+
+        {/* Floating iOS Silent Switch Tip Toast */}
+        {showIosAudioTip && (
+          <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-md w-[92%] bg-slate-950/95 text-white text-xs px-4 py-3 rounded-2xl shadow-2xl border border-amber-400/40 backdrop-blur-md flex items-center justify-between gap-3 transition-all">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Volume2 className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+              <p className="text-slate-200 text-[11px] sm:text-xs leading-snug">
+                <strong className="text-amber-400 font-bold">Mẹo iPhone:</strong> Nếu không nghe thấy tiếng, hãy kiểm tra nút gạt rung (bật chuông) bên sườn máy nhé!
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowIosAudioTip(false)}
+              className="p-1 text-slate-400 hover:text-white rounded-lg transition-colors shrink-0 cursor-pointer"
+              aria-label="Đóng thông báo"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
 
       </div>
     </div>

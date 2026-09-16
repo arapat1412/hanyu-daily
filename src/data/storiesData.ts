@@ -273,9 +273,9 @@ export const STORIES: Story[] = [
   },
   {
     id: 'xiao-xiongmao-xue-paidui',
-    titleZh: '小熊猫学排队',
-    titlePy: 'Xiǎo Xióngmāo Xué Páiduì',
-    titleVi: 'Gấu Trúc Nhỏ Học Xếp Hàng',
+    titleZh: '不排队的小熊猫',
+    titlePy: 'Bù Páiduì de Xiǎo Xióngmāo',
+    titleVi: 'Gấu Trúc Nhỏ Không Xếp Hàng',
     coverImage: '/stories/xiao-xiongmao-xue-paidui/page-1.png',
     level: 'YCT 1-2 · Cơ bản',
     levelBadge: 'Dễ',
