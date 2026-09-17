@@ -1110,6 +1110,620 @@ export const SONGS_DATA: Song[] = [
         grammarNote: 'Thành ngữ "作壁上观" xuất xứ từ 《Sử Ký - Hạng Vũ Bản Kỷ》, chỉ thái độ bàng quan, trầm mặc đứng ngoài guồng quay được mất của thế gian.'
       }
     ]
+  },
+  {
+    id: 'thanh-y',
+    titleZh: '青衣',
+    titlePy: 'Qīng Yī',
+    titleVi: 'Thanh Y (Khúc Hát Kinh Kịch · Cổ Phong Douyin)',
+    artist: 'Thảo Mạo Tương · W.K. (草帽酱 · W.K.)',
+    coverImage: '/songs/thanhy.v1.webp',
+    audioUrl: '/songs/thanhy.mp3',
+    category: 'hot-douyin',
+    categoryLabel: 'Hot Douyin / Giới Trẻ · 流行网络',
+    difficulty: 'Trung bình',
+    hskLevel: 'HSK 3-5',
+    duration: 36,
+    readingDuration: '0:36',
+    description: 'Ca khúc cổ phong kết hợp âm hưởng kinh kịch đình đám bậc nhất càn quét Douyin và TikTok. Tiếng hát thanh thoát, ma mị hòa cùng tiếng đàn cổ tranh tha thiết, gợi lên mối tơ duyên dở dang giữa người đào kép hát vai Thanh Y trên sân khấu và bóng hình tri kỷ nơi trần thế.',
+    culturalNote: 'Trong nghệ thuật Kinh kịch Trung Hoa (京剧), "Thanh Y" (青衣) - hay còn gọi là Chính Đán (正旦) - là tuyến nhân vật nữ trang nghiêm, đoan trang, thường mặc áo màu xanh hoặc đen giản dị, đại diện cho những người phụ nữ chung thủy, mang nỗi niềm sâu kín. Ca khúc mượn hình tượng người đào hát vai Thanh Y đắm chìm trong vai diễn giữa hư và thực để diễn tả nỗi đau tương tư khôn nguôi.',
+    isFeatured: true,
+    lines: [
+      {
+        id: 'ty-1',
+        startTime: 0,
+        endTime: 4.6,
+        zh: '听戏人叹流年忆往昔',
+        py: 'Tīng xì rén tàn liúnián yì wǎngxī',
+        vi: 'Người nghe kịch thở dài tiếc nuối tháng năm trôi, bùi ngùi nhớ về chuyện xưa',
+        tokens: [
+          { c: '听戏人', p: 'tīng xì rén', meaning: 'người nghe kịch', hanviet: 'thính hí nhân' },
+          { c: '叹', p: 'tàn', meaning: 'thở dài, than thở', hanviet: 'thán' },
+          { c: '流年', p: 'liú nián', meaning: 'năm tháng trôi đi, thời gian', hanviet: 'lưu niên' },
+          { c: '忆', p: 'yì', meaning: 'nhớ lại, hồi tưởng', hanviet: 'ức' },
+          { c: '往昔', p: 'wǎng xī', meaning: 'ngày xưa, dĩ vãng', hanviet: 'vãng tích' }
+        ],
+        vocab: [
+          { word: '流年', pinyin: 'liúnián', hanviet: 'lưu niên', meaning: 'Năm tháng trôi qua, thời gian như bóng câu qua cửa sổ', hskLevel: 'HSK 5' },
+          { word: '往昔', pinyin: 'wǎngxī', hanviet: 'vãng tích', meaning: 'Quá khứ, ngày xưa, dĩ vãng đã qua', hskLevel: 'HSK 5' },
+          { word: '听戏', pinyin: 'tīngxì', hanviet: 'thính hí', meaning: 'Nghe kịch, đi xem tuồng kịch', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Kết cấu đối xứng 4 chữ kinh điển trong thơ ca cổ phong: "叹 + Tân ngữ" (thở dài tiếc nuối...) đi liền với "忆 + Tân ngữ" (nhớ về dĩ vãng...).'
+      },
+      {
+        id: 'ty-2',
+        startTime: 4.6,
+        endTime: 12.2,
+        zh: '我为你唱一曲如游丝的气息',
+        py: 'Wǒ wèi nǐ chàng yī qǔ rú yóusī de qìxī',
+        vi: 'Em vì chàng hát một khúc ca, hơi thở mỏng manh tựa tơ trời',
+        tokens: [
+          { c: '我', p: 'wǒ', meaning: 'em, ta', hanviet: 'ngã' },
+          { c: '为你', p: 'wèi nǐ', meaning: 'vì chàng, cho chàng', hanviet: 'vị nhĩ' },
+          { c: '唱', p: 'chàng', meaning: 'hát', hanviet: 'xướng' },
+          { c: '一曲', p: 'yī qǔ', meaning: 'một khúc ca, một bài hát', hanviet: 'nhất khúc' },
+          { c: '如', p: 'rú', meaning: 'như, tựa như', hanviet: 'như' },
+          { c: '游丝', p: 'yóu sī', meaning: 'sợi tơ vương trong gió, mong manh', hanviet: 'du ti' },
+          { c: '的', p: 'de', meaning: 'của', hanviet: 'đích' },
+          { c: '气息', p: 'qì xī', meaning: 'hơi thở, thanh âm', hanviet: 'khí tức' }
+        ],
+        vocab: [
+          { word: '游丝', pinyin: 'yóusī', hanviet: 'du ti', meaning: 'Tơ vương, sợi tơ mỏng lơ lửng trong không trung', hskLevel: 'HSK 6' },
+          { word: '气息', pinyin: 'qìxī', hanviet: 'khí tức', meaning: 'Hơi thở, luồng khí khi phát âm hoặc ca hát', hskLevel: 'HSK 4' },
+          { word: '一曲', pinyin: 'yīqǔ', hanviet: 'nhất khúc', meaning: 'Một khúc hát, một điệu ca', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Cấu trúc giới từ chỉ đối tượng: "为 (wèi) + Tân ngữ + Động từ" (Làm gì vì ai / cho ai). Cụm "如...的气息" dùng "如" để so sánh thanh âm nhẹ dịu như tơ trời.'
+      },
+      {
+        id: 'ty-3',
+        startTime: 12.2,
+        endTime: 19.8,
+        zh: '谁在抚琴配相思成疾',
+        py: 'Shuí zài fǔqín pèi xiāngsī chéng jí',
+        vi: 'Ai đang so dây gảy đàn, hòa cùng nỗi tương tư đã hóa thành bệnh',
+        tokens: [
+          { c: '谁', p: 'shuí', meaning: 'ai', hanviet: 'thùy' },
+          { c: '在', p: 'zài', meaning: 'đang', hanviet: 'tại' },
+          { c: '抚琴', p: 'fǔ qín', meaning: 'gảy đàn, so dây phím ngọc', hanviet: 'phủ cầm' },
+          { c: '配', p: 'pèi', meaning: 'phối hợp, hòa đệm cùng', hanviet: 'phối' },
+          { c: '相思', p: 'xiāng sī', meaning: 'nỗi nhớ thương, tương tư', hanviet: 'tương tư' },
+          { c: '成疾', p: 'chéng jí', meaning: 'thành tật bệnh, ốm vì nhớ', hanviet: 'thành tật' }
+        ],
+        vocab: [
+          { word: '抚琴', pinyin: 'fǔqín', hanviet: 'phủ cầm', meaning: 'Gảy đàn, lướt ngón trên phím cổ cầm', hskLevel: 'HSK 5' },
+          { word: '相思', pinyin: 'xiāngsī', hanviet: 'tương tư', meaning: 'Nỗi nhớ nhung, tình cảm nhớ nhung da diết', hskLevel: 'HSK 4' },
+          { word: '成疾', pinyin: 'chéngjí', hanviet: 'thành tật', meaning: 'Hóa thành căn bệnh (tương tư thành tật)', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Cụm thành ngữ văn học: "相思成疾" (Tương tư thành tật) - miêu tả nỗi nhớ thương sâu sắc tới mức sinh tâm bệnh.'
+      },
+      {
+        id: 'ty-4',
+        startTime: 19.8,
+        endTime: 27.2,
+        zh: '我为你梦入戏再续前世迷局',
+        py: 'Wǒ wèi nǐ mèng rù xì zài xù qiánshì míjú',
+        vi: 'Em vì chàng mà mộng nhập vào vai kịch, viết tiếp ván cờ dang dở kiếp trước',
+        tokens: [
+          { c: '我', p: 'wǒ', meaning: 'em, ta', hanviet: 'ngã' },
+          { c: '为你', p: 'wèi nǐ', meaning: 'vì chàng', hanviet: 'vị nhĩ' },
+          { c: '梦入戏', p: 'mèng rù xì', meaning: 'mộng nhập vào kịch, đắm mình trong vở diễn', hanviet: 'mộng nhập hí' },
+          { c: '再续', p: 'zài xù', meaning: 'lại tiếp tục, nối lại', hanviet: 'tái tục' },
+          { c: '前世', p: 'qián shì', meaning: 'kiếp trước, tiền kiếp', hanviet: 'tiền thế' },
+          { c: '迷局', p: 'mí jú', meaning: 'ván cờ mê muội, thế trận mờ mịt', hanviet: 'mê cục' }
+        ],
+        vocab: [
+          { word: '入戏', pinyin: 'rùxì', hanviet: 'nhập hí', meaning: 'Nhập tâm vào vai diễn trong vở kịch', hskLevel: 'HSK 4' },
+          { word: '再续', pinyin: 'zàixù', hanviet: 'tái tục', meaning: 'Tiếp tục nối dài, làm tiếp phần dở dang', hskLevel: 'HSK 4' },
+          { word: '迷局', pinyin: 'míjú', hanviet: 'mê cục', meaning: 'Cục diện bí ẩn, mê cung chưa có lối thoát', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Từ tố chỉ sự lặp lại/kế thừa: "再" (lại, một lần nữa) + "续" (tiếp nối) = "再续" (nối tiếp duyên xưa).'
+      },
+      {
+        id: 'ty-5',
+        startTime: 27.2,
+        endTime: 35.7,
+        zh: '戏中人一滴泪便纷乱相思雨',
+        py: 'Xì zhōng rén yī dī lèi biàn fēnluàn xiāngsī yǔ',
+        vi: 'Người trong kịch rơi một giọt lệ, liền làm xao động cả cơn mưa tương tư',
+        tokens: [
+          { c: '戏中人', p: 'xì zhōng rén', meaning: 'người trong vở diễn, nhân vật kịch', hanviet: 'hí trung nhân' },
+          { c: '一滴泪', p: 'yī dī lèi', meaning: 'một giọt lệ, một giọt nước mắt', hanviet: 'nhất tích lệ' },
+          { c: '便', p: 'biàn', meaning: 'liền, bèn', hanviet: 'tiện' },
+          { c: '纷乱', p: 'fēn luàn', meaning: 'rối loạn, xao động', hanviet: 'phân loạn' },
+          { c: '相思雨', p: 'xiāng sī yǔ', meaning: 'cơn mưa tương tư, mưa nhớ nhung', hanviet: 'tương tư vũ' }
+        ],
+        vocab: [
+          { word: '一滴', pinyin: 'yīdī', hanviet: 'nhất tích', meaning: 'Một giọt (lượng từ dùng cho chất lỏng như giọt nước, giọt lệ)', hskLevel: 'HSK 4' },
+          { word: '纷乱', pinyin: 'fēnluàn', hanviet: 'phân loạn', meaning: 'Rối bời, lộn xộn, hỗn loạn', hskLevel: 'HSK 5' },
+          { word: '戏中人', pinyin: 'xìzhōngrén', hanviet: 'hí trung nhân', meaning: 'Người trong kịch, hình ảnh nhân vật sân khấu', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Liên từ kết quả: "便" (liền, lập tức) tương đương với "就", dùng nhiều trong văn phong tao nhã cổ điển để nối tiếp hành động nguyên nhân - kết quả.'
+      }
+    ]
+  },
+  {
+    id: 'tu-cuu-mon-hoi-uc',
+    titleZh: '辞九门回忆',
+    titlePy: 'Cí Jiǔ Mén Huí Yì',
+    titleVi: 'Từ Cửu Môn Hồi Ức (Điệp Khúc Kinh Kịch · Cổ Phong)',
+    artist: 'Đẳng Thập Ma Quân (等什么君 - Deng Shen Me Jun)',
+    coverImage: '/songs/tucuumonhoiuc.v1.webp',
+    audioUrl: '/songs/tucuumonhoiuc.mp3',
+    category: 'hot-douyin',
+    categoryLabel: 'Hot Douyin / Giới Trẻ · 流行网络',
+    difficulty: 'Trung bình',
+    hskLevel: 'HSK 3-5',
+    duration: 30,
+    readingDuration: '0:30',
+    description: 'Tuyệt phẩm cổ phong kết hợp kinh kịch gây sốt hàng tỷ lượt nghe trên Douyin và các nền tảng mạng xã hội. Lấy cảm hứng từ nhân vật Nhị Nguyệt Hồng trong tiểu thuyết "Lão Cửu Môn", khúc hát là tiếng lòng bi thương của người đào hát tài hoa, vướng bận hồng trần và day dứt trước mối tình sinh ly tử biệt.',
+    culturalNote: 'Ca khúc được sáng tác lấy cảm hứng từ nhân vật Nhị Nguyệt Hồng (二月红) trong tác phẩm "Lão Cửu Môn" (老九门) của tác giả Nam Phái Tam Thúc (南派三叔). Nhị Nguyệt Hồng ban ngày là đào hát nổi tiếng hát tuồng kinh kịch phong lưu tuyệt sắc, đêm về là chưởng môn đời thứ hai của Cửu Môn Trường Sa. Khúc bi ca "戏子多秋，可怜一处情深旧" khắc họa nỗi đau xé lòng khi chàng dùng cả đời chuộc thuốc cứu thê tử (Nha Đầu) nhưng vẫn đành bất lực nhìn người thương ra đi giữa cõi nhân gian.',
+    isFeatured: true,
+    lines: [
+      {
+        id: 'tcm-1',
+        startTime: 0.5,
+        endTime: 7.3,
+        zh: '戏子多秋，可怜一处情深旧',
+        py: 'Xì zǐ duō qiū, kělián yī chù qíng shēn jiù',
+        vi: 'Người đào hát kiếp phong trần nhiều phen ly biệt, thương xót cho một mối tình sâu nặng năm xưa',
+        tokens: [
+          { c: '戏子', p: 'xì zǐ', meaning: 'người đào hát, kép hát thời xưa', hanviet: 'hí tử' },
+          { c: '多秋', p: 'duō qiū', meaning: 'nhiều mùa thu, trải nhiều nỗi sầu ly biệt', hanviet: 'đa thu' },
+          { c: '可怜', p: 'kě lián', meaning: 'đáng thương, xót xa thay', hanviet: 'khả liên' },
+          { c: '一处', p: 'yī chù', meaning: 'một chốn, một mối', hanviet: 'nhất xứ' },
+          { c: '情深', p: 'qíng shēn', meaning: 'tình sâu nghĩa nặng', hanviet: 'tình thâm' },
+          { c: '旧', p: 'jiù', meaning: 'xưa cũ, đã qua', hanviet: 'cựu' }
+        ],
+        vocab: [
+          { word: '戏子', pinyin: 'xìzǐ', hanviet: 'hí tử', meaning: 'Người hát kịch, đào kép diễn tuồng thời xưa', hskLevel: 'HSK 5' },
+          { word: '可怜', pinyin: 'kělián', hanviet: 'khả liên', meaning: 'Đáng thương, thương xót, tội nghiệp', hskLevel: 'HSK 3' },
+          { word: '情深', pinyin: 'qíngshēn', hanviet: 'tình thâm', meaning: 'Tình cảm sâu đậm, tình nghĩa nồng nàn', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Ẩn dụ thi ca: "多秋" (nhiều mùa thu) mượn hình tượng mùa thu lá rụng để diễn tả cuộc đời ba chìm bảy nổi, lắm nỗi sầu muộn và chia ly của kiếp con tằm nhả tơ.'
+      },
+      {
+        id: 'tcm-2',
+        startTime: 7.3,
+        endTime: 14.4,
+        zh: '满座衣冠皆老朽，黄泉故事无止休',
+        py: 'Mǎn zuò yī guān jiē lǎo xiǔ, huángquán gùshì wú zhǐ xiū',
+        vi: 'Dưới khán đài những bậc cân đai áo mũ đều đã già nua, chuyện cõi hoàng tuyền chẳng bao giờ dứt',
+        tokens: [
+          { c: '满座', p: 'mǎn zuò', meaning: 'khắp khán phòng, người ngồi kín chỗ', hanviet: 'mãn tọa' },
+          { c: '衣冠', p: 'yī guān', meaning: 'áo mũ, bậc quyền quý chức sắc', hanviet: 'y quan' },
+          { c: '皆', p: 'jiē', meaning: 'đều, tất cả', hanviet: 'giai' },
+          { c: '老朽', p: 'lǎo xiǔ', meaning: 'già nua mục nát, tàn tạ theo thời gian', hanviet: 'lão hủ' },
+          { c: '黄泉', p: 'huáng quán', meaning: 'hoàng tuyền, suối vàng, cõi chết', hanviet: 'hoàng tuyền' },
+          { c: '故事', p: 'gù shì', meaning: 'câu chuyện, chuyện xưa tích cũ', hanviet: 'cố sự' },
+          { c: '无止休', p: 'wú zhǐ xiū', meaning: 'không ngừng nghỉ, không dứt', hanviet: 'vô chỉ hưu' }
+        ],
+        vocab: [
+          { word: '衣冠', pinyin: 'yīguān', hanviet: 'y quan', meaning: 'Áo mũ cân đai, phiếm chỉ tầng lớp danh gia vọng tộc', hskLevel: 'HSK 6' },
+          { word: '老朽', pinyin: 'lǎoxiǔ', hanviet: 'lão hủ', meaning: 'Già cả suy kiệt, tàn lụi theo năm tháng', hskLevel: 'HSK 6' },
+          { word: '黄泉', pinyin: 'huángquán', hanviet: 'hoàng tuyền', meaning: 'Suối vàng, âm phủ, nơi an nghỉ của người đã khuất', hskLevel: 'HSK 5' },
+          { word: '止休', pinyin: 'zhǐxiū', hanviet: 'chỉ hưu', meaning: 'Ngừng nghỉ, đình chỉ, kết thúc', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Đại từ chỉ phạm vi toàn thể: "皆 (jiē)" trong văn ngôn tương đương "都", đứng trước vị ngữ biểu thị tất cả đều như vậy.'
+      },
+      {
+        id: 'tcm-3',
+        startTime: 14.4,
+        endTime: 22.0,
+        zh: '戏无骨难左右，换过一折又重头',
+        py: 'Xì wú gǔ nán zuǒ yòu, huàn guò yī zhé yòu chóng tóu',
+        vi: 'Vở kịch không xương chẳng thể tự định đoạt lối đi, đổi sang một màn mới rồi lại bắt đầu từ đầu',
+        tokens: [
+          { c: '戏', p: 'xì', meaning: 'vở kịch, tuồng diễn', hanviet: 'hí' },
+          { c: '无骨', p: 'wú gǔ', meaning: 'không có xương, không có chỗ dựa vững chắc', hanviet: 'vô cốt' },
+          { c: '难', p: 'nán', meaning: 'khó mà, khó lòng', hanviet: 'nan' },
+          { c: '左右', p: 'zuǒ yòu', meaning: 'chi phối, định đoạt, thao túng', hanviet: 'tả hữu' },
+          { c: '换过', p: 'huàn guò', meaning: 'thay đổi, đổi sang', hanviet: 'hoán quá' },
+          { c: '一折', p: 'yī zhé', meaning: 'một hồi kịch, một trích đoạn kịch', hanviet: 'nhất chiết' },
+          { c: '又', p: 'yòu', meaning: 'lại', hanviet: 'hựu' },
+          { c: '重头', p: 'chóng tóu', meaning: 'từ đầu, quay lại vạch xuất phát', hanviet: 'trùng đầu' }
+        ],
+        vocab: [
+          { word: '左右', pinyin: 'zuǒyòu', hanviet: 'tả hữu', meaning: 'Động từ: thao túng, chi phối, quyết định vận mệnh', hskLevel: 'HSK 4' },
+          { word: '一折', pinyin: 'yīzhé', hanviet: 'nhất chiết', meaning: 'Một hồi / màn trong kịch truyền thống Trung Hoa', hskLevel: 'HSK 5' },
+          { word: '重头', pinyin: 'chóngtóu', hanviet: 'trùng đầu', meaning: 'Làm lại từ ban đầu, bắt đầu lại', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Động từ "左右" (tả hữu) mang nghĩa chi phối, thao túng (ví dụ: 左右局势 - chi phối cục diện). Cấu trúc "又 + Động từ" biểu thị hành động lặp lại theo vòng tuần hoàn vô định.'
+      },
+      {
+        id: 'tcm-4',
+        startTime: 22.0,
+        endTime: 29.7,
+        zh: '只道最是人间不能留',
+        py: 'Zhǐ dào zuì shì rénjiān bù néng liú',
+        vi: 'Mới hay trên thế gian điều tươi đẹp nhất lại chẳng thể nào níu giữ',
+        tokens: [
+          { c: '只道', p: 'zhǐ dào', meaning: 'mới hay rằng, ngỡ tưởng rằng', hanviet: 'chỉ đạo' },
+          { c: '最是', p: 'zuì shì', meaning: 'chính là... nhất', hanviet: 'tối thị' },
+          { c: '人间', p: 'rén jiān', meaning: 'chốn nhân gian, cõi trần', hanviet: 'nhân gian' },
+          { c: '不能留', p: 'bù néng liú', meaning: 'không thể giữ lại, không níu lại được', hanviet: 'bất năng lưu' }
+        ],
+        vocab: [
+          { word: '人间', pinyin: 'rénjiān', hanviet: 'nhân gian', meaning: 'Cõi đời, trần gian, thế gian', hskLevel: 'HSK 4' },
+          { word: '留', pinyin: 'liú', hanviet: 'lưu', meaning: 'Giữ lại, níu lại, lưu lại', hskLevel: 'HSK 2' },
+          { word: '只道', pinyin: 'zhǐdào', hanviet: 'chỉ đạo', meaning: 'Chỉ tưởng là, ngỡ rằng, hóa ra', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Xuất xứ điển tích thi ca: "最是人间留不住，朱颜辞镜花辞树" (Vương Quốc Duy - Điệp Luyến Hoa). Câu hát đúc kết triết lý nhân sinh: thanh xuân, người thương và những điều đẹp đẽ nhất trần đời đều như hoa rụng, chẳng thể nào cưỡng cầu hay níu giữ.'
+      }
+    ]
+  },
+  {
+    id: 'ban-ho-sa',
+    titleZh: '半壶纱',
+    titlePy: 'Bàn Hú Shā',
+    titleVi: 'Bán Hồ Sa (Nửa Ấm Sa · Khúc Ca Thiền Định)',
+    artist: 'Lưu Kha Dĩ (刘珂矣 - Liu Keyi)',
+    coverImage: '/songs/banhoxa.v1.webp',
+    audioUrl: '/songs/banhoxa.mp3',
+    category: 'pop-ballad',
+    categoryLabel: 'Pop & Trữ Tình Sâu Lắng · 流行抒情',
+    difficulty: 'Trung bình',
+    hskLevel: 'HSK 3-5',
+    duration: 28,
+    readingDuration: '0:28',
+    description: 'Tuyệt tác "Thiền ý cổ phong" làm say đắm hàng triệu con tim yêu âm nhạc Hoa ngữ của nữ ca sĩ Lưu Kha Dĩ. Tiếng đàn tranh réo rắt, sáo trúc thanh tịnh kết hợp giọng hát thoát tục tựa làn gió thoảng mang lại cảm giác an yên, gạt bỏ mọi muộn phiền nơi hồng trần khói lửa.',
+    culturalNote: '"Bán Hồ Sa" (半壶纱 - Nửa ấm sa mỏng) là nhạc phẩm tiêu biểu cho phong cách "Thiền ý Trung Quốc phong" (禅意中国风). Tác phẩm kết hợp triết lý Phật giáo tĩnh tại ("nhất bộ nhất liên hoa", "phù sinh nhất phiến thảo") với thi họa truyền thống Trung Hoa. Hình ảnh "bước đi hóa hoa sen" bắt nguồn từ điển tích Phật giáo về bước chân thuần khiết thanh tịnh của Đức Phật, hàm ý tâm hồn hướng thiện, buông bỏ chấp niệm để tìm về sự an nhiên nguyên bản.',
+    isFeatured: true,
+    lines: [
+      {
+        id: 'bhs-1',
+        startTime: 0.5,
+        endTime: 6.7,
+        zh: '倘若我心中的山水，你眼中都看到',
+        py: 'Tǎngruò wǒ xīn zhōng de shānshuǐ, nǐ yǎn zhōng dōu kàndào',
+        vi: 'Nếu như non nước sâu thẳm trong lòng ta, nơi ánh mắt người đều có thể thấu tỏ',
+        tokens: [
+          { c: '倘若', p: 'tǎng ruò', meaning: 'nếu như, giả sử', hanviet: 'thảng nhược' },
+          { c: '我', p: 'wǒ', meaning: 'ta, tôi', hanviet: 'ngã' },
+          { c: '心中', p: 'xīn zhōng', meaning: 'trong lòng, trong tâm can', hanviet: 'tâm trung' },
+          { c: '的', p: 'de', meaning: 'của', hanviet: 'đích' },
+          { c: '山水', p: 'shān shuǐ', meaning: 'non nước, giang sơn, cảnh giới tâm hồn', hanviet: 'sơn thủy' },
+          { c: '你', p: 'nǐ', meaning: 'người, chàng', hanviet: 'nhĩ' },
+          { c: '眼中', p: 'yǎn zhōng', meaning: 'trong ánh mắt', hanviet: 'nhãn trung' },
+          { c: '都', p: 'dōu', meaning: 'đều', hanviet: 'đô' },
+          { c: '看到', p: 'kàn dào', meaning: 'nhìn thấy, thấu tỏ', hanviet: 'khán đáo' }
+        ],
+        vocab: [
+          { word: '倘若', pinyin: 'tǎngruò', hanviet: 'thảng nhược', meaning: 'Nếu như, giá như (liên từ giả thiết trang trọng)', hskLevel: 'HSK 5' },
+          { word: '山水', pinyin: 'shānshuǐ', hanviet: 'sơn thủy', meaning: 'Non nước, phong cảnh thiên nhiên, tâm cảnh', hskLevel: 'HSK 3' },
+          { word: '看到', pinyin: 'kàndào', hanviet: 'khán đáo', meaning: 'Nhìn thấy, nhận ra, thấu tỏ', hskLevel: 'HSK 1' }
+        ],
+        grammarNote: 'Liên từ giả thiết: "倘若...便..." (Nếu như... thì sẽ...). "山水" ở đây là nghệ thuật ẩn dụ biểu thị tâm cảnh thanh cao, ý chí và tâm tư sâu kín của người con gái.'
+      },
+      {
+        id: 'bhs-2',
+        startTime: 6.8,
+        endTime: 14.6,
+        zh: '我便一步一莲花祈祷',
+        py: 'Wǒ biàn yí bù yí liánhuā qídǎo',
+        vi: 'Ta nguyện mỗi bước đi hóa một đài sen thành tâm cầu nguyện',
+        tokens: [
+          { c: '我', p: 'wǒ', meaning: 'ta, tôi', hanviet: 'ngã' },
+          { c: '便', p: 'biàn', meaning: 'liền, bèn, nguyện', hanviet: 'tiện' },
+          { c: '一步一莲花', p: 'yí bù yí liánhuā', meaning: 'mỗi bước đi nở một đóa sen thanh tịnh', hanviet: 'nhất bộ nhất liên hoa' },
+          { c: '祈祷', p: 'qí dǎo', meaning: 'cầu nguyện, khấn vái', hanviet: 'kỳ đảo' }
+        ],
+        vocab: [
+          { word: '祈祷', pinyin: 'qídǎo', hanviet: 'kỳ đảo', meaning: 'Cầu nguyện, cầu khấn điều tốt lành', hskLevel: 'HSK 5' },
+          { word: '莲花', pinyin: 'liánhuā', hanviet: 'liên hoa', meaning: 'Hoa sen, biểu tượng của sự thuần khiết trong Phật giáo', hskLevel: 'HSK 4' },
+          { word: '一步', pinyin: 'yíbù', hanviet: 'nhất bộ', meaning: 'Một bước chân', hskLevel: 'HSK 2' }
+        ],
+        grammarNote: 'Thành ngữ điển cố Phật giáo: "一步一莲花" (Bộ bộ sinh liên hoa - Mỗi bước nở một đài sen), bắt nguồn từ truyền thuyết Đức Phật giáng thế bước đi bảy bước nở bảy đóa sen, tượng trưng cho tâm nguyện chí thành, thuần khiết.'
+      },
+      {
+        id: 'bhs-3',
+        startTime: 14.7,
+        endTime: 21.2,
+        zh: '怎知那浮生一片草，岁月催人老',
+        py: 'Zěn zhī nà fúshēng yí piàn cǎo, suìyuè cuī rén lǎo',
+        vi: 'Nào ngờ kiếp người lênh đênh tựa ngọn cỏ ven đường, năm tháng thoi đưa giục giã mái đầu bạc',
+        tokens: [
+          { c: '怎知', p: 'zěn zhī', meaning: 'nào ngờ, đâu hay, ngờ đâu', hanviet: 'chẩm tri' },
+          { c: '那', p: 'nà', meaning: 'ấy, đó', hanviet: 'na' },
+          { c: '浮生', p: 'fú shēng', meaning: 'kiếp nhân sinh chìm nổi, cuộc đời lênh đênh', hanviet: 'phù sinh' },
+          { c: '一片草', p: 'yí piàn cǎo', meaning: 'một ngọn cỏ mỏng manh', hanviet: 'nhất phiến thảo' },
+          { c: '岁月', p: 'suì yuè', meaning: 'năm tháng, thời gian', hanviet: 'tuế nguyệt' },
+          { c: '催', p: 'cuī', meaning: 'thúc giục, đẩy nhanh', hanviet: 'thôi' },
+          { c: '人老', p: 'rén lǎo', meaning: 'con người già đi', hanviet: 'nhân lão' }
+        ],
+        vocab: [
+          { word: '浮生', pinyin: 'fúshēng', hanviet: 'phù sinh', meaning: 'Kiếp sống phù du, cuộc đời ngắn ngủi chìm nổi', hskLevel: 'HSK 6' },
+          { word: '岁月', pinyin: 'suìyuè', hanviet: 'tuế nguyệt', meaning: 'Năm tháng, dòng chảy thời gian', hskLevel: 'HSK 4' },
+          { word: '催', pinyin: 'cuī', hanviet: 'thôi', meaning: 'Thúc giục, hối thúc', hskLevel: 'HSK 4' },
+          { word: '怎知', pinyin: 'zěnzhī', hanviet: 'chẩm tri', meaning: 'Nào biết, đâu hay (ngữ khí cảm thán phủ định)', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Câu hỏi tu từ cảm thán: "怎知..." (Đâu ngờ rằng...). Động từ "催" (thúc giục) trong "岁月催人老" (thời gian giục người già) là biện pháp nhân hóa thời gian tàn nhẫn vô tình trôi nhanh.'
+      },
+      {
+        id: 'bhs-4',
+        startTime: 21.3,
+        endTime: 28.3,
+        zh: '风月花鸟，一笑尘缘了',
+        py: 'Fēng yuè huā niǎo, yí xiào chényuán liǎo',
+        vi: 'Gió trăng hoa cỏ hữu tình, khẽ mỉm cười dứt bỏ hết tơ vương trần thế',
+        tokens: [
+          { c: '风月', p: 'fēng yuè', meaning: 'gió mát trăng thanh, cảnh sắc hữu tình', hanviet: 'phong nguyệt' },
+          { c: '花鸟', p: 'huā niǎo', meaning: 'hoa cỏ chim muông', hanviet: 'hoa điểu' },
+          { c: '一笑', p: 'yí xiào', meaning: 'một nụ cười, khẽ mỉm cười', hanviet: 'nhất tiếu' },
+          { c: '尘缘', p: 'chén yuán', meaning: 'duyên nợ trần thế, vướng bận hồng trần', hanviet: 'trần duyên' },
+          { c: '了', p: 'liǎo', meaning: 'chấm dứt, kết thúc, dứt bỏ', hanviet: 'liễu' }
+        ],
+        vocab: [
+          { word: '风月', pinyin: 'fēngyuè', hanviet: 'phong nguyệt', meaning: 'Gió và trăng, cảnh sắc thiên nhiên hữu tình khoáng đạt', hskLevel: 'HSK 5' },
+          { word: '尘缘', pinyin: 'chényuán', hanviet: 'trần duyên', meaning: 'Duyên nợ chốn bụi trần thế tục', hskLevel: 'HSK 6' },
+          { word: '了', pinyin: 'liǎo', hanviet: 'liễu', meaning: 'Động từ: xong, dứt điểm, chấm dứt (liễu đoạn)', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Phát âm chữ 多音字: Chữ "了" ở đây đọc là "liǎo" (âm Hán Việt: Liễu - mang nghĩa kết thúc, liễu đoạn), không đọc là trợ từ ngữ khí "le". Cụm "一笑...了" thể hiện thái độ giác ngộ, mỉm cười buông bỏ.'
+      }
+    ]
+  },
+  {
+    id: 'du-son-luyen',
+    titleZh: '游山恋',
+    titlePy: 'Yóu Shān Liàn',
+    titleVi: 'Du Sơn Luyến (Khúc Say Hàn Sơn · Hot Douyin)',
+    artist: 'Hải Luân · Tôn Tinh Thần (海伦 · 孙星晨 - Helen)',
+    coverImage: '/songs/dusonluyen.v1.webp',
+    audioUrl: '/songs/dusonluyen.mp3',
+    category: 'hot-douyin',
+    categoryLabel: 'Hot Douyin / Giới Trẻ · 流行网络',
+    difficulty: 'Trung bình',
+    hskLevel: 'HSK 3-5',
+    duration: 28,
+    readingDuration: '0:28',
+    description: 'Hiện tượng âm nhạc cổ phong kết hợp hí xướng càn quét hàng tỷ lượt xem trên Douyin và TikTok. Tiếng sáo trúc phiêu lãng cùng đoạn điệp khúc hí xướng bi tráng, hào sảng khắc họa bước chân lãng khách độc hành giữa ngàn trùng tuyết trắng núi Hàn Sơn.',
+    culturalNote: '"Du Sơn Luyến" (游山恋 - Khúc say du ngoạn núi đồi) kết hợp tinh tế giữa phong cách kiếm hiệp giang hồ và nghệ thuật hí xướng truyền thống (戏腔). Hình tượng "Hàn Sơn" (寒山 - ngọn núi tuyết lạnh) ẩn dụ cho những thăng trầm, cô đơn và nghịch cảnh của đời người. Tiếng hát bi tráng "我说寒山别哭，我带你出" (Ta bảo Hàn Sơn đừng khóc, ta đưa người thoát ra) thể hiện khí phách kiên cường, tấm lòng bao dung và khí chất trượng nghĩa ngút trời của bậc hào kiệt giang hồ.',
+    isFeatured: true,
+    lines: [
+      {
+        id: 'dsl-1',
+        startTime: 0,
+        endTime: 11.2,
+        zh: '我欲迎风再留住几步',
+        py: 'Wǒ yù yíng fēng zài liúzhù jǐ bù',
+        vi: 'Ta muốn đón gió ngưng lại thêm vài bước chân',
+        tokens: [
+          { c: '我', p: 'wǒ', meaning: 'ta, tôi', hanviet: 'ngã' },
+          { c: '欲', p: 'yù', meaning: 'muốn, khao khát', hanviet: 'dục' },
+          { c: '迎风', p: 'yíng fēng', meaning: 'ngược gió, đón gió', hanviet: 'nghênh phong' },
+          { c: '再', p: 'zài', meaning: 'thêm, lại', hanviet: 'tái' },
+          { c: '留住', p: 'liú zhù', meaning: 'giữ lại, dừng lại', hanviet: 'lưu trụ' },
+          { c: '几步', p: 'jǐ bù', meaning: 'vài bước chân', hanviet: 'kỷ bộ' }
+        ],
+        vocab: [
+          { word: '迎风', pinyin: 'yíngfēng', hanviet: 'nghênh phong', meaning: 'Đón chiều gió, ngược đầu ngọn gió', hskLevel: 'HSK 5' },
+          { word: '欲', pinyin: 'yù', hanviet: 'dục', meaning: 'Muốn, mong mỏi (từ Hán cổ trang trọng)', hskLevel: 'HSK 5' },
+          { word: '留住', pinyin: 'liúzhù', hanviet: 'lưu trụ', meaning: 'Giữ lại, níu lại, lưu lại', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Động từ năng nguyện văn ngôn: "欲 (yù)" tương đương "想要/将要" (muốn / sắp), thường dùng trong thơ ca cổ phong diễn tả ý chí hoặc nguyện vọng mãnh liệt.'
+      },
+      {
+        id: 'dsl-2',
+        startTime: 11.2,
+        endTime: 16.6,
+        zh: '怎舍寒风吹动我痛处',
+        py: 'Zěn shě hánfēng chuīdòng wǒ tòngchù',
+        vi: 'Sao nỡ để ngọn gió lạnh buốt thổi chạm vào vết thương lòng',
+        tokens: [
+          { c: '怎舍', p: 'zěn shě', meaning: 'sao nỡ, nỡ lòng nào', hanviet: 'chẩm xả' },
+          { c: '寒风', p: 'hán fēng', meaning: 'gió rét buốt, ngọn gió lạnh', hanviet: 'hàn phong' },
+          { c: '吹动', p: 'chuī dòng', meaning: 'thổi lay động, chạm tới', hanviet: 'xuy động' },
+          { c: '我', p: 'wǒ', meaning: 'ta, tôi', hanviet: 'ngã' },
+          { c: '痛处', p: 'tòng chù', meaning: 'nơi đau đớn, vết thương lòng', hanviet: 'thống xứ' }
+        ],
+        vocab: [
+          { word: '寒风', pinyin: 'hánfēng', hanviet: 'hàn phong', meaning: 'Gió lạnh mùa đông rét buốt', hskLevel: 'HSK 4' },
+          { word: '痛处', pinyin: 'tòngchù', hanviet: 'thống xứ', meaning: 'Vết thương, nỗi đau thầm kín, điểm yếu', hskLevel: 'HSK 5' },
+          { word: '吹动', pinyin: 'chuīdòng', hanviet: 'xuy động', meaning: 'Thổi lay động, làm xao xuyến', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Cấu trúc ngữ khí cảm thán: "怎舍 (zěn shě)" (Sao nỡ / Đâu nỡ lòng nào), biểu thị sự xót xa, thương tiếc trước nghịch cảnh giá lạnh.'
+      },
+      {
+        id: 'dsl-3',
+        startTime: 16.6,
+        endTime: 22.2,
+        zh: '我说寒山别哭，我带你出',
+        py: 'Wǒ shuō hánshān bié kū, wǒ dài nǐ chū',
+        vi: 'Ta bảo núi Hàn Sơn đừng khóc, ta sẽ đưa người cùng vượt qua',
+        tokens: [
+          { c: '我说', p: 'wǒ shuō', meaning: 'ta bảo, ta nói', hanviet: 'ngã thuyết' },
+          { c: '寒山', p: 'hán shān', meaning: 'núi tuyết lạnh Hàn Sơn', hanviet: 'hàn sơn' },
+          { c: '别哭', p: 'bié kū', meaning: 'đừng khóc', hanviet: 'biệt khốc' },
+          { c: '我', p: 'wǒ', meaning: 'ta', hanviet: 'ngã' },
+          { c: '带你', p: 'dài nǐ', meaning: 'dẫn dắt người, đưa người đi', hanviet: 'đới nhĩ' },
+          { c: '出', p: 'chū', meaning: 'thoát ra, ra ngoài', hanviet: 'xuất' }
+        ],
+        vocab: [
+          { word: '寒山', pinyin: 'hánshān', hanviet: 'hàn sơn', meaning: 'Núi lạnh hoang vu, biểu tượng của nỗi cô tịch giang hồ', hskLevel: 'HSK 4' },
+          { word: '别哭', pinyin: 'biékū', hanviet: 'biệt khốc', meaning: 'Đừng khóc, nín đi', hskLevel: 'HSK 2' },
+          { word: '带', pinyin: 'dài', hanviet: 'đới', meaning: 'Dắt, đưa, dẫn theo', hskLevel: 'HSK 2' }
+        ],
+        grammarNote: 'Phép nhân hóa đặc sắc: coi "寒山" (ngọn núi lạnh) như một tri kỷ đang rơi lệ trong cô đơn. Cụm từ "我带你出" thể hiện tinh thần hào hiệp, sẵn sàng che chở và cùng nhau thoát khỏi cõi u tịch.'
+      },
+      {
+        id: 'dsl-4',
+        startTime: 22.2,
+        endTime: 27.8,
+        zh: '我敬滴酒，带你出',
+        py: 'Wǒ jìng dī jiǔ, dài nǐ chū',
+        vi: 'Ta kính dâng giọt rượu nồng, đưa người cùng vượt qua',
+        tokens: [
+          { c: '我', p: 'wǒ', meaning: 'ta', hanviet: 'ngã' },
+          { c: '敬', p: 'jìng', meaning: 'kính cẩn, kính dâng, mời', hanviet: 'kính' },
+          { c: '滴酒', p: 'dī jiǔ', meaning: 'giọt rượu, chén rượu nồng', hanviet: 'tích tửu' },
+          { c: '带你出', p: 'dài nǐ chū', meaning: 'đưa người cùng thoát ra', hanviet: 'đới nhĩ xuất' }
+        ],
+        vocab: [
+          { word: '敬', pinyin: 'jìng', hanviet: 'kính', meaning: 'Kính trọng, kính mời (kính rượu: 敬酒)', hskLevel: 'HSK 4' },
+          { word: '酒', pinyin: 'jiǔ', hanviet: 'tửu', meaning: 'Rượu nồng, men say giang hồ', hskLevel: 'HSK 3' },
+          { word: '滴', pinyin: 'dī', hanviet: 'tích', meaning: 'Giọt (nước, rượu)', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Văn hóa cạn chén giang hồ: "敬酒" (kính rượu / mời rượu). Hành động dâng rượu cho đất trời và ngọn núi tuyết khắc họa trọn vẹn phong thái phóng khoáng, tiêu sái của bậc hào kiệt.'
+      }
+    ]
+  },
+  {
+    id: 'tham-co-tri',
+    titleZh: '探故知',
+    titlePy: 'Tàn Gù Zhī',
+    titleVi: 'Thám Cố Tri (Thanh Phong Thượng Nam Chi · Hot Douyin)',
+    artist: 'Thiển Ảnh A · Tịch Âm Xã (浅影阿 · 汐音社)',
+    coverImage: '/songs/thamcotri.v1.webp',
+    audioUrl: '/songs/thamcotri.mp3',
+    duration: 25,
+    category: 'hot-douyin',
+    categoryLabel: 'Hot Douyin / Giới Trẻ · 流行网络',
+    difficulty: 'Trung bình',
+    hskLevel: 'HSK 3-5',
+    readingDuration: '0:25',
+    description: 'Tuyệt phẩm cổ phong gây sốt khắp cõi mạng Douyin và TikTok với câu hát quen thuộc "Thanh phong thượng nam chi, mộng trung nhưng tương tư". Giai điệu thanh thoát, đượm nét thơ mộng đưa người nghe vào khung cảnh thu sang lá đỏ, người tri kỷ mài mực chắp bút tìm bóng hình xưa cũ trong từng câu chữ.',
+    culturalNote: 'Điển cố "Nam Chi" (南枝) xuất phát từ thơ cổ "Nam chi hướng noãn bắc chi hàn", cành cây hướng về phía nam đón ánh mặt trời ấm áp sớm nở hoa mai, thường dùng làm biểu tượng cho nỗi nhớ quê hương và người xưa ruột thịt. Chữ "Cố Tri" (故知) chỉ người bạn tri kỷ cũ từ thuở hàn vi ("Tha hương ngộ cố tri" - một trong tứ đại hỷ sự của đời người). Khúc hát hòa quyện thi họa phong nhã với nỗi tương tư thanh tao, sâu lắng.',
+    isFeatured: true,
+    lines: [
+      {
+        id: 'tct-1',
+        startTime: 0.0,
+        endTime: 2.8,
+        zh: '清风上南枝',
+        py: 'Qīngfēng shàng nán zhī',
+        vi: 'Gió mát thổi qua cành nam',
+        tokens: [
+          { c: '清风', p: 'qīng fēng', meaning: 'gió mát thanh lành, làn gió nhẹ', hanviet: 'thanh phong' },
+          { c: '上', p: 'shàng', meaning: 'lên trên, thổi lên, lướt qua', hanviet: 'thượng' },
+          { c: '南枝', p: 'nán zhī', meaning: 'cành phía nam đón nắng', hanviet: 'nam chi' }
+        ],
+        vocab: [
+          { word: '清风', pinyin: 'qīngfēng', hanviet: 'thanh phong', meaning: 'Gió mát trong lành, ngọn gió thanh khiết', hskLevel: 'HSK 4' },
+          { word: '南枝', pinyin: 'nánzhī', hanviet: 'nam chi', meaning: 'Cành hướng nam (điển tích hoa mai nở sớm, nhớ quê hương cố tri)', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Động từ chỉ hướng kiêm hành động: "上 (shàng)" trong ngữ cảnh thi ca dùng như động từ "thổi lên / lướt qua cành cây", tạo hình ảnh không gian thơ mộng sống động.'
+      },
+      {
+        id: 'tct-2',
+        startTime: 2.8,
+        endTime: 6.2,
+        zh: '梦中仍相思',
+        py: 'Mèng zhōng réng xiāngsī',
+        vi: 'Trong giấc mộng vẫn vương vấn nỗi tương tư',
+        tokens: [
+          { c: '梦中', p: 'mèng zhōng', meaning: 'trong giấc mộng, trong mơ', hanviet: 'mộng trung' },
+          { c: '仍', p: 'réng', meaning: 'vẫn, vẫn cứ, còn', hanviet: 'nhưng' },
+          { c: '相思', p: 'xiāng sī', meaning: 'tương tư, nhớ nhung da diết', hanviet: 'tương tư' }
+        ],
+        vocab: [
+          { word: '梦中', pinyin: 'mèngzhōng', hanviet: 'mộng trung', meaning: 'Trong giấc mơ, trong chiêm bao', hskLevel: 'HSK 3' },
+          { word: '仍', pinyin: 'réng', hanviet: 'nhưng', meaning: 'Vẫn, vẫn cứ như cũ (viết tắt của 仍然)', hskLevel: 'HSK 4' },
+          { word: '相思', pinyin: 'xiāngsī', hanviet: 'tương tư', meaning: 'Tương tư, nỗi nhớ nhung sâu đậm giữa hai người', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Phó từ chỉ sự tiếp diễn: "仍 (réng)" = 仍然 (vẫn cứ / dẫu trong mơ vẫn khôn nguôi), biểu thị tình cảm trước sau như một không đổi thay.'
+      },
+      {
+        id: 'tct-3',
+        startTime: 6.3,
+        endTime: 9.0,
+        zh: '等秋高看山势',
+        py: 'Děng qiū gāo kàn shānshì',
+        vi: 'Đợi tiết thu cao ngắm dáng núi non trập trùng',
+        tokens: [
+          { c: '等', p: 'děng', meaning: 'chờ, đợi tới khi', hanviet: 'đẳng' },
+          { c: '秋高', p: 'qiū gāo', meaning: 'trời thu cao vời vợi (thu cao khí sảng)', hanviet: 'thu cao' },
+          { c: '看', p: 'kàn', meaning: 'ngắm nhìn, trông xem', hanviet: 'khán' },
+          { c: '山势', p: 'shān shì', meaning: 'thế núi, dáng núi hùng vĩ', hanviet: 'sơn thế' }
+        ],
+        vocab: [
+          { word: '等', pinyin: 'děng', hanviet: 'đẳng', meaning: 'Chờ đợi (mốc thời gian hoặc điều kiện)', hskLevel: 'HSK 1' },
+          { word: '秋高', pinyin: 'qiūgāo', hanviet: 'thu cao', meaning: 'Trời thu trong xanh cao vời vợi (秋高气爽)', hskLevel: 'HSK 5' },
+          { word: '山势', pinyin: 'shānshì', hanviet: 'sơn thế', meaning: 'Địa thế núi, đường nét trập trùng của rặng núi', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Cấu trúc giả định thời gian: "等 + Danh từ/Mệnh đề..." (Đợi đến khi...), diễn tả sự kiên nhẫn và kỳ vọng vào thời điểm tái ngộ tươi đẹp trong tương lai.'
+      },
+      {
+        id: 'tct-4',
+        startTime: 9.1,
+        endTime: 11.2,
+        zh: '再探故知',
+        py: 'Zài tàn gùzhī',
+        vi: 'Lại tìm về thăm người bạn tri âm xưa',
+        tokens: [
+          { c: '再', p: 'zài', meaning: 'lại, một lần nữa', hanviet: 'tái' },
+          { c: '探', p: 'tàn', meaning: 'thăm, tìm kiếm, tương kiến', hanviet: 'thám' },
+          { c: '故知', p: 'gù zhī', meaning: 'cố tri, bạn tri kỷ lâu năm', hanviet: 'cố tri' }
+        ],
+        vocab: [
+          { word: '再', pinyin: 'zài', hanviet: 'tái', meaning: 'Lại, lần nữa (hành động tái diễn trong tương lai)', hskLevel: 'HSK 2' },
+          { word: '探', pinyin: 'tàn', hanviet: 'thám', meaning: 'Thăm hỏi, ghé thăm (探望, 探访)', hskLevel: 'HSK 4' },
+          { word: '故知', pinyin: 'gùzhī', hanviet: 'cố tri', meaning: 'Bạn tri kỷ cũ, người bạn thấu hiểu lòng nhau thuở trước', hskLevel: 'HSK 5' }
+        ],
+        grammarNote: 'Cụm từ then chốt tựa đề bài hát: "再探故知". Phó từ "再" đặt trước động từ "探" thể hiện lời hứa hẹn sẽ quay lại gặp mặt người bạn tri âm cũ sau bao ngày xa cách.'
+      },
+      {
+        id: 'tct-5',
+        startTime: 11.9,
+        endTime: 16.5,
+        zh: '三两笔着墨迟迟不为记事',
+        py: 'Sān liǎng bǐ zhuómò chíchí bù wéi jìshì',
+        vi: 'Vài ba nét bút mài mực ngập ngừng, chẳng phải vì ghi chép việc trần',
+        tokens: [
+          { c: '三两笔', p: 'sān liǎng bǐ', meaning: 'vài ba nét bút', hanviet: 'tam lưỡng bút' },
+          { c: '着墨', p: 'zhuó mò', meaning: 'hạ bút chấm mực, miêu tả', hanviet: 'trước mặc' },
+          { c: '迟迟', p: 'chí chí', meaning: 'chậm chạp, do dự ngập ngừng', hanviet: 'trì trì' },
+          { c: '不为', p: 'bù wèi', meaning: 'chẳng vì, không phải nhằm mục đích', hanviet: 'bất vị' },
+          { c: '记事', p: 'jì shì', meaning: 'ghi lại việc, ghi chép nhật ký thế sự', hanviet: 'ký sự' }
+        ],
+        vocab: [
+          { word: '着墨', pinyin: 'zhuómò', hanviet: 'trước mặc', meaning: 'Chấm mực viết vẽ, dụng công miêu tả (着 đọc là zhuó)', hskLevel: 'HSK 5' },
+          { word: '迟迟', pinyin: 'chíchí', hanviet: 'trì trì', meaning: 'Chậm rãi, dùng dằng, lưỡng lự do tâm trạng ngổn ngang', hskLevel: 'HSK 5' },
+          { word: '记事', pinyin: 'jìshì', hanviet: 'ký sự', meaning: 'Ghi chép lại sự việc', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Từ láy tượng thái "迟迟 (chí chí)" khắc họa tâm trạng dùng dằng, tay cầm bút muốn viết mà tâm can rối bời. Cấu trúc phủ định mục đích "不为... (bù wèi...)" lý giải động cơ thực sự của người viết.'
+      },
+      {
+        id: 'tct-6',
+        startTime: 16.6,
+        endTime: 18.7,
+        zh: '随手便成诗',
+        py: 'Suíshǒu biàn chéng shī',
+        vi: 'Chỉ thuận tay hạ bút đã hóa thành vần thơ',
+        tokens: [
+          { c: '随手', p: 'suí shǒu', meaning: 'tiện tay, thuận tay, tự nhiên', hanviet: 'tùy thủ' },
+          { c: '便', p: 'biàn', meaning: 'liền, là, ngay tức khắc', hanviet: 'tiện' },
+          { c: '成诗', p: 'chéng shī', meaning: 'hóa thành thơ, nên áng thơ', hanviet: 'thành thi' }
+        ],
+        vocab: [
+          { word: '随手', pinyin: 'suíshǒu', hanviet: 'tùy thủ', meaning: 'Tiện tay, thuận theo thói quen tự nhiên', hskLevel: 'HSK 4' },
+          { word: '便', pinyin: 'biàn', hanviet: 'tiện', meaning: 'Liền, ngay (phó từ nối tương đương 就)', hskLevel: 'HSK 3' },
+          { word: '诗', pinyin: 'shī', hanviet: 'thi', meaning: 'Thơ ca, thi từ', hskLevel: 'HSK 3' }
+        ],
+        grammarNote: 'Phó từ liên kết ngữ khí tiện thể: "便 (biàn)" mang sắc thái trang nhã cổ phong hơn "就 (jiù)", nhấn mạnh sự tự nhiên tuôn trào của cảm xúc mà không cần gượng ép đẽo gọt câu từ.'
+      },
+      {
+        id: 'tct-7',
+        startTime: 18.8,
+        endTime: 24.5,
+        zh: '满腹心思此时寻你于句字',
+        py: 'Mǎnfù xīnsi cǐshí xún nǐ yú jùzì',
+        vi: 'Nỗi lòng đầy ắp lúc này tìm bóng hình người trong từng câu chữ',
+        tokens: [
+          { c: '满腹', p: 'mǎn fù', meaning: 'đầy bụng, chan chứa trong lòng', hanviet: 'mãn phúc' },
+          { c: '心思', p: 'xīn si', meaning: 'tâm sự, nỗi niềm, tâm tư', hanviet: 'tâm tư' },
+          { c: '此时', p: 'cǐ shí', meaning: 'lúc này, giờ phút này', hanviet: 'thử thời' },
+          { c: '寻你', p: 'xún nǐ', meaning: 'tìm kiếm người', hanviet: 'tầm nhĩ' },
+          { c: '于', p: 'yú', meaning: 'trong, ở tại (giới từ văn ngôn)', hanviet: 'vu' },
+          { c: '句字', p: 'jù zì', meaning: 'câu chữ, nét chữ trang thơ', hanviet: 'cú tự' }
+        ],
+        vocab: [
+          { word: '满腹', pinyin: 'mǎnfù', hanviet: 'mãn phúc', meaning: 'Tràn ngập trong tâm can (thành ngữ: 满腹心思, 满腹经纶)', hskLevel: 'HSK 5' },
+          { word: '心思', pinyin: 'xīnsi', hanviet: 'tâm tư', meaning: 'Tâm sự thầm kín, nỗi bận tâm', hskLevel: 'HSK 4' },
+          { word: '寻', pinyin: 'xún', hanviet: 'tầm', meaning: 'Tìm kiếm (tương đương 找, mang màu sắc văn học)', hskLevel: 'HSK 4' },
+          { word: '于', pinyin: 'yú', hanviet: 'vu', meaning: 'Ở, tại, trong (giới từ văn ngôn cổ = 在)', hskLevel: 'HSK 4' }
+        ],
+        grammarNote: 'Giới từ văn ngôn cổ: "于 (yú)" tương đương "在", đặt sau động từ ("寻你于句字" = 在字里行间寻找你 - tìm bóng hình người trong từng hàng chữ). Đây là cú pháp kinh điển của văn học Trung Hoa cổ điển.'
+      }
+    ]
   }
 ];
 
