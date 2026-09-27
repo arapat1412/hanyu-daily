@@ -13,6 +13,7 @@
     "prepare:examples": "node scripts/prepare-hsk-example-batches.mjs",
     "generate:examples": "node scripts/generate-hsk-examples.mjs",
     "enrich:examples": "node scripts/import-hsk-examples.mjs",
+    "repair:boya-examples": "python scripts/repair_boya_examples.py",
     "collect:example-candidates": "node scripts/collect-hsk-example-candidates.mjs",
     "test": "node --test scripts/*.test.mjs"
   },

@@ -311,7 +311,7 @@ export const CurriculumHubPage: React.FC = () => {
               </div>
 
               <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Chương trình chuẩn quốc tế dành riêng cho trẻ em và học sinh tiểu học. Học qua hình ảnh minh họa sinh động, trò chơi ghép từ 30s, thẻ phát âm và trọn bộ PDF giáo trình.
+                Chương trình chuẩn quốc tế dành riêng cho trẻ em và học sinh tiểu học. Học qua hình ảnh minh họa sinh động, trò chơi ghép từ 60s, thẻ phát âm và trọn bộ PDF giáo trình.
               </p>
 
               {/* Highlights */}
@@ -322,7 +322,7 @@ export const CurriculumHubPage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Trò chơi ghép từ 30s & Đố vui tích điểm sao</span>
+                  <span>Trò chơi ghép từ 60s & Đố vui tích điểm sao</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />

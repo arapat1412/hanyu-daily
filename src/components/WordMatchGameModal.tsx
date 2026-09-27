@@ -11,17 +11,20 @@ interface WordMatchGameModalProps {
   title?: string;
   onComplete?: (stats: { matchedPairs: number; points: number; maxStreak: number }) => void;
   recordVocabularyProgress?: boolean;
+  durationSeconds?: number;
 }
 
 export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
   isOpen,
   onClose,
   words,
-  title = 'Nối từ phản xạ 30 giây',
+  title,
   onComplete,
   recordVocabularyProgress = true,
+  durationSeconds = 30,
 }) => {
   const ref = useModalFocus(isOpen, onClose);
+  const resolvedTitle = title ?? `Nối từ phản xạ ${durationSeconds} giây`;
 
   if (!isOpen) return null;
 
@@ -32,7 +35,7 @@ export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-label={resolvedTitle}
         className="max-h-[94dvh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white shadow-2xl outline-none pb-[calc(env(safe-area-inset-bottom,0px)+12px)] flex flex-col border border-line"
       >
         <div className="flex items-center justify-between border-b border-line bg-cream/70 px-5 py-4 sm:px-6 shrink-0">
@@ -41,9 +44,9 @@ export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
               <Zap className="h-5 w-5 fill-white" />
             </div>
             <div>
-              <h2 className="font-bold text-ink text-lg sm:text-xl">{title}</h2>
+              <h2 className="font-bold text-ink text-lg sm:text-xl">{resolvedTitle}</h2>
               <p className="text-xs text-muted">
-                Ghép nhanh chữ Hán và nghĩa tương ứng trong 30 giây
+                Ghép nhanh chữ Hán và nghĩa tương ứng trong {durationSeconds} giây
               </p>
             </div>
           </div>
@@ -63,6 +66,7 @@ export const WordMatchGameModal: React.FC<WordMatchGameModalProps> = ({
             onComplete={onComplete}
             onExit={onClose}
             recordVocabularyProgress={recordVocabularyProgress}
+            durationSeconds={durationSeconds}
           />
         </div>
       </div>

@@ -23,18 +23,21 @@ interface WordMatchGameProps {
   onComplete?: (stats: { matchedPairs: number; points: number; maxStreak: number }) => void;
   onExit?: () => void;
   recordVocabularyProgress?: boolean;
+  durationSeconds?: number;
 }
 
-const TOTAL_TIME_MS = 30000; // 30 seconds
+const DEFAULT_DURATION_SECONDS = 30;
 
 export const WordMatchGame: React.FC<WordMatchGameProps> = ({
   words,
   onComplete,
   onExit,
   recordVocabularyProgress = true,
+  durationSeconds = DEFAULT_DURATION_SECONDS,
 }) => {
+  const totalTimeMs = durationSeconds * 1000;
   const [gameState, setGameState] = useState<'playing' | 'gameover'>('playing');
-  const [timeLeftMs, setTimeLeftMs] = useState(TOTAL_TIME_MS);
+  const [timeLeftMs, setTimeLeftMs] = useState(totalTimeMs);
   const [totalMatched, setTotalMatched] = useState(0);
   const [streak, setStreak] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0);
@@ -69,14 +72,14 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
   // Start / restart game
   const startGame = useCallback(() => {
     completionRecordedRef.current = false;
-    setTimeLeftMs(TOTAL_TIME_MS);
+    setTimeLeftMs(totalTimeMs);
     setTotalMatched(0);
     setStreak(0);
     setMaxStreak(0);
     setGameState('playing');
     setFloatingXp([]);
     loadNewRound();
-  }, [loadNewRound]);
+  }, [loadNewRound, totalTimeMs]);
 
   // Initial load
   useEffect(() => {
@@ -212,13 +215,13 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
 
   // Time formatting
   const secondsLeft = Math.ceil(timeLeftMs / 1000);
-  const timeProgressPercent = Math.max(0, (timeLeftMs / TOTAL_TIME_MS) * 100);
+  const timeProgressPercent = Math.max(0, (timeLeftMs / totalTimeMs) * 100);
 
   // Time bar color
   const timerBarColor =
-    timeLeftMs > 15000
+    timeLeftMs > totalTimeMs * 0.5
       ? 'from-emerald-500 to-teal-400'
-      : timeLeftMs > 7000
+      : timeLeftMs > totalTimeMs * 0.25
         ? 'from-amber-500 to-yellow-400'
         : 'from-rose-500 to-red-600 animate-pulse';
 
@@ -228,7 +231,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
         <Trophy className="mx-auto mb-3 h-12 w-12 text-muted" />
         <h3 className="text-xl font-bold text-ink">Chưa đủ từ vựng</h3>
         <p className="mt-2 text-sm text-muted">
-          Cần ít nhất 5 từ vựng có nghĩa để kích hoạt trò chơi Nối từ phản xạ 30 giây.
+          Cần ít nhất 5 từ vựng có nghĩa để kích hoạt trò chơi Nối từ phản xạ {durationSeconds} giây.
         </p>
         {onExit && (
           <button
@@ -267,7 +270,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
           </div>
 
           <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
-            Hết 30 giây · Tổng kết vinh danh
+            Hết {durationSeconds} giây · Tổng kết vinh danh
           </span>
           <h2 className="mt-1 font-display text-3xl font-black text-slate-900 tracking-tight">
             Thành Tích Phản Xạ!
@@ -297,7 +300,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
           </div>
 
           <p className="text-xs text-muted max-w-md mx-auto leading-relaxed mb-6">
-            Tốc độ trung bình: {(totalMatched * 2).toFixed(1)} từ/phút. Thường xuyên luyện phản xạ sẽ giúp bạn ghi nhớ từ vựng tự nhiên và nhạy bén hơn.
+            Tốc độ trung bình: {(totalMatched * (60 / durationSeconds)).toFixed(1)} từ/phút. Thường xuyên luyện phản xạ sẽ giúp bạn ghi nhớ từ vựng tự nhiên và nhạy bén hơn.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
@@ -307,7 +310,7 @@ export const WordMatchGame: React.FC<WordMatchGameProps> = ({
               className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-brand hover:from-sky-600 hover:to-brand-dark px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-sky-500/20 active:scale-98 transition-all cursor-pointer"
             >
               <RotateCcw className="h-4 w-4" />
-              <span>Chơi lại 30 giây</span>
+              <span>Chơi lại {durationSeconds} giây</span>
             </button>
             {onExit && (
               <button

@@ -75,7 +75,7 @@ export const YctSeriesHubPage: React.FC = () => {
       highlights: [
         '129 từ vựng hoạt hình kèm audio',
         '11 bài học chuẩn SGK & 10 chủ đề',
-        'Trò chơi nối từ 30s & Đố vui có thưởng',
+        'Trò chơi nối từ 60s & Đố vui có thưởng',
         'Trọn bộ PDF Sách bài học & bài tập',
       ],
       link: '/yct/1',
@@ -107,7 +107,7 @@ export const YctSeriesHubPage: React.FC = () => {
       highlights: [
         '154 từ vựng hoạt hình kèm audio',
         'Luyện Flashcard & Tập viết chữ Hán',
-        'Trò chơi nối từ 30s & Đố vui có thưởng',
+        'Trò chơi nối từ 60s & Đố vui có thưởng',
         'Trọn bộ PDF Sách bài học & bài tập',
       ],
       cardBg: 'bg-gradient-to-br from-white via-emerald-50/40 to-teal-100/50',
@@ -138,7 +138,7 @@ export const YctSeriesHubPage: React.FC = () => {
       highlights: [
         '335 từ vựng hoạt hình kèm audio & ví dụ',
         '11 bài học SGK & 20 chủ đề phân loại',
-        'Trò chơi nối từ 30s & Đố vui nhận XP',
+        'Trò chơi nối từ 60s & Đố vui nhận XP',
         'Trọn bộ PDF Sách bài học & bài tập',
       ],
       cardBg: 'bg-gradient-to-br from-white via-sky-50/40 to-blue-100/50',
@@ -318,7 +318,7 @@ export const YctSeriesHubPage: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-bold text-slate-800">Dữ liệu YCT 1, YCT 2 & YCT 3 đã hoàn tất số hóa</span>
             <span className="text-slate-300">|</span>
-            <span className="text-slate-600">Flashcard phát âm · Bút thuận · Trò chơi nối từ 30s · Đố vui</span>
+            <span className="text-slate-600">Flashcard phát âm · Bút thuận · Trò chơi nối từ 60s · Đố vui</span>
           </div>
           <span className="font-medium text-emerald-700">
             {totalLearnedWords > 0
@@ -628,7 +628,7 @@ export const YctSeriesHubPage: React.FC = () => {
 
             <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-100">
               <div className="text-2xl mb-2">🎮</div>
-              <div className="font-bold text-xs text-slate-800">Trò chơi ghép từ 30s</div>
+              <div className="font-bold text-xs text-slate-800">Trò chơi ghép từ 60s</div>
               <div className="text-[11px] text-slate-500 mt-1">
                 Game tương tác lật thẻ và nối chữ Hán với nghĩa tiếng Việt, tích lũy XP vào cùng tài khoản.
               </div>

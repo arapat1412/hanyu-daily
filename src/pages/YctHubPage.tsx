@@ -737,7 +737,7 @@ export const YctHubPage: React.FC = () => {
                   className="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-yellow-200 bg-yellow-300 px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-black text-amber-950 shadow-[0_5px_0_#d97706] transition-all hover:scale-105 active:translate-y-1 active:shadow-none"
                 >
                   <Gamepad2 className="h-4 w-4 text-amber-900" />
-                  <span>Chơi Nối Từ 30s 🎮</span>
+                  <span>Chơi Nối Từ 60s 🎮</span>
                 </button>
 
                 <button
@@ -1817,13 +1817,14 @@ export const YctHubPage: React.FC = () => {
         />
       )}
 
-      {/* Modal Game Nối Từ 30s */}
+      {/* Modal Game Nối Từ 60s */}
       {isMatchGameOpen && (
         <WordMatchGameModal
           isOpen={isMatchGameOpen}
           onClose={() => setIsMatchGameOpen(false)}
           words={matchWords}
-          title={`Ghép Nối Nhanh 30 Giây · YCT ${levelNum}`}
+          title={`Ghép Nối Nhanh 60 Giây · YCT ${levelNum}`}
+          durationSeconds={60}
           recordVocabularyProgress={false}
           onComplete={(stats) => {
             const earnedXp = awardDailyXp(
