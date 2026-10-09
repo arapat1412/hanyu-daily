@@ -650,7 +650,7 @@ function AdminDashboard({ username }: { username: string }) {
             <div className="flex flex-col gap-4 border-b border-slate-100 p-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="font-bold text-slate-900">Quản lý học viên mô phỏng</h2>
-                <p className="mt-1 text-xs leading-5 text-slate-500">Thêm, sửa hoặc xóa dữ liệu mẫu. XP và chuỗi ngày tiếp tục tăng hằng ngày sau khi bạn chỉnh.</p>
+                <p className="mt-1 text-xs leading-5 text-slate-500">Thêm, sửa hoặc xóa dữ liệu mẫu. XP tăng sau từng buổi học; chuỗi có thể ngắt khi nghỉ. Số bài, điểm và cấp độ tiến triển theo hoạt động.</p>
               </div>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <form className="flex min-w-0 gap-2 sm:min-w-72" onSubmit={(event) => { event.preventDefault(); setSyntheticSearch(syntheticDraft); setSyntheticPage(0); }}>

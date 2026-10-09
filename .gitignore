@@ -16,3 +16,6 @@ bundle_*.js
 
 # Scraper cached HTML
 scripts/cached_*/
+
+# Local production snapshots and verification captures
+/data/synthetic-*/
