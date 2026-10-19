@@ -1,16 +1,16 @@
-# Boya 1 reviewed example corrections
+# Boya 2 reviewed example corrections
 
 ## Goal and decisions
-- Apply all 26 distinct reviewed items in `docs/boya1-example-grammar-audit-2026-10-19.md` (sections A–E), including six editorial improvements.
-- Keep CSV source and application TypeScript examples synchronized. Preserve all 678 IDs, order, lessons, and unrelated fields.
-- Keep reviewed repairs reproducible in `scripts/repair_boya_examples.py`; use Boya 1 per-entry pinyin overrides where necessary rather than global pronunciation changes.
-- Correct the meaning and part of speech of `boya1-28-6` to describe 得 / de as a complement particle in both sources.
-- Preserve Boya 2 and unrelated pre-existing changes to README.md and hanyudaily-seo.srt.
+- Boya 1 corrections were completed and published in commit 6d61ea5.
+- Review all 864 Boya 2 examples across 25 lessons; apply reviewed Chinese, Vietnamese, pronunciation, and directly related headword corrections.
+- Keep CSV and application TypeScript examples synchronized. Preserve IDs, order, lessons, and unrelated fields.
+- Keep repairs reproducible in the existing script, with scoped pronunciation overrides and metadata updates; preserve Boya 1 byte-for-byte.
+- Preserve unrelated pre-existing README.md and hanyudaily-seo.srt changes.
 
 ## Tasks
-1. Worker: update the repair registry, apply Boya 1 corrections, and add focused synchronization / polyphonic usage regression checks.
-2. Codex: review actual changes, verify 26 intended rows only, confirm repair idempotence and unchanged Boya 2, run relevant tests and build.
-3. Codex: mark the audit applied, commit only task files, push to origin/main and verify remote HEAD.
+1. Codex: review language and apply the reviewed content/registry corrections; write an audit with before/after evidence.
+2. Worker (test file only): extend CSV synchronization and focused semantic/pronunciation regressions to Boya 2.
+3. Codex: independently review changes, confirm repair idempotence, run relevant tests and build, commit task files and push to origin/main.
 
 ## Validation
 - `node --test scripts/boya-examples.test.mjs`
@@ -19,7 +19,9 @@
 - `git diff --check`; review staged files before commit
 
 ## Status
-- All 26 reviewed items applied; CSV and TypeScript examples match across all 678 rows.
-- Only approved example fields and the 得/de metadata changed; Boya 2 remains byte-for-byte unchanged.
-- Reviewed worker changes independently. Repair rerun is idempotent; Boya tests pass 4/4, production build passes, and diff whitespace checks pass.
-- Git publication is authorized by the user; the resulting commit records the completed correction set.
+- All 864 examples reviewed; 72 items corrected, including 35 Chinese text changes and 16 directly related headword metadata changes.
+- CSV and TypeScript match for all 864 rows. Approved edits independently checked against the original data; IDs/order/lessons preserved.
+- Boya 1 data and registry remain unchanged; repair rerun is idempotent.
+- Boya tests pass 6/6, production build passes, and diff whitespace checks pass.
+- Detailed before/after audit saved in `docs/boya2-example-grammar-audit-2026-10-20.md`.
+- User authorized commit and push; resulting Git history records the completed correction set.

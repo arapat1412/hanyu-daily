@@ -343,9 +343,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/送.mp3",
     "exampleSentence": {
-      "chinese": "我送你",
-      "pinyin": "Wǒ sòng nǐ",
-      "vietnamese": "Tôi đưa tiễn bạn"
+      "chinese": "我送你一本书。",
+      "pinyin": "Wǒ sòng nǐ yì běn shū.",
+      "vietnamese": "Tôi tặng bạn một quyển sách."
     }
   },
   {
@@ -362,9 +362,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/接.mp3",
     "exampleSentence": {
-      "chinese": "请接电话",
-      "pinyin": "Qǐng jiē diànhuà",
-      "vietnamese": "Làm ơn nghe điện thoại"
+      "chinese": "我去机场接你。",
+      "pinyin": "Wǒ qù jīchǎng jiē nǐ.",
+      "vietnamese": "Tôi đến sân bay đón bạn."
     }
   },
   {
@@ -552,9 +552,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/晴.mp3",
     "exampleSentence": {
-      "chinese": "今天很晴",
-      "pinyin": "Jīn tiān hěn qíng",
-      "vietnamese": "Hôm nay trời tạnh nắng"
+      "chinese": "今天天气晴朗。",
+      "pinyin": "Jīntiān tiānqì qínglǎng.",
+      "vietnamese": "Hôm nay trời quang đãng."
     }
   },
   {
@@ -590,9 +590,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/阴.mp3",
     "exampleSentence": {
-      "chinese": "今天天阴",
-      "pinyin": "Jīn tiān tiān yīn",
-      "vietnamese": "Hôm nay trời âm u"
+      "chinese": "今天是阴天。",
+      "pinyin": "Jīntiān shì yīntiān.",
+      "vietnamese": "Hôm nay trời âm u."
     }
   },
   {
@@ -780,9 +780,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/对.mp3",
     "exampleSentence": {
-      "chinese": "你说得对",
-      "pinyin": "Nǐ shuō de duì",
-      "vietnamese": "Bạn nói đúng"
+      "chinese": "老师对我们很好。",
+      "pinyin": "Lǎoshī duì wǒmen hěn hǎo.",
+      "vietnamese": "Thầy cô đối xử rất tốt với chúng tôi."
     }
   },
   {
@@ -1010,7 +1010,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我每天练习汉语",
       "pinyin": "Wǒ měi tiān liàn xí hàn yǔ",
-      "vietnamese": "Tôi mỗi ngày luyện tập tiếng Trung"
+      "vietnamese": "Tôi luyện tiếng Trung mỗi ngày."
     }
   },
   {
@@ -1067,7 +1067,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "这件衣服很合适",
       "pinyin": "Zhè jiàn yī fú hěn hé shì",
-      "vietnamese": "Cái quần áo này rất vừa"
+      "vietnamese": "Chiếc áo này rất vừa vặn."
     }
   },
   {
@@ -1257,7 +1257,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "一套家具",
       "pinyin": "Yī tào jiā jù",
-      "vietnamese": "Một bộ đồ gia dụng"
+      "vietnamese": "Một bộ đồ nội thất."
     }
   },
   {
@@ -1331,9 +1331,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/包.mp3",
     "exampleSentence": {
-      "chinese": "给我一个包",
-      "pinyin": "Gěi wǒ yī gè bāo",
-      "vietnamese": "Cho tôi một cái bao"
+      "chinese": "请帮我把礼物包好。",
+      "pinyin": "Qǐng bāng wǒ bǎ lǐwù bāo hǎo.",
+      "vietnamese": "Hãy giúp tôi gói món quà cho cẩn thận."
     }
   },
   {
@@ -1350,9 +1350,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/先生.mp3",
     "exampleSentence": {
-      "chinese": "这位先生贵姓",
-      "pinyin": "Zhè wèi xiānsheng guì xìng",
-      "vietnamese": "Ông này tên gì"
+      "chinese": "先生，请问您贵姓？",
+      "pinyin": "Xiānsheng, qǐngwèn nín guìxìng?",
+      "vietnamese": "Thưa ông, xin hỏi ông họ gì?"
     }
   },
   {
@@ -1388,9 +1388,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/长.mp3",
     "exampleSentence": {
-      "chinese": "他的头发很长",
-      "pinyin": "Tā de tóu fā hěn zhǎng",
-      "vietnamese": "Tóc anh ấy rất dài"
+      "chinese": "孩子长高了。",
+      "pinyin": "Háizi zhǎng gāo le.",
+      "vietnamese": "Đứa trẻ đã cao lên rồi."
     }
   },
   {
@@ -1516,8 +1516,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "着",
     "pinyin": "zhe",
     "sinoVietnamese": "trước",
-    "meaning": "động từ tiếp diễn",
-    "partOfSpeech": "Trợ từ / Động từ",
+    "meaning": "trợ từ chỉ sự tiếp diễn của động tác hoặc trạng thái",
+    "partOfSpeech": "Trợ từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/着.mp3",
     "exampleSentence": {
@@ -1578,9 +1578,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/背.mp3",
     "exampleSentence": {
-      "chinese": "他背着书包",
-      "pinyin": "Tā bèi zhe shū bāo",
-      "vietnamese": "Anh ấy mang ba lô trên lưng"
+      "chinese": "他背着书包。",
+      "pinyin": "Tā bēizhe shūbāo.",
+      "vietnamese": "Anh ấy mang cặp sách trên lưng."
     }
   },
   {
@@ -1597,9 +1597,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/左右.mp3",
     "exampleSentence": {
-      "chinese": "我的左右手都受伤了。",
-      "pinyin": "Wǒde zuǒyòu shǒu dōu shòushāng le.",
-      "vietnamese": "Cả tay trái và tay phải của tôi đều bị thương."
+      "chinese": "他二十岁左右。",
+      "pinyin": "Tā èrshí suì zuǒyòu.",
+      "vietnamese": "Anh ấy khoảng hai mươi tuổi."
     }
   },
   {
@@ -1749,9 +1749,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/本子.mp3",
     "exampleSentence": {
-      "chinese": "我买了一个本子。",
-      "pinyin": "Wǒ mǎile yí gè běnzi.",
-      "vietnamese": "Tôi mua một cuốn vở."
+      "chinese": "我买了一本新本子。",
+      "pinyin": "Wǒ mǎi le yì běn xīn běnzi.",
+      "vietnamese": "Tôi đã mua một cuốn vở mới."
     }
   },
   {
@@ -2034,9 +2034,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/人口.mp3",
     "exampleSentence": {
-      "chinese": "中国人口很多",
-      "pinyin": "Zhōng guó rén kǒu hěn duō",
-      "vietnamese": "Dân số Trung Quốc rất nhiều"
+      "chinese": "中国人口众多。",
+      "pinyin": "Zhōngguó rénkǒu zhòngduō.",
+      "vietnamese": "Trung Quốc có dân số đông."
     }
   },
   {
@@ -2112,7 +2112,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我每天八点上班",
       "pinyin": "Wǒ měitiān bā diǎn shàngbān",
-      "vietnamese": "Tôi mỗi ngày tám giờ đi làm"
+      "vietnamese": "Mỗi ngày tôi bắt đầu làm việc lúc tám giờ."
     }
   },
   {
@@ -2188,7 +2188,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我六点下班",
       "pinyin": "Wǒ liù diǎn xiàbān",
-      "vietnamese": "Tôi sáu giờ tan làm"
+      "vietnamese": "Tôi tan làm lúc sáu giờ."
     }
   },
   {
@@ -2511,7 +2511,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我每天早上六点起床",
       "pinyin": "Wǒ měitiān zǎoshang liù diǎn qǐchuáng",
-      "vietnamese": "Tôi mỗi ngày sáng sáu giờ thức dậy"
+      "vietnamese": "Mỗi sáng tôi thức dậy lúc sáu giờ."
     }
   },
   {
@@ -2777,7 +2777,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我告诉你一个秘密",
       "pinyin": "Wǒ gàosu nǐ yī gè mìmì",
-      "vietnamese": "Tôi báo cho bạn một bí mật"
+      "vietnamese": "Tôi nói cho bạn biết một bí mật."
     }
   },
   {
@@ -2851,9 +2851,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/酒水.mp3",
     "exampleSentence": {
-      "chinese": "婚宴上的酒水费用很贵",
-      "pinyin": "Hūnyàn shàng de jiǔshuǐ fèiyòng hěn guì",
-      "vietnamese": "Chi phí đồ uống trong tiệc cưới rất đắt"
+      "chinese": "婚宴上的酒水费用很高。",
+      "pinyin": "Hūnyàn shàng de jiǔshuǐ fèiyòng hěn gāo.",
+      "vietnamese": "Chi phí đồ uống trong tiệc cưới rất cao."
     }
   },
   {
@@ -3005,7 +3005,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "这家商店收费公道，顾客很多。",
       "pinyin": "zhè jiā shāng diàn shōu fèi gōng dao, gù kè hěn duō.",
-      "vietnamese": "Cửa hàng này thu phí công bằng, khách hàng rất đông."
+      "vietnamese": "Cửa hàng này tính giá hợp lý, có rất đông khách."
     }
   },
   {
@@ -3157,7 +3157,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "请看广告栏里的最新招聘信息。",
       "pinyin": "Qǐng kàn guǎnggàolán lǐ de zuìxīn zhāopìn xìnxī.",
-      "vietnamese": "Xin hãy xem thông tin tuyển dụng mới nhất trong cột quảng cáo."
+      "vietnamese": "Xin hãy xem thông tin tuyển dụng mới nhất trên bảng quảng cáo."
     }
   },
   {
@@ -3587,14 +3587,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "部",
     "pinyin": "bù",
     "sinoVietnamese": "bộ",
-    "meaning": "quyển",
-    "partOfSpeech": "Danh từ / Lượng từ",
+    "meaning": "lượng từ cho tác phẩm, phim",
+    "partOfSpeech": "Lượng từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/部.mp3",
     "exampleSentence": {
-      "chinese": "教育部发布了新的政策。",
-      "pinyin": "Jiàoyùbù fābù le xīn de zhèngcè.",
-      "vietnamese": "Bộ Giáo dục đã ban hành chính sách mới."
+      "chinese": "我看了一部中国电影。",
+      "pinyin": "Wǒ kàn le yí bù Zhōngguó diànyǐng.",
+      "vietnamese": "Tôi đã xem một bộ phim Trung Quốc."
     }
   },
   {
@@ -3649,9 +3649,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/毛.mp3",
     "exampleSentence": {
-      "chinese": "一毛钱",
-      "pinyin": "Yī máo qián",
-      "vietnamese": "Một mao (10 phân)"
+      "chinese": "这只猫的毛很软。",
+      "pinyin": "Zhè zhī māo de máo hěn ruǎn.",
+      "vietnamese": "Lông của con mèo này rất mềm."
     }
   },
   {
@@ -4005,7 +4005,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "身上",
     "pinyin": "shēnshàng",
     "sinoVietnamese": "thân thượng",
-    "meaning": "trên tay",
+    "meaning": "trên người",
     "partOfSpeech": "Từ chỉ phương vị / Danh từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/身上.mp3",
@@ -4081,8 +4081,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "副",
     "pinyin": "fù",
     "sinoVietnamese": "phó",
-    "meaning": "phó",
-    "partOfSpeech": "Tính từ / Lượng từ / Danh từ",
+    "meaning": "lượng từ chỉ đôi, cặp hoặc bộ",
+    "partOfSpeech": "Lượng từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/副.mp3",
     "exampleSentence": {
@@ -4221,7 +4221,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "这棵大树的树干非常粗。",
       "pinyin": "Zhè kē dàshù de shùgàn fēicháng cū.",
-      "vietnamese": "Thân cây to này rất to và thô."
+      "vietnamese": "Thân cây đại thụ này rất to."
     }
   },
   {
@@ -5012,8 +5012,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "着",
     "pinyin": "zhe",
     "sinoVietnamese": "trước",
-    "meaning": "động từ tiếp diễn",
-    "partOfSpeech": "Trợ từ / Động từ",
+    "meaning": "trợ từ chỉ sự tiếp diễn của động tác hoặc trạng thái",
+    "partOfSpeech": "Trợ từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/着.mp3",
     "exampleSentence": {
@@ -5038,7 +5038,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我的腿很酸",
       "pinyin": "Wǒ de tuǐ hěn suān",
-      "vietnamese": "Chân tôi rất đau"
+      "vietnamese": "Chân tôi rất nhức mỏi."
     }
   },
   {
@@ -5055,9 +5055,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/拐.mp3",
     "exampleSentence": {
-      "chinese": "走到十字路口请向右拐。",
-      "pinyin": "Zǒu dào shízì lùkǒu qǐng xiàng yòu guǎi.",
-      "vietnamese": "Đi đến ngã tư xin hãy rẽ phải."
+      "chinese": "他一拐一拐地走进了房间。",
+      "pinyin": "Tā yì guǎi yì guǎi de zǒu jìn le fángjiān.",
+      "vietnamese": "Anh ấy đi khập khiễng vào phòng."
     }
   },
   {
@@ -5739,9 +5739,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/农村.mp3",
     "exampleSentence": {
-      "chinese": "我来自一个农村。",
-      "pinyin": "Wǒ láizì yī gè nóngcūn.",
-      "vietnamese": "Tôi đến từ một vùng nông thôn."
+      "chinese": "我来自农村。",
+      "pinyin": "Wǒ láizì nóngcūn.",
+      "vietnamese": "Tôi đến từ nông thôn."
     }
   },
   {
@@ -5798,7 +5798,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "孩子们在院子里做游戏。",
       "pinyin": "Háizimen zài yuànzi lǐ zuò yóuxì.",
-      "vietnamese": "Đứa trẻ đang chơi trò chơi trong sân."
+      "vietnamese": "Bọn trẻ đang chơi trò chơi trong sân."
     }
   },
   {
@@ -6537,9 +6537,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/中指.mp3",
     "exampleSentence": {
-      "chinese": "他的中指戴着一枚戒指。",
-      "pinyin": "Tā de zhōngzhǐ dài zhe yī méi jièzhǐ.",
-      "vietnamese": "Ngón giữa của anh ấy đeo một chiếc nhẫn."
+      "chinese": "他的中指上戴着一枚戒指。",
+      "pinyin": "Tā de zhōngzhǐ shàng dàizhe yì méi jièzhi.",
+      "vietnamese": "Anh ấy đeo một chiếc nhẫn ở ngón giữa."
     }
   },
   {
@@ -6822,9 +6822,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/最后.mp3",
     "exampleSentence": {
-      "chinese": "我最后到了",
-      "pinyin": "Wǒ zuìhòu dào le",
-      "vietnamese": "Tôi đến cuối cùng"
+      "chinese": "我是最后一个到的。",
+      "pinyin": "Wǒ shì zuìhòu yí gè dào de.",
+      "vietnamese": "Tôi là người đến cuối cùng."
     }
   },
   {
@@ -7924,9 +7924,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/保洁.mp3",
     "exampleSentence": {
-      "chinese": "我们应该共同维护环境保洁。",
-      "pinyin": "Wǒmen yīnggāi gòngtóng wéihù huánjìng bǎojié.",
-      "vietnamese": "Chúng ta nên cùng nhau giữ gìn vệ sinh môi trường."
+      "chinese": "我们应该做好环境保洁工作。",
+      "pinyin": "Wǒmen yīnggāi zuò hǎo huánjìng bǎojié gōngzuò.",
+      "vietnamese": "Chúng ta nên làm tốt công tác vệ sinh môi trường."
     }
   },
   {
@@ -7964,7 +7964,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "请问您贵姓？",
       "pinyin": "Qǐngwèn nín guìxìng?",
-      "vietnamese": "Xin hỏi quý danh của ngài là gì?"
+      "vietnamese": "Xin hỏi ông/bà họ gì?"
     }
   },
   {
@@ -8717,14 +8717,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "得",
     "pinyin": "de",
     "sinoVietnamese": "đắc",
-    "meaning": "được",
-    "partOfSpeech": "Động từ / Trợ từ / Trợ động từ",
+    "meaning": "trợ từ dẫn bổ ngữ",
+    "partOfSpeech": "Trợ từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/得.mp3",
     "exampleSentence": {
-      "chinese": "我得到了好消息",
-      "pinyin": "Wǒ dé dào le hǎo xiāo xī",
-      "vietnamese": "Tôi đã nhận được tin tốt"
+      "chinese": "他画得很好。",
+      "pinyin": "Tā huà de hěn hǎo.",
+      "vietnamese": "Anh ấy vẽ rất đẹp."
     }
   },
   {
@@ -9002,8 +9002,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "辞",
     "pinyin": "cí",
     "sinoVietnamese": "từ",
-    "meaning": "sa thải",
-    "partOfSpeech": "Động từ / Danh từ",
+    "meaning": "từ chức; từ bỏ chức vụ",
+    "partOfSpeech": "Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/辞.mp3",
     "exampleSentence": {
@@ -9116,7 +9116,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "产生",
     "pinyin": "chǎnshēng",
     "sinoVietnamese": "sản sinh, sanh",
-    "meaning": "sản xuất",
+    "meaning": "sinh ra; tạo ra; phát sinh",
     "partOfSpeech": "Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/产生.mp3",
@@ -9425,9 +9425,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/块.mp3",
     "exampleSentence": {
-      "chinese": "一块钱",
-      "pinyin": "yí kuài qián",
-      "vietnamese": "một đồng (tiền)"
+      "chinese": "请给我一块蛋糕。",
+      "pinyin": "Qǐng gěi wǒ yí kuài dàngāo.",
+      "vietnamese": "Xin cho tôi một miếng bánh ngọt."
     }
   },
   {
@@ -9541,7 +9541,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "这家店的牌子很大。",
       "pinyin": "Zhè jiā diàn de pái zi hěn dà.",
-      "vietnamese": "Cửa hàng này có thương hiệu lớn."
+      "vietnamese": "Tấm biển của cửa hàng này rất lớn."
     }
   },
   {
@@ -9591,14 +9591,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "实惠",
     "pinyin": "shíhuì",
     "sinoVietnamese": "thực huệ",
-    "meaning": "hữu ích",
+    "meaning": "giá hợp lý; đáng tiền; thiết thực",
     "partOfSpeech": "Tính từ / Danh từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/实惠.mp3",
     "exampleSentence": {
       "chinese": "这种水果既实惠又好吃",
       "pinyin": "zhè zhǒng shuǐ guǒ jì shí huì yòu hǎo chī",
-      "vietnamese": "Loại trái cây này vừa hữu ích vừa ngon"
+      "vietnamese": "Loại trái cây này vừa có giá phải chăng vừa ngon."
     }
   },
   {
@@ -10092,7 +10092,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我喜欢吃三分熟的牛排。",
       "pinyin": "Wǒ xǐhuān chī sānfēnshú de niúpái.",
-      "vietnamese": "Tôi thích ăn bít tết tái vừa."
+      "vietnamese": "Tôi thích ăn bít tết tái."
     }
   },
   {
@@ -10166,9 +10166,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/节.mp3",
     "exampleSentence": {
-      "chinese": "这节课很有意思",
-      "pinyin": "Zhè jié kè hěn yǒu yì sī",
-      "vietnamese": "Tiết học này rất hay"
+      "chinese": "祝你节日快乐！",
+      "pinyin": "Zhù nǐ jiérì kuàilè!",
+      "vietnamese": "Chúc bạn có một ngày lễ vui vẻ!"
     }
   },
   {
@@ -10299,9 +10299,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/总是.mp3",
     "exampleSentence": {
-      "chinese": "他总是很努力工作。",
-      "pinyin": "Tā zǒngshì hěn nǔlì gōngzuò.",
-      "vietnamese": "Anh ấy luôn luôn làm việc chăm chỉ."
+      "chinese": "他总是很努力地工作。",
+      "pinyin": "Tā zǒngshì hěn nǔlì de gōngzuò.",
+      "vietnamese": "Anh ấy luôn làm việc rất chăm chỉ."
     }
   },
   {
@@ -10356,9 +10356,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/细.mp3",
     "exampleSentence": {
-      "chinese": "她做事情非常细心。",
-      "pinyin": "Tā zuò shìqing fēicháng xìxīn.",
-      "vietnamese": "Cô ấy làm việc vô cùng cẩn thận và tỉ mỉ."
+      "chinese": "这根线很细。",
+      "pinyin": "Zhè gēn xiàn hěn xì.",
+      "vietnamese": "Sợi chỉ này rất mảnh."
     }
   },
   {
@@ -10489,9 +10489,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/活.mp3",
     "exampleSentence": {
-      "chinese": "爷爷已经活了九十岁，身体依然硬朗。",
-      "pinyin": "Yéye yǐjīng huó le jiǔshí suì, shēntǐ yīrán yìnglang.",
-      "vietnamese": "Ông nội đã sống đến 90 tuổi, sức khỏe vẫn rất dẻo dai."
+      "chinese": "爷爷已经活到九十岁了，身体依然硬朗。",
+      "pinyin": "Yéye yǐjīng huó dào jiǔshí suì le, shēntǐ yīrán yìnglang.",
+      "vietnamese": "Ông nội đã sống đến chín mươi tuổi, sức khỏe vẫn rất dẻo dai."
     }
   },
   {
@@ -10548,7 +10548,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "既然你不想去，那就算了吧。",
       "pinyin": "jì rán nǐ bù xiǎng qù, nà jiù suàn le ba.",
-      "vietnamese": "Đã là cậu không muốn đi, vậy thì bỏ qua đi."
+      "vietnamese": "Nếu bạn đã không muốn đi thì thôi vậy."
     }
   },
   {
@@ -10712,8 +10712,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "装",
     "pinyin": "zhuāng",
     "sinoVietnamese": "trang",
-    "meaning": "trang điểm",
-    "partOfSpeech": "Động từ / Danh từ",
+    "meaning": "xếp vào; chất vào; đựng",
+    "partOfSpeech": "Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/装.mp3",
     "exampleSentence": {
@@ -10755,9 +10755,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/真正.mp3",
     "exampleSentence": {
-      "chinese": "他是我的真正朋友",
-      "pinyin": "Tā shì wǒ de zhēn zhèng péng yǒu",
-      "vietnamese": "Anh ấy là bạn thực sự của tôi"
+      "chinese": "他是我真正的朋友。",
+      "pinyin": "Tā shì wǒ zhēnzhèng de péngyou.",
+      "vietnamese": "Anh ấy là người bạn thực sự của tôi."
     }
   },
   {
@@ -11002,9 +11002,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/共同.mp3",
     "exampleSentence": {
-      "chinese": "这是我们要共同完成的目标。",
-      "pinyin": "Zhè shì wǒmen yào gòngtóng wánchéng de mùbiāo.",
-      "vietnamese": "Đây là mục tiêu chúng ta cần cùng nhau hoàn thành."
+      "chinese": "这是我们要共同实现的目标。",
+      "pinyin": "Zhè shì wǒmen yào gòngtóng shíxiàn de mùbiāo.",
+      "vietnamese": "Đây là mục tiêu chúng ta cần cùng nhau thực hiện."
     }
   },
   {
@@ -11251,7 +11251,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我们去照相吧",
       "pinyin": "Wǒ men qù zhào xiāng ba",
-      "vietnamese": "Chúng tôi đi chụp ảnh nhé"
+      "vietnamese": "Chúng ta đi chụp ảnh nhé."
     }
   },
   {
@@ -11401,8 +11401,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/坡.mp3",
     "exampleSentence": {
-      "chinese": "自行车骑上下坡的时候要特别小心。",
-      "pinyin": "Zìxíngchē qí shàng xià pō de shíhou yào tèbié xiǎoxīn.",
+      "chinese": "骑自行车上下坡的时候要特别小心。",
+      "pinyin": "Qí zìxíngchē shàng xià pō de shíhou yào tèbié xiǎoxīn.",
       "vietnamese": "Khi đi xe đạp lên xuống dốc phải đặc biệt cẩn thận."
     }
   },
@@ -11415,14 +11415,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "分别",
     "pinyin": "fēnbié",
     "sinoVietnamese": "phân biệt",
-    "meaning": "sự khác biệt",
-    "partOfSpeech": "Động từ / Danh từ",
+    "meaning": "riêng biệt; lần lượt; phân biệt",
+    "partOfSpeech": "Phó từ / Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/分别.mp3",
     "exampleSentence": {
       "chinese": "我们要分别对待这些问题。",
       "pinyin": "Wǒ men yào fēn bié duì dài zhè xiē wèn tí.",
-      "vietnamese": "Chúng ta cần phân biệt xử dụng các vấn đề này."
+      "vietnamese": "Chúng ta cần xử lý riêng từng vấn đề này."
     }
   },
   {
@@ -11764,7 +11764,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我每天都看新闻",
       "pinyin": "Wǒ měi tiān dōu kàn xīn wén",
-      "vietnamese": "Tôi mỗi ngày đều xem tin tức"
+      "vietnamese": "Tôi xem tin tức mỗi ngày."
     }
   },
   {
@@ -12277,7 +12277,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "他每天都认真刷牙齿",
       "pinyin": "Tā měitiān dōu rènzhēn shuā yáchǐ",
-      "vietnamese": "Anh ấy mỗi ngày đều đánh răng cẩn thận"
+      "vietnamese": "Ngày nào anh ấy cũng đánh răng cẩn thận."
     }
   },
   {
@@ -12598,9 +12598,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/抽空.mp3",
     "exampleSentence": {
-      "chinese": "你什么时候有空抽空来我家玩？",
-      "pinyin": "Nǐ shénme shíhou yǒu kòng chōukòng lái wǒ jiā wán?",
-      "vietnamese": "Khi nào bạn có thời gian rảnh thì ghé nhà tôi chơi nhé?"
+      "chinese": "你什么时候能抽空来我家玩？",
+      "pinyin": "Nǐ shénme shíhou néng chōukòng lái wǒ jiā wán?",
+      "vietnamese": "Khi nào bạn có thể tranh thủ thời gian đến nhà tôi chơi?"
     }
   },
   {
@@ -12807,9 +12807,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/拼.mp3",
     "exampleSentence": {
-      "chinese": "大家一起拼搏，终于赢得了比赛。",
-      "pinyin": "Dàjiā yìqǐ pīnbó, zhōngyú yíngdé le bǐsài.",
-      "vietnamese": "Mọi người cùng nhau nỗ lực hết mình, cuối cùng đã thắng trận đấu."
+      "chinese": "我想把这两张桌子拼在一起。",
+      "pinyin": "Wǒ xiǎng bǎ zhè liǎng zhāng zhuōzi pīn zài yìqǐ.",
+      "vietnamese": "Tôi muốn ghép hai chiếc bàn này lại với nhau."
     }
   },
   {
@@ -13049,8 +13049,8 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "端",
     "pinyin": "duān",
     "sinoVietnamese": "đoan",
-    "meaning": "đầu cuối",
-    "partOfSpeech": "Danh từ / Động từ / Tính từ",
+    "meaning": "bưng; bê; mang bằng hai tay",
+    "partOfSpeech": "Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/端.mp3",
     "exampleSentence": {
@@ -13396,9 +13396,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/以外.mp3",
     "exampleSentence": {
-      "chinese": "这周以外",
-      "pinyin": "Zhè zhōu yǐ wài",
-      "vietnamese": "Ngoài tuần này"
+      "chinese": "除了汉语以外，我还学英语。",
+      "pinyin": "Chúle Hànyǔ yǐwài, wǒ hái xué Yīngyǔ.",
+      "vietnamese": "Ngoài tiếng Trung, tôi còn học tiếng Anh."
     }
   },
   {
@@ -14253,7 +14253,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "考试及格了。",
       "pinyin": "Kǎoshì jígé le.",
-      "vietnamese": "Kỳ thi đã qua môn."
+      "vietnamese": "Tôi đã thi đạt yêu cầu rồi."
     }
   },
   {
@@ -15270,7 +15270,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "unit": 5,
     "unitTitle": "Đơn vị 5: Du lịch kỳ nghỉ & Triết lý nhân sinh",
     "hanzi": "挨打",
-    "pinyin": "āidǎ",
+    "pinyin": "áidǎ",
     "sinoVietnamese": "ai đả",
     "meaning": "bị đánh",
     "partOfSpeech": "Động từ",
@@ -15348,7 +15348,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "狠心",
     "pinyin": "hěnxīn",
     "sinoVietnamese": "ngận tâm",
-    "meaning": "quyết tâm",
+    "meaning": "nhẫn tâm; tàn nhẫn",
     "partOfSpeech": "Tính từ / Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/狠心.mp3",
@@ -15462,14 +15462,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "分",
     "pinyin": "fēn",
     "sinoVietnamese": "phân",
-    "meaning": "sự khác biệt; phân biệt",
+    "meaning": "chia; phân chia; phân biệt",
     "partOfSpeech": "Động từ / Lượng từ / Danh từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/分.mp3",
     "exampleSentence": {
-      "chinese": "现在三点十分",
-      "pinyin": "Xiànzài sān diǎn shí fēn",
-      "vietnamese": "Bây giờ là 3 giờ 10 phút"
+      "chinese": "请把这些苹果分成两份。",
+      "pinyin": "Qǐng bǎ zhèxiē píngguǒ fēn chéng liǎng fèn.",
+      "vietnamese": "Hãy chia số táo này thành hai phần."
     }
   },
   {
@@ -15500,14 +15500,14 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hanzi": "分别",
     "pinyin": "fēnbié",
     "sinoVietnamese": "phân biệt",
-    "meaning": "sự khác biệt",
-    "partOfSpeech": "Động từ / Danh từ",
+    "meaning": "riêng biệt; lần lượt; phân biệt",
+    "partOfSpeech": "Phó từ / Động từ",
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/分别.mp3",
     "exampleSentence": {
       "chinese": "我们要分别对待这些问题。",
       "pinyin": "Wǒ men yào fēn bié duì dài zhè xiē wèn tí.",
-      "vietnamese": "Chúng ta cần phân biệt xử dụng các vấn đề này."
+      "vietnamese": "Chúng ta cần xử lý riêng từng vấn đề này."
     }
   },
   {
@@ -15524,9 +15524,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/迷.mp3",
     "exampleSentence": {
-      "chinese": "他是一个地道的足球迷。",
-      "pinyin": "tā shì yí gè dì dào de zú qiú mí.",
-      "vietnamese": "Anh ấy là một người hâm mộ bóng đá đích thực."
+      "chinese": "他迷了路，不知道怎么回家。",
+      "pinyin": "Tā mí le lù, bù zhīdào zěnme huí jiā.",
+      "vietnamese": "Anh ấy bị lạc đường, không biết về nhà thế nào."
     }
   },
   {
@@ -16189,9 +16189,9 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "hskLevel": "boya2",
     "audioUrl": "https://static.xiehanzi.com/word_audios/真正.mp3",
     "exampleSentence": {
-      "chinese": "他是我的真正朋友",
-      "pinyin": "Tā shì wǒ de zhēn zhèng péng yǒu",
-      "vietnamese": "Anh ấy là bạn thực sự của tôi"
+      "chinese": "他是我真正的朋友。",
+      "pinyin": "Tā shì wǒ zhēnzhèng de péngyou.",
+      "vietnamese": "Anh ấy là người bạn thực sự của tôi."
     }
   },
   {
@@ -16267,7 +16267,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "下午茶时间，我们吃了一些精致的点心。",
       "pinyin": "xià wǔ chá shí jiān, wǒ men chī le yì xiē jīng zhì de diǎn xīn.",
-      "vietnamese": "Vào giờ trà chiều, chúng tôi đã ăn một số món tráng miệng tinh tế."
+      "vietnamese": "Vào giờ trà chiều, chúng tôi đã ăn một ít bánh điểm tâm được làm tinh tế."
     }
   },
   {
@@ -16324,7 +16324,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "他的生意做得很好。",
       "pinyin": "Tā de shēngyi zuò de hěn hǎo.",
-      "vietnamese": "Việc kinh doanh của anh ấy làm rất tốt."
+      "vietnamese": "Công việc kinh doanh của anh ấy rất thuận lợi."
     }
   },
   {
@@ -16628,7 +16628,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我想和你说句话",
       "pinyin": "Wǒ xiǎng hé nǐ shuō jù huà",
-      "vietnamese": "Tôi muốn nói với bạn vài câu"
+      "vietnamese": "Tôi muốn nói với bạn một câu."
     }
   },
   {
@@ -16685,7 +16685,7 @@ export const BOYA2_VOCABULARY: BoyaVocabularyWord[] = [
     "exampleSentence": {
       "chinese": "我陪你去",
       "pinyin": "Wǒ péi nǐ qù",
-      "vietnamese": "Tôi đi cùng bạn/anh đi nhé"
+      "vietnamese": "Tôi đi cùng bạn."
     }
   },
   {

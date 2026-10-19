@@ -1,7 +1,7 @@
 STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa tiếng Việt,Ví dụ tiếng Trung,Phiên âm ví dụ,Dịch ví dụ,Audio URL
 1,Bài 1,都,dōu,Phó từ / Danh từ,đô,tất cả,我们都喜欢中文,Wǒmen dōu xǐhuan Zhōngwén,Chúng tôi đều thích tiếng Trung,https://static.xiehanzi.com/word_audios/都.mp3
-2,Bài 1,送,sòng,Động từ,tống,tặng,我送你,Wǒ sòng nǐ,Tôi đưa tiễn bạn,https://static.xiehanzi.com/word_audios/送.mp3
-3,Bài 1,接,jiē,Động từ,tiếp,đón,请接电话,Qǐng jiē diànhuà,Làm ơn nghe điện thoại,https://static.xiehanzi.com/word_audios/接.mp3
+2,Bài 1,送,sòng,Động từ,tống,tặng,我送你一本书。,Wǒ sòng nǐ yì běn shū.,Tôi tặng bạn một quyển sách.,https://static.xiehanzi.com/word_audios/送.mp3
+3,Bài 1,接,jiē,Động từ,tiếp,đón,我去机场接你。,Wǒ qù jīchǎng jiē nǐ.,Tôi đến sân bay đón bạn.,https://static.xiehanzi.com/word_audios/接.mp3
 4,Bài 1,次,cì,Lượng từ / Danh từ / Tính từ,thứ,lần,第一次,Dì yī cì,Lần thứ nhất,https://static.xiehanzi.com/word_audios/次.mp3
 5,Bài 1,看见,kànjiàn,Động từ,khán kiến,thấy,我看见他了,Wǒ kànjiàn tā le,Tôi thấy anh ấy rồi,https://static.xiehanzi.com/word_audios/看见.mp3
 6,Bài 1,飞机,fēijī,Danh từ,phi cơ,máy bay,我们坐飞机去北京。,Wǒ men zuò fēi jī qù běi jīng.,Chúng tôi đi Bắc Kinh bằng máy bay.,https://static.xiehanzi.com/word_audios/飞机.mp3
@@ -11,9 +11,9 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 10,Bài 1,查,chá,Động từ,tra,kiểm tra,请查一下字典,Qǐng chá yī xià zì diǎn,Vui lòng tra từ điển,https://static.xiehanzi.com/word_audios/查.mp3
 11,Bài 1,晚点,wǎndiǎn,Động từ,vãn điểm,muộn,火车晚点了,huǒchē wǎndiǎn le,Tàu hỏa bị trễ rồi,https://static.xiehanzi.com/word_audios/晚点.mp3
 12,Bài 1,日记,rìjì,Danh từ,nhật ký,nhật ký,我每天睡觉前都写日记。,Wǒ měitiān shuìjiào qián dōu xiě rìjì.,Tôi đều viết nhật ký trước khi đi ngủ mỗi ngày.,https://static.xiehanzi.com/word_audios/日记.mp3
-13,Bài 1,晴,qíng,Tính từ / Danh từ,tình,"nắng, trong",今天很晴,Jīn tiān hěn qíng,Hôm nay trời tạnh nắng,https://static.xiehanzi.com/word_audios/晴.mp3
+13,Bài 1,晴,qíng,Tính từ / Danh từ,tình,"nắng, trong",今天天气晴朗。,Jīntiān tiānqì qínglǎng.,Hôm nay trời quang đãng.,https://static.xiehanzi.com/word_audios/晴.mp3
 14,Bài 1,转,zhuǎn,Động từ (movement verb),chuyển,xoay quanh,请向后转。,Qǐng xiàng hòu zhuǎn.,Xin hãy quay về phía sau.,https://static.xiehanzi.com/word_audios/转.mp3
-15,Bài 1,阴,yīn,Tính từ / Danh từ,âm,u ám,今天天阴,Jīn tiān tiān yīn,Hôm nay trời âm u,https://static.xiehanzi.com/word_audios/阴.mp3
+15,Bài 1,阴,yīn,Tính từ / Danh từ,âm,u ám,今天是阴天。,Jīntiān shì yīntiān.,Hôm nay trời âm u.,https://static.xiehanzi.com/word_audios/阴.mp3
 16,Bài 1,父亲,fùqīn,Danh từ,phụ thân,cha,我的父亲是一名老师。,Wǒ de fùqīn shì yīmíng lǎoshī.,Bố của tôi là một giáo viên.,https://static.xiehanzi.com/word_audios/父亲.mp3
 17,Bài 1,母亲,mǔqīn,Danh từ,mẫu thân,mẹ,我母亲是一位老师。,Wǒ mǔqīn shì yīwèi lǎoshī.,Mẹ tôi là một giáo viên.,https://static.xiehanzi.com/word_audios/母亲.mp3
 18,Bài 1,机会,jīhuì,Danh từ,cơ hội,"cơ hội, dịp",这是一个很好的机会,Zhè shì yī gè hěn hǎo de jī huì,Đây là một cơ hội rất tốt,https://static.xiehanzi.com/word_audios/机会.mp3
@@ -23,7 +23,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 22,Bài 1,泰国,Tàiguó,Danh từ riêng,thái quốc,nước Thái Lan,明年暑假我想去泰国旅游。,Míngnián shǔjià wǒ xiǎng qù Tàiguó lǚyóu.,Kỳ nghỉ hè năm sau tôi muốn đi du lịch Thái Lan.,https://static.xiehanzi.com/word_audios/泰国.mp3
 23,Bài 1,正点,zhèngdiǎn,Tính từ / Trạng từ,chính điểm,"đúng giờ, đúng kế hoạch",这趟列车总是正点到达。,Zhè tàng lièchē zǒngshì zhèngdiǎn dàodá.,Chuyến tàu này luôn đến đúng giờ.,https://static.xiehanzi.com/word_audios/正点.mp3
 24,Bài 1,进门,jìnmén,Động từ,tiến môn,"vào cửa, bước vào nhà",一进门，就闻到饭菜的香味。,"Yī jìnmén, jiù wén dào fàncài de xiāngwèi.",Vừa bước vào nhà đã ngửi thấy mùi thơm của thức ăn.,https://static.xiehanzi.com/word_audios/进门.mp3
-25,Bài 2,对,duì,Giới từ / Tính từ / Lượng từ,đối,đối với,你说得对,Nǐ shuō de duì,Bạn nói đúng,https://static.xiehanzi.com/word_audios/对.mp3
+25,Bài 2,对,duì,Giới từ / Tính từ / Lượng từ,đối,đối với,老师对我们很好。,Lǎoshī duì wǒmen hěn hǎo.,Thầy cô đối xử rất tốt với chúng tôi.,https://static.xiehanzi.com/word_audios/对.mp3
 26,Bài 2,房子,fángzi,Danh từ,phòng tử,"nhà, căn hộ",这是我的房子。,Zhè shì wǒ de fángzi.,Đây là nhà tôi.,https://static.xiehanzi.com/word_audios/房子.mp3
 27,Bài 2,搬,bān,Động từ,ban,"chuyển, di chuyển",我们下个月搬家。,Wǒmen xià gè yuè bānjiā.,Tháng sau chúng tôi chuyển nhà.,https://static.xiehanzi.com/word_audios/搬.mp3
 28,Bài 2,外面,wàimiàn,Từ chỉ phương vị / Danh từ,"ngoại diện, miến",bên ngoài,外面下雨了。,Wàimian xiàyǔ le.,Ở bên ngoài trời đang mưa.,https://static.xiehanzi.com/word_audios/外面.mp3
@@ -35,10 +35,10 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 34,Bài 2,厨房,chúfáng,Danh từ,trù phòng,nhà bếp,妈妈在厨房做饭,Māma zài chúfáng zuò fàn,Mẹ đang nấu ăn trong bếp,https://static.xiehanzi.com/word_audios/厨房.mp3
 35,Bài 2,主要,zhǔyào,Tính từ,chủ yếu,chính,这是主要原因,Zhè shì zhǔ yào yuán yīn,Đây là nguyên nhân chính,https://static.xiehanzi.com/word_audios/主要.mp3
 36,Bài 2,周围,zhōuwéi,Danh từ / Từ chỉ phương vị,"chu, châu vi",xung quanh,房子周围有很多树。,Fángzi zhōuwéi yǒu hěnduō shù.,Xung quanh nhà có nhiều cây.,https://static.xiehanzi.com/word_audios/周围.mp3
-37,Bài 2,练习,liànxí,Động từ / Danh từ,luyện tập,luyện tập,我每天练习汉语,Wǒ měi tiān liàn xí hàn yǔ,Tôi mỗi ngày luyện tập tiếng Trung,https://static.xiehanzi.com/word_audios/练习.mp3
+37,Bài 2,练习,liànxí,Động từ / Danh từ,luyện tập,luyện tập,我每天练习汉语,Wǒ měi tiān liàn xí hàn yǔ,Tôi luyện tiếng Trung mỗi ngày.,https://static.xiehanzi.com/word_audios/练习.mp3
 38,Bài 2,好处,hǎochù,Danh từ,hảo xứ,lợi ích,运动有很多好处,Yùn dòng yǒu hěn duō hǎo chù,Vận động có nhiều lợi ích,https://static.xiehanzi.com/word_audios/好处.mp3
 39,Bài 2,注意,zhùyì,Động từ,chú ý,chú ý,请注意听老师讲课。,Qǐng zhùyì tīng lǎoshī jiǎngkè.,Vui lòng chú ý nghe thầy giáo giảng bài.,https://static.xiehanzi.com/word_audios/注意.mp3
-40,Bài 2,合适,héshì,Tính từ,hợp thích,phù hợp,这件衣服很合适,Zhè jiàn yī fú hěn hé shì,Cái quần áo này rất vừa,https://static.xiehanzi.com/word_audios/合适.mp3
+40,Bài 2,合适,héshì,Tính từ,hợp thích,phù hợp,这件衣服很合适,Zhè jiàn yī fú hěn hé shì,Chiếc áo này rất vừa vặn.,https://static.xiehanzi.com/word_audios/合适.mp3
 41,Bài 2,中介,zhōngjiè,Danh từ,trung giới,đại lý,我通过中介公司租了一套房子。,wǒ tōng guò zhōng jiè gōng sī zū le yí tào fáng zi.,Tôi đã thuê một căn nhà thông qua công ty môi giới.,https://static.xiehanzi.com/word_audios/中介.mp3
 42,Bài 2,公司,gōngsī,Danh từ,"công ti, tư",công ty,我在一家公司工作,Wǒ zài yī jiā gōng sī gōng zuò,Tôi làm việc ở một công ty,https://static.xiehanzi.com/word_audios/公司.mp3
 43,Bài 2,发现,fāxiàn,Động từ / Danh từ,phát hiện,phát hiện,我发现了一个错误,Wǒ fā xiàn le yī gè cuò wù,Tôi đã phát hiện một lỗi,https://static.xiehanzi.com/word_audios/发现.mp3
@@ -48,25 +48,25 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 47,Bài 2,高,gāo,Tính từ / Danh từ,cao,cao,很高,hěn gāo,Rất cao,https://static.xiehanzi.com/word_audios/高.mp3
 48,Bài 2,流利,liúlì,Tính từ,lưu lợi,lưu loát,他说得很流利,Tā shuō dé hěn liú lì,Anh ấy nói rất lưu loát,https://static.xiehanzi.com/word_audios/流利.mp3
 49,Bài 2,原来,yuánlái,Phó từ / Tính từ,nguyên lai,ban đầu; trước đây,原来是他,Yuán lái shì tā,Thì ra là anh ấy,https://static.xiehanzi.com/word_audios/原来.mp3
-50,Bài 2,套,tào,Danh từ / Lượng từ / Động từ,sáo,bộ,一套家具,Yī tào jiā jù,Một bộ đồ gia dụng,https://static.xiehanzi.com/word_audios/套.mp3
+50,Bài 2,套,tào,Danh từ / Lượng từ / Động từ,sáo,bộ,一套家具,Yī tào jiā jù,Một bộ đồ nội thất.,https://static.xiehanzi.com/word_audios/套.mp3
 51,Bài 2,公寓,gōngyù,Danh từ,công ngụ,căn hộ,他们租了一套公寓。,Tā men zū le yī tào gōng yù.,Họ đã thuê một căn hộ.,https://static.xiehanzi.com/word_audios/公寓.mp3
 52,Bài 2,远,yuǎn,Tính từ,viễn,xa,我家很远,Wǒ jiā hěn yuǎn,Nhà tôi rất xa,https://static.xiehanzi.com/word_audios/远.mp3
 53,Bài 2,搬家,bānjiā,Động từ,ban gia,chuyển nhà,我们这个月搬家。,Wǒmen zhège yuè bānjiā.,Tháng này chúng tôi chuyển nhà.,https://static.xiehanzi.com/word_audios/搬家.mp3
-54,Bài 3,包,bāo,Động từ / Danh từ / Lượng từ,bao,gói,给我一个包,Gěi wǒ yī gè bāo,Cho tôi một cái bao,https://static.xiehanzi.com/word_audios/包.mp3
-55,Bài 3,先生,xiānsheng,Danh từ,"tiên sinh, sanh","ông, ngài, chồng",这位先生贵姓,Zhè wèi xiānsheng guì xìng,Ông này tên gì,https://static.xiehanzi.com/word_audios/先生.mp3
+54,Bài 3,包,bāo,Động từ / Danh từ / Lượng từ,bao,gói,请帮我把礼物包好。,Qǐng bāng wǒ bǎ lǐwù bāo hǎo.,Hãy giúp tôi gói món quà cho cẩn thận.,https://static.xiehanzi.com/word_audios/包.mp3
+55,Bài 3,先生,xiānsheng,Danh từ,"tiên sinh, sanh","ông, ngài, chồng",先生，请问您贵姓？,"Xiānsheng, qǐngwèn nín guìxìng?","Thưa ông, xin hỏi ông họ gì?",https://static.xiehanzi.com/word_audios/先生.mp3
 56,Bài 3,不久,bùjiǔ,Danh từ / Phó từ / Tính từ,bất cửu,sắp tới,不久就要下雨,Bù jiǔ jiù yào xià yǔ,Sắp tới sẽ có mưa,https://static.xiehanzi.com/word_audios/不久.mp3
-57,Bài 3,长,zhǎng,Tính từ / Động từ / Danh từ,trưởng,phát triển,他的头发很长,Tā de tóu fā hěn zhǎng,Tóc anh ấy rất dài,https://static.xiehanzi.com/word_audios/长.mp3
+57,Bài 3,长,zhǎng,Tính từ / Động từ / Danh từ,trưởng,phát triển,孩子长高了。,Háizi zhǎng gāo le.,Đứa trẻ đã cao lên rồi.,https://static.xiehanzi.com/word_audios/长.mp3
 58,Bài 3,样子,yàngzi,Danh từ,dạng tử,"hình dạng, loại, mẫu mã",他的样子很奇怪。,Tā de yàng zi hěn qí guài.,Dáng vẻ của anh ấy rất lạ.,https://static.xiehanzi.com/word_audios/样子.mp3
 59,Bài 3,头发,tóufa,Danh từ,đầu phát,tóc,她的头发很长,Tā de tóu fā hěn zhǎng,Tóc cô ấy rất dài,https://static.xiehanzi.com/word_audios/头发.mp3
 60,Bài 3,眼睛,yǎnjing,Danh từ,nhãn tình,mắt,我眼睛很大,Wǒ yǎn jīng hěn dà,Mắt tôi to,https://static.xiehanzi.com/word_audios/眼睛.mp3
 61,Bài 3,个子,gèzi,Danh từ,cá tử,chiều cao,他个子很高,Tā gè zi hěn gāo,Anh ấy cao lớn,https://static.xiehanzi.com/word_audios/个子.mp3
 62,Bài 3,米,mǐ,Danh từ / Lượng từ,mễ,mét,三米长,Sān mǐ zhǎng,Dài ba mét,https://static.xiehanzi.com/word_audios/米.mp3
 63,Bài 3,穿,chuān,Động từ,xuyên,mặc,孩子已经会自己穿衣服了。,Hái zi yǐ jīng huì zì jǐ chuān yī fú le.,Đứa trẻ đã biết tự mặc quần áo.,https://static.xiehanzi.com/word_audios/穿.mp3
-64,Bài 3,着,zhe,Trợ từ / Động từ,trước,động từ tiếp diễn,他看着书,Tā kànzhe shū,Anh ấy đang đọc sách,https://static.xiehanzi.com/word_audios/着.mp3
+64,Bài 3,着,zhe,Trợ từ,trước,trợ từ chỉ sự tiếp diễn của động tác hoặc trạng thái,他看着书,Tā kànzhe shū,Anh ấy đang đọc sách,https://static.xiehanzi.com/word_audios/着.mp3
 65,Bài 3,衬衫,chènshān,Danh từ,sấn sam,áo sơ mi,他今天穿着一件白衬衫。,Tā jīntiān chuān zhe yí jiàn bái chènshān.,Hôm nay anh ấy mặc một chiếc áo sơ mi trắng.,https://static.xiehanzi.com/word_audios/衬衫.mp3
 66,Bài 3,牛仔裤,niúzǎikù,Danh từ,ngưu tể khố,quần jean,他平时最喜欢穿牛仔裤和运动鞋。,tā píng shí zuì xǐ huan chuān niú zǎi kù hé yùn dòng xié.,Ngày thường anh ấy thích mặc quần jean và giày thể thao nhất.,https://static.xiehanzi.com/word_audios/牛仔裤.mp3
-67,Bài 3,背,bēi,Động từ / Danh từ / Tính từ,"bối, bội",mang trên lưng; lưng,他背着书包,Tā bèi zhe shū bāo,Anh ấy mang ba lô trên lưng,https://static.xiehanzi.com/word_audios/背.mp3
-68,Bài 3,左右,zuǒyòu,Danh từ / Phó từ / Động từ,tả hữu,khoảng,我的左右手都受伤了。,Wǒde zuǒyòu shǒu dōu shòushāng le.,Cả tay trái và tay phải của tôi đều bị thương.,https://static.xiehanzi.com/word_audios/左右.mp3
+67,Bài 3,背,bēi,Động từ / Danh từ / Tính từ,"bối, bội",mang trên lưng; lưng,他背着书包。,Tā bēizhe shūbāo.,Anh ấy mang cặp sách trên lưng.,https://static.xiehanzi.com/word_audios/背.mp3
+68,Bài 3,左右,zuǒyòu,Danh từ / Phó từ / Động từ,tả hữu,khoảng,他二十岁左右。,Tā èrshí suì zuǒyòu.,Anh ấy khoảng hai mươi tuổi.,https://static.xiehanzi.com/word_audios/左右.mp3
 69,Bài 3,寻,xún,Động từ / Lượng từ,tầm,tìm kiếm,警察正在寻找走失的孩子。,Jǐngchá zhèngzài xúnzhǎo zǒushī de háizi.,Cảnh sát đang tìm kiếm đứa trẻ bị lạc.,https://static.xiehanzi.com/word_audios/寻.mp3
 70,Bài 3,启事,qǐshì,Danh từ,khải sự,thông báo,学校布告栏上贴了一张寻物启事。,Xuéxiào bùgàolán shang tiē le yì zhāng xúnwù qǐshì.,Trên bảng thông báo của trường dán một tờ thông báo tìm đồ thất lạc.,https://static.xiehanzi.com/word_audios/启事.mp3
 71,Bài 3,南,nán,Từ chỉ phương vị / Danh từ,nam,nam,他住在中国南方。,Tā zhù zài zhōng guó nán fāng.,Anh ấy sống ở miền Nam Trung Quốc.,https://static.xiehanzi.com/word_audios/南.mp3
@@ -74,7 +74,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 73,Bài 3,红色,hóngsè,Danh từ / Tính từ,hồng sắc,màu đỏ,红色代表幸运,Hóng sè dài biǎo xìng yùn,Màu đỏ biểu thị sự may mắn,https://static.xiehanzi.com/word_audios/红色.mp3
 74,Bài 3,里面,lǐmiàn,Từ chỉ phương vị / Danh từ,"lí diện, miến",bên trong,房间里面有三个人。,Fángjiān lǐmiàn yǒu sān gè rén.,Trong phòng có ba người.,https://static.xiehanzi.com/word_audios/里面.mp3
 75,Bài 3,支,zhī,Động từ / Lượng từ,chi,"chống đỡ, hỗ trợ",请你支持我的工作。,Qǐng nǐ zhīchí wǒ de gōngzuò.,Xin hãy ủng hộ công việc của tôi.,https://static.xiehanzi.com/word_audios/支.mp3
-76,Bài 3,本子,běnzi,Danh từ,bản tử,vở bài tập,我买了一个本子。,Wǒ mǎile yí gè běnzi.,Tôi mua một cuốn vở.,https://static.xiehanzi.com/word_audios/本子.mp3
+76,Bài 3,本子,běnzi,Danh từ,bản tử,vở bài tập,我买了一本新本子。,Wǒ mǎi le yì běn xīn běnzi.,Tôi đã mua một cuốn vở mới.,https://static.xiehanzi.com/word_audios/本子.mp3
 77,Bài 3,拾,shí,Động từ / Số từ,thập,nhặt lên,我在地上拾到钱,Wǒ zài dìshàng shí dào qián,Tôi nhặt được tiền trên đất,https://static.xiehanzi.com/word_audios/拾.mp3
 78,Bài 3,或者,huòzhě,Liên từ / Phó từ,hoặc giả,hoặc,你可以喝茶或者咖啡,Nǐ kě yǐ hē chá huò zhě kā fēi,Bạn có thể uống trà hoặc cà phê,https://static.xiehanzi.com/word_audios/或者.mp3
 79,Bài 3,联系,liánxì,Động từ / Danh từ,liên hệ,liên lạc,请通过电话跟我联系。,Qǐng tōngguò diànhuà gēn wǒ liánxì.,Vui lòng liên lạc với tôi qua điện thoại.,https://static.xiehanzi.com/word_audios/联系.mp3
@@ -89,15 +89,15 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 88,Bài 4,一样,yīyàng,Tính từ / Đại từ,nhất dạng,giống nhau,我们一样,Wǒmen yīyàng,Chúng tôi giống nhau,https://static.xiehanzi.com/word_audios/一样.mp3
 89,Bài 4,比如说,bǐrúshuō,Động từ / Liên từ,tỉ như thuyết,ví dụ như,我喜欢的运动有很多，比如说跑步、游泳,"Wǒ xǐ huān de yùn dòng yǒu hěn duō, bǐ rú shuō pǎo bù 、 yóu yǒng","Môn thể thao tôi thích rất nhiều, ví dụ như chạy bộ, bơi lội",https://static.xiehanzi.com/word_audios/比如说.mp3
 90,Bài 4,面积,miànjī,Danh từ,"diện, miến tích",diện tích,这个房间面积很大。,Zhège fángjiān miànjī hěn dà.,Căn phòng này có diện tích rất lớn.,https://static.xiehanzi.com/word_audios/面积.mp3
-91,Bài 4,人口,rénkǒu,Danh từ,nhân khẩu,dân số,中国人口很多,Zhōng guó rén kǒu hěn duō,Dân số Trung Quốc rất nhiều,https://static.xiehanzi.com/word_audios/人口.mp3
+91,Bài 4,人口,rénkǒu,Danh từ,nhân khẩu,dân số,中国人口众多。,Zhōngguó rénkǒu zhòngduō.,Trung Quốc có dân số đông.,https://static.xiehanzi.com/word_audios/人口.mp3
 92,Bài 4,发达,fādá,Tính từ / Động từ,phát đạt,phát triển,这是一个发达国家。,Zhè shì yīgè fādá guójiā.,Đây là một nước phát triển.,https://static.xiehanzi.com/word_audios/发达.mp3
 93,Bài 4,国家,guójiā,Danh từ,quốc gia,quốc gia,我爱我的国家,Wǒ ài wǒ de guójiā,Tôi yêu đất nước tôi,https://static.xiehanzi.com/word_audios/国家.mp3
 94,Bài 4,发展,fāzhǎn,Động từ,phát triển,phát triển,中国经济近年来发展很快。,Zhōngguó jīngjì jìnnián lái fāzhǎn hěn kuài.,Kinh tế Trung Quốc những năm gần đây phát triển rất nhanh.,https://static.xiehanzi.com/word_audios/发展.mp3
-95,Bài 4,上班,shàngbān,Động từ,thượng ban,đi làm,我每天八点上班,Wǒ měitiān bā diǎn shàngbān,Tôi mỗi ngày tám giờ đi làm,https://static.xiehanzi.com/word_audios/上班.mp3
+95,Bài 4,上班,shàngbān,Động từ,thượng ban,đi làm,我每天八点上班,Wǒ měitiān bā diǎn shàngbān,Mỗi ngày tôi bắt đầu làm việc lúc tám giờ.,https://static.xiehanzi.com/word_audios/上班.mp3
 96,Bài 4,上学,shàngxué,Động từ,thượng học,đi học,我每天早上上学。,Wǒ měitiān zǎoshang shàngxué.,Tôi đi học mỗi buổi sáng.,https://static.xiehanzi.com/word_audios/上学.mp3
 97,Bài 4,亿,yì,Số từ / Danh từ,ức,một trăm triệu,中国有十四亿人,Zhōng guó yǒu shí sì yì rén,Trung Quốc có một tỷ bốn trăm triệu người,https://static.xiehanzi.com/word_audios/亿.mp3
 98,Bài 4,到处,dàochù,Danh từ / Phó từ,đáo xứ,khắp nơi,到处都是花,Dào chù dōu shì huā,Khắp nơi đều là hoa,https://static.xiehanzi.com/word_audios/到处.mp3
-99,Bài 4,下班,xiàbān,Động từ,hạ ban,tan làm,我六点下班,Wǒ liù diǎn xiàbān,Tôi sáu giờ tan làm,https://static.xiehanzi.com/word_audios/下班.mp3
+99,Bài 4,下班,xiàbān,Động từ,hạ ban,tan làm,我六点下班,Wǒ liù diǎn xiàbān,Tôi tan làm lúc sáu giờ.,https://static.xiehanzi.com/word_audios/下班.mp3
 100,Bài 4,汽车,qìchē,Danh từ,khí xa,xe ô tô,我买了汽车,Wǒ mǎi le qì chē,Tôi mua xe ô tô,https://static.xiehanzi.com/word_audios/汽车.mp3
 101,Bài 4,像,xiàng,Động từ / Danh từ,tượng,giống như,他像他父亲,Tā xiàng tā fù qīn,Anh ấy giống bố anh ấy,https://static.xiehanzi.com/word_audios/像.mp3
 102,Bài 4,壮观,zhuàngguān,Tính từ / Danh từ,tráng quan,cảnh tượng hùng vĩ,长城的景色十分壮观,Chángchéng de jǐngsè shífēn zhuàngguān,Cảnh quan của Vạn Lý Trường Thành rất hùng vĩ,https://static.xiehanzi.com/word_audios/壮观.mp3
@@ -114,7 +114,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 113,Bài 4,菜系,càixì,Danh từ,thái hệ,"trường phái ẩm thực, phong cách nấu ăn",中国有八大菜系。,Zhōngguó yǒu bādà càixì.,Trung Quốc có tám trường phái ẩm thực lớn.,https://static.xiehanzi.com/word_audios/菜系.mp3
 114,Bài 4,平方公里,píngfāng gōnglǐ,Danh từ / Đơn vị đo lường,bình phương công lí,kilômét vuông (km²),这个城市的面积有两千平方公里。,Zhège chéngshì de miànjī yǒu liǎngqiān píngfāng gōnglǐ.,Diện tích thành phố này là hai nghìn kilômét vuông.,https://static.xiehanzi.com/word_audios/平方公里.mp3
 115,Bài 5,点,diǎn,Lượng từ / Danh từ / Động từ,điểm,giờ,现在三点,Xiànzài sān diǎn,Bây giờ 3 giờ,https://static.xiehanzi.com/word_audios/点.mp3
-116,Bài 5,早,zǎo,Phó từ / Danh từ / Tính từ,tảo,sớm,我每天早上六点起床,Wǒ měitiān zǎoshang liù diǎn qǐchuáng,Tôi mỗi ngày sáng sáu giờ thức dậy,https://static.xiehanzi.com/word_audios/早.mp3
+116,Bài 5,早,zǎo,Phó từ / Danh từ / Tính từ,tảo,sớm,我每天早上六点起床,Wǒ měitiān zǎoshang liù diǎn qǐchuáng,Mỗi sáng tôi thức dậy lúc sáu giờ.,https://static.xiehanzi.com/word_audios/早.mp3
 117,Bài 5,家,jiā,Danh từ / Lượng từ,gia,"gia đình, nhà",我爱我家,Wǒ ài wǒ jiā,Tôi yêu gia đình tôi,https://static.xiehanzi.com/word_audios/家.mp3
 118,Bài 5,位,wèi,Danh từ / Lượng từ,vị,vị (từ để chỉ người kính trọng),这五位客人,Zhè wǔ wèi kè rén,Năm vị khách này,https://static.xiehanzi.com/word_audios/位.mp3
 119,Bài 5,女士,nǚshì,Danh từ,nữ sĩ,quý bà,那位女士是我们的新老师。,Nà wèi nǚ shì shì wǒ men de xīn lǎo shī.,Người phụ nữ kia là giáo viên mới của chúng tôi.,https://static.xiehanzi.com/word_audios/女士.mp3
@@ -128,11 +128,11 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 127,Bài 5,煮,zhǔ,Động từ,chử,đun sôi,我今天晚上煮了牛肉面。,wǒ jīn tiān wǎn shang zhǔ le niú ròu miàn.,Tối nay tôi đã nấu mì thịt bò.,https://static.xiehanzi.com/word_audios/煮.mp3
 128,Bài 5,方便面,fāngbiànmiàn,Danh từ,"phương tiện diện, miến",mì ăn liền,我泡了一碗方便面,Wǒ pào le yī wǎn fāng biàn miàn,Tôi pha một bát mì ăn liền,https://static.xiehanzi.com/word_audios/方便面.mp3
 129,Bài 5,肚子,dùzi,Danh từ,đỗ tử,bụng,我肚子饿了。,Wǔzi è le.,Tôi đang đói bụng.,https://static.xiehanzi.com/word_audios/肚子.mp3
-130,Bài 5,告诉,gàosu,Động từ,cáo tố,"báo, nói",我告诉你一个秘密,Wǒ gàosu nǐ yī gè mìmì,Tôi báo cho bạn một bí mật,https://static.xiehanzi.com/word_audios/告诉.mp3
+130,Bài 5,告诉,gàosu,Động từ,cáo tố,"báo, nói",我告诉你一个秘密,Wǒ gàosu nǐ yī gè mìmì,Tôi nói cho bạn biết một bí mật.,https://static.xiehanzi.com/word_audios/告诉.mp3
 131,Bài 5,火锅,huǒguō,Danh từ,hỏa oa,lẩu,朋友们一起去吃火锅,Péngyǒumen yīqǐ qù chī huǒguō,Nhóm bạn cùng nhau đi ăn lẩu,https://static.xiehanzi.com/word_audios/火锅.mp3
 132,Bài 5,最近,zuìjìn,Danh từ / Phó từ,tối cận,gần đây,你最近怎么样？,Nǐ zuì jìn zěn me yàng ？,Dạo này bạn thế nào?,https://static.xiehanzi.com/word_audios/最近.mp3
 133,Bài 5,开张,kāizhāng,Động từ,khai trương,mở cửa kinh doanh,这家店明天开张,Zhè jiā diàn míngtiān kāizhāng,Cửa hàng này ngày mai khai trương,https://static.xiehanzi.com/word_audios/开张.mp3
-134,Bài 5,酒水,jiǔshuǐ,Danh từ,tửu thủy,đồ uống có cồn,婚宴上的酒水费用很贵,Hūnyàn shàng de jiǔshuǐ fèiyòng hěn guì,Chi phí đồ uống trong tiệc cưới rất đắt,https://static.xiehanzi.com/word_audios/酒水.mp3
+134,Bài 5,酒水,jiǔshuǐ,Danh từ,tửu thủy,đồ uống có cồn,婚宴上的酒水费用很高。,Hūnyàn shàng de jiǔshuǐ fèiyòng hěn gāo.,Chi phí đồ uống trong tiệc cưới rất cao.,https://static.xiehanzi.com/word_audios/酒水.mp3
 135,Bài 5,免费,miǎnfèi,Tính từ / Động từ,miễn phí,miễn phí,这个展览免费,zhège zhǎnlǎn miǎnfèi,Triển lãm này miễn phí,https://static.xiehanzi.com/word_audios/免费.mp3
 136,Bài 5,跟,gēn,Giới từ,cân,với; theo,我跟你一起去。,Wǒ gēn nǐ yìqǐ qù.,Tôi đi cùng với bạn.,https://static.xiehanzi.com/word_audios/跟.mp3
 137,Bài 5,环境,huánjìng,Danh từ,hoàn cảnh,môi trường,保护环境是每个人的责任。,Bǎohù huánjìng shì měi gèrén de zérèn.,Bảo vệ môi trường là trách nhiệm của mỗi người.,https://static.xiehanzi.com/word_audios/环境.mp3
@@ -140,7 +140,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 139,Bài 5,态度,tàidu,Danh từ,thái độ,thái độ,他的态度很好,Tā de tài dù hěn hǎo,Thái độ của anh ấy rất tốt,https://static.xiehanzi.com/word_audios/态度.mp3
 140,Bài 5,价钱,jiàqian,Danh từ,giá tiền,giá,这件衣服的价钱很便宜。,Zhè jiàn yī fú de jià qián hěn biàn yí.,Cái áo này giá rất rẻ.,https://static.xiehanzi.com/word_audios/价钱.mp3
 141,Bài 5,算,suàn,Động từ,toán,đếm,让我算一下这次旅行要花多少钱。,ràng wǒ suàn yī xià zhè cì lǚ xíng yào huā duō shǎo qián.,Để tôi tính một chút xem chuyến du lịch lần này tốn bao nhiêu tiền.,https://static.xiehanzi.com/word_audios/算.mp3
-142,Bài 5,公道,gōngdao,Tính từ,công đạo,công bằng,这家商店收费公道，顾客很多。,"zhè jiā shāng diàn shōu fèi gōng dao, gù kè hěn duō.","Cửa hàng này thu phí công bằng, khách hàng rất đông.",https://static.xiehanzi.com/word_audios/公道.mp3
+142,Bài 5,公道,gōngdao,Tính từ,công đạo,công bằng,这家商店收费公道，顾客很多。,"zhè jiā shāng diàn shōu fèi gōng dao, gù kè hěn duō.","Cửa hàng này tính giá hợp lý, có rất đông khách.",https://static.xiehanzi.com/word_audios/公道.mp3
 143,Bài 5,辣,là,Tính từ,lạt,cay,四川菜非常辣，但是很好吃。,"Sìchuān cài fēicháng là, dànshì hěn hǎochī.","Món ăn Tứ Xuyên rất cay, nhưng rất ngon.",https://static.xiehanzi.com/word_audios/辣.mp3
 144,Bài 5,一些,yìxiē,Số từ / Lượng từ,nhất ta,một vài,我有一些中国朋友。,Wǒ yǒu yìxiē Zhōngguó péngyou.,Tôi có một số bạn Trung Quốc.,https://static.xiehanzi.com/word_audios/一些.mp3
 145,Bài 6,学校,xuéxiào,Danh từ,học hiệu,trường học,他是学校的老师。,Tā shì xuéxiào de lǎoshī.,Anh ấy là giáo viên của trường.,https://static.xiehanzi.com/word_audios/学校.mp3
@@ -148,7 +148,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 147,Bài 6,发生,fāshēng,Động từ,"phát sinh, sanh",xảy ra,昨天发生了一件奇怪的事情。,Zuó tiān fā shēng le yī jiàn qí guài de shì qíng.,Hôm qua đã xảy ra một việc lạ.,https://static.xiehanzi.com/word_audios/发生.mp3
 148,Bài 6,过去,guòqù,Danh từ / Động từ,quá khứ,trong quá khứ; quá khứ; đi qua,过去的事情就让它过去吧。,Guò qù de shì qíng jiù ràng tā guò qù ba.,Việc quá khứ cứ để nó qua đi.,https://static.xiehanzi.com/word_audios/过去.mp3
 149,Bài 6,广告,guǎnggào,Danh từ / Động từ,quảng cáo,quảng cáo,我在电视上看到了这个广告。,Wǒ zài diànshì shàng kàndào le zhège guǎnggào.,Tôi đã nhìn thấy quảng cáo này trên TV.,https://static.xiehanzi.com/word_audios/广告.mp3
-150,Bài 6,栏,lán,Danh từ,lan,cột,请看广告栏里的最新招聘信息。,Qǐng kàn guǎnggàolán lǐ de zuìxīn zhāopìn xìnxī.,Xin hãy xem thông tin tuyển dụng mới nhất trong cột quảng cáo.,https://static.xiehanzi.com/word_audios/栏.mp3
+150,Bài 6,栏,lán,Danh từ,lan,cột,请看广告栏里的最新招聘信息。,Qǐng kàn guǎnggàolán lǐ de zuìxīn zhāopìn xìnxī.,Xin hãy xem thông tin tuyển dụng mới nhất trên bảng quảng cáo.,https://static.xiehanzi.com/word_audios/栏.mp3
 151,Bài 6,贴,tiē,Động từ / Danh từ,thiếp,dán,墙上贴着一张世界地图。,Qiáng shang tiē zhe yì zhāng shìjiè dìtú.,Trên tường dán một tấm bản đồ thế giới.,https://static.xiehanzi.com/word_audios/贴.mp3
 152,Bài 6,通知,tōngzhī,Động từ / Danh từ,thông tri,thông báo,老师通知我们明天考试,Lǎo shī tōng zhī wǒ men míng tiān kǎo shì,Thầy giáo thông báo cho chúng tôi ngày mai kiểm tra,https://static.xiehanzi.com/word_audios/通知.mp3
 153,Bài 6,活动,huódòng,Danh từ / Động từ,hoạt động,hoạt động; sự kiện,我们参加很多活动,Wǒ men cān jiā hěn duō huó dòng,Chúng tôi tham gia nhiều hoạt động,https://static.xiehanzi.com/word_audios/活动.mp3
@@ -171,10 +171,10 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 170,Bài 6,举办,jǔbàn,Động từ,cử biện,tổ chức,学校下周将举办运动会。,Xuéxiào xià zhōu jiāng jǔbàn yùndònghuì.,Tuần sau trường sẽ tổ chức đại hội thể thao.,https://static.xiehanzi.com/word_audios/举办.mp3
 171,Bài 6,篮球,lánqiú,Danh từ,lam cầu,bóng rổ,他喜欢打篮球,Tā xǐ huān dǎ lán qiú,Anh ấy thích chơi bóng rổ,https://static.xiehanzi.com/word_audios/篮球.mp3
 172,Bài 6,地点,dìdiǎn,Danh từ,địa điểm,địa điểm,我们在什么地点见面？,Wǒmen zài shénme dìdiǎn jiànmiàn?,Chúng ta gặp nhau ở địa điểm nào?,https://static.xiehanzi.com/word_audios/地点.mp3
-173,Bài 6,部,bù,Danh từ / Lượng từ,bộ,quyển,教育部发布了新的政策。,Jiàoyùbù fābù le xīn de zhèngcè.,Bộ Giáo dục đã ban hành chính sách mới.,https://static.xiehanzi.com/word_audios/部.mp3
+173,Bài 6,部,bù,Lượng từ,bộ,"lượng từ cho tác phẩm, phim",我看了一部中国电影。,Wǒ kàn le yí bù Zhōngguó diànyǐng.,Tôi đã xem một bộ phim Trung Quốc.,https://static.xiehanzi.com/word_audios/部.mp3
 174,Bài 6,广告栏,guǎnggàolán,Danh từ,quảng cáo lan,"bảng quảng cáo, cột quảng cáo",请把通知贴在广告栏上。,Qǐng bǎ tōngzhī tiē zài guǎnggàolán shàng.,Xin hãy dán thông báo lên bảng quảng cáo.,https://static.xiehanzi.com/word_audios/广告栏.mp3
 175,Bài 6,学生证,xuéshēngzhèng,Danh từ,"học sinh, sanh chứng",thẻ học sinh/sinh viên,请出示您的学生证。,Qǐng chūshì nín de xuéshēngzhèng.,Xin hãy xuất trình thẻ học sinh của bạn.,https://static.xiehanzi.com/word_audios/学生证.mp3
-176,Bài 7,毛,máo,Danh từ / Lượng từ / Tính từ,mao,"lông, len",一毛钱,Yī máo qián,Một mao (10 phân),https://static.xiehanzi.com/word_audios/毛.mp3
+176,Bài 7,毛,máo,Danh từ / Lượng từ / Tính từ,mao,"lông, len",这只猫的毛很软。,Zhè zhī māo de máo hěn ruǎn.,Lông của con mèo này rất mềm.,https://static.xiehanzi.com/word_audios/毛.mp3
 177,Bài 7,应该,yīnggāi,Trợ động từ,ưng cai,nên,你应该多喝水,Nǐ yīng gāi duō hē shuǐ,Bạn nên uống nhiều nước,https://static.xiehanzi.com/word_audios/应该.mp3
 178,Bài 7,苹果,píngguǒ,Danh từ,bình quả,táo,我喜欢吃苹果。,Wǒ xǐhuān chī píngguǒ.,Tôi thích ăn táo.,https://static.xiehanzi.com/word_audios/苹果.mp3
 179,Bài 7,报,bào,Động từ / Danh từ,báo,báo,请报一下你的名字。,Qǐng bào yī xià nǐ de míng zì.,Hãy báo tên của bạn.,https://static.xiehanzi.com/word_audios/报.mp3
@@ -193,18 +193,18 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 192,Bài 7,猜,cāi,Động từ,sai,đoán,你猜猜我手里拿的是什么？,Nǐ cāicai wǒ shǒu lǐ ná de shì shénme?,Bạn đoán xem trong tay tôi cầm cái gì nào?,https://static.xiehanzi.com/word_audios/猜.mp3
 193,Bài 7,圆,yuán,Tính từ / Danh từ,viên,tròn,桌子是圆的,Zhuōzi shì yuán de,Cái bàn hình tròn,https://static.xiehanzi.com/word_audios/圆.mp3
 194,Bài 7,胖,pàng,Tính từ,bàn,béo,他很胖,Tā hěn pàng,Anh ấy rất mập,https://static.xiehanzi.com/word_audios/胖.mp3
-195,Bài 7,身上,shēnshàng,Từ chỉ phương vị / Danh từ,thân thượng,trên tay,他身上没有钱。,Tā shēnshang méiyǒu qián.,Anh ấy không mang tiền trên người.,https://static.xiehanzi.com/word_audios/身上.mp3
+195,Bài 7,身上,shēnshàng,Từ chỉ phương vị / Danh từ,thân thượng,trên người,他身上没有钱。,Tā shēnshang méiyǒu qián.,Anh ấy không mang tiền trên người.,https://static.xiehanzi.com/word_audios/身上.mp3
 196,Bài 7,耳朵,ěrduo,Danh từ,nhĩ đóa,tai,我的耳朵疼,Wǒ de ěrduo téng,Tai của tôi đau,https://static.xiehanzi.com/word_audios/耳朵.mp3
 197,Bài 7,四肢,sìzhī,Danh từ,tứ chi,tứ chi,运动前要做好热身，活动一下四肢。,"yùn dòng qián yào zuò hǎo rè shēn, huó dòng yí xià sì zhī.","Trước khi vận động cần khởi động kỹ, vận động tứ chi một chút.",https://static.xiehanzi.com/word_audios/四肢.mp3
 198,Bài 7,戴,dài,Động từ,đái,đeo,他戴着一副黑色的眼镜。,Tā dài zhe yí fù hēisè de yǎnjìng.,Anh ấy đeo một cặp kính màu đen.,https://static.xiehanzi.com/word_audios/戴.mp3
-199,Bài 7,副,fù,Tính từ / Lượng từ / Danh từ,phó,phó,我买了一副新的手套。,Wǒ mǎi le yí fù xīn de shǒutào.,Tôi đã mua một đôi găng tay mới.,https://static.xiehanzi.com/word_audios/副.mp3
+199,Bài 7,副,fù,Lượng từ,phó,"lượng từ chỉ đôi, cặp hoặc bộ",我买了一副新的手套。,Wǒ mǎi le yí fù xīn de shǒutào.,Tôi đã mua một đôi găng tay mới.,https://static.xiehanzi.com/word_audios/副.mp3
 200,Bài 7,可爱,kě'ài,Tính từ,khả ái,đáng yêu,你的妹妹真可爱,Nǐ de mèi mèi zhēn kě ài,Em gái cậu thật đáng yêu,https://static.xiehanzi.com/word_audios/可爱.mp3
 201,Bài 7,食物,shíwù,Danh từ,thực vật,thức ăn,这家餐厅的食物很好吃。,Zhè jiā cān tīng de shí wù hěn hǎo chī.,Thức ăn ở nhà hàng này rất ngon.,https://static.xiehanzi.com/word_audios/食物.mp3
 202,Bài 7,竹子,zhúzi,Danh từ,trúc tử,tre,院子里种了很多竹子。,Yuànzi lǐ zhòng le hěnduō zhúzi.,Trong sân trồng nhiều tre.,https://static.xiehanzi.com/word_audios/竹子.mp3
 203,Bài 7,出来,chūlai,Động từ / Trợ từ,xuất lai,ra ngoài,请出来一下。,Qǐng chūlái yīxià.,Xin hãy ra ngoài một chút.,https://static.xiehanzi.com/word_audios/出来.mp3
 204,Bài 7,熊猫,xióngmāo,Danh từ,hùng miêu,gấu trúc,熊猫是中国的国宝。,Xióngmāo shì Zhōngguó de guóbǎo.,Gấu trúc là quốc bảo của Trung Quốc.,https://static.xiehanzi.com/word_audios/熊猫.mp3
 205,Bài 7,地区,dìqū,Danh từ,địa khu,khu vực,这个地区发展很快。,Zhège dìqū fāzhǎn hěn kuài.,Khu vực này phát triển rất nhanh.,https://static.xiehanzi.com/word_audios/地区.mp3
-206,Bài 7,粗,cū,Tính từ,thô,thô,这棵大树的树干非常粗。,Zhè kē dàshù de shùgàn fēicháng cū.,Thân cây to này rất to và thô.,https://static.xiehanzi.com/word_audios/粗.mp3
+206,Bài 7,粗,cū,Tính từ,thô,thô,这棵大树的树干非常粗。,Zhè kē dàshù de shùgàn fēicháng cū.,Thân cây đại thụ này rất to.,https://static.xiehanzi.com/word_audios/粗.mp3
 207,Bài 7,柱子,zhùzi,Danh từ,trụ tử,cột,这些柱子支撑着屋顶。,Zhè xiē zhù zi zhī chēng zhe wū dǐng.,Những chiếc cột này đỡ mái nhà.,https://static.xiehanzi.com/word_audios/柱子.mp3
 208,Bài 7,扇子,shànzi,Danh từ,phiến tử,quạt giấy,奶奶在树下拿着扇子乘凉。,nǎi nai zài shù xià ná zhe shàn zi chéng liáng.,Bà nội cầm chiếc quạt hóng mát dưới gốc cây.,https://static.xiehanzi.com/word_audios/扇子.mp3
 209,Bài 7,勤劳,qínláo,Tính từ,cần lao,chăm chỉ,越南人民非常勤劳和善良。,Yuè nán rén mín fēi cháng qín láo hé shàn liáng.,Người dân Việt Nam rất chăm chỉ và lương thiện.,https://static.xiehanzi.com/word_audios/勤劳.mp3
@@ -246,9 +246,9 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 245,Bài 8,一块儿,yīkuàir,Trạng từ,nhất khối nhi,"cùng nhau, cùng một chỗ",我们一块儿去图书馆吧。,Wǒmen yīkuàir qù túshūguǎn ba.,Chúng ta cùng nhau đi thư viện đi.,https://static.xiehanzi.com/word_audios/一块儿.mp3
 246,Bài 8,好不,hǎobù,Trạng từ,hảo bất,"thật là, rất là (biểu thị sự ngạc nhiên, cảm thán)",他好不容易才做完这项工作。,Tā hǎobù róngyì cái zuò wán zhè xiàng gōngzuò.,Anh ấy thật không dễ dàng gì mới hoàn thành công việc này.,https://static.xiehanzi.com/word_audios/好不.mp3
 247,Bài 8,乌龟,wūguī,Danh từ,ô quy,rùa,这只乌龟活了很久。,Zhè zhī wūguī huó le hěn jiǔ.,Con rùa này đã sống rất lâu rồi.,https://static.xiehanzi.com/word_audios/乌龟.mp3
-248,Bài 9,着,zhe,Trợ từ / Động từ,trước,động từ tiếp diễn,他看着书,Tā kànzhe shū,Anh ấy đang đọc sách,https://static.xiehanzi.com/word_audios/着.mp3
-249,Bài 9,腿,tuǐ,Danh từ,thối,chân,我的腿很酸,Wǒ de tuǐ hěn suān,Chân tôi rất đau,https://static.xiehanzi.com/word_audios/腿.mp3
-250,Bài 9,拐,guǎi,Động từ / Danh từ,quải,khập khiễng,走到十字路口请向右拐。,Zǒu dào shízì lùkǒu qǐng xiàng yòu guǎi.,Đi đến ngã tư xin hãy rẽ phải.,https://static.xiehanzi.com/word_audios/拐.mp3
+248,Bài 9,着,zhe,Trợ từ,trước,trợ từ chỉ sự tiếp diễn của động tác hoặc trạng thái,他看着书,Tā kànzhe shū,Anh ấy đang đọc sách,https://static.xiehanzi.com/word_audios/着.mp3
+249,Bài 9,腿,tuǐ,Danh từ,thối,chân,我的腿很酸,Wǒ de tuǐ hěn suān,Chân tôi rất nhức mỏi.,https://static.xiehanzi.com/word_audios/腿.mp3
+250,Bài 9,拐,guǎi,Động từ / Danh từ,quải,khập khiễng,他一拐一拐地走进了房间。,Tā yì guǎi yì guǎi de zǒu jìn le fángjiān.,Anh ấy đi khập khiễng vào phòng.,https://static.xiehanzi.com/word_audios/拐.mp3
 251,Bài 9,因为,yīnwèi,Liên từ / Giới từ,nhân vị,bởi vì,因为生病，所以没来上班,"Yīn wèi shēng bìng, suǒ yǐ méi lái shàng bān",Vì ốm nên không đến làm việc,https://static.xiehanzi.com/word_audios/因为.mp3
 252,Bài 9,来不及,láibují,Động từ,lai bất cập,không đủ thời gian,快走，不然来不及了。,"Kuài zǒu, bùrán láibují le.","Đi nhanh, không thì không kịp rồi.",https://static.xiehanzi.com/word_audios/来不及.mp3
 253,Bài 9,窗户,chuānghu,Danh từ,song hộ,cửa sổ,请打开窗户。,Qǐng dǎkāi chuānghù.,Hãy mở cửa sổ.,https://static.xiehanzi.com/word_audios/窗户.mp3
@@ -284,10 +284,10 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 283,Bài 10,地区,dìqū,Danh từ,địa khu,khu vực,这个地区发展很快。,Zhège dìqū fāzhǎn hěn kuài.,Khu vực này phát triển rất nhanh.,https://static.xiehanzi.com/word_audios/地区.mp3
 284,Bài 10,站,zhàn,Động từ / Danh từ,trạm,đứng,请站起来。,Qǐng zhàn qǐ lái.,Vui lòng đứng dậy.,https://static.xiehanzi.com/word_audios/站.mp3
 285,Bài 10,后悔,hòuhuǐ,Động từ,"hậu hối, hổi",hối hận,没能去留学，他感到非常后悔。,"Méi néng qù liúxué, tā gǎndào fēicháng hòuhuǐ.","Không thể đi du học, anh ấy cảm thấy rất hối hận.",https://static.xiehanzi.com/word_audios/后悔.mp3
-286,Bài 10,农村,nóngcūn,Danh từ,nông thôn,vùng nông thôn,我来自一个农村。,Wǒ láizì yī gè nóngcūn.,Tôi đến từ một vùng nông thôn.,https://static.xiehanzi.com/word_audios/农村.mp3
+286,Bài 10,农村,nóngcūn,Danh từ,nông thôn,vùng nông thôn,我来自农村。,Wǒ láizì nóngcūn.,Tôi đến từ nông thôn.,https://static.xiehanzi.com/word_audios/农村.mp3
 287,Bài 10,所,suǒ,Danh từ / Trợ từ,sở,cơ sở,这所大学很有名。,Zhè suǒ dà xué hěn yǒu míng.,Trường đại học này rất nổi tiếng.,https://static.xiehanzi.com/word_audios/所.mp3
 288,Bài 10,幼儿园,yòu'éryuán,Danh từ,ấu nhi viên,nhà trẻ,我的孩子在幼儿园上学,Wǒ de háizi zài yòu'éryuán shàngxué,Con tôi học tại trường mầm non,https://static.xiehanzi.com/word_audios/幼儿园.mp3
-289,Bài 10,游戏,yóuxì,Danh từ,du hí,trò chơi,孩子们在院子里做游戏。,Háizimen zài yuànzi lǐ zuò yóuxì.,Đứa trẻ đang chơi trò chơi trong sân.,https://static.xiehanzi.com/word_audios/游戏.mp3
+289,Bài 10,游戏,yóuxì,Danh từ,du hí,trò chơi,孩子们在院子里做游戏。,Háizimen zài yuànzi lǐ zuò yóuxì.,Bọn trẻ đang chơi trò chơi trong sân.,https://static.xiehanzi.com/word_audios/游戏.mp3
 290,Bài 10,农民,nóngmín,Danh từ,nông dân,nông dân,中国有很多农民。,Zhōngguó yǒu hěn duō nóngmín.,Trung Quốc có rất nhiều nông dân.,https://static.xiehanzi.com/word_audios/农民.mp3
 291,Bài 10,后来,hòulái,Danh từ / Phó từ,hậu lai,sau này,后来他来了,Hòu lái tā lái le,Sau đó anh ấy đến,https://static.xiehanzi.com/word_audios/后来.mp3
 292,Bài 10,附近,fùjìn,Danh từ / Locality noun,phụ cận,gần đây,学校附近有很多商店。,Xuéxiào fùjìn yǒu hěn duō shāngdiàn.,Gần trường học có nhiều cửa hàng.,https://static.xiehanzi.com/word_audios/附近.mp3
@@ -326,7 +326,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 325,Bài 10,敬老院,jìnglǎoyuàn,Danh từ,kính lão viện,viện dưỡng lão,他每个周末都会去敬老院探望老人。,Tā měi ge zhōumò dōu huì qù jìnglǎoyuàn tànwàng lǎorén.,Anh ấy đến viện dưỡng lão thăm người già mỗi cuối tuần.,https://static.xiehanzi.com/word_audios/敬老院.mp3
 326,Bài 10,画儿,huàr,Danh từ,họa nhi,"bức tranh, bức vẽ",墙上挂着一幅漂亮的画儿。,Qiáng shàng guàzhe yī fú piàoliang de huàr.,Trên tường treo một bức tranh đẹp.,https://static.xiehanzi.com/word_audios/画儿.mp3
 327,Bài 10,食指,shízhǐ,Danh từ,thực chỉ,ngón trỏ,他用食指指着地图。,Tā yòng shízhǐ zhǐzhe dìtú.,Anh ấy dùng ngón trỏ chỉ vào bản đồ.,https://static.xiehanzi.com/word_audios/食指.mp3
-328,Bài 10,中指,zhōngzhǐ,Danh từ,trung chỉ,ngón giữa,他的中指戴着一枚戒指。,Tā de zhōngzhǐ dài zhe yī méi jièzhǐ.,Ngón giữa của anh ấy đeo một chiếc nhẫn.,https://static.xiehanzi.com/word_audios/中指.mp3
+328,Bài 10,中指,zhōngzhǐ,Danh từ,trung chỉ,ngón giữa,他的中指上戴着一枚戒指。,Tā de zhōngzhǐ shàng dàizhe yì méi jièzhi.,Anh ấy đeo một chiếc nhẫn ở ngón giữa.,https://static.xiehanzi.com/word_audios/中指.mp3
 329,Bài 10,T恤,<tì>xù,Danh từ,tuất,"áo phông, áo thun",他今天穿了一件白色的T恤。,Tā jīntiān chuān le yī jiàn báisè de Tìxù.,Hôm nay anh ấy mặc một chiếc áo phông màu trắng.,https://static.xiehanzi.com/word_audios/T恤.mp3
 330,Bài 11,点,diǎn,Lượng từ / Danh từ / Động từ,điểm,giờ,现在三点,Xiànzài sān diǎn,Bây giờ 3 giờ,https://static.xiehanzi.com/word_audios/点.mp3
 331,Bài 11,教,jiāo,Động từ / Danh từ,giáo,giảng dạy,教中文,Jiāo zhōng wén,Dạy tiếng Trung,https://static.xiehanzi.com/word_audios/教.mp3
@@ -341,7 +341,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 340,Bài 11,油,yóu,Danh từ / Tính từ / Động từ,du,dầu,炒菜的时候要放一点儿油。,Chǎo cài de shí hou yào fàng yì diǎn ér yóu.,Khi xào rau cần cho một chút dầu.,https://static.xiehanzi.com/word_audios/油.mp3
 341,Bài 11,熟,shú,Tính từ,thục,chín,肉已经熟了，可以吃了。,"Ròu yǐ jīng shú le, kě yǐ chī le.","Thịt đã chín rồi, có thể ăn được.",https://static.xiehanzi.com/word_audios/熟.mp3
 342,Bài 11,加,jiā,Động từ,gia,cộng; thêm vào,喝咖啡的时候请帮我加一点糖。,Hē kāfēi de shíhou qǐng bāng wǒ jiā yìdiǎnr táng.,Lúc uống cà phê xin hãy cho thêm một chút đường giúp tôi.,https://static.xiehanzi.com/word_audios/加.mp3
-343,Bài 11,最后,zuìhòu,Danh từ / Phó từ,tối hậu,cuối cùng,我最后到了,Wǒ zuìhòu dào le,Tôi đến cuối cùng,https://static.xiehanzi.com/word_audios/最后.mp3
+343,Bài 11,最后,zuìhòu,Danh từ / Phó từ,tối hậu,cuối cùng,我是最后一个到的。,Wǒ shì zuìhòu yí gè dào de.,Tôi là người đến cuối cùng.,https://static.xiehanzi.com/word_audios/最后.mp3
 344,Bài 11,盐,yán,Danh từ,diêm,muối,这道菜有点淡，需要加点儿盐。,"Zhè dào cài yǒudiǎnr dàn, xūyào jiā diǎnr yán.","Món này hơi nhạt, cần cho thêm một chút muối.",https://static.xiehanzi.com/word_audios/盐.mp3
 345,Bài 11,尝,cháng,Động từ / Phó từ,thường,thử,你尝一尝这道菜好不好吃。,Nǐ cháng yì cháng zhè dào cài hǎo bu hǎochī.,Bạn nếm thử món này xem có ngon không.,https://static.xiehanzi.com/word_audios/尝.mp3
 346,Bài 11,特点,tèdiǎn,Danh từ,đặc điểm,đặc điểm,每个人都有自己的特点,Měi gè rén dōu yǒu zì jǐ de tè diǎn,Mỗi người đều có đặc điểm riêng,https://static.xiehanzi.com/word_audios/特点.mp3
@@ -399,9 +399,9 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 398,Bài 12,房东,fángdōng,Danh từ,phòng đông,chủ nhà,我的房东人非常热情和客气。,Wǒ de fángdōng rén fēicháng rèqíng hé kèqi.,Bác chủ nhà của tôi rất nhiệt tình và lịch sự.,https://static.xiehanzi.com/word_audios/房东.mp3
 399,Bài 12,药店,yàodiàn,Danh từ,dược điếm,hiệu thuốc,我去药店买感冒药。,Wǒ qù yào diàn mǎi gǎn mào yào.,Tôi đến hiệu thuốc mua thuốc cảm.,https://static.xiehanzi.com/word_audios/药店.mp3
 400,Bài 12,更,gèng,Phó từ / Động từ / Danh từ,canh,hơn,今天更冷,Jīn tiān gèng lěng,Hôm nay lạnh hơn,https://static.xiehanzi.com/word_audios/更.mp3
-401,Bài 12,保洁,bǎojié,Động từ,bảo khiết,"giữ gìn vệ sinh, làm sạch",我们应该共同维护环境保洁。,Wǒmen yīnggāi gòngtóng wéihù huánjìng bǎojié.,Chúng ta nên cùng nhau giữ gìn vệ sinh môi trường.,https://static.xiehanzi.com/word_audios/保洁.mp3
+401,Bài 12,保洁,bǎojié,Động từ,bảo khiết,"giữ gìn vệ sinh, làm sạch",我们应该做好环境保洁工作。,Wǒmen yīnggāi zuò hǎo huánjìng bǎojié gōngzuò.,Chúng ta nên làm tốt công tác vệ sinh môi trường.,https://static.xiehanzi.com/word_audios/保洁.mp3
 402,Bài 12,服务,fúwù,Động từ / Danh từ,phục vụ,"phục vụ, dịch vụ",这家餐厅的服务很好。,Zhè jiā cāntīng de fúwù hěn hǎo.,Dịch vụ của nhà hàng này rất tốt.,https://static.xiehanzi.com/word_audios/服务.mp3
-403,Bài 12,贵姓,guìxìng,Danh từ,quý tính,quý danh (hỏi họ của người khác một cách lịch sự),请问您贵姓？,Qǐngwèn nín guìxìng?,Xin hỏi quý danh của ngài là gì?,https://static.xiehanzi.com/word_audios/贵姓.mp3
+403,Bài 12,贵姓,guìxìng,Danh từ,quý tính,quý danh (hỏi họ của người khác một cách lịch sự),请问您贵姓？,Qǐngwèn nín guìxìng?,Xin hỏi ông/bà họ gì?,https://static.xiehanzi.com/word_audios/贵姓.mp3
 404,Bài 12,免贵,miǎnguì,Động từ,miễn quý,không dám (lời đáp lịch sự khi được hỏi quý danh),免贵姓张。,Miǎnguì xìng Zhāng.,"Không dám, tôi họ Trương.",https://static.xiehanzi.com/word_audios/免贵.mp3
 405,Bài 12,西山,Xīshān,Danh từ riêng,"tây san, sơn",tây Sơn (tên địa danh),我们周末去西山爬山。,Wǒmen zhōumò qù Xīshān páshān.,Cuối tuần chúng tôi đi Tây Sơn leo núi.,https://static.xiehanzi.com/word_audios/西山.mp3
 406,Bài 13,比如,bǐrú,Động từ / Liên từ,tỉ như,ví dụ,我喜欢很多水果，比如苹果、香蕉,"Wǒ xǐ huān hěn duō shuǐ guǒ, bǐ rú píng guǒ 、 xiāng jiāo","Tôi thích nhiều loại trái cây, ví dụ táo, chuối",https://static.xiehanzi.com/word_audios/比如.mp3
@@ -441,7 +441,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 440,Bài 14,加,jiā,Động từ,gia,cộng; thêm vào,喝咖啡的时候请帮我加一点糖。,Hē kāfēi de shíhou qǐng bāng wǒ jiā yìdiǎnr táng.,Lúc uống cà phê xin hãy cho thêm một chút đường giúp tôi.,https://static.xiehanzi.com/word_audios/加.mp3
 441,Bài 14,画家,huàjiā,Danh từ,họa gia,"họa sĩ, nghệ sĩ",他是一位著名的画家,Tā shì yī wèi zhù míng de huà jiā,Anh ấy là một họa sĩ nổi tiếng,https://static.xiehanzi.com/word_audios/画家.mp3
 442,Bài 14,美术,měishù,Danh từ,mĩ thuật,nghệ thuật,她在美术学院学习。,Tā zài měishù xuéyuàn xuéxí.,Cô ấy học tại trường đại học mỹ thuật.,https://static.xiehanzi.com/word_audios/美术.mp3
-443,Bài 14,得,de,Động từ / Trợ từ / Trợ động từ,đắc,được,我得到了好消息,Wǒ dé dào le hǎo xiāo xī,Tôi đã nhận được tin tốt,https://static.xiehanzi.com/word_audios/得.mp3
+443,Bài 14,得,de,Trợ từ,đắc,trợ từ dẫn bổ ngữ,他画得很好。,Tā huà de hěn hǎo.,Anh ấy vẽ rất đẹp.,https://static.xiehanzi.com/word_audios/得.mp3
 444,Bài 14,成功,chénggōng,Động từ / Danh từ,thành công,thành công,祝贺你取得成功！,Zhù hè nǐ qǔ dé chéng gōng ！,Chúc mừng bạn đã thành công!,https://static.xiehanzi.com/word_audios/成功.mp3
 445,Bài 14,以为,yǐwéi,Động từ,dĩ vi,nghĩ rằng,我以为你知道,Wǒ yǐ wèi nǐ zhī dào,Tôi nghĩ rằng bạn biết rồi,https://static.xiehanzi.com/word_audios/以为.mp3
 446,Bài 14,事情,shìqing,Danh từ,sự tình,"việc, sự kiện",我有重要的事情要告诉你。,Wǒ yǒu zhòng yào de shì qíng yào gào sù nǐ.,Tôi có việc quan trọng muốn nói cho bạn biết.,https://static.xiehanzi.com/word_audios/事情.mp3
@@ -456,13 +456,13 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 455,Bài 14,暂时,zànshí,Phó từ / Danh từ,tạm thì,tạm thời,这个问题我们暂时还没有解决方案。,Zhè ge wèntí wǒmen zànshí hái méiyǒu jiějué fāng'àn.,Vấn đề này chúng tôi tạm thời vẫn chưa có phương án giải quyết.,https://static.xiehanzi.com/word_audios/暂时.mp3
 456,Bài 14,停止,tíngzhǐ,Động từ (action verb),đình chỉ,dừng lại,老师进来后，大家停止了说话。,"Lǎo shī jìn lái hòu, dà jiā tíng zhǐ le shuō huà.","Sau khi giáo viên bước vào, mọi người ngừng nói chuyện.",https://static.xiehanzi.com/word_audios/停止.mp3
 457,Bài 14,当,dāng,Động từ / Giới từ / Trợ động từ,đương,"trở thành, là, làm việc",我想当医生,Wǒ xiǎng dāng yī shēng,Tôi muốn làm bác sĩ,https://static.xiehanzi.com/word_audios/当.mp3
-458,Bài 14,辞,cí,Động từ / Danh từ,từ,sa thải,他上个月辞职了，打算自己创业。,"Tā shàng ge yuè cízhí le, dǎsuàn zìjǐ chuàngyè.","Tháng trước anh ấy đã từ chức, dự định tự mình khởi nghiệp.",https://static.xiehanzi.com/word_audios/辞.mp3
+458,Bài 14,辞,cí,Động từ,từ,từ chức; từ bỏ chức vụ,他上个月辞职了，打算自己创业。,"Tā shàng ge yuè cízhí le, dǎsuàn zìjǐ chuàngyè.","Tháng trước anh ấy đã từ chức, dự định tự mình khởi nghiệp.",https://static.xiehanzi.com/word_audios/辞.mp3
 459,Bài 14,游览,yóulǎn,Động từ,du lãm,đi tham quan,我们计划下个月去北京游览万里长城。,wǒ men jì huà xià gè yuè qù běi jīng yóu lǎn wàn lǐ cháng chéng.,Chúng tôi lên kế hoạch tháng sau đi Bắc Kinh tham quan Vạn Lý Trường Thành.,https://static.xiehanzi.com/word_audios/游览.mp3
 460,Bài 14,正好,zhènghǎo,Phó từ / Tính từ,chính hảo,vừa đúng,时间正好,Shí jiān zhèng hǎo,Thời gian vừa đúng,https://static.xiehanzi.com/word_audios/正好.mp3
 461,Bài 14,专门,zhuānmén,Tính từ / Trạng từ,chuyên môn,chuyên môn,他是专门研究中国历史的专家。,Tā shì zhuānmén yánjiū Zhōngguó lìshǐ de zhuānjiā.,Anh ấy là chuyên gia nghiên cứu lịch sử Trung Quốc.,https://static.xiehanzi.com/word_audios/专门.mp3
 462,Bài 14,奖,jiǎng,Danh từ,tưởng,thưởng; giải thưởng,他在中文演讲比赛中获得了一等奖。,Tā zài Zhōngwén yǎnjiǎng bǐsài zhōng huòdé le yìděngjiǎng.,Cậu ấy đã đạt giải nhất trong cuộc thi hùng biện tiếng Hán.,https://static.xiehanzi.com/word_audios/奖.mp3
 463,Bài 14,小时候,xiǎoshíhou,Danh từ,tiểu thì hậu,hồi nhỏ,我小时候住在这里,Wǒ xiǎo shí hòu zhù zài zhè lǐ,Hồi nhỏ tôi sống ở đây,https://static.xiehanzi.com/word_audios/小时候.mp3
-464,Bài 14,产生,chǎnshēng,Động từ,"sản sinh, sanh",sản xuất,这项决定产生了很大影响。,Zhè xiàng jué dìng chǎn shēng le hěn dà yǐng xiǎng.,Quyết định này đã tạo ra ảnh hưởng lớn.,https://static.xiehanzi.com/word_audios/产生.mp3
+464,Bài 14,产生,chǎnshēng,Động từ,"sản sinh, sanh",sinh ra; tạo ra; phát sinh,这项决定产生了很大影响。,Zhè xiàng jué dìng chǎn shēng le hěn dà yǐng xiǎng.,Quyết định này đã tạo ra ảnh hưởng lớn.,https://static.xiehanzi.com/word_audios/产生.mp3
 465,Bài 14,等于,děngyú,Động từ,đẳng vu,bằng,一加一等于二,Yī jiā yī děng yú èr,Một cộng một bằng hai,https://static.xiehanzi.com/word_audios/等于.mp3
 466,Bài 14,零,líng,Số từ / Tính từ,linh,không,零度,líng dù,không độ,https://static.xiehanzi.com/word_audios/零.mp3
 467,Bài 14,其他,qítā,Tính từ / Đại từ,kỳ tha,khác,其他人,Qí tā rén,những người khác,https://static.xiehanzi.com/word_audios/其他.mp3
@@ -478,16 +478,16 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 477,Bài 14,洞,dòng,Danh từ / Tính từ,động,lỗ,小兔子跑进了树洞里。,Xiǎotùzi pǎo jìn le shù dòng lǐ.,Chú thỏ con đã chạy vào trong hốc cây.,https://static.xiehanzi.com/word_audios/洞.mp3
 478,Bài 14,一齐,yīqí,Phó từ,nhất tề,cùng nhau,大家一齐鼓掌，场面非常热烈。,"Dàjiā yīqí gǔzhǎng, chǎngmiàn fēicháng rèliè.","Mọi người đồng loạt vỗ tay, không khí rất sôi nổi.",https://static.xiehanzi.com/word_audios/一齐.mp3
 479,Bài 14,画笔,huàbǐ,Danh từ,họa bút,"cọ vẽ, bút vẽ",他拿起画笔开始画画。,Tā ná qǐ huàbǐ kāishǐ huàhuà.,Anh ấy cầm cọ vẽ lên và bắt đầu vẽ.,https://static.xiehanzi.com/word_audios/画笔.mp3
-480,Bài 15,块,kuài,Lượng từ / Danh từ,khối,miếng,一块钱,yí kuài qián,một đồng (tiền),https://static.xiehanzi.com/word_audios/块.mp3
+480,Bài 15,块,kuài,Lượng từ / Danh từ,khối,miếng,请给我一块蛋糕。,Qǐng gěi wǒ yí kuài dàngāo.,Xin cho tôi một miếng bánh ngọt.,https://static.xiehanzi.com/word_audios/块.mp3
 481,Bài 15,上,shàng,Từ chỉ phương vị / Động từ / Tính từ,thượng,trên,桌子上有书,Zhuōzi shàng yǒu shū,Trên bàn có sách,https://static.xiehanzi.com/word_audios/上.mp3
 482,Bài 15,利用,lìyòng,Động từ,lợi dụng,sử dụng,我们要充分利用时间。,Wǒ men yào chōng fēn lì yòng shí jiān.,Chúng ta phải tận dụng thời gian.,https://static.xiehanzi.com/word_audios/利用.mp3
 483,Bài 15,讲,jiǎng,Động từ,giảng,"nói, kể",老师在讲课,Lǎo shī zài jiǎng kè,Thầy giáo đang giảng bài,https://static.xiehanzi.com/word_audios/讲.mp3
 484,Bài 15,饭店,fàndiàn,Danh từ,phạn điếm,"nhà hàng, khách sạn",我们去饭店吃饭。,Wǒmen qù fàndiàn chīfàn.,Chúng tôi đi nhà hàng ăn cơm.,https://static.xiehanzi.com/word_audios/饭店.mp3
 485,Bài 15,立,lì,Động từ / Phó từ,lập,đứng,校门口立着一块石碑。,Xiào ménkǒu lì zhe yí kuài shíbēi.,Trước cổng trường dựng một tấm bia đá.,https://static.xiehanzi.com/word_audios/立.mp3
-486,Bài 15,牌子,páizi,Danh từ,bài tử,bảng hiệu,这家店的牌子很大。,Zhè jiā diàn de pái zi hěn dà.,Cửa hàng này có thương hiệu lớn.,https://static.xiehanzi.com/word_audios/牌子.mp3
+486,Bài 15,牌子,páizi,Danh từ,bài tử,bảng hiệu,这家店的牌子很大。,Zhè jiā diàn de pái zi hěn dà.,Tấm biển của cửa hàng này rất lớn.,https://static.xiehanzi.com/word_audios/牌子.mp3
 487,Bài 15,周到,zhōudào,Tính từ,"chu, châu đáo",chu đáo,这家酒店的服务非常周到。,zhè jiā jiǔ diàn de fú wù fēi cháng zhōu dào.,Dịch vụ của khách sạn này vô cùng chu đáo.,https://static.xiehanzi.com/word_audios/周到.mp3
 488,Bài 15,经济,jīngjì,Danh từ / Tính từ,kinh tế,kinh tế,经济发展很快。,Jīngjì fāzhǎn hěn kuài.,Kinh tế phát triển rất nhanh.,https://static.xiehanzi.com/word_audios/经济.mp3
-489,Bài 15,实惠,shíhuì,Tính từ / Danh từ,thực huệ,hữu ích,这种水果既实惠又好吃,zhè zhǒng shuǐ guǒ jì shí huì yòu hǎo chī,Loại trái cây này vừa hữu ích vừa ngon,https://static.xiehanzi.com/word_audios/实惠.mp3
+489,Bài 15,实惠,shíhuì,Tính từ / Danh từ,thực huệ,giá hợp lý; đáng tiền; thiết thực,这种水果既实惠又好吃,zhè zhǒng shuǐ guǒ jì shí huì yòu hǎo chī,Loại trái cây này vừa có giá phải chăng vừa ngon.,https://static.xiehanzi.com/word_audios/实惠.mp3
 490,Bài 15,午饭,wǔfàn,Danh từ,ngọ phạn,bữa trưa,我吃午饭。,Wǒ chī wǔfàn.,Tôi ăn cơm trưa.,https://static.xiehanzi.com/word_audios/午饭.mp3
 491,Bài 15,里边,lǐbiān,Từ chỉ phương vị / Danh từ,lí biên,bên trong,屋里边有很多人,Wū lǐbiān yǒu hěnduō rén,Trong phòng có rất nhiều người,https://static.xiehanzi.com/word_audios/里边.mp3
 492,Bài 15,蜡烛,làzhú,Danh từ,lạp chúc,nến,停电了，妈妈点燃了一支蜡烛。,"tíng diàn le, mā ma diǎn rán le yì zhī là zhú.","Mất điện rồi, mẹ thắp lên một cây nến.",https://static.xiehanzi.com/word_audios/蜡烛.mp3
@@ -513,31 +513,31 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 512,Bài 15,光临,guānglín,Động từ,quang lâm,có mặt,欢迎光临本店！,Huānyíng guānglín běn diàn!,Chào mừng quý khách đến với cửa hàng chúng tôi!,https://static.xiehanzi.com/word_audios/光临.mp3
 513,Bài 15,猪排,zhūpái,Danh từ,trư bài,"sườn heo, cốt lết heo",今晚我们吃猪排。,Jīnwǎn wǒmen chī zhūpái.,Tối nay chúng ta ăn sườn heo.,https://static.xiehanzi.com/word_audios/猪排.mp3
 514,Bài 15,羊排,yángpái,Danh từ,dương bài,sườn cừu,他点了份烤羊排。,Tā diǎn le fèn kǎo yángpái.,Anh ấy đã gọi một phần sườn cừu nướng.,https://static.xiehanzi.com/word_audios/羊排.mp3
-515,Bài 15,牛排,niúpái,Danh từ,ngưu bài,"bít tết, sườn bò",我喜欢吃三分熟的牛排。,Wǒ xǐhuān chī sānfēnshú de niúpái.,Tôi thích ăn bít tết tái vừa.,https://static.xiehanzi.com/word_audios/牛排.mp3
+515,Bài 15,牛排,niúpái,Danh từ,ngưu bài,"bít tết, sườn bò",我喜欢吃三分熟的牛排。,Wǒ xǐhuān chī sānfēnshú de niúpái.,Tôi thích ăn bít tết tái.,https://static.xiehanzi.com/word_audios/牛排.mp3
 516,Bài 15,稍等,shāoděng,Động từ,sảo đẳng,"đợi chút, chờ một lát",请稍等，他马上就来。,"Qǐng shāoděng, tā mǎshàng jiù lái.","Xin hãy đợi một lát, anh ấy sẽ đến ngay.",https://static.xiehanzi.com/word_audios/稍等.mp3
 517,Bài 15,扎啤,zhāpí,Danh từ,trát ti,"bia tươi, bia hơi",我们去喝扎啤吧。,Wǒmen qù hē zhāpí ba.,Chúng ta đi uống bia tươi đi.,https://static.xiehanzi.com/word_audios/扎啤.mp3
 518,Bài 15,鸭蛋,yādàn,Danh từ,áp đản,trứng vịt,我喜欢吃咸鸭蛋。,Wǒ xǐhuān chī xián yādàn.,Tôi thích ăn trứng vịt muối.,https://static.xiehanzi.com/word_audios/鸭蛋.mp3
-519,Bài 16,节,jié,Danh từ / Lượng từ / Động từ,tiết,ngày lễ,这节课很有意思,Zhè jié kè hěn yǒu yì sī,Tiết học này rất hay,https://static.xiehanzi.com/word_audios/节.mp3
+519,Bài 16,节,jié,Danh từ / Lượng từ / Động từ,tiết,ngày lễ,祝你节日快乐！,Zhù nǐ jiérì kuàilè!,Chúc bạn có một ngày lễ vui vẻ!,https://static.xiehanzi.com/word_audios/节.mp3
 520,Bài 16,必须,bìxū,Phó từ,tất tu,phải,你必须去,Nǐ bì xū qù,Bạn phải đi,https://static.xiehanzi.com/word_audios/必须.mp3
 521,Bài 16,句,jù,Danh từ / Lượng từ,cú,câu,这是一个完整的句子,Zhè shì yī gè wán zhěng de jù zi,Đây là một câu hoàn chỉnh,https://static.xiehanzi.com/word_audios/句.mp3
 522,Bài 16,留下,liúxià,Động từ,lưu hạ,để lại,请留下你的名字,Qǐng liú xià nǐ de míng zì,Vui lòng để lại tên của bạn,https://static.xiehanzi.com/word_audios/留下.mp3
 523,Bài 16,深刻,shēnkè,Tính từ,thâm khắc,sâu sắc,这部电影给我留下了深刻的印象。,Zhè bù diànyǐng gěi wǒ liúxià le shēnkè de yìnxiàng.,Bộ phim này để lại ấn tượng sâu sắc với tôi.,https://static.xiehanzi.com/word_audios/深刻.mp3
 524,Bài 16,印象,yìnxiàng,Danh từ,ấn tượng,ấn tượng,他对我的印象很好。,Tā duì wǒ de yìnxiàng hěn hǎo.,Anh ấy có ấn tượng tốt về tôi.,https://static.xiehanzi.com/word_audios/印象.mp3
 525,Bài 16,香蕉,xiāngjiāo,Danh từ,hương tiêu,chuối,我最喜欢吃的水果是香蕉。,Wǒ zuì xǐhuan chī de shuǐguǒ shì xiāngjiāo.,Loại trái cây tôi thích ăn nhất là chuối.,https://static.xiehanzi.com/word_audios/香蕉.mp3
-526,Bài 16,总是,zǒngshì,Phó từ,tổng thị,luôn luôn,他总是很努力工作。,Tā zǒngshì hěn nǔlì gōngzuò.,Anh ấy luôn luôn làm việc chăm chỉ.,https://static.xiehanzi.com/word_audios/总是.mp3
+526,Bài 16,总是,zǒngshì,Phó từ,tổng thị,luôn luôn,他总是很努力地工作。,Tā zǒngshì hěn nǔlì de gōngzuò.,Anh ấy luôn làm việc rất chăm chỉ.,https://static.xiehanzi.com/word_audios/总是.mp3
 527,Bài 16,尾巴,wěiba,Danh từ,vĩ ba,đuôi,这只狗的尾巴很长。,Zhè zhǐ gǒu de wěi ba hěn zhǎng.,Đuôi của con chó này rất dài.,https://static.xiehanzi.com/word_audios/尾巴.mp3
 528,Bài 16,剥,bāo,Động từ,bác,bóc,弟弟正在自己剥香蕉皮。,Dìdi zhèngzài zìjǐ bāo xiāngjiāopí.,Em trai đang tự bóc vỏ chuối.,https://static.xiehanzi.com/word_audios/剥.mp3
-529,Bài 16,细,xì,Tính từ,tế,"mỏng, mảnh",她做事情非常细心。,Tā zuò shìqing fēicháng xìxīn.,Cô ấy làm việc vô cùng cẩn thận và tỉ mỉ.,https://static.xiehanzi.com/word_audios/细.mp3
+529,Bài 16,细,xì,Tính từ,tế,"mỏng, mảnh",这根线很细。,Zhè gēn xiàn hěn xì.,Sợi chỉ này rất mảnh.,https://static.xiehanzi.com/word_audios/细.mp3
 530,Bài 16,差别,chābié,Danh từ,sai biệt,sự khác biệt,这两件商品没有太大差别。,Zhè liǎng jiàn shāngpǐn méiyǒu tàidà chābié.,Hai món hàng này không có sự khác biệt quá lớn.,https://static.xiehanzi.com/word_audios/差别.mp3
 531,Bài 16,启发,qǐfā,Động từ / Danh từ,khải phát,truyền cảm hứng,老师的话给了我很大启发。,Lǎo shī de huà gěi le wǒ hěn dà qǐ fā.,Lời của giáo viên đã gợi cho tôi nhiều điều.,https://static.xiehanzi.com/word_audios/启发.mp3
 532,Bài 16,改变,gǎibiàn,Động từ / Danh từ,cải biến,thay đổi,世界在改变,Shì jiè zài gǎi biàn,Thế giới đang thay đổi,https://static.xiehanzi.com/word_audios/改变.mp3
 533,Bài 16,方式,fāngshì,Danh từ,phương thức,cách,每个人都有自己的生活方式。,Měi ge rén dōu yǒu zìjǐ de shēnghuó fāngshì.,Mỗi người đều có phương thức sống riêng của mình.,https://static.xiehanzi.com/word_audios/方式.mp3
 534,Bài 16,戒烟,jièyān,Động từ,giới yên,bỏ thuốc lá,为了健康，爸爸决定戒烟。,"wèi le jiàn kāng, bà ba jué dìng jiè yān.","Vì sức khỏe, bố quyết định bỏ thuốc lá.",https://static.xiehanzi.com/word_audios/戒烟.mp3
 535,Bài 16,难受,nánshòu,Tính từ,nan thụ,khó chịu,我心里很难受。,Wǒ xīn lǐ hěn nán shòu.,Trong lòng tôi rất khó chịu.,https://static.xiehanzi.com/word_audios/难受.mp3
-536,Bài 16,活,huó,Tính từ / Động từ / Danh từ,hoạt,sống; sống,爷爷已经活了九十岁，身体依然硬朗。,"Yéye yǐjīng huó le jiǔshí suì, shēntǐ yīrán yìnglang.","Ông nội đã sống đến 90 tuổi, sức khỏe vẫn rất dẻo dai.",https://static.xiehanzi.com/word_audios/活.mp3
+536,Bài 16,活,huó,Tính từ / Động từ / Danh từ,hoạt,sống; sống,爷爷已经活到九十岁了，身体依然硬朗。,"Yéye yǐjīng huó dào jiǔshí suì le, shēntǐ yīrán yìnglang.","Ông nội đã sống đến chín mươi tuổi, sức khỏe vẫn rất dẻo dai.",https://static.xiehanzi.com/word_audios/活.mp3
 537,Bài 16,万,wàn,Số từ / Phó từ,vạn,mười ngàn,这个城市有一万多人。,Zhè ge chéng shì yǒu yī wàn duō rén.,Thành phố này có hơn mười nghìn người.,https://static.xiehanzi.com/word_audios/万.mp3
 538,Bài 16,受罪,shòuzuì,Động từ,thụ tội,chịu đựng,大热天停电真是让人受罪。,dà rè tiān tíng diàn zhēn shì ràng rén shòu zuì.,Trời nóng mà mất điện thật là khiến người ta khổ sở.,https://static.xiehanzi.com/word_audios/受罪.mp3
-539,Bài 16,算了,suànle,Động từ / Trợ từ,toán liễu,bỏ qua,既然你不想去，那就算了吧。,"jì rán nǐ bù xiǎng qù, nà jiù suàn le ba.","Đã là cậu không muốn đi, vậy thì bỏ qua đi.",https://static.xiehanzi.com/word_audios/算了.mp3
+539,Bài 16,算了,suànle,Động từ / Trợ từ,toán liễu,bỏ qua,既然你不想去，那就算了吧。,"jì rán nǐ bù xiǎng qù, nà jiù suàn le ba.",Nếu bạn đã không muốn đi thì thôi vậy.,https://static.xiehanzi.com/word_audios/算了.mp3
 540,Bài 16,失败,shībài,Danh từ / Động từ / Tính từ,thất bại,thất bại,实验失败了，但我们不能放弃。,"Shíyàn shībài le, dàn wǒmen bùnéng fàngqì.","Thí nghiệm thất bại, nhưng chúng tôi không thể bỏ cuộc.",https://static.xiehanzi.com/word_audios/失败.mp3
 541,Bài 16,想法,xiǎngfǎ,Danh từ,tưởng pháp,ý tưởng,我有一个好想法,Wǒ yǒu yī gè hǎo xiǎng fǎ,Tôi có một ý tưởng tốt,https://static.xiehanzi.com/word_audios/想法.mp3
 542,Bài 16,道理,dàoli,Danh từ,đạo lí,lý lẽ,他说的话很有道理,Tā shuō de huà hěn yǒu dào lǐ,Lời anh ấy nói rất có lý,https://static.xiehanzi.com/word_audios/道理.mp3
@@ -546,9 +546,9 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 545,Bài 16,核桃,hétao,Danh từ,hạch đào,quả óc chó,核桃对大脑很有好处。,Hétao duì dànǎo hěn yǒu hǎochù.,Quả óc chó rất tốt cho não bộ.,https://static.xiehanzi.com/word_audios/核桃.mp3
 546,Bài 16,莲子,liánzǐ,Danh từ,liên tử,hạt sen,莲子粥很好喝,Liánzǐ zhōu hěn hǎohē,Cháo hạt sen rất ngon,https://static.xiehanzi.com/word_audios/莲子.mp3
 547,Bài 16,实验,shíyàn,Danh từ / Động từ,thực nghiệm,thí nghiệm; tiến hành thí nghiệm,科学家正在做一项重要的实验。,Kē xué jiā zhèng zài zuò yī xiàng zhòng yào de shí yàn.,Các nhà khoa học đang thực hiện một thí nghiệm quan trọng.,https://static.xiehanzi.com/word_audios/实验.mp3
-548,Bài 16,装,zhuāng,Động từ / Danh từ,trang,trang điểm,请把行李装进箱子里。,Qǐng bǎ xíng lǐ zhuāng jìn xiāng zi lǐ.,Hãy xếp hành lý vào va-li.,https://static.xiehanzi.com/word_audios/装.mp3
+548,Bài 16,装,zhuāng,Động từ,trang,xếp vào; chất vào; đựng,请把行李装进箱子里。,Qǐng bǎ xíng lǐ zhuāng jìn xiāng zi lǐ.,Hãy xếp hành lý vào va-li.,https://static.xiehanzi.com/word_audios/装.mp3
 549,Bài 16,人生,rénshēng,Danh từ,"nhân sinh, sanh",cuộc sống,人生有很多困难。,Rénshēng yǒu hěnduō kùnnán.,Cuộc sống có nhiều khó khăn.,https://static.xiehanzi.com/word_audios/人生.mp3
-550,Bài 16,真正,zhēnzhèng,Phó từ / Tính từ,chân chính,thực sự,他是我的真正朋友,Tā shì wǒ de zhēn zhèng péng yǒu,Anh ấy là bạn thực sự của tôi,https://static.xiehanzi.com/word_audios/真正.mp3
+550,Bài 16,真正,zhēnzhèng,Phó từ / Tính từ,chân chính,thực sự,他是我真正的朋友。,Tā shì wǒ zhēnzhèng de péngyou.,Anh ấy là người bạn thực sự của tôi.,https://static.xiehanzi.com/word_audios/真正.mp3
 551,Bài 16,头儿,tóur,Danh từ,đầu nhi,"ông chủ, thủ trưởng, người đứng đầu",我们的头儿今天不在办公室。,Wǒmen de tóur jīntiān bù zài bàngōngshì.,Ông chủ của chúng tôi hôm nay không có ở văn phòng.,https://static.xiehanzi.com/word_audios/头儿.mp3
 552,Bài 17,暑假,shǔjià,Danh từ,thử giá,kỳ nghỉ hè,今年暑假你打算去哪里旅游？,Jīnnián shǔjià nǐ dǎsuàn qù nǎlǐ lǚyóu?,Kỳ nghỉ hè năm nay bạn dự định đi du lịch ở đâu?,https://static.xiehanzi.com/word_audios/暑假.mp3
 553,Bài 17,约,yuē,Động từ / Lượng từ,ước,hẹn,我们约在图书馆见面。,Wǒ men yuē zài tú shū guǎn jiàn miàn.,Chúng ta hẹn gặp nhau ở thư viện.,https://static.xiehanzi.com/word_audios/约.mp3
@@ -561,7 +561,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 560,Bài 17,日子,rìzi,Danh từ,nhật tử,cuộc sống,我们的日子越来越好,Wǒ men de rì zi yuè lái yuè hǎo,Cuộc sống của chúng ta ngày càng tốt,https://static.xiehanzi.com/word_audios/日子.mp3
 561,Bài 17,实话,shíhuà,Danh từ,thực thoại,sự thật,说实话，我不太喜欢这个主意。,"shuō shí huà, wǒ bú tài xǐ huan zhè gè zhǔ yi.","Nói thật lòng, tôi không thích ý kiến này lắm.",https://static.xiehanzi.com/word_audios/实话.mp3
 562,Bài 17,变化,biànhuà,Động từ / Danh từ,biến hóa,thay đổi,这几年家乡的变化很大。,Zhè jǐ nián jiāxiāng de biànhuà hěn dà.,Vài năm qua quê hương thay đổi rất lớn.,https://static.xiehanzi.com/word_audios/变化.mp3
-563,Bài 17,共同,gòngtóng,Tính từ / Trạng từ,cộng đồng,chung,这是我们要共同完成的目标。,Zhè shì wǒmen yào gòngtóng wánchéng de mùbiāo.,Đây là mục tiêu chúng ta cần cùng nhau hoàn thành.,https://static.xiehanzi.com/word_audios/共同.mp3
+563,Bài 17,共同,gòngtóng,Tính từ / Trạng từ,cộng đồng,chung,这是我们要共同实现的目标。,Zhè shì wǒmen yào gòngtóng shíxiàn de mùbiāo.,Đây là mục tiêu chúng ta cần cùng nhau thực hiện.,https://static.xiehanzi.com/word_audios/共同.mp3
 564,Bài 17,话题,huàtí,Danh từ (noun - topic),thoại đề,chủ đề,这是一个有趣的话题。,Zhè shì yī gè yǒuqù de huàtí.,Đây là một chủ đề thú vị.,https://static.xiehanzi.com/word_audios/话题.mp3
 565,Bài 17,陌生,mòshēng,Tính từ,"mạch sinh, sanh",lạ,走在陌生的城市里，他感到很孤单。,zǒu zài mò shēng de chéng shì lǐ tā gǎn dào hěn gū dān.,"Đi bộ trong một thành phố xa lạ, anh ấy cảm thấy rất cô đơn.",https://static.xiehanzi.com/word_audios/陌生.mp3
 566,Bài 17,似乎,sìhū,Trợ từ,"tự hồ, hô","hình như, dường như",他似乎不太高兴。,Tā sìhū bù tài gāoxìng.,Anh ấy dường như không quá vui.,https://static.xiehanzi.com/word_audios/似乎.mp3
@@ -574,7 +574,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 573,Bài 17,痛快,tòngkuai,Tính từ,thống khoái,vui sướng,今天我们玩得真痛快，不想回家了。,"jīn tiān wǒ men wán de zhēn tòng kuai, bù xiǎng huí jiā le.","Hôm nay chúng tôi chơi thật sảng khoái, không muốn về nhà nữa.",https://static.xiehanzi.com/word_audios/痛快.mp3
 574,Bài 17,体育馆,tǐyùguǎn,Danh từ,thể dục quán,"sân vận động, nhà thi đấu",体育馆里有很多比赛,Tǐ yù guǎn lǐ yǒu hěn duō bǐ sài,Trong nhà thi đấu có nhiều trận đấu,https://static.xiehanzi.com/word_audios/体育馆.mp3
 575,Bài 17,曾经,céngjīng,Phó từ,tằng kinh,đã từng,我曾经去过北京。,Wǒ céngjīng qùguo Běijīng.,Tôi đã từng đến Bắc Kinh.,https://static.xiehanzi.com/word_audios/曾经.mp3
-576,Bài 17,照相,zhàoxiàng,Động từ,chiếu tướng,chụp ảnh,我们去照相吧,Wǒ men qù zhào xiāng ba,Chúng tôi đi chụp ảnh nhé,https://static.xiehanzi.com/word_audios/照相.mp3
+576,Bài 17,照相,zhàoxiàng,Động từ,chiếu tướng,chụp ảnh,我们去照相吧,Wǒ men qù zhào xiāng ba,Chúng ta đi chụp ảnh nhé.,https://static.xiehanzi.com/word_audios/照相.mp3
 577,Bài 17,合影,héyǐng,Động từ / Danh từ,hợp ảnh,ảnh nhóm,毕业典礼结束后，同学们纷纷合影留念。,"bì yè diǎn lǐ jié shù hòu, tóng xué men fēn fēn hé yǐng liú niàn.","Sau khi lễ tốt nghiệp kết thúc, các bạn học sinh lần lượt chụp ảnh chung làm kỷ niệm.",https://static.xiehanzi.com/word_audios/合影.mp3
 578,Bài 17,作为,zuòwéi,Động từ / Giới từ,tác vi,như,作为一名老师，我很关心学生。,"Zuòwéi yī míng lǎoshī, wǒ hěn guānxīn xuéshēng.","Với tư cách là một giáo viên, tôi rất quan tâm đến học sinh.",https://static.xiehanzi.com/word_audios/作为.mp3
 579,Bài 17,留念,liúniàn,Động từ,lưu niệm,giữ làm kỷ niệm,请在这里签名留念,Qǐng zài zhèlǐ qiānmíng liúniàn,Xin hãy ký tên vào đây để lưu niệm,https://static.xiehanzi.com/word_audios/留念.mp3
@@ -582,8 +582,8 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 581,Bài 17,载,zài,Động từ,tái,chở,他骑摩托车载着妹妹回家。,Tā qí mótuōchē zài zhe mèimei huíjiā.,Anh ấy đi xe máy chở em gái về nhà.,https://static.xiehanzi.com/word_audios/载.mp3
 582,Bài 17,扶,fú,Động từ,phù,hỗ trợ,那个好心的年轻人扶老人过马路。,nà ge hǎo xīn de nián qīng rén fú lǎo rén guò mǎ lù.,Người thanh niên tốt bụng đó đỡ người già qua đường.,https://static.xiehanzi.com/word_audios/扶.mp3
 583,Bài 17,腰,yāo,Danh từ,yêu,eo,坐久了应该站起来活动一下腰。,zuò jiǔ le yīng gāi zhàn qǐ lái huó dòng yí xià yāo.,Ngồi lâu thì nên đứng dậy vận động lưng eo một chút.,https://static.xiehanzi.com/word_audios/腰.mp3
-584,Bài 17,坡,pō,Danh từ / Tính từ,pha,dốc,自行车骑上下坡的时候要特别小心。,Zìxíngchē qí shàng xià pō de shíhou yào tèbié xiǎoxīn.,Khi đi xe đạp lên xuống dốc phải đặc biệt cẩn thận.,https://static.xiehanzi.com/word_audios/坡.mp3
-585,Bài 17,分别,fēnbié,Động từ / Danh từ,phân biệt,sự khác biệt,我们要分别对待这些问题。,Wǒ men yào fēn bié duì dài zhè xiē wèn tí.,Chúng ta cần phân biệt xử dụng các vấn đề này.,https://static.xiehanzi.com/word_audios/分别.mp3
+584,Bài 17,坡,pō,Danh từ / Tính từ,pha,dốc,骑自行车上下坡的时候要特别小心。,Qí zìxíngchē shàng xià pō de shíhou yào tèbié xiǎoxīn.,Khi đi xe đạp lên xuống dốc phải đặc biệt cẩn thận.,https://static.xiehanzi.com/word_audios/坡.mp3
+585,Bài 17,分别,fēnbié,Phó từ / Động từ,phân biệt,riêng biệt; lần lượt; phân biệt,我们要分别对待这些问题。,Wǒ men yào fēn bié duì dài zhè xiē wèn tí.,Chúng ta cần xử lý riêng từng vấn đề này.,https://static.xiehanzi.com/word_audios/分别.mp3
 586,Bài 17,唯一,wéiyī,Tính từ,duy nhất,"chỉ có, duy nhất",这是我唯一的选择,Zhè shì wǒ wéiyī de xuǎnzé,Đây là lựa chọn duy nhất của tôi,https://static.xiehanzi.com/word_audios/唯一.mp3
 587,Bài 17,怀念,huáiniàn,Danh từ,hoài niệm,nhớ,我很怀念小时候的生活。,Wǒ hěn huái niàn xiǎo shí hou de shēng huó.,Tôi rất nhớ cuộc sống thuở nhỏ.,https://static.xiehanzi.com/word_audios/怀念.mp3
 588,Bài 17,母校,mǔxiào,Danh từ,mẫu hiệu,"trường cũ, trường mẹ, alma mater",我明天要回母校看看。,Wǒ míngtiān yào huí mǔxiào kànkan.,Ngày mai tôi sẽ về thăm trường cũ.,https://static.xiehanzi.com/word_audios/母校.mp3
@@ -601,7 +601,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 600,Bài 18,词汇,cíhuì,Danh từ,từ hối,từ vựng,这本书的词汇很难。,Zhè běn shū de cíhuì hěn nán.,Từ vựng cuốn sách này rất khó.,https://static.xiehanzi.com/word_audios/词汇.mp3
 601,Bài 18,量,liàng,Danh từ / Động từ,lượng,dung lượng,多读书能增加你的词汇量。,Duō dúshū néng zēngjiā nǐ de cíhuìliàng.,Đọc nhiều sách có thể làm tăng vốn từ vựng của bạn.,https://static.xiehanzi.com/word_audios/量.mp3
 602,Bài 18,增加,zēngjiā,Động từ,tăng gia,tăng,我们要增加新的课程。,Wǒmen yào zēngjiā xīn de kèchéng.,Chúng ta cần thêm các khóa học mới.,https://static.xiehanzi.com/word_audios/增加.mp3
-603,Bài 18,新闻,xīnwén,Danh từ,tân văn,tin tức,我每天都看新闻,Wǒ měi tiān dōu kàn xīn wén,Tôi mỗi ngày đều xem tin tức,https://static.xiehanzi.com/word_audios/新闻.mp3
+603,Bài 18,新闻,xīnwén,Danh từ,tân văn,tin tức,我每天都看新闻,Wǒ měi tiān dōu kàn xīn wén,Tôi xem tin tức mỗi ngày.,https://static.xiehanzi.com/word_audios/新闻.mp3
 604,Bài 18,广播,guǎngbō,Danh từ / Động từ,quảng bá,phát sóng,我每天听新闻广播。,Wǒ měi tiān tīng xīn wén guǎng bō.,Mình đều nghe bản tin phát thanh mỗi ngày.,https://static.xiehanzi.com/word_audios/广播.mp3
 605,Bài 18,取得,qǔdé,Động từ,thủ đắc,đạt được,取得成功,Qǔ dé chéng gōng,Đạt được thành công,https://static.xiehanzi.com/word_audios/取得.mp3
 606,Bài 18,难道,nándào,Trợ từ,nan đạo,chẳng lẽ,难道你真的不知道这件事吗？,Nándào nǐ zhēn de bù zhīdào zhè jiàn shì ma?,Chẳng lẽ bạn thật sự không biết chuyện này sao?,https://static.xiehanzi.com/word_audios/难道.mp3
@@ -628,7 +628,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 627,Bài 19,千万,qiānwàn,Phó từ / Số từ,thiên vạn,nhất định,路上千万要小心。,Lù shàng qiān wàn yào xiǎo xīn.,Trên đường nhất định phải cẩn thận.,https://static.xiehanzi.com/word_audios/千万.mp3
 628,Bài 19,享受,xiǎngshòu,Động từ / Danh từ,hưởng thụ,tận hưởng,退休以后，他很享受晚年生活。,"tuì xiū yǐ hòu, tā hěn xiǎng shòu wǎn nián shēng huó.","Sau khi nghỉ hưu, ông ấy rất tận hưởng cuộc sống tuổi già.",https://static.xiehanzi.com/word_audios/享受.mp3
 629,Bài 19,爱,ài,Động từ / Danh từ / Phó từ,ái,yêu; tình yêu,我爱妈妈,Wǒ ài māma,Tôi yêu mẹ,https://static.xiehanzi.com/word_audios/爱.mp3
-630,Bài 19,牙齿,yáchǐ,Danh từ,nha xỉ,răng,他每天都认真刷牙齿,Tā měitiān dōu rènzhēn shuā yáchǐ,Anh ấy mỗi ngày đều đánh răng cẩn thận,https://static.xiehanzi.com/word_audios/牙齿.mp3
+630,Bài 19,牙齿,yáchǐ,Danh từ,nha xỉ,răng,他每天都认真刷牙齿,Tā měitiān dōu rènzhēn shuā yáchǐ,Ngày nào anh ấy cũng đánh răng cẩn thận.,https://static.xiehanzi.com/word_audios/牙齿.mp3
 631,Bài 19,咬,yǎo,Động từ,giảo,cắn,苹果太硬了，我几乎咬不动它。,"píng guǒ tài yìng le, wǒ jī hū yǎo bú dòng tā.","Quả táo cứng quá, tôi hầu như không cắn nổi.",https://static.xiehanzi.com/word_audios/咬.mp3
 632,Bài 19,动,dòng,Động từ / Tính từ,động,di chuyển,别动,Bié dòng,Đừng cử động/đừng động đậy,https://static.xiehanzi.com/word_audios/动.mp3
 633,Bài 19,出生,chūshēng,Động từ,"xuất sinh, sanh",sinh ra,我出生在北京,Wǒ chū shēng zài běi jīng,Tôi sinh ra ở Bắc Kinh,https://static.xiehanzi.com/word_audios/出生.mp3
@@ -645,7 +645,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 644,Bài 19,吵,chǎo,Động từ / Tính từ (verb / Adjective),sảo,ồn ào,别吵，我在睡觉。,"Bié chǎo, wǒ zài shuìjiào.","Đừng ồn, tôi đang ngủ.",https://static.xiehanzi.com/word_audios/吵.mp3
 645,Bài 19,难吃,nánchī,Tính từ,"nan cật, ngật","khó ăn, dở (món ăn)",这道菜太难吃了。,Zhè dào cài tài nánchī le.,Món ăn này dở quá.,https://static.xiehanzi.com/word_audios/难吃.mp3
 646,Bài 19,稀饭,xīfàn,Danh từ,hi phạn,cháo loãng,我生病的时候喜欢喝稀饭。,Wǒ shēngbìng de shíhou xǐhuān hē xīfàn.,"Khi tôi bị bệnh, tôi thích ăn cháo loãng.",https://static.xiehanzi.com/word_audios/稀饭.mp3
-647,Bài 19,抽空,chōukòng,Động từ,trừu không,"bớt chút thời gian, tranh thủ thời gian",你什么时候有空抽空来我家玩？,Nǐ shénme shíhou yǒu kòng chōukòng lái wǒ jiā wán?,Khi nào bạn có thời gian rảnh thì ghé nhà tôi chơi nhé?,https://static.xiehanzi.com/word_audios/抽空.mp3
+647,Bài 19,抽空,chōukòng,Động từ,trừu không,"bớt chút thời gian, tranh thủ thời gian",你什么时候能抽空来我家玩？,Nǐ shénme shíhou néng chōukòng lái wǒ jiā wán?,Khi nào bạn có thể tranh thủ thời gian đến nhà tôi chơi?,https://static.xiehanzi.com/word_audios/抽空.mp3
 648,Bài 19,味,wèi,Danh từ,vị,"vị, mùi vị",这道菜的味道很独特。,Zhè dào cài de wèidào hěn dútè.,Hương vị của món ăn này rất độc đáo.,https://static.xiehanzi.com/word_audios/味.mp3
 649,Bài 19,有味儿,yǒuwèir,Tính từ,"hữu, dựu vị nhi","có mùi vị (thơm ngon), có hương vị",这个菜很有味儿。,Zhège cài hěn yǒu mèir.,Món ăn này rất đậm đà.,https://static.xiehanzi.com/word_audios/有味儿.mp3
 650,Bài 19,海鸥,hǎiōu,Danh từ,hải âu,chim hải âu,海鸥在海边自由飞翔。,Hǎi'ōu zài hǎibiān zìyóu fēixiáng.,Hải âu tự do bay lượn trên bờ biển.,https://static.xiehanzi.com/word_audios/海鸥.mp3
@@ -656,7 +656,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 655,Bài 20,美丽,měilì,Tính từ,mĩ lệ,đẹp,她是一个非常美丽的女孩。,Tā shì yī gè fēi cháng měi lì de nǚ hái.,Cô ấy là một cô gái rất xinh đẹp.,https://static.xiehanzi.com/word_audios/美丽.mp3
 656,Bài 20,清晨,qīngchén,Danh từ,thanh thần,sáng sớm,清晨的公园空气非常清新。,Qīngchén de gōngyuán kōngqì fēicháng qīngxīn.,Không khí trong công viên vào sáng sớm rất trong lành.,https://static.xiehanzi.com/word_audios/清晨.mp3
 657,Bài 20,穿过,chuānguò,Động từ,xuyên quá,xuyên qua,我们穿过树林到达了湖边。,Wǒmen chuānguò shùlín dàodá le húbiān.,Chúng tôi đi xuyên qua rừng cây đến được bờ hồ.,https://static.xiehanzi.com/word_audios/穿过.mp3
-658,Bài 20,拼,pīn,Động từ,bính,ghép,大家一起拼搏，终于赢得了比赛。,"Dàjiā yìqǐ pīnbó, zhōngyú yíngdé le bǐsài.","Mọi người cùng nhau nỗ lực hết mình, cuối cùng đã thắng trận đấu.",https://static.xiehanzi.com/word_audios/拼.mp3
+658,Bài 20,拼,pīn,Động từ,bính,ghép,我想把这两张桌子拼在一起。,Wǒ xiǎng bǎ zhè liǎng zhāng zhuōzi pīn zài yìqǐ.,Tôi muốn ghép hai chiếc bàn này lại với nhau.,https://static.xiehanzi.com/word_audios/拼.mp3
 659,Bài 20,街道,jiēdào,Danh từ,nhai đạo,đường phố,这条街道很热闹。,Zhè tiáo jiēdào hěn rènao.,Con phố này rất nhộn nhịp.,https://static.xiehanzi.com/word_audios/街道.mp3
 660,Bài 20,目的地,mùdìdì,Danh từ,mục đích địa,điểm đến,我们的目的地是北京。,Wǒmen de mùdìdì shì Běijīng.,Điểm đến của chúng tôi là Bắc Kinh.,https://static.xiehanzi.com/word_audios/目的地.mp3
 661,Bài 20,踏,tà,Động từ,đạp,dẫm lên,他脚踏实地，一步步走向成功。,"Tā jiǎotà-shídì, yíbù-bù zǒuxiàng chénggōng.","Anh ấy làm việc chắc chắn, từng bước một đi đến thành công.",https://static.xiehanzi.com/word_audios/踏.mp3
@@ -669,7 +669,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 668,Bài 20,转身,zhuǎnshēn,Động từ,chuyển thân,quay lại,他转身走了。,Tā zhuǎnshēn zǒu le.,Anh ấy quay người đi rồi.,https://static.xiehanzi.com/word_audios/转身.mp3
 669,Bài 20,凉,liáng,Tính từ / Động từ,lương,mát,今天天气很凉,Jīn tiān tiān qì hěn liáng,Hôm nay thời tiết rất mát,https://static.xiehanzi.com/word_audios/凉.mp3
 670,Bài 20,淡,dàn,Tính từ,đạm,nhạt,这道菜的味道太淡了，加点盐吧。,"zhè dào cài de wèi dao tài dàn le, jiā diǎn yán ba.","Món ăn này vị nhạt quá, thêm chút muối đi.",https://static.xiehanzi.com/word_audios/淡.mp3
-671,Bài 20,端,duān,Danh từ / Động từ / Tính từ,đoan,đầu cuối,服务员给我们端上来了一盘热菜。,Fúwùyuán gěi wǒmen duān shang lái le yì pán rè cài.,Người phục vụ bưng lên cho chúng tôi một đĩa đồ ăn nóng.,https://static.xiehanzi.com/word_audios/端.mp3
+671,Bài 20,端,duān,Động từ,đoan,bưng; bê; mang bằng hai tay,服务员给我们端上来了一盘热菜。,Fúwùyuán gěi wǒmen duān shang lái le yì pán rè cài.,Người phục vụ bưng lên cho chúng tôi một đĩa đồ ăn nóng.,https://static.xiehanzi.com/word_audios/端.mp3
 672,Bài 20,愿,yuàn,Trợ động từ / Động từ / Danh từ,nguyện,"ước, nguyện",愿你天天开心，学业进步！,"Yuàn nǐ tiāntiān kāixīn, xuéyè jìnbù!","Chúc bạn mỗi ngày đều vui vẻ, học tập tiến bộ!",https://static.xiehanzi.com/word_audios/愿.mp3
 673,Bài 20,认真,rènzhēn,Tính từ,nhận chân,chăm chỉ,他工作很认真,Tā gōngzuò hěn rènzhēn,Anh ấy làm việc rất nghiêm túc,https://static.xiehanzi.com/word_audios/认真.mp3
 674,Bài 20,仔细,zǐ xì,Tính từ,"tể, tử tế",cẩn thận,请仔细检查作业。,Qǐng zǐxì jiǎnchá zuòyè.,Hãy kiểm tra bài tập cẩn thận.,https://static.xiehanzi.com/word_audios/仔细.mp3
@@ -687,7 +687,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 686,Bài 20,罗马,Luómǎ,Danh từ riêng,la mã,roma (thủ đô của Ý).,罗马是意大利的首都。,Luómǎ shì Yìdàlì de shǒudū.,Roma là thủ đô của Ý.,https://static.xiehanzi.com/word_audios/罗马.mp3
 687,Bài 21,老家,lǎojiā,Danh từ,lão gia,quê hương,春节我们回老家过年。,Chūn jié wǒ men huí lǎo jiā guò nián.,"Tết đến, chúng tôi về quê ăn Tết.",https://static.xiehanzi.com/word_audios/老家.mp3
 688,Bài 21,城,chéng,Danh từ,thành,thành phố,北京是一座大城。,Běijīng shì yī zuò dà chéng.,Bắc Kinh là một thành phố lớn.,https://static.xiehanzi.com/word_audios/城.mp3
-689,Bài 21,以外,yǐwài,Danh từ / Từ chỉ phương vị,dĩ ngoại,bên ngoài,这周以外,Zhè zhōu yǐ wài,Ngoài tuần này,https://static.xiehanzi.com/word_audios/以外.mp3
+689,Bài 21,以外,yǐwài,Danh từ / Từ chỉ phương vị,dĩ ngoại,bên ngoài,除了汉语以外，我还学英语。,"Chúle Hànyǔ yǐwài, wǒ hái xué Yīngyǔ.","Ngoài tiếng Trung, tôi còn học tiếng Anh.",https://static.xiehanzi.com/word_audios/以外.mp3
 690,Bài 21,团圆,tuányuán,Động từ / Tính từ,đoàn viên,đoàn tụ,中秋节是家人团圆的传统节日。,zhōng qiū jié shì jiā rén tuán yuán de chuán tǒng jié rì.,Tết Trung thu là ngày lễ truyền thống để gia đình đoàn tụ.,https://static.xiehanzi.com/word_audios/团圆.mp3
 691,Bài 21,羡慕,xiànmù,Động từ,tiện mộ,ngưỡng mộ,我很羡慕他,Wǒ hěn xiànmù tā,Tôi rất ngưỡng mộ anh ấy,https://static.xiehanzi.com/word_audios/羡慕.mp3
 692,Bài 21,遍,biàn,Danh từ / Lượng từ / Tính từ,biến,lần,这篇文章我读了两遍。,Zhè piān wén zhāng wǒ dú le liǎng biàn.,Tôi đã đọc bài văn này hai lần.,https://static.xiehanzi.com/word_audios/遍.mp3
@@ -732,7 +732,7 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 731,Bài 22,物理,wùlǐ,Danh từ,vật lí,vật lý,学习物理,Xuéxí wùlǐ,Học vật lý,https://static.xiehanzi.com/word_audios/物理.mp3
 732,Bài 22,化学,huàxué,Danh từ,hóa học,hóa học,我对化学这门学科非常感兴趣。,Wǒ duì huà xué zhè mén xué kē fēi cháng gǎn xìng qù.,Tôi rất có hứng thú với môn hóa học này.,https://static.xiehanzi.com/word_audios/化学.mp3
 733,Bài 22,外语,wàiyǔ,Danh từ,ngoại ngữ,ngoại ngữ,我想学外语。,Wǒ xiǎng xué wàiyǔ.,Tôi muốn học ngoại ngữ.,https://static.xiehanzi.com/word_audios/外语.mp3
-734,Bài 22,及格,jígé,Động từ / Tính từ,"cập các, cách",đạt yêu cầu,考试及格了。,Kǎoshì jígé le.,Kỳ thi đã qua môn.,https://static.xiehanzi.com/word_audios/及格.mp3
+734,Bài 22,及格,jígé,Động từ / Tính từ,"cập các, cách",đạt yêu cầu,考试及格了。,Kǎoshì jígé le.,Tôi đã thi đạt yêu cầu rồi.,https://static.xiehanzi.com/word_audios/及格.mp3
 735,Bài 22,批评,pīpíng,Động từ,phê bình,phê bình,老师批评他没有完成作业。,Lǎoshī pīpíng tā méiyǒu wánchéng zuòyè.,Thầy cô phê bình em ấy vì không hoàn thành bài tập.,https://static.xiehanzi.com/word_audios/批评.mp3
 736,Bài 22,表扬,biǎoyáng,Động từ,biểu dương,khen ngợi,老师表扬了他的进步。,Lǎoshī biǎoyáng le tā de jìnbù.,Thầy giáo đã khen ngợi sự tiến bộ của anh ấy.,https://static.xiehanzi.com/word_audios/表扬.mp3
 737,Bài 22,作用,zuòyòng,Danh từ / Động từ,tác dụng,tác dụng,这种药对退烧很有作用。,Zhè zhǒng yào duì tuì shāo hěn yǒu zuò yòng.,Loại thuốc này có tác dụng hạ sốt.,https://static.xiehanzi.com/word_audios/作用.mp3
@@ -786,20 +786,20 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 785,Bài 23,擦,cā,Danh từ,sát,"chà, lau",请把桌子擦干净。,Qǐng bǎ zhuō zi cā gān jìng.,Hãy lau bàn cho sạch.,https://static.xiehanzi.com/word_audios/擦.mp3
 786,Bài 23,抱,bào,Danh từ,bão,ôm,妈妈抱着孩子回家了。,Mā ma bào zhe hái zi huí jiā le.,Người mẹ bế con về nhà.,https://static.xiehanzi.com/word_audios/抱.mp3
 787,Bài 23,哭,kū,Động từ,khốc,khóc,婴儿在哭。,Yīng ér zài kū.,Em bé đang khóc.,https://static.xiehanzi.com/word_audios/哭.mp3
-788,Bài 23,挨打,āidǎ,Động từ,ai đả,bị đánh,他挨打了,Tā áidǎle,Anh ta bị đánh,https://static.xiehanzi.com/word_audios/挨打.mp3
+788,Bài 23,挨打,áidǎ,Động từ,ai đả,bị đánh,他挨打了,Tā áidǎle,Anh ta bị đánh,https://static.xiehanzi.com/word_audios/挨打.mp3
 789,Bài 23,女儿,nǚ'ér,Danh từ,nữ nhi,con gái,这是我女儿,Zhè shì wǒ nǚ'ér,Đây là con gái tôi,https://static.xiehanzi.com/word_audios/女儿.mp3
 790,Bài 23,似的,shìde,Trợ từ so sánh,tự đích,giống như,他像个孩子似的。,Tā xiàng gè háizi shìde.,Anh ấy giống như một đứa trẻ.,https://static.xiehanzi.com/word_audios/似的.mp3
 791,Bài 23,馒头,mántou,Danh từ,man đầu,bánh bao hấp,吃馒头,Chī mántou,Ăn bánh bao,https://static.xiehanzi.com/word_audios/馒头.mp3
-792,Bài 23,狠心,hěnxīn,Tính từ / Động từ,ngận tâm,quyết tâm,他怎么能狠心抛弃自己生病的小狗？,tā zěn me néng hěn xīn pāo qì zì jǐ shēng bìng de xiǎo gǒu?,Sao anh ta có thể nhẫn tâm bỏ rơi chú chó con bị bệnh của mình chứ?,https://static.xiehanzi.com/word_audios/狠心.mp3
+792,Bài 23,狠心,hěnxīn,Tính từ / Động từ,ngận tâm,nhẫn tâm; tàn nhẫn,他怎么能狠心抛弃自己生病的小狗？,tā zěn me néng hěn xīn pāo qì zì jǐ shēng bìng de xiǎo gǒu?,Sao anh ta có thể nhẫn tâm bỏ rơi chú chó con bị bệnh của mình chứ?,https://static.xiehanzi.com/word_audios/狠心.mp3
 793,Bài 23,脸,liǎn,Danh từ,"kiểm, thiểm",mặt,她的脸很漂亮,Tā de liǎn hěn piāo liàng,Khuôn mặt cô ấy rất đẹp,https://static.xiehanzi.com/word_audios/脸.mp3
 794,Bài 23,摸,mō,Động từ,mô,chạm vào,请不要用手摸展品。,Qǐng bú yào yòng shǒu mō zhǎn pǐn.,Xin đừng dùng tay chạm vào hiện vật.,https://static.xiehanzi.com/word_audios/摸.mp3
 795,Bài 23,聚餐,jùcān,Động từ / Danh từ,tụ xan,"ăn liên hoan, tụ tập ăn uống, bữa ăn tập thể.",周末我们班组织了一次聚餐。,Zhōumò wǒmen bān zǔzhī le yī cì jùcān.,Cuối tuần lớp chúng tôi đã tổ chức một bữa liên hoan.,https://static.xiehanzi.com/word_audios/聚餐.mp3
 796,Bài 23,班会,bānhuì,Danh từ,ban hội,"buổi họp lớp, sinh hoạt lớp.",今天下午有班会。,Jīntiān xiàwǔ yǒu bānhuì.,Chiều nay có buổi họp lớp.,https://static.xiehanzi.com/word_audios/班会.mp3
 797,Bài 23,烙饼,làobǐng,Danh từ,lạc bính,"bánh rán, bánh dẹt áp chảo (một loại bánh mì dẹt của Trung Quốc).",妈妈早上做了烙饼给我吃。,Māma zǎoshang zuò le làobǐng gěi wǒ chī.,Sáng nay mẹ làm bánh rán cho tôi ăn.,https://static.xiehanzi.com/word_audios/烙饼.mp3
-798,Bài 24,分,fēn,Động từ / Lượng từ / Danh từ,phân,sự khác biệt; phân biệt,现在三点十分,Xiànzài sān diǎn shí fēn,Bây giờ là 3 giờ 10 phút,https://static.xiehanzi.com/word_audios/分.mp3
+798,Bài 24,分,fēn,Động từ / Lượng từ / Danh từ,phân,chia; phân chia; phân biệt,请把这些苹果分成两份。,Qǐng bǎ zhèxiē píngguǒ fēn chéng liǎng fèn.,Hãy chia số táo này thành hai phần.,https://static.xiehanzi.com/word_audios/分.mp3
 799,Bài 24,错过,cuòguò,Động từ,thác quá,bỏ lỡ,要是再不走，我们就会错过这趟火车。,"Yàoshi zài bù zǒu, wǒmen jiù huì cuòguò zhè tàng huǒchē.",Nếu không đi ngay thì chúng ta sẽ bỏ lỡ chuyến tàu này.,https://static.xiehanzi.com/word_audios/错过.mp3
-800,Bài 24,分别,fēnbié,Động từ / Danh từ,phân biệt,sự khác biệt,我们要分别对待这些问题。,Wǒ men yào fēn bié duì dài zhè xiē wèn tí.,Chúng ta cần phân biệt xử dụng các vấn đề này.,https://static.xiehanzi.com/word_audios/分别.mp3
-801,Bài 24,迷,mí,Động từ / Tính từ,mê,bối rối; bị bối rối,他是一个地道的足球迷。,tā shì yí gè dì dào de zú qiú mí.,Anh ấy là một người hâm mộ bóng đá đích thực.,https://static.xiehanzi.com/word_audios/迷.mp3
+800,Bài 24,分别,fēnbié,Phó từ / Động từ,phân biệt,riêng biệt; lần lượt; phân biệt,我们要分别对待这些问题。,Wǒ men yào fēn bié duì dài zhè xiē wèn tí.,Chúng ta cần xử lý riêng từng vấn đề này.,https://static.xiehanzi.com/word_audios/分别.mp3
+801,Bài 24,迷,mí,Động từ / Tính từ,mê,bối rối; bị bối rối,他迷了路，不知道怎么回家。,"Tā mí le lù, bù zhīdào zěnme huí jiā.","Anh ấy bị lạc đường, không biết về nhà thế nào.",https://static.xiehanzi.com/word_audios/迷.mp3
 802,Bài 24,姑娘,gūniang,Danh từ,cô nương,cô gái,那个姑娘长得很漂亮，性格也很好。,"Nàge gūniang zhǎng de hěn piàoliang, xìnggé yě hěn hǎo.","Cô gái đó rất xinh đẹp, tính cách cũng rất tốt.",https://static.xiehanzi.com/word_audios/姑娘.mp3
 803,Bài 24,敲,qiāo,Động từ,xao,gõ,有人在敲门,Yǒu rén zài qiāomén,Có người đang gõ cửa,https://static.xiehanzi.com/word_audios/敲.mp3
 804,Bài 24,妻子,qīzi,Danh từ,thê tử,vợ,这是我的妻子。,Zhè shì wǒ de qīzi.,Đây là vợ tôi.,https://static.xiehanzi.com/word_audios/妻子.mp3
@@ -834,14 +834,14 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 833,Bài 24,重病,zhòngbìng,Danh từ,trọng bệnh,"bệnh nặng, bệnh hiểm nghèo.",他得了重病，正在住院治疗。,"Tā dé le zhòngbìng, zhèngzài zhùyuàn zhìliáo.","Anh ấy mắc bệnh nặng, đang nằm viện điều trị.",https://static.xiehanzi.com/word_audios/重病.mp3
 834,Bài 24,痘,dòu,Danh từ,đậu,"đậu (bệnh đậu mùa, mụn nhọt, nốt sần).",他脸上长了很多痘痘。,Tā liǎn shàng zhǎng le hěn duō dòudou.,Mặt anh ấy mọc rất nhiều mụn trứng cá.,https://static.xiehanzi.com/word_audios/痘.mp3
 835,Bài 24,万幸,wànxìng,Trạng từ / Tính từ,vạn hạnh,"may mắn thay, may mắn tột cùng, thật may mắn.",万幸，他及时赶到了。,"Wànxìng, tā jíshí gǎndào le.","May mắn thay, anh ấy đã đến kịp thời.",https://static.xiehanzi.com/word_audios/万幸.mp3
-836,Bài 25,真正,zhēnzhèng,Phó từ / Tính từ,chân chính,thực sự,他是我的真正朋友,Tā shì wǒ de zhēn zhèng péng yǒu,Anh ấy là bạn thực sự của tôi,https://static.xiehanzi.com/word_audios/真正.mp3
+836,Bài 25,真正,zhēnzhèng,Phó từ / Tính từ,chân chính,thực sự,他是我真正的朋友。,Tā shì wǒ zhēnzhèng de péngyou.,Anh ấy là người bạn thực sự của tôi.,https://static.xiehanzi.com/word_audios/真正.mp3
 837,Bài 25,群,qún,Lượng từ / Danh từ,quần,một từ đo lường cho đàn hoặc nhóm,一群孩子在操场上玩。,Yì qún háizi zài cāochǎng shàng wán.,Một nhóm trẻ em đang chơi trên sân vận động.,https://static.xiehanzi.com/word_audios/群.mp3
 838,Bài 25,打工,dǎgōng,Động từ,đả công,làm thêm,学生在餐厅打工,Xué shēng zài cān tīng dǎ gōng,Học sinh làm thêm ở nhà hàng,https://static.xiehanzi.com/word_audios/打工.mp3
 839,Bài 25,故意,gùyì,Phó từ / Tính từ,cố ý,cố ý,我不是故意的,Wǒ bù shì gù yì de,Tôi không cố ý,https://static.xiehanzi.com/word_audios/故意.mp3
-840,Bài 25,点心,diǎnxīn,Danh từ,điểm tâm,món tráng miệng,下午茶时间，我们吃了一些精致的点心。,"xià wǔ chá shí jiān, wǒ men chī le yì xiē jīng zhì de diǎn xīn.","Vào giờ trà chiều, chúng tôi đã ăn một số món tráng miệng tinh tế.",https://static.xiehanzi.com/word_audios/点心.mp3
+840,Bài 25,点心,diǎnxīn,Danh từ,điểm tâm,món tráng miệng,下午茶时间，我们吃了一些精致的点心。,"xià wǔ chá shí jiān, wǒ men chī le yì xiē jīng zhì de diǎn xīn.","Vào giờ trà chiều, chúng tôi đã ăn một ít bánh điểm tâm được làm tinh tế.",https://static.xiehanzi.com/word_audios/点心.mp3
 841,Bài 25,负责,fùzé,Động từ / Tính từ,phụ trách,chịu trách nhiệm,谁负责这个项目？,Shéi fùzé zhège xiàngmù?,Ai chịu trách nhiệm dự án này?,https://static.xiehanzi.com/word_audios/负责.mp3
 842,Bài 25,卖,mài,Động từ,mại,bán,这家店卖水果,Zhè jiā diàn mài shuǐ guǒ,Cửa hàng này bán trái cây,https://static.xiehanzi.com/word_audios/卖.mp3
-843,Bài 25,生意,shēngyi,Danh từ,"sinh, sanh ý","kinh doanh, buôn bán",他的生意做得很好。,Tā de shēngyi zuò de hěn hǎo.,Việc kinh doanh của anh ấy làm rất tốt.,https://static.xiehanzi.com/word_audios/生意.mp3
+843,Bài 25,生意,shēngyi,Danh từ,"sinh, sanh ý","kinh doanh, buôn bán",他的生意做得很好。,Tā de shēngyi zuò de hěn hǎo.,Công việc kinh doanh của anh ấy rất thuận lợi.,https://static.xiehanzi.com/word_audios/生意.mp3
 844,Bài 25,椅子,yǐzi,Danh từ,ỷ tử,ghế,请坐在这把椅子上。,Qǐng zuò zài zhè bǎ yǐ zi shàng.,Vui lòng ngồi trên cái ghế này.,https://static.xiehanzi.com/word_audios/椅子.mp3
 845,Bài 25,耐心,nàixīn,Danh từ / Tính từ,nại tâm,kiên nhẫn; sự kiên nhẫn,老师对学生很耐心。,Lǎoshī duì xuésheng hěn nàixīn.,Thầy giáo rất kiên nhẫn với học sinh.,https://static.xiehanzi.com/word_audios/耐心.mp3
 846,Bài 25,渐渐,jiànjiàn,Danh từ,tiệm tiệm,dần dần,天渐渐黑了。,Tiān jiàn jiàn hēi le.,Trời dần tối.,https://static.xiehanzi.com/word_audios/渐渐.mp3
@@ -857,9 +857,9 @@ STT,Bài học,Chữ Hán,Phiên âm Pinyin,Từ loại,Âm Hán Việt,Nghĩa t
 856,Bài 25,夫人,fūren,Danh từ,phu nhân,phu nhân,王夫人,Wáng fūren,Phu nhân Vương,https://static.xiehanzi.com/word_audios/夫人.mp3
 857,Bài 25,双胞胎,shuāngbāotāi,Danh từ,song bào thai,sinh đôi,这对双胞胎长得一模一样。,zhè duì shuāng bāo tāi zhǎng de yī mú yī yàng.,Cặp song sinh này trông giống hệt nhau.,https://static.xiehanzi.com/word_audios/双胞胎.mp3
 858,Bài 25,捎,shāo,Động từ,"siếu, sao",mang theo; đem theo,你能帮我给李老师捎一句话吗？,Nǐ néng bāng wǒ gěi Lǐ lǎoshī shāo yí jù huà ma?,Bạn có thể nhắn hộ tôi một lời tới thầy Lý được không?,https://static.xiehanzi.com/word_audios/捎.mp3
-859,Bài 25,话,huà,Danh từ / Động từ,thoại,câu nói,我想和你说句话,Wǒ xiǎng hé nǐ shuō jù huà,Tôi muốn nói với bạn vài câu,https://static.xiehanzi.com/word_audios/话.mp3
+859,Bài 25,话,huà,Danh từ / Động từ,thoại,câu nói,我想和你说句话,Wǒ xiǎng hé nǐ shuō jù huà,Tôi muốn nói với bạn một câu.,https://static.xiehanzi.com/word_audios/话.mp3
 860,Bài 25,深夜,shēnyè,Danh từ,thâm dạ,đêm khuya,他深夜还在加班，处理紧急的工作。,"Tā shēnyè hái zài jiābān, chǔlǐ jínjí de gōngzuò.","Đêm khuya anh ấy vẫn còn làm thêm giờ, xử lý công việc khẩn cấp.",https://static.xiehanzi.com/word_audios/深夜.mp3
 861,Bài 25,司机,sījī,Danh từ,"ti, tư cơ",tài xế,他是出租车司机,Tā shì chū zū chē sī jī,Anh ấy là tài xế taxi,https://static.xiehanzi.com/word_audios/司机.mp3
-862,Bài 25,陪,péi,Động từ,bồi,đi cùng,我陪你去,Wǒ péi nǐ qù,Tôi đi cùng bạn/anh đi nhé,https://static.xiehanzi.com/word_audios/陪.mp3
+862,Bài 25,陪,péi,Động từ,bồi,đi cùng,我陪你去,Wǒ péi nǐ qù,Tôi đi cùng bạn.,https://static.xiehanzi.com/word_audios/陪.mp3
 863,Bài 25,准时,zhǔnshí,Tính từ / Phó từ,chuẩn thì,đúng giờ,会议准时开始。,Huìyì zhǔnshí kāishǐ.,Cuộc họp bắt đầu đúng giờ.,https://static.xiehanzi.com/word_audios/准时.mp3
 864,Bài 25,失望,shīwàng,Tính từ / Động từ,thất vọng,thất vọng,他的表现让教练感到非常失望。,tā de biǎo xiàn ràng jiào liàn gǎn dào fēi cháng shī wàng.,Biểu hiện của anh ấy khiến huấn luyện viên cảm thấy rất thất vọng.,https://static.xiehanzi.com/word_audios/失望.mp3

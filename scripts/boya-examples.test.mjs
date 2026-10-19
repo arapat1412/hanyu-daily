@@ -60,14 +60,14 @@ function parseCsv(source) {
     );
 }
 
-async function loadBoya1Sources() {
+async function loadBoyaSources(book) {
   const [csvSource, tsSource] = await Promise.all([
-    readFile(new URL("../data/boya1_vocab.csv", import.meta.url), "utf8"),
-    readFile(new URL("../src/data/boya1Data.ts", import.meta.url), "utf8"),
+    readFile(new URL(`../data/boya${book}_vocab.csv`, import.meta.url), "utf8"),
+    readFile(new URL(`../src/data/boya${book}Data.ts`, import.meta.url), "utf8"),
   ]);
   return {
     rows: parseCsv(csvSource),
-    vocabulary: loadVocabulary(tsSource, "BOYA1_VOCABULARY"),
+    vocabulary: loadVocabulary(tsSource, `BOYA${book}_VOCABULARY`),
   };
 }
 
@@ -111,7 +111,7 @@ for (const [file, exportName, expectedCount] of fixtures) {
 }
 
 test("Boya 1 CSV and TypeScript expose the same 678 example triplets", async () => {
-  const { rows, vocabulary } = await loadBoya1Sources();
+  const { rows, vocabulary } = await loadBoyaSources(1);
 
   assert.equal(rows.length, 678);
   assert.equal(vocabulary.length, 678);
@@ -136,8 +136,53 @@ test("Boya 1 CSV and TypeScript expose the same 678 example triplets", async () 
   }
 });
 
+test("Boya 2 CSV and TypeScript expose the same 864 vocabulary rows", async () => {
+  const { rows, vocabulary } = await loadBoyaSources(2);
+
+  assert.equal(rows.length, 864);
+  assert.equal(vocabulary.length, 864);
+  assert.deepEqual(
+    rows.map((row) => Number(row.STT)),
+    Array.from({ length: 864 }, (_, index) => index + 1),
+    "CSV sequence order changed",
+  );
+
+  for (const [index, word] of vocabulary.entries()) {
+    const row = rows[index];
+    assert.equal(
+      word.hanzi,
+      row["Chữ Hán"],
+      `Row ${row.STT} hanzi mismatch for ${word.id}`,
+    );
+    assert.equal(
+      word.pinyin,
+      row["Phiên âm Pinyin"],
+      `Row ${row.STT} pinyin mismatch for ${word.id}`,
+    );
+    assert.equal(
+      word.meaning,
+      row["Nghĩa tiếng Việt"],
+      `Row ${row.STT} meaning mismatch for ${word.id}`,
+    );
+    assert.equal(
+      word.partOfSpeech,
+      row["Từ loại"],
+      `Row ${row.STT} part of speech mismatch for ${word.id}`,
+    );
+    assert.deepEqual(
+      word.exampleSentence,
+      {
+        chinese: row["Ví dụ tiếng Trung"],
+        pinyin: row["Phiên âm ví dụ"],
+        vietnamese: row["Dịch ví dụ"],
+      },
+      `Row ${row.STT} (${word.id}) example mismatch between CSV and TypeScript`,
+    );
+  }
+});
+
 test("Boya 1 reviewed examples keep polyphonic and neutral-tone readings", async () => {
-  const { rows, vocabulary } = await loadBoya1Sources();
+  const { rows, vocabulary } = await loadBoyaSources(1);
   const byId = new Map(vocabulary.map((word) => [word.id, word]));
 
   function assertExample(id, example) {
@@ -189,4 +234,42 @@ test("Boya 1 reviewed examples keep polyphonic and neutral-tone readings", async
   const csvRow = rows.find((row) => Number(row.STT) === 616);
   assert.equal(csvRow["Nghĩa tiếng Việt"], "trợ từ dẫn bổ ngữ");
   assert.equal(csvRow["Từ loại"], "Trợ từ");
+});
+
+test("Boya 2 reviewed semantic and polyphonic corrections stay fixed", async () => {
+  const { vocabulary } = await loadBoyaSources(2);
+  const byId = new Map(vocabulary.map((word) => [word.id, word]));
+
+  function getWord(id) {
+    const word = byId.get(id);
+    assert.ok(word, `Missing ${id}`);
+    return word;
+  }
+
+  const chang = getWord("boya2-3-4");
+  assert.equal(chang.pinyin, "zhǎng");
+  assert.equal(chang.exampleSentence.chinese, "孩子长高了。");
+  assert.equal(chang.exampleSentence.pinyin, "Háizi zhǎng gāo le.");
+
+  const bei = getWord("boya2-3-14");
+  assert.equal(bei.exampleSentence.pinyin, "Tā bēizhe shūbāo.");
+
+  const de = getWord("boya2-14-5");
+  assert.equal(de.pinyin, "de");
+  assert.equal(de.meaning, "trợ từ dẫn bổ ngữ");
+  assert.equal(de.partOfSpeech, "Trợ từ");
+  assert.equal(de.exampleSentence.chinese, "他画得很好。");
+  assert.equal(de.exampleSentence.pinyin, "Tā huà de hěn hǎo.");
+
+  const aida = getWord("boya2-23-32");
+  assert.equal(aida.pinyin, "áidǎ");
+
+  const fen = getWord("boya2-24-1");
+  assert.equal(fen.exampleSentence.chinese, "请把这些苹果分成两份。");
+
+  const huo = getWord("boya2-16-18");
+  assert.equal(huo.exampleSentence.chinese, "爷爷已经活到九十岁了，身体依然硬朗。");
+
+  const po = getWord("boya2-17-33");
+  assert.equal(po.exampleSentence.chinese, "骑自行车上下坡的时候要特别小心。");
 });
