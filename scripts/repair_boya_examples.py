@@ -42,35 +42,61 @@ load_phrases_dict(
 # translation.  Pinyin is regenerated from the reviewed Chinese sentence.
 REPAIRS: dict[str, dict[int, tuple[str, str]]] = {
     "boya1": {
+        12: ("您好", "Xin chào ông/bà/anh/chị."),
+        43: ("她在大学学的是日语翻译。", "Ở đại học, cô ấy học chuyên ngành biên dịch tiếng Nhật."),
+        74: ("我妹妹是研究生。", "Em gái tôi là học viên sau đại học."),
+        125: ("房间里有人。", "Trong phòng có người."),
         143: ("我每天走路去学校。", "Tôi đi bộ đến trường mỗi ngày."),
+        152: ("我就去", "Tôi đi ngay."),
+        159: ("我住在三〇二室。", "Tôi ở phòng 302."),
         167: ("这位售货员的态度很好。", "Thái độ của nhân viên bán hàng này rất tốt."),
         177: ("这位小姐姓王。", "Cô gái này họ Vương."),
         180: ("我明天要去医院。", "Ngày mai tôi phải đến bệnh viện."),
+        213: ("这把椅子坐着很舒服。", "Ngồi trên chiếc ghế này rất thoải mái."),
         215: ("我最喜欢春天这个季节。", "Tôi thích nhất mùa xuân."),
         238: ("我们周末去酒吧听音乐。", "Cuối tuần chúng tôi đến quán bar nghe nhạc."),
         254: ("我下午去商店买东西。", "Buổi chiều tôi đi cửa hàng mua đồ."),
         261: ("我们住在市中心。", "Chúng tôi sống ở trung tâm thành phố."),
+        272: ("这件毛衣是白色的。", "Chiếc áo len này màu trắng."),
         279: ("你喜欢什么颜色？", "Bạn thích màu gì?"),
+        294: ("墙壁被刷成了浅灰色。", "Bức tường đã được sơn màu xám nhạt."),
         330: ("这两本书的内容不同。", "Nội dung của hai quyển sách này khác nhau."),
+        335: ("我喜欢跳舞，特别是交际舞。", "Tôi thích khiêu vũ, đặc biệt là khiêu vũ giao tiếp."),
         354: ("你明天来也行。", "Ngày mai bạn đến cũng được."),
         361: ("我每天坐地铁上班。", "Mỗi ngày tôi đi làm bằng tàu điện ngầm."),
         380: ("今天来上课的人很少。", "Hôm nay có rất ít người đến lớp."),
+        381: ("我得去上课了。", "Tôi phải đi học rồi."),
+        384: ("如果你不去的话，我也不去。", "Nếu bạn không đi thì tôi cũng không đi."),
         389: ("夜市晚上很热闹。", "Chợ đêm rất nhộn nhịp vào buổi tối."),
         409: ("请帮我改一下这个句子。", "Hãy giúp tôi sửa câu này."),
+        411: ("现在大概是下午三点。", "Bây giờ khoảng ba giờ chiều."),
         420: ("我昨晚做梦了。", "Tối qua tôi đã nằm mơ."),
+        442: ("他的脸色不太好。", "Sắc mặt anh ấy không được tốt."),
+        443: ("他为了赶作业熬夜到凌晨", "Anh ấy thức đến tận rạng sáng để làm bài tập cho kịp."),
+        444: ("一斤苹果", "Nửa kilôgam táo (một cân Trung Quốc)."),
+        455: ("杯子倒了", "Cái cốc đã bị đổ"),
         487: ("今天是星期日。", "Hôm nay là Chủ nhật."),
+        506: ("练习口语很重要。", "Luyện khẩu ngữ rất quan trọng."),
+        507: ("我每天学汉语。", "Tôi học tiếng Trung mỗi ngày."),
+        508: ("我在初中学习了三年。", "Tôi đã học ở cấp hai ba năm."),
         512: ("这个学期我选了四门课。", "Học kỳ này tôi đăng ký bốn môn học."),
         514: ("我周末常跟朋友打篮球。", "Cuối tuần tôi thường chơi bóng rổ với bạn bè."),
         516: ("我们中午在食堂吃饭。", "Buổi trưa chúng tôi ăn cơm ở căng tin."),
         517: ("我们周末有一个同学聚会。", "Cuối tuần chúng tôi có một buổi họp mặt bạn học."),
         522: ("那位女生是我的同学。", "Nữ sinh kia là bạn học của tôi."),
         529: ("我在门口等你。", "Tôi đợi bạn ở cửa."),
+        535: ("我们坐下来好好聊天儿吧。", "Chúng ta ngồi xuống trò chuyện một lát cho thoải mái nhé."),
         539: ("这部电视剧非常受欢迎。", "Bộ phim truyền hình này rất được yêu thích."),
         550: ("我每天早上都跑步。", "Sáng nào tôi cũng chạy bộ."),
+        552: ("打完球后他出了一身汗。", "Chơi bóng xong, cậu ấy toát mồ hôi khắp người."),
+        554: ("你的汉语说得很棒。", "Bạn nói tiếng Trung rất giỏi."),
         556: ("他干活很有劲儿。", "Anh ấy làm việc rất hăng hái."),
         567: ("假期我们打算去旅行。", "Trong kỳ nghỉ, chúng tôi dự định đi du lịch."),
+        583: ("请在信封上贴一张邮票。", "Hãy dán một con tem lên phong bì."),
         589: ("这里的风景很美。", "Phong cảnh ở đây rất đẹp."),
+        592: ("我正在为考试复习。", "Tôi đang ôn thi."),
         613: ("我已经做完作业了。", "Tôi đã làm xong bài tập rồi."),
+        616: ("你考得怎么样？", "Bạn thi thế nào?"),
         628: ("路很滑，你慢慢走。", "Đường trơn lắm, bạn đi chậm thôi."),
         639: ("我已经把作业全部做完了。", "Tôi đã làm xong toàn bộ bài tập."),
         646: ("我们明天坐火车去北京。", "Ngày mai chúng tôi đi Bắc Kinh bằng tàu hỏa."),
@@ -142,6 +168,68 @@ REPAIRS: dict[str, dict[int, tuple[str, str]]] = {
 }
 
 
+# Reviewed per-sequence readings for repaired Boya 1 examples.  Polyphonic
+# characters and neutral tones are written out explicitly so regeneration stays
+# stable (for example 得 děi / de, 倒 dǎo, 舒服 shūfu, and 〇 líng).
+PINYIN_OVERRIDES: dict[str, dict[int, str]] = {
+    "boya1": {
+        12: "Nín hǎo",
+        43: "Tā zài dàxué xué de shì Rìyǔ fānyì.",
+        74: "Wǒ mèimei shì yánjiūshēng.",
+        125: "Fángjiān lǐ yǒu rén.",
+        152: "Wǒ jiù qù",
+        159: "Wǒ zhù zài sān líng èr shì.",
+        213: "Zhè bǎ yǐzi zuòzhe hěn shūfu.",
+        272: "Zhè jiàn máoyī shì báisè de.",
+        294: "Qiángbì bèi shuā chéng le qiǎn huīsè.",
+        335: "Wǒ xǐhuan tiàowǔ, tèbié shì jiāojìwǔ.",
+        381: "Wǒ děi qù shàngkè le.",
+        384: "Rúguǒ nǐ bù qù dehuà, wǒ yě bù qù.",
+        411: "Xiànzài dàgài shì xiàwǔ sān diǎn.",
+        442: "Tā de liǎnsè bù tài hǎo.",
+        443: "Tā wèile gǎn zuòyè áoyè dào língchén",
+        444: "Yī jīn píngguǒ",
+        455: "Bēizi dǎo le.",
+        506: "Liànxí kǒuyǔ hěn zhòngyào.",
+        507: "Wǒ měitiān xué Hànyǔ.",
+        508: "Wǒ zài chūzhōng xuéxí le sān nián.",
+        535: "Wǒmen zuò xiàlái hǎohǎo liáo tiānr ba.",
+        552: "Dǎ wán qiú hòu tā chū le yì shēn hàn.",
+        554: "Nǐ de Hànyǔ shuō de hěn bàng.",
+        583: "Qǐng zài xìn fēng shàng tiē yī zhāng yóu piào.",
+        592: "Wǒ zhèngzài wèi kǎoshì fùxí.",
+        616: "Nǐ kǎo de zěnmeyàng?",
+    },
+}
+
+
+# Headword fields corrected together with an example repair.  The keys match
+# the TypeScript field names; CSV_METADATA_COLUMNS maps them to CSV headers.
+METADATA_REPAIRS: dict[str, dict[int, dict[str, str]]] = {
+    "boya1": {
+        616: {"meaning": "trợ từ dẫn bổ ngữ", "partOfSpeech": "Trợ từ"},
+    },
+}
+
+CSV_METADATA_COLUMNS = {
+    "meaning": "Nghĩa tiếng Việt",
+    "partOfSpeech": "Từ loại",
+}
+
+
+def side_tables(
+    book: str, repairs: dict[int, tuple[str, str]]
+) -> tuple[dict[int, str], dict[int, dict[str, str]]]:
+    overrides = PINYIN_OVERRIDES.get(book, {})
+    metadata = METADATA_REPAIRS.get(book, {})
+    unregistered = (set(overrides) | set(metadata)) - set(repairs)
+    if unregistered:
+        raise ValueError(
+            f"{book} overrides reference unregistered sequences: {sorted(unregistered)}"
+        )
+    return overrides, metadata
+
+
 def sentence_pinyin(sentence: str) -> str:
     """Return readable tone-marked pinyin while preserving punctuation."""
     raw_tokens = lazy_pinyin(
@@ -180,6 +268,7 @@ def sentence_pinyin(sentence: str) -> str:
 
 def update_csv(book: str, repairs: dict[int, tuple[str, str]]) -> None:
     path = ROOT / "data" / f"{book}_vocab.csv"
+    overrides, metadata = side_tables(book, repairs)
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
         fieldnames = list(rows[0].keys())
@@ -195,8 +284,10 @@ def update_csv(book: str, repairs: dict[int, tuple[str, str]]) -> None:
                 f"{book} row {sequence}: repaired sentence does not contain {row['Chữ Hán']}"
             )
         row["Ví dụ tiếng Trung"] = chinese
-        row["Phiên âm ví dụ"] = sentence_pinyin(chinese)
+        row["Phiên âm ví dụ"] = overrides.get(sequence) or sentence_pinyin(chinese)
         row["Dịch ví dụ"] = vietnamese
+        for field, value in metadata.get(sequence, {}).items():
+            row[CSV_METADATA_COLUMNS[field]] = value
         seen.add(sequence)
 
     missing = set(repairs) - seen
@@ -211,6 +302,7 @@ def update_csv(book: str, repairs: dict[int, tuple[str, str]]) -> None:
 
 def update_typescript(book: str, repairs: dict[int, tuple[str, str]]) -> None:
     path = ROOT / "src" / "data" / f"{book}Data.ts"
+    overrides, metadata = side_tables(book, repairs)
     source = path.read_text(encoding="utf-8")
 
     array_name = f"{book.upper()}_VOCABULARY"
@@ -234,9 +326,11 @@ def update_typescript(book: str, repairs: dict[int, tuple[str, str]]) -> None:
             )
         word["exampleSentence"] = {
             "chinese": chinese,
-            "pinyin": sentence_pinyin(chinese),
+            "pinyin": overrides.get(sequence) or sentence_pinyin(chinese),
             "vietnamese": vietnamese,
         }
+        for field, value in metadata.get(sequence, {}).items():
+            word[field] = value
 
     rendered = json.dumps(vocabulary, ensure_ascii=False, indent=2)
     updated = source[: match.start(2)] + rendered + source[match.end(2) :]
