@@ -44,6 +44,7 @@ function getHskBadgeStyle(hsk: string) {
 }
 
 const HSK_TABS = ["Tất cả", "HSK 1", "HSK 2", "HSK 3", "HSK 4", "HSK 5", "HSK 6", "HSK 7–9"];
+const LEADERBOARD_LIMIT = 20;
 
 export const LeaderboardPage: React.FC = () => {
   const { user: currentUser, isAuthenticated } = useAuth();
@@ -55,8 +56,6 @@ export const LeaderboardPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
-  const [page, setPage] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(10);
   const [canSeeSyntheticLabels, setCanSeeSyntheticLabels] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
@@ -65,19 +64,12 @@ export const LeaderboardPage: React.FC = () => {
     return () => window.clearTimeout(timer);
   }, [searchQuery]);
 
-  const { users, totalCount, filteredCount, totalXp, highestStreak, loading, error, refresh } = useLeaderboard({
+  const { users, totalCount, totalXp, highestStreak, loading, error, refresh } = useLeaderboard({
     period: timeframe,
     hsk: selectedHsk === "Tất cả" ? undefined : selectedHsk,
-    search: debouncedSearch,
-    limit: 20,
-    offset: page * 20,
+    limit: LEADERBOARD_LIMIT,
     includeCurrent: true,
   });
-
-  useEffect(() => {
-    setPage(0);
-    setVisibleCount(10);
-  }, [timeframe, selectedHsk, debouncedSearch]);
 
   useEffect(() => {
     let active = true;
@@ -90,7 +82,7 @@ export const LeaderboardPage: React.FC = () => {
   }, [currentUser?.id]);
 
   // The database owns ordering and tie-breaking; supplemental rows only provide
-  // the signed-in learner's standing when it falls outside the current page.
+  // the signed-in learner's standing when it falls outside the Top 20.
   const sortedUsers = useMemo(() => {
     return [...users].map((u) => ({
       ...u,
@@ -98,8 +90,13 @@ export const LeaderboardPage: React.FC = () => {
     })).sort((a, b) => a.rank - b.rank);
   }, [users, timeframe]);
 
-  const pageUsers = sortedUsers.filter((u) => !u.isSupplemental);
-  const visiblePageUsers = pageUsers.slice(0, page === 0 ? visibleCount : 20);
+  const topUsers = sortedUsers.filter((u) => !u.isSupplemental && u.rank <= LEADERBOARD_LIMIT).slice(0, LEADERBOARD_LIMIT);
+  const normalizedSearch = debouncedSearch.trim().toLocaleLowerCase("vi");
+  const visibleUsers = topUsers.filter((u) =>
+    !normalizedSearch ||
+    u.name.toLocaleLowerCase("vi").includes(normalizedSearch) ||
+    u.username.toLocaleLowerCase("vi").includes(normalizedSearch),
+  );
 
   // Top 3 from sorted list
   const top1 = sortedUsers.find((u) => u.rank === 1) || null;
@@ -117,7 +114,7 @@ export const LeaderboardPage: React.FC = () => {
   }, [sortedUsers, currentUser]);
   const currentUserIndex = currentUserData ? currentUserData.rank - 1 : -1;
   const nextRankUser = currentUserData
-    ? sortedUsers.find((u) => u.rank === currentUserData.rank - 1) || null
+    ? topUsers.find((u) => u.rank === currentUserData.rank - 1) || null
     : null;
   const xpNeededForNextRank =
     nextRankUser && currentUserData
@@ -136,8 +133,6 @@ export const LeaderboardPage: React.FC = () => {
   const handleManualRefresh = async () => {
     if (isRefreshing) return;
     setIsRefreshing(true);
-    setPage(0);
-    setVisibleCount(10);
     try {
       await refresh();
     } finally {
@@ -146,15 +141,10 @@ export const LeaderboardPage: React.FC = () => {
   };
 
   // Determine if Podium should be shown: only when not searching and viewing "Tất cả", and we have at least 1 user
-  const isPodiumActive = page === 0 && selectedHsk === "Tất cả" && !searchQuery.trim() && pageUsers.length > 0;
+  const isPodiumActive = selectedHsk === "Tất cả" && !searchQuery.trim() && topUsers.length > 0;
 
   // Table items: if podium is active, skip top 3; otherwise show all filtered items
-  const tableUsers = isPodiumActive ? visiblePageUsers.filter((u) => u.rank > 3) : visiblePageUsers;
-  const canExpandFirstPage = page === 0 && visibleCount < Math.min(20, filteredCount);
-  const pageCount = Math.max(1, Math.ceil(filteredCount / 20));
-  const showPagination = pageCount > 1 && (page > 0 || visibleCount >= 20);
-  const firstVisibleRank = filteredCount ? page * 20 + 1 : 0;
-  const lastVisibleRank = Math.min(filteredCount, page * 20 + (page === 0 ? visibleCount : 20));
+  const tableUsers = isPodiumActive ? visibleUsers.filter((u) => u.rank > 3) : visibleUsers;
 
   return (
     <div className="min-h-screen bg-page pb-24 selection:bg-brand/20 selection:text-brand-dark">
@@ -315,7 +305,7 @@ export const LeaderboardPage: React.FC = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Tìm học viên..."
+                  placeholder="Tìm trong Top 20..."
                   className="w-full rounded-xl border border-line bg-cream/70 py-2 pr-8 pl-9 text-xs text-ink placeholder:text-muted focus:border-brand focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand"
                 />
                 {searchQuery && (
@@ -666,8 +656,8 @@ export const LeaderboardPage: React.FC = () => {
               <GraduationCap className="h-4 w-4 text-brand" />
               <span>
                 {isPodiumActive
-                  ? "Danh Sách Sĩ Tử (Hạng 4 trở đi)"
-                  : `Kết quả xếp hạng (${filteredCount} học viên)`}
+                  ? "Danh Sách Sĩ Tử (Hạng 4–20)"
+                  : `Top 20 · ${visibleUsers.length} học viên`}
               </span>
             </div>
             <div className="text-xs text-muted">
@@ -810,7 +800,7 @@ export const LeaderboardPage: React.FC = () => {
               </h3>
               <p className="mx-auto mt-1.5 max-w-md text-xs text-muted sm:text-sm">
                 {searchQuery
-                  ? "Hãy thử tìm bằng từ khoá hoặc tên tài khoản khác."
+                  ? "Chỉ tìm kiếm trong Top 20. Hãy thử từ khoá hoặc tên tài khoản khác."
                   : error
                   ? "Chưa kết nối được với máy chủ xếp hạng Supabase."
                   : "千里之行，始于足下 (Hành trình vạn dặm bắt đầu từ bước chân đầu tiên). Đăng ký ngay để ghi tên lên bảng vàng!"}
@@ -828,27 +818,9 @@ export const LeaderboardPage: React.FC = () => {
               )}
             </div>
           )}
-          {canExpandFirstPage && (
-            <div className="flex flex-col items-center gap-2 border-t border-line bg-cream/50 px-5 py-4">
-              <button
-                type="button"
-                disabled={loading}
-                onClick={() => setVisibleCount(20)}
-                className="inline-flex items-center gap-2 rounded-xl border border-brand/20 bg-white px-5 py-2.5 text-xs font-bold text-brand shadow-sm transition hover:border-brand/40 hover:bg-tint disabled:opacity-50"
-              >
-                <Users className="h-4 w-4" />
-                {loading ? "Đang tải…" : "Xem thêm học viên"}
-              </button>
-              <span className="text-[11px] text-muted">Hiển thị Top 10 trong tổng số {filteredCount.toLocaleString("vi-VN")} học viên</span>
-            </div>
-          )}
-          {showPagination && (
-            <div className="flex flex-col gap-3 border-t border-line bg-cream/50 px-5 py-4 text-xs sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-center text-muted sm:text-left">Trang {page + 1}/{pageCount} · Hạng {firstVisibleRank.toLocaleString("vi-VN")}–{lastVisibleRank.toLocaleString("vi-VN")}</span>
-              <div className="flex justify-center gap-2">
-                <button type="button" disabled={page === 0 || loading} onClick={() => { setPage((current) => Math.max(0, current - 1)); setVisibleCount(20); }} className="rounded-xl border border-line bg-white px-4 py-2 font-bold text-ink-2 hover:bg-tint disabled:opacity-40">Trang trước</button>
-                <button type="button" disabled={page + 1 >= pageCount || loading} onClick={() => { setPage((current) => Math.min(pageCount - 1, current + 1)); setVisibleCount(20); }} className="rounded-xl bg-brand px-4 py-2 font-bold text-white hover:bg-brand-dark disabled:opacity-40">Trang sau</button>
-              </div>
+          {topUsers.length > 0 && (
+            <div className="border-t border-line bg-cream/50 px-5 py-4 text-center text-[11px] text-muted">
+              Chỉ hiển thị Top {LEADERBOARD_LIMIT} học viên dẫn đầu.
             </div>
           )}
         </div>
