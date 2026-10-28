@@ -930,7 +930,9 @@ export const YctHubPage: React.FC = () => {
                           Danh sách {currentLessons.length} Bài học Giáo trình YCT {levelNum}
                         </h2>
                         <p className="text-xs font-semibold text-slate-500 mt-0.5">
-                          Chọn một bài học bên dưới để luyện tập trọng tâm hoặc cuộn xuống xem toàn bộ từ vựng
+                          {isLevel1
+                            ? "Chọn một bài học bên dưới để xem từ vựng và luyện tập"
+                            : "Chọn một bài học bên dưới để luyện tập trọng tâm hoặc cuộn xuống xem toàn bộ từ vựng"}
                         </p>
                       </div>
 
@@ -1161,7 +1163,9 @@ export const YctHubPage: React.FC = () => {
                 )}
 
                 {/* 1.3 Thanh Lọc Nhanh Giữa Các Bài Học */}
+                {(!isLevel1 || selectedLesson !== "all") && (
                 <div className="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
+                  {!isLevel1 && (
                   <button
                     type="button"
                     onClick={() => {
@@ -1176,6 +1180,7 @@ export const YctHubPage: React.FC = () => {
                   >
                     Tất Cả ({allWords.length})
                   </button>
+                  )}
 
                   {currentLessons.map((l) => {
                     const isSelected = selectedLesson === l.lessonNumber;
@@ -1221,13 +1226,14 @@ export const YctHubPage: React.FC = () => {
                     </button>
                   )}
                 </div>
+                )}
 
                 {/* 1.4 Hiển thị từ vựng: Nếu chọn 1 bài -> hiện từ vựng bài đó. Nếu chọn tất cả -> phân nhóm từng bài rõ ràng! */}
-                {selectedLesson !== "all" ? (
+                {selectedLesson !== "all" || (isLevel1 && searchQuery.trim()) ? (
                   <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
                     {filteredWords.map((word) => renderWordCard(word))}
                   </div>
-                ) : (
+                ) : !isLevel1 ? (
                   /* Khi chọn "Tất Cả": Phân cụm nhóm theo từng bài học */
                   <div className="space-y-10">
                     {currentLessons.map((lesson) => {
@@ -1307,7 +1313,7 @@ export const YctHubPage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                )}
+                ) : null}
               </div>
             )}
 
