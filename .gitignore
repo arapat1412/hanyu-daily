@@ -19,3 +19,4 @@ scripts/cached_*/
 
 # Local production snapshots and verification captures
 /data/synthetic-*/
+outputs/

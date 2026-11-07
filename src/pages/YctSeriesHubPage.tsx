@@ -19,6 +19,8 @@ import {
 import { getYctProgress, YCT1_WORDS, YCT_PDF_RESOURCES } from '../data/yct1Data';
 import { getYct2Progress, YCT2_WORDS } from '../data/yct2Data';
 import { getYct3Progress, YCT3_WORDS } from '../data/yct3Data';
+import { getYct4Progress, YCT4_WORDS } from '../data/yct4Data';
+import { getYct5Progress, YCT5_WORDS } from '../data/yct5Data';
 import { getXpByPrefix, useProgress } from '../lib/hsk';
 
 export interface YctBookItem {
@@ -54,8 +56,10 @@ export const YctSeriesHubPage: React.FC = () => {
   const yct1Progress = useMemo(() => getYctProgress(), []);
   const yct2Progress = useMemo(() => getYct2Progress(), []);
   const yct3Progress = useMemo(() => getYct3Progress(), []);
-  const totalLearnedWords = yct1Progress.learnedWordIds.length + yct2Progress.learnedWordIds.length + yct3Progress.learnedWordIds.length;
-  const totalWords = YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length;
+  const yct4Progress = useMemo(() => getYct4Progress(), []);
+  const yct5Progress = useMemo(() => getYct5Progress(), []);
+  const totalLearnedWords = yct1Progress.learnedWordIds.length + yct2Progress.learnedWordIds.length + yct3Progress.learnedWordIds.length + yct4Progress.learnedWordIds.length + yct5Progress.learnedWordIds.length;
+  const totalWords = YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length + YCT4_WORDS.length + YCT5_WORDS.length;
   const totalXp = getXpByPrefix(unifiedProgress, "yct:");
 
   // Danh sách 6 quyển trong bộ giáo trình chuẩn YCT (Youth Chinese Test)
@@ -161,15 +165,16 @@ export const YctSeriesHubPage: React.FC = () => {
       edition: 'Tập 4 — Trung cấp',
       levelBadge: 'Trung cấp (B1)',
       targetAge: 'Trẻ 9–14 tuổi',
-      wordsCount: 600,
-      lessonsCount: '12 bài học · Chuyên sâu',
-      status: 'upcoming',
-      badgeText: 'Sắp ra mắt',
-      description: 'Đạt mốc 600 từ vựng cao nhất bậc YCT, tự tin giao tiếp thành thạo và chuẩn bị điều kiện du học ngắn hạn.',
+      wordsCount: YCT4_WORDS.length,
+      lessonsCount: '11 bài học · 32 chủ đề',
+      status: 'ready',
+      link: '/yct/4',
+      description: 'Đạt mốc 600+ từ vựng cao nhất bậc YCT, tự tin giao tiếp thành thạo với 11 bài học SGK, 32 chủ đề, flashcard và bài tập tương tác.',
       highlights: [
-        '600 từ vựng & mẫu câu phức hợp',
-        'Tự tin giao tiếp và diễn đạt ý tưởng',
-        'Đã có sẵn PDF Sách học & bài tập chuẩn',
+        `${YCT4_WORDS.length} từ vựng chuẩn & câu ví dụ song ngữ`,
+        '11 bài học chuẩn SGK & 32 chủ đề mở rộng',
+        'Lật thẻ flashcard & Game đố vui 3D',
+        'Trọn bộ PDF Sách bài học & bài tập chuẩn',
       ],
       cardBg: 'bg-gradient-to-br from-white via-purple-50/40 to-violet-100/50',
       cardBorder: 'border-purple-200/90 hover:border-purple-400 hover:shadow-md hover:shadow-purple-500/10',
@@ -191,15 +196,16 @@ export const YctSeriesHubPage: React.FC = () => {
       edition: 'Tập 5 — Nâng cao',
       levelBadge: 'Trung cấp nâng cao (B1+)',
       targetAge: 'Trẻ 10–15 tuổi',
-      wordsCount: 800,
-      lessonsCount: 'Đang biên soạn',
-      status: 'upcoming',
-      badgeText: 'Sắp ra mắt',
-      description: 'Nâng cao khả năng đọc hiểu các mẩu chuyện ngắn, bài luận thiếu nhi và phát triển tư duy ngôn ngữ phản biện.',
+      wordsCount: YCT5_WORDS.length,
+      lessonsCount: '14 bài học · 20 chủ đề',
+      status: 'ready',
+      link: '/yct/5',
+      description: 'Nâng cao khả năng đọc hiểu các mẩu chuyện ngắn, bài luận thiếu nhi và phát triển tư duy ngôn ngữ với 14 bài học SGK YCT 5.',
       highlights: [
-        'Đọc hiểu đoạn văn & viết câu hoàn chỉnh',
-        'Phát triển tư duy ngôn ngữ độc lập',
-        'Chuẩn bị kiến thức chuyển tiếp New HSK',
+        `${YCT5_WORDS.length} từ vựng chuẩn & câu ví dụ song ngữ`,
+        '14 bài học chuẩn SGK & 20 chủ đề mở rộng',
+        'Lật thẻ flashcard & Game đố vui 3D',
+        'Trọn bộ PDF Sách bài học & bài tập chuẩn',
       ],
       cardBg: 'bg-gradient-to-br from-white via-rose-50/40 to-pink-100/50',
       cardBorder: 'border-rose-200/90 hover:border-rose-400 hover:shadow-md hover:shadow-rose-500/10',
@@ -210,6 +216,8 @@ export const YctSeriesHubPage: React.FC = () => {
       hanziColor: 'text-rose-600/15',
       coverGradient: 'from-rose-400 via-pink-500 to-amber-500',
       coverImage: '/yct5.png',
+      textbookUrl: YCT_PDF_RESOURCES[4]?.textbookUrl,
+      workbookUrl: YCT_PDF_RESOURCES[4]?.workbookUrl,
     },
     {
       id: 'yct-6',
@@ -316,14 +324,14 @@ export const YctSeriesHubPage: React.FC = () => {
         <div className="mb-7 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-white border border-amber-200/80 text-xs text-slate-600 shadow-2xs">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-bold text-slate-800">Dữ liệu YCT 1, YCT 2 & YCT 3 đã hoàn tất số hóa</span>
+            <span className="font-bold text-slate-800">Dữ liệu YCT 1 đến YCT 5 đã hoàn tất số hóa</span>
             <span className="text-slate-300">|</span>
             <span className="text-slate-600">Flashcard phát âm · Bút thuận · Trò chơi nối từ 60s · Đố vui</span>
           </div>
           <span className="font-medium text-emerald-700">
             {totalLearnedWords > 0
               ? `Bé đã học thuộc ${totalLearnedWords} từ trong YCT 🌟`
-              : 'Chọn YCT 1, YCT 2 hoặc YCT 3 bên dưới để cùng vào học nhé! 🐼'}
+              : 'Chọn YCT 1 đến YCT 5 bên dưới để cùng vào học nhé! 🐼'}
           </span>
         </div>
 
@@ -340,7 +348,7 @@ export const YctSeriesHubPage: React.FC = () => {
               </span>
             </div>
             <span className="text-xs text-slate-500 font-medium">
-              YCT 1, 2, 3 sẵn sàng học ngay · YCT 4 đến 6 tải trước PDF
+              YCT 1 – 5 sẵn sàng học ngay · YCT 6 tải trước PDF
             </span>
           </div>
 

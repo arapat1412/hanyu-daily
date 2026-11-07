@@ -1,0 +1,586 @@
+{
+  "source": {
+    "title": "中文水平考试 HSK 考试大纲",
+    "publisher": "中外语言交流合作中心 (CLEC)",
+    "officialPage": "https://www.chinesetest.cn/HSK",
+    "url": "https://hsk.cn-bj.ufileos.com/3.0/新版HSK考试大纲1219.pdf",
+    "published": "2025-11",
+    "verifiedAt": "2026-10-29",
+    "sha256": "ec74ce0439e837bbb15154be13e747ae798903b2fd3a331629df6c3b45504941",
+    "taskPrintedPages": "2–5",
+    "topicPrintedPages": "56–57",
+    "taskPdfPage": 5,
+    "topicPdfPage": 59,
+    "translationNote": "Bản tiếng Việt do Hanyu Daily biên dịch từ đề cương; không phải bản dịch chính thức của đơn vị tổ chức thi."
+  },
+  "topics": [
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "个人信息",
+      "subcategoryVi": "Thông tin cá nhân",
+      "descriptionZh": "姓名、国籍、年龄、性别、喜好、习惯等",
+      "descriptionVi": "Họ tên, quốc tịch, tuổi, giới tính, sở thích, thói quen, v.v."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "个人信息",
+      "subcategoryVi": "Thông tin cá nhân",
+      "descriptionZh": "身份、家庭成员、朋友、技能等",
+      "descriptionVi": "Thân phận hoặc vai trò, thành viên gia đình, bạn bè, kỹ năng, v.v."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "事件信息",
+      "subcategoryVi": "Thông tin về sự việc, hoạt động",
+      "descriptionZh": "日期、时间、地点、方位、参加者、号码等",
+      "descriptionVi": "Ngày tháng, thời gian, địa điểm, phương hướng, người tham gia, các loại số, v.v."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "物品信息",
+      "subcategoryVi": "Thông tin về đồ vật",
+      "descriptionZh": "物品名称",
+      "descriptionVi": "Tên gọi của đồ vật."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "物品信息",
+      "subcategoryVi": "Thông tin về đồ vật",
+      "descriptionZh": "物品特征",
+      "descriptionVi": "Đặc điểm của đồ vật."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "环境信息",
+      "subcategoryVi": "Thông tin về môi trường, địa điểm",
+      "descriptionZh": "天气",
+      "descriptionVi": "Thời tiết."
+    },
+    {
+      "categoryZh": "基本信息",
+      "categoryVi": "Thông tin cơ bản",
+      "subcategoryZh": "环境信息",
+      "subcategoryVi": "Thông tin về môi trường, địa điểm",
+      "descriptionZh": "环境特点",
+      "descriptionVi": "Đặc điểm của môi trường, địa điểm."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交往",
+      "subcategoryVi": "Giao tiếp",
+      "descriptionZh": "基本礼貌行为",
+      "descriptionVi": "Các hành vi lịch sự cơ bản."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交往",
+      "subcategoryVi": "Giao tiếp",
+      "descriptionZh": "简单互动行为",
+      "descriptionVi": "Các hành vi tương tác đơn giản."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交往",
+      "subcategoryVi": "Giao tiếp",
+      "descriptionZh": "意愿感受",
+      "descriptionVi": "Mong muốn và cảm xúc."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "饮食",
+      "subcategoryVi": "Ăn uống",
+      "descriptionZh": "食物饮品",
+      "descriptionVi": "Đồ ăn và thức uống."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "饮食",
+      "subcategoryVi": "Ăn uống",
+      "descriptionZh": "就餐",
+      "descriptionVi": "Việc dùng bữa."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交通出行",
+      "subcategoryVi": "Giao thông và đi lại",
+      "descriptionZh": "问路",
+      "descriptionVi": "Hỏi đường."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交通出行",
+      "subcategoryVi": "Giao thông và đi lại",
+      "descriptionZh": "出行方式",
+      "descriptionVi": "Phương thức đi lại."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "交通出行",
+      "subcategoryVi": "Giao thông và đi lại",
+      "descriptionZh": "出行安排",
+      "descriptionVi": "Kế hoạch đi lại."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "购物",
+      "subcategoryVi": "Mua sắm",
+      "descriptionZh": "商品名称",
+      "descriptionVi": "Tên gọi của hàng hóa."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "购物",
+      "subcategoryVi": "Mua sắm",
+      "descriptionZh": "商品价格",
+      "descriptionVi": "Giá cả hàng hóa."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "购物",
+      "subcategoryVi": "Mua sắm",
+      "descriptionZh": "商品选购",
+      "descriptionVi": "Lựa chọn và mua hàng."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "医疗健康",
+      "subcategoryVi": "Y tế và sức khỏe",
+      "descriptionZh": "生病、看病、探病等",
+      "descriptionVi": "Bị bệnh, đi khám bệnh, thăm người bệnh, v.v."
+    },
+    {
+      "categoryZh": "日常生活",
+      "categoryVi": "Cuộc sống hằng ngày",
+      "subcategoryZh": "休闲",
+      "subcategoryVi": "Giải trí",
+      "descriptionZh": "休闲活动",
+      "descriptionVi": "Các hoạt động giải trí."
+    },
+    {
+      "categoryZh": "教育情况",
+      "categoryVi": "Học tập và giáo dục",
+      "subcategoryZh": "学习情况",
+      "subcategoryVi": "Tình hình học tập",
+      "descriptionZh": "课程信息",
+      "descriptionVi": "Thông tin về môn học, khóa học."
+    },
+    {
+      "categoryZh": "教育情况",
+      "categoryVi": "Học tập và giáo dục",
+      "subcategoryZh": "学习情况",
+      "subcategoryVi": "Tình hình học tập",
+      "descriptionZh": "学习内容",
+      "descriptionVi": "Nội dung học tập."
+    },
+    {
+      "categoryZh": "教育情况",
+      "categoryVi": "Học tập và giáo dục",
+      "subcategoryZh": "学习情况",
+      "subcategoryVi": "Tình hình học tập",
+      "descriptionZh": "教育层次",
+      "descriptionVi": "Các bậc học."
+    },
+    {
+      "categoryZh": "教育情况",
+      "categoryVi": "Học tập và giáo dục",
+      "subcategoryZh": "校园生活",
+      "subcategoryVi": "Cuộc sống học đường",
+      "descriptionZh": "学校情况",
+      "descriptionVi": "Tình hình trường học."
+    },
+    {
+      "categoryZh": "教育情况",
+      "categoryVi": "Học tập và giáo dục",
+      "subcategoryZh": "校园生活",
+      "subcategoryVi": "Cuộc sống học đường",
+      "descriptionZh": "课后活动",
+      "descriptionVi": "Hoạt động sau giờ học."
+    },
+    {
+      "categoryZh": "职场生活",
+      "categoryVi": "Cuộc sống công sở",
+      "subcategoryZh": "工作情况",
+      "subcategoryVi": "Tình hình công việc",
+      "descriptionZh": "工作信息",
+      "descriptionVi": "Thông tin về công việc."
+    },
+    {
+      "categoryZh": "职场生活",
+      "categoryVi": "Cuộc sống công sở",
+      "subcategoryZh": "工作情况",
+      "subcategoryVi": "Tình hình công việc",
+      "descriptionZh": "工作评价",
+      "descriptionVi": "Đánh giá về công việc."
+    },
+    {
+      "categoryZh": "职场生活",
+      "categoryVi": "Cuộc sống công sở",
+      "subcategoryZh": "职业",
+      "subcategoryVi": "Nghề nghiệp",
+      "descriptionZh": "职业种类",
+      "descriptionVi": "Các loại nghề nghiệp."
+    },
+    {
+      "categoryZh": "文化与传统",
+      "categoryVi": "Văn hóa và truyền thống",
+      "subcategoryZh": "饮食文化",
+      "subcategoryVi": "Văn hóa ẩm thực",
+      "descriptionZh": "中餐",
+      "descriptionVi": "Món ăn Trung Quốc."
+    },
+    {
+      "categoryZh": "文化与传统",
+      "categoryVi": "Văn hóa và truyền thống",
+      "subcategoryZh": "饮食文化",
+      "subcategoryVi": "Văn hóa ẩm thực",
+      "descriptionZh": "传统饮品",
+      "descriptionVi": "Đồ uống truyền thống."
+    }
+  ],
+  "tasks": [
+    {
+      "titleZh": "问答个人基本信息",
+      "titleVi": "Hỏi đáp về thông tin cá nhân cơ bản",
+      "descriptors": [
+        {
+          "zh": "能听懂在聚会、新生报到、参加活动等场景中关于个人基本信息的简单问题，或关于个人基本信息的简单介绍，如姓名、国籍、年龄、性别、喜好、习惯、身份、家庭成员、朋友、技能等。",
+          "vi": "Có thể nghe hiểu câu hỏi hoặc lời giới thiệu đơn giản về thông tin cá nhân trong các tình huống như gặp mặt, nhập học, tham gia hoạt động; chẳng hạn họ tên, quốc tịch, tuổi, giới tính, sở thích, thói quen, thân phận hoặc vai trò, thành viên gia đình, bạn bè và kỹ năng."
+        },
+        {
+          "zh": "能在上述场景中询问个人的基本信息；能回答上述场景中关于个人基本信息的简单问题。",
+          "vi": "Có thể hỏi thông tin cá nhân cơ bản trong những tình huống trên và trả lời các câu hỏi đơn giản về những thông tin đó."
+        },
+        {
+          "zh": "能简单介绍上述个人基本信息。",
+          "vi": "Có thể giới thiệu ngắn gọn những thông tin cá nhân cơ bản nêu trên."
+        },
+        {
+          "zh": "能识别名片、身份证、学生卡、短小读物等材料上的上述个人基本信息。",
+          "vi": "Có thể nhận biết những thông tin cá nhân cơ bản nêu trên trong danh thiếp, giấy tờ tùy thân, thẻ học sinh hoặc sinh viên, các bài đọc ngắn và những tài liệu tương tự."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答事件信息",
+      "titleVi": "Hỏi đáp về sự việc, hoạt động",
+      "descriptors": [
+        {
+          "zh": "能听懂日常生活中关于事件信息的简单问题，或关于事件基本信息的简单介绍。如日期、时间、地点、方位、活动参加者、电话号码等。",
+          "vi": "Có thể nghe hiểu câu hỏi hoặc lời giới thiệu đơn giản về sự việc, hoạt động trong đời sống hằng ngày; chẳng hạn ngày tháng, thời gian, địa điểm, phương hướng, người tham gia hoạt động và số điện thoại."
+        },
+        {
+          "zh": "能向家人、朋友、同学等询问上述简单事件信息；能在日常交流中回答关于上述简单事件信息的询问。",
+          "vi": "Có thể hỏi người nhà, bạn bè, bạn học về những thông tin đơn giản nêu trên và trả lời các câu hỏi về những thông tin đó khi giao tiếp hằng ngày."
+        },
+        {
+          "zh": "能向他人简单介绍上述事件信息。",
+          "vi": "Có thể giới thiệu ngắn gọn cho người khác những thông tin về sự việc, hoạt động nêu trên."
+        },
+        {
+          "zh": "能看懂医院、电影院、图书馆等公共场所出现的简单事件信息。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản về sự việc, hoạt động xuất hiện ở các nơi công cộng như bệnh viện, rạp chiếu phim và thư viện."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答物品信息",
+      "titleVi": "Hỏi đáp về đồ vật",
+      "descriptors": [
+        {
+          "zh": "能听懂家中、宿舍、商场、学校等场景中关于物品信息的简单问题，或关于常用物品信息的简单介绍。如日常生活物品、学习用品名称，物品大小、数量、好坏、新旧等方面的特征。",
+          "vi": "Có thể nghe hiểu câu hỏi hoặc lời giới thiệu đơn giản về đồ vật trong nhà, ký túc xá, trung tâm mua sắm, trường học và những nơi tương tự; chẳng hạn tên đồ dùng sinh hoạt, đồ dùng học tập, đặc điểm to hay nhỏ, số lượng, tốt hay không tốt, mới hay cũ."
+        },
+        {
+          "zh": "能询问关于上述日常物品的简单信息；能在日常交流中回答关于物品信息的简单询问。",
+          "vi": "Có thể hỏi thông tin đơn giản về những đồ dùng sinh hoạt nêu trên và trả lời các câu hỏi đơn giản về đồ vật khi giao tiếp hằng ngày."
+        },
+        {
+          "zh": "能简单介绍物品信息，如说出物品名称，并对物品特征进行简单描述。",
+          "vi": "Có thể giới thiệu ngắn gọn về đồ vật: gọi tên và mô tả đơn giản đặc điểm của đồ vật."
+        },
+        {
+          "zh": "能在常见的生活场景中看懂某些简单的物品名称，以及关于物品大小、数量、领属等特征的简单描述。",
+          "vi": "Có thể đọc hiểu tên một số đồ vật và những mô tả đơn giản về kích thước, số lượng, đồ vật thuộc về ai, v.v. trong các tình huống thường gặp."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答天气",
+      "titleVi": "Hỏi đáp về thời tiết",
+      "descriptors": [
+        {
+          "zh": "能听懂日常交流中关于天气好坏、冷热等的简单问题，或关于某地上述天气信息的简单介绍。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản về thời tiết tốt hay xấu, nóng hay lạnh, hoặc lời giới thiệu đơn giản về những đặc điểm thời tiết đó tại một nơi."
+        },
+        {
+          "zh": "能询问关于某地天气的好坏、冷热等简单信息；能回答关于上述天气简单信息的询问。",
+          "vi": "Có thể hỏi và trả lời thông tin đơn giản về thời tiết tại một nơi, như thời tiết tốt hay xấu, nóng hay lạnh."
+        },
+        {
+          "zh": "能简单介绍某地的天气情况，如冷热、好坏、雨雪等，能简单表达对天气的喜好。",
+          "vi": "Có thể giới thiệu ngắn gọn thời tiết tại một nơi, như nóng, lạnh, tốt, xấu, mưa hoặc tuyết; có thể nói đơn giản mình thích hay không thích thời tiết đó."
+        },
+        {
+          "zh": "能看懂关于某地天气情况的简单介绍，如冷热、雨雪等。",
+          "vi": "Có thể đọc hiểu lời giới thiệu đơn giản về thời tiết tại một nơi, như nóng, lạnh, mưa hoặc tuyết."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答环境信息",
+      "titleVi": "Hỏi đáp về môi trường, địa điểm",
+      "descriptors": [
+        {
+          "zh": "能听懂日常交流中关于某个地方怎么样的简单问题，或关于某个常见环境或场所的简单介绍，如学校、电影院、超市等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản về một địa điểm như thế nào, hoặc lời giới thiệu đơn giản về môi trường hay địa điểm quen thuộc như trường học, rạp chiếu phim và siêu thị."
+        },
+        {
+          "zh": "能询问关于某个常见环境或场所的简单信息；能回答关于某个地方环境信息的简单问题，如大小、好坏、方位等；能询问或表达对该环境信息的好恶。",
+          "vi": "Có thể hỏi thông tin đơn giản về môi trường hoặc địa điểm quen thuộc; trả lời câu hỏi về kích thước, tốt hay không tốt, vị trí, v.v.; có thể hỏi hoặc bày tỏ mình thích hay không thích nơi đó."
+        },
+        {
+          "zh": "能简单介绍某个环境或场所的信息，如大小、方位、自己的喜好等。",
+          "vi": "Có thể giới thiệu ngắn gọn một môi trường hoặc địa điểm, như kích thước, vị trí và sở thích của bản thân đối với nơi đó."
+        },
+        {
+          "zh": "能在日常标识中识别场所的名称、方位等简单信息。",
+          "vi": "Có thể nhận biết tên địa điểm, phương hướng và những thông tin đơn giản tương tự trên các biển chỉ dẫn thường gặp."
+        }
+      ]
+    },
+    {
+      "titleZh": "日常言语交往",
+      "titleVi": "Giao tiếp bằng lời trong đời sống hằng ngày",
+      "descriptors": [
+        {
+          "zh": "能听懂在聚会、告别、结识新朋友等场景中对方的简单礼貌用语，并与对方互致简单礼貌用语。如你好、谢谢、对不起、再见等。",
+          "vi": "Có thể nghe hiểu và đáp lại những lời lịch sự đơn giản khi gặp mặt, chia tay, làm quen bạn mới, v.v.; chẳng hạn xin chào, cảm ơn, xin lỗi và tạm biệt."
+        },
+        {
+          "zh": "能听懂日常言语交往中对方的简单询问或请求；能在日常言语交往中向他人发出简单的询问或请求。如互相介绍、请求帮助、做出选择、接打电话等。",
+          "vi": "Có thể nghe hiểu câu hỏi hoặc lời đề nghị đơn giản và đưa ra câu hỏi hoặc lời đề nghị đơn giản trong giao tiếp hằng ngày; chẳng hạn giới thiệu làm quen, nhờ giúp đỡ, lựa chọn, gọi và nhận điện thoại."
+        },
+        {
+          "zh": "能听懂他人关于自己需求或心情的简单表达；能简单表达自己的需求或心情。如要什么、是否高兴等。",
+          "vi": "Có thể nghe hiểu người khác nói đơn giản về nhu cầu hoặc tâm trạng của họ và diễn đạt đơn giản nhu cầu hoặc tâm trạng của mình; chẳng hạn muốn thứ gì, có vui hay không."
+        },
+        {
+          "zh": "能看懂社交平台、短信、邮件中对方的简单礼貌用语和意愿表达。",
+          "vi": "Có thể đọc hiểu lời lịch sự và cách bày tỏ mong muốn đơn giản của người khác trên nền tảng mạng xã hội, tin nhắn và thư điện tử."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答饮食喜好",
+      "titleVi": "Hỏi đáp về sở thích ăn uống",
+      "descriptors": [
+        {
+          "zh": "能听懂对方关于就餐的简单表达，如就餐意愿、就餐人员、喜欢的食物、三餐食物、饮食好坏、就餐时间和地点等。",
+          "vi": "Có thể nghe hiểu cách diễn đạt đơn giản về việc ăn uống: muốn dùng bữa hay không, ăn cùng ai, món ăn yêu thích, đồ ăn trong ba bữa, đồ ăn ngon hay không, thời gian và địa điểm dùng bữa."
+        },
+        {
+          "zh": "能询问他人关于日常饮食、就餐、做饭的上述简单信息；能回答他人关于上述信息的简单询问。",
+          "vi": "Có thể hỏi và trả lời những thông tin đơn giản nêu trên về ăn uống hằng ngày, dùng bữa và nấu ăn."
+        },
+        {
+          "zh": "能简单介绍自己的饮食喜好、做饭情况等。如喜欢的食物、一日三餐等。",
+          "vi": "Có thể giới thiệu ngắn gọn sở thích ăn uống và việc nấu ăn của mình; chẳng hạn món ăn yêu thích và ba bữa trong ngày."
+        },
+        {
+          "zh": "能在饭店、超市等场所看懂某些常见食物的名称。如水、牛奶、苹果、包子、饺子等。",
+          "vi": "Có thể đọc hiểu tên một số thực phẩm thường gặp ở nhà hàng, siêu thị và những nơi tương tự; chẳng hạn nước, sữa, táo, bánh bao và sủi cảo."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答出行信息",
+      "titleVi": "Hỏi đáp về việc đi lại",
+      "descriptors": [
+        {
+          "zh": "能听懂他人关于出行方式、出行安排的简单问题，或关于日常出行信息的简单介绍。如上班、上学、外出的方式、时间、目的地等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản về phương thức, kế hoạch đi lại hoặc lời giới thiệu đơn giản về việc đi lại hằng ngày; chẳng hạn cách đi, thời gian và điểm đến khi đi làm, đi học hoặc ra ngoài."
+        },
+        {
+          "zh": "能询问关于日常出行的简单信息；能回答关于日常出行方式和出行安排的简单问题。",
+          "vi": "Có thể hỏi thông tin đơn giản về việc đi lại hằng ngày và trả lời các câu hỏi đơn giản về phương thức, kế hoạch đi lại."
+        },
+        {
+          "zh": "能简单介绍自己、家人或朋友的出行信息。",
+          "vi": "Có thể giới thiệu ngắn gọn thông tin đi lại của bản thân, người nhà hoặc bạn bè."
+        },
+        {
+          "zh": "能在问路时进行简单交流。如向对方询问或跟对方确认某处的地点、位置。",
+          "vi": "Có thể giao tiếp đơn giản khi hỏi đường; chẳng hạn hỏi hoặc xác nhận với người khác địa điểm, vị trí của một nơi."
+        },
+        {
+          "zh": "能看懂火车、飞机等常见出行方式的基本信息。",
+          "vi": "Có thể đọc hiểu thông tin cơ bản về các phương thức đi lại thông dụng như tàu hỏa và máy bay."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答商品信息",
+      "titleVi": "Hỏi đáp về hàng hóa",
+      "descriptors": [
+        {
+          "zh": "能听懂超市、商店售货员，或同学、朋友等关于商品简单信息的介绍，如日常商品名称、价格；能听懂他人提出的关于选购意愿的简单提问。",
+          "vi": "Có thể nghe hiểu nhân viên siêu thị, cửa hàng, bạn học, bạn bè, v.v. giới thiệu thông tin đơn giản về hàng hóa, như tên và giá của hàng hóa thông dụng; có thể nghe hiểu câu hỏi đơn giản về ý định lựa chọn, mua hàng."
+        },
+        {
+          "zh": "能向他人询问商品的简单信息，如商品价格、是否有货；能回答他人关于上述信息的简单询问。",
+          "vi": "Có thể hỏi và trả lời thông tin đơn giản về hàng hóa, như giá cả và còn hàng hay không."
+        },
+        {
+          "zh": "能向他人简单表达选购意愿；能向他人介绍所购商品的简单信息，如名称、价格等。",
+          "vi": "Có thể bày tỏ đơn giản ý định lựa chọn, mua hàng và giới thiệu thông tin đơn giản về hàng đã mua, như tên và giá cả."
+        },
+        {
+          "zh": "能看懂一些日常商品的简单标签信息。如名称、价格、日期等。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản trên nhãn một số hàng hóa hằng ngày, như tên, giá cả và ngày tháng."
+        }
+      ]
+    },
+    {
+      "titleZh": "告知生病、探病",
+      "titleVi": "Thông báo bị bệnh và thăm người bệnh",
+      "descriptors": [
+        {
+          "zh": "能听懂别人生病、想要就医的简单表述；能听懂关于吃饭、睡觉等的简单医嘱；能听懂家人、朋友的简单安慰，如多休息等。",
+          "vi": "Có thể nghe hiểu người khác nói đơn giản về việc bị bệnh, muốn đi khám; hiểu lời dặn đơn giản của bác sĩ về ăn uống, ngủ nghỉ, v.v.; hiểu lời an ủi đơn giản của người nhà, bạn bè, như nghỉ ngơi nhiều hơn."
+        },
+        {
+          "zh": "能在自己生病时告知别人，简单表达就医意愿。",
+          "vi": "Có thể báo cho người khác biết khi mình bị bệnh và bày tỏ đơn giản mong muốn đi khám."
+        },
+        {
+          "zh": "能在亲友生病时简单表达想去看望的意愿，表达简单的安慰。",
+          "vi": "Có thể bày tỏ đơn giản mong muốn đến thăm và nói lời an ủi đơn giản khi người thân hoặc bạn bè bị bệnh."
+        }
+      ]
+    },
+    {
+      "titleZh": "交流休闲活动",
+      "titleVi": "Trao đổi về hoạt động giải trí",
+      "descriptors": [
+        {
+          "zh": "能听懂他人关于日常休闲活动的简单问题，或关于某人喜好的日常休闲活动的简单信息介绍。如看书、唱歌、看电视等。",
+          "vi": "Có thể nghe hiểu câu hỏi hoặc lời giới thiệu đơn giản về hoạt động giải trí thường ngày mà một người yêu thích; chẳng hạn đọc sách, hát và xem ti vi."
+        },
+        {
+          "zh": "能询问家人、朋友、同学等喜好的日常休闲活动；能回答关于自己、家人或朋友日常休闲活动的喜好、安排等简单问题。",
+          "vi": "Có thể hỏi người nhà, bạn bè, bạn học về hoạt động giải trí thường ngày họ yêu thích; trả lời câu hỏi đơn giản về sở thích và kế hoạch giải trí của bản thân, người nhà hoặc bạn bè."
+        },
+        {
+          "zh": "能简单介绍自己对日常休闲活动的喜好、安排等。",
+          "vi": "Có thể giới thiệu ngắn gọn sở thích và kế hoạch của mình đối với các hoạt động giải trí thường ngày."
+        },
+        {
+          "zh": "能看懂关于日常休闲活动的简单信息，如活动的时间和地点等。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản về hoạt động giải trí thường ngày, như thời gian và địa điểm tổ chức."
+        }
+      ]
+    },
+    {
+      "titleZh": "介绍学习情况",
+      "titleVi": "Giới thiệu tình hình học tập",
+      "descriptors": [
+        {
+          "zh": "能听懂同学、老师、家人询问学习情况的简单问题，或同学、朋友关于学习情况的简单介绍。如所在学校、科目、上课时间等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản của bạn học, thầy cô, người nhà hoặc lời giới thiệu đơn giản của bạn học, bạn bè về tình hình học tập; chẳng hạn trường đang học, môn học và giờ lên lớp."
+        },
+        {
+          "zh": "能询问同学或朋友关于学习情况的简单信息；能回答关于学习情况的简单问题。",
+          "vi": "Có thể hỏi bạn học hoặc bạn bè thông tin đơn giản về tình hình học tập và trả lời các câu hỏi đơn giản về việc học."
+        },
+        {
+          "zh": "能向老师、同学、家人简单介绍自己的上述学习情况。",
+          "vi": "Có thể giới thiệu ngắn gọn với thầy cô, bạn học và người nhà về tình hình học tập của mình theo những nội dung nêu trên."
+        },
+        {
+          "zh": "能看懂课表中关于课程的简单信息，如科目、时间等。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản về môn học trong thời khóa biểu, như tên môn và thời gian học."
+        }
+      ]
+    },
+    {
+      "titleZh": "交流学校情况、课后活动",
+      "titleVi": "Trao đổi về trường học và hoạt động sau giờ học",
+      "descriptors": [
+        {
+          "zh": "能听懂家人、同学、朋友等询问学校情况、课后活动的简单问题，或关于学校学习和课后活动信息的简单介绍。如学校、老师、同学的基本信息，课后安排等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản của người nhà, bạn học, bạn bè, v.v. hoặc lời giới thiệu đơn giản về trường học, việc học và hoạt động sau giờ học; chẳng hạn thông tin cơ bản về trường, thầy cô, bạn học và kế hoạch sau giờ học."
+        },
+        {
+          "zh": "能询问同学、朋友关于学校情况和课后活动的简单信息；能回答家人、朋友等关于学校情况和课后活动信息的简单问题。",
+          "vi": "Có thể hỏi bạn học, bạn bè thông tin đơn giản về trường học và hoạt động sau giờ học; trả lời các câu hỏi đơn giản của người nhà, bạn bè, v.v. về những nội dung đó."
+        },
+        {
+          "zh": "能简单介绍自己的学校情况和课后活动信息。如老师、同学、学校、课后安排等。",
+          "vi": "Có thể giới thiệu ngắn gọn về trường học và hoạt động sau giờ học của mình; chẳng hạn thầy cô, bạn học, trường và kế hoạch sau giờ học."
+        },
+        {
+          "zh": "能看懂课表、学生信息表等材料中关于上述学习或课后活动的简单信息。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản về việc học hoặc hoạt động sau giờ học trong thời khóa biểu, phiếu thông tin học sinh hoặc sinh viên và những tài liệu tương tự."
+        }
+      ]
+    },
+    {
+      "titleZh": "交流工作信息",
+      "titleVi": "Trao đổi thông tin về công việc",
+      "descriptors": [
+        {
+          "zh": "能听懂家人、同事、朋友等询问工作信息的简单问题，或他人关于工作信息的简单介绍。如做什么工作、工作时间、工作地点、喜欢与否等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản của người nhà, đồng nghiệp, bạn bè, v.v. hoặc lời giới thiệu đơn giản về công việc; chẳng hạn làm nghề gì, thời gian và địa điểm làm việc, có thích công việc hay không."
+        },
+        {
+          "zh": "能询问他人关于上述工作信息或职业的简单情况；能回答他人关于工作信息或职业的简单问题。",
+          "vi": "Có thể hỏi và trả lời thông tin đơn giản về công việc hoặc nghề nghiệp theo những nội dung nêu trên."
+        },
+        {
+          "zh": "能简单介绍自己、家人、朋友的职业或工作内容。",
+          "vi": "Có thể giới thiệu ngắn gọn nghề nghiệp hoặc nội dung công việc của bản thân, người nhà và bạn bè."
+        },
+        {
+          "zh": "能看懂关于某人或某种工作信息的简单介绍。如职业名称、工作时间、地点等。",
+          "vi": "Có thể đọc hiểu lời giới thiệu đơn giản về công việc của một người hoặc một loại công việc, như tên nghề, thời gian và địa điểm làm việc."
+        }
+      ]
+    },
+    {
+      "titleZh": "问答中国传统饮食",
+      "titleVi": "Hỏi đáp về ẩm thực truyền thống Trung Quốc",
+      "descriptors": [
+        {
+          "zh": "能听懂他人关于中国传统饮食的简单问题，或关于中国传统饮食习惯的简单介绍。如中国人喜欢吃什么、喝什么等。",
+          "vi": "Có thể nghe hiểu câu hỏi đơn giản về ẩm thực truyền thống Trung Quốc hoặc lời giới thiệu đơn giản về thói quen ăn uống truyền thống của người Trung Quốc; chẳng hạn họ thích ăn gì, uống gì."
+        },
+        {
+          "zh": "能询问关于中国传统饮食的简单问题，或简单介绍中国人的传统饮食习惯、表达自己或家人对中国传统饮食的喜好等。如中国人喜欢吃包子、饺子、面条儿、喝茶，自己或家人是否喜欢等。",
+          "vi": "Có thể hỏi câu hỏi đơn giản về ẩm thực truyền thống Trung Quốc, giới thiệu ngắn gọn thói quen ăn uống truyền thống của người Trung Quốc hoặc bày tỏ sở thích của bản thân, người nhà đối với các món đó; chẳng hạn người Trung Quốc thích ăn bánh bao, sủi cảo, mì và uống trà; bản thân hoặc người nhà có thích hay không."
+        },
+        {
+          "zh": "能看懂菜单上关于中国传统饮食的简单信息，如包子、饺子、面条儿、茶等。",
+          "vi": "Có thể đọc hiểu thông tin đơn giản trên thực đơn về món ăn, thức uống truyền thống Trung Quốc, như bánh bao, sủi cảo, mì và trà."
+        }
+      ]
+    }
+  ]
+}

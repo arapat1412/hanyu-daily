@@ -69,6 +69,34 @@ import {
   toVocabularyWord3,
   getWordEmoji3,
 } from "../data/yct3Data";
+import {
+  YCT4_WORDS,
+  YCT4_CATEGORIES,
+  YCT4_LESSONS,
+  Yct4CategoryId,
+  Yct4Lesson,
+  getYct4Progress,
+  saveYct4Progress,
+  toggleLearnedWord4,
+  recordQuizCompletion4,
+  generateYct4Quiz,
+  toVocabularyWord4,
+  getWordEmoji4,
+} from "../data/yct4Data";
+import {
+  YCT5_WORDS,
+  YCT5_CATEGORIES,
+  YCT5_LESSONS,
+  Yct5CategoryId,
+  Yct5Lesson,
+  getYct5Progress,
+  saveYct5Progress,
+  toggleLearnedWord5,
+  recordQuizCompletion5,
+  generateYct5Quiz,
+  toVocabularyWord5,
+  getWordEmoji5,
+} from "../data/yct5Data";
 import { awardDailyXp, getXpByPrefix, speakChinese, useProgress } from "../lib/hsk";
 import { playSfx } from "../lib/audio-effects";
 import { HanziStrokeModal } from "../components/HanziStrokeModal";
@@ -77,15 +105,135 @@ import type { VocabularyWord } from "../types";
 
 export const YctHubPage: React.FC = () => {
   const { level: rawLevel = "2", tab } = useParams<{ level?: string; tab?: string }>();
-  const levelNum: 1 | 2 | 3 = rawLevel === "1" ? 1 : rawLevel === "3" ? 3 : 2;
+  const levelNum: 1 | 2 | 3 | 4 | 5 = rawLevel === "1" ? 1 : rawLevel === "3" ? 3 : rawLevel === "4" ? 4 : rawLevel === "5" ? 5 : 2;
   const isLevel1 = levelNum === 1;
   const isLevel2 = levelNum === 2;
   const isLevel3 = levelNum === 3;
+  const isLevel4 = levelNum === 4;
+  const isLevel5 = levelNum === 5;
   const unifiedProgress = useProgress();
   const levelXp = getXpByPrefix(unifiedProgress, `yct:${levelNum}:`);
 
   // Unified dynamic color theme for all UI components based on level
   const theme = useMemo(() => {
+    if (levelNum === 5) {
+      return {
+        // Tab 1 Vocab
+        vocabTabActive: "border-3 border-rose-400 bg-rose-600 text-white shadow-[0_5px_0_#e11d48] -translate-y-1",
+        vocabTabInactiveHover: "hover:bg-rose-50",
+        // Tab 4 PDF
+        pdfTabActive: "border-3 border-rose-400 bg-rose-600 text-white shadow-[0_5px_0_#e11d48] -translate-y-1",
+        pdfTabInactiveHover: "hover:bg-rose-50",
+        // Search bar
+        searchIcon: "text-rose-500",
+        searchInput: "border-rose-200 focus:border-rose-500 focus:ring-rose-200",
+        // View mode buttons
+        viewModeActive: "bg-rose-600 text-white shadow-xs",
+        viewModeInactive: "text-slate-600 hover:text-rose-700 hover:bg-rose-50",
+        viewModeCountActive: "bg-white/20 text-white",
+        viewModeCountInactive: "bg-rose-100 text-rose-800",
+        // Header stats badge
+        headerBadge: "text-rose-700 bg-rose-100 border-rose-200",
+        // Lesson cards
+        lessonCard: "border-rose-200/80 hover:border-rose-400 shadow-[0_4px_0_#fecdd3] hover:shadow-[0_8px_0_#fda4af]",
+        lessonCardWatermark: "text-rose-600/10 group-hover:text-rose-600/20",
+        lessonBadge: "bg-rose-600 text-white shadow-xs",
+        lessonBookIcon: "text-rose-600",
+        lessonTitleHover: "group-hover:text-rose-700",
+        lessonTitleZh: "text-rose-800",
+        lessonChip: "bg-rose-50 text-rose-900 border-rose-200/60 hover:bg-rose-200/70",
+        lessonProgress: "bg-rose-500",
+        lessonButton: "border-rose-400 bg-rose-600 text-white shadow-[0_2px_0_#e11d48] hover:bg-rose-700",
+        // Word Card
+        wordCardUnlearned: "border-rose-200 shadow-[0_6px_0_#fecdd3] hover:border-rose-400",
+        wordLessonBadge: "bg-rose-100 border-rose-300 text-rose-800",
+        wordHanziHover: "hover:text-rose-600",
+        wordMeaningBadge: "text-rose-700 bg-rose-50 border-rose-100",
+        wordActionListen: "border-rose-200 bg-rose-50 text-rose-800 hover:bg-rose-100",
+        wordActionHover: "hover:text-rose-600",
+        // Lesson banner when selected
+        selectedBanner: "border-rose-300 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 shadow-[0_6px_0_#be123c]",
+        selectedBannerSubtitle: "text-rose-100",
+        // Quick lesson filter pill
+        pillActive: "border-2 border-rose-600 bg-rose-600 text-white shadow-[0_3px_0_#be123c] -translate-y-0.5",
+        pillInactiveHover: "hover:bg-rose-50",
+        // Grouped lesson container
+        groupContainer: "border-rose-100 bg-rose-50/30",
+        groupDivider: "border-rose-200/70",
+        groupBadge: "bg-rose-600 text-white",
+        groupTitleZh: "text-rose-800",
+        groupButton: "text-rose-700 hover:text-rose-900 border-rose-300 hover:bg-rose-50",
+        // Categories
+        categoryActive: "border-2 border-rose-600 bg-rose-600 text-white shadow-[0_4px_0_#be123c] -translate-y-0.5",
+        // Flashcard
+        fcCardFront: "border-rose-300 bg-gradient-to-br from-rose-50 via-white to-pink-50 shadow-[0_12px_0_#fda4af]",
+        fcListenBtn: "border-2 border-rose-300 bg-white text-rose-800 shadow-xs hover:bg-rose-50",
+        fcAccentText: "text-rose-600 hover:text-rose-700",
+        // PDF Tab
+        pdfHeader: "border-rose-300 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 shadow-[0_8px_0_#be123c]",
+        pdfSubtitle: "text-rose-50",
+        pdfBtn: "border-rose-400 bg-rose-600 hover:bg-rose-700 shadow-[0_3px_0_#be123c]",
+      };
+    }
+    if (levelNum === 4) {
+      return {
+        // Tab 1 Vocab
+        vocabTabActive: "border-3 border-purple-400 bg-purple-600 text-white shadow-[0_5px_0_#7e22ce] -translate-y-1",
+        vocabTabInactiveHover: "hover:bg-purple-50",
+        // Tab 4 PDF
+        pdfTabActive: "border-3 border-purple-400 bg-purple-600 text-white shadow-[0_5px_0_#7e22ce] -translate-y-1",
+        pdfTabInactiveHover: "hover:bg-purple-50",
+        // Search bar
+        searchIcon: "text-purple-500",
+        searchInput: "border-purple-200 focus:border-purple-500 focus:ring-purple-200",
+        // View mode buttons
+        viewModeActive: "bg-purple-600 text-white shadow-xs",
+        viewModeInactive: "text-slate-600 hover:text-purple-700 hover:bg-purple-50",
+        viewModeCountActive: "bg-white/20 text-white",
+        viewModeCountInactive: "bg-purple-100 text-purple-800",
+        // Header stats badge
+        headerBadge: "text-purple-700 bg-purple-100 border-purple-200",
+        // Lesson cards
+        lessonCard: "border-purple-200/80 hover:border-purple-400 shadow-[0_4px_0_#e9d5ff] hover:shadow-[0_8px_0_#d8b4fe]",
+        lessonCardWatermark: "text-purple-600/10 group-hover:text-purple-600/20",
+        lessonBadge: "bg-purple-600 text-white shadow-xs",
+        lessonBookIcon: "text-purple-600",
+        lessonTitleHover: "group-hover:text-purple-700",
+        lessonTitleZh: "text-purple-800",
+        lessonChip: "bg-purple-50 text-purple-900 border-purple-200/60 hover:bg-purple-200/70",
+        lessonProgress: "bg-purple-500",
+        lessonButton: "border-purple-400 bg-purple-600 text-white shadow-[0_2px_0_#7e22ce] hover:bg-purple-700",
+        // Word Card
+        wordCardUnlearned: "border-purple-200 shadow-[0_6px_0_#e9d5ff] hover:border-purple-400",
+        wordLessonBadge: "bg-purple-100 border-purple-300 text-purple-800",
+        wordHanziHover: "hover:text-purple-600",
+        wordMeaningBadge: "text-purple-700 bg-purple-50 border-purple-100",
+        wordActionListen: "border-purple-200 bg-purple-50 text-purple-800 hover:bg-purple-100",
+        wordActionHover: "hover:text-purple-600",
+        // Lesson banner when selected
+        selectedBanner: "border-purple-300 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 shadow-[0_6px_0_#6b21a8]",
+        selectedBannerSubtitle: "text-purple-100",
+        // Quick lesson filter pill
+        pillActive: "border-2 border-purple-600 bg-purple-600 text-white shadow-[0_3px_0_#6b21a8] -translate-y-0.5",
+        pillInactiveHover: "hover:bg-purple-50",
+        // Grouped lesson container
+        groupContainer: "border-purple-100 bg-purple-50/30",
+        groupDivider: "border-purple-200/70",
+        groupBadge: "bg-purple-600 text-white",
+        groupTitleZh: "text-purple-800",
+        groupButton: "text-purple-700 hover:text-purple-900 border-purple-300 hover:bg-purple-50",
+        // Categories
+        categoryActive: "border-2 border-purple-600 bg-purple-600 text-white shadow-[0_4px_0_#6b21a8] -translate-y-0.5",
+        // Flashcard
+        fcCardFront: "border-purple-300 bg-gradient-to-br from-purple-50 via-white to-violet-50 shadow-[0_12px_0_#d8b4fe]",
+        fcListenBtn: "border-2 border-purple-300 bg-white text-purple-800 shadow-xs hover:bg-purple-50",
+        fcAccentText: "text-purple-600 hover:text-purple-700",
+        // PDF Tab
+        pdfHeader: "border-purple-300 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 shadow-[0_8px_0_#6b21a8]",
+        pdfSubtitle: "text-purple-50",
+        pdfBtn: "border-purple-400 bg-purple-600 hover:bg-purple-700 shadow-[0_3px_0_#6b21a8]",
+      };
+    }
     if (levelNum === 3) {
       return {
         // Tab 1 Vocab
@@ -279,9 +427,9 @@ export const YctHubPage: React.FC = () => {
   }, [tab]);
 
   // Words & Categories pool
-  const allWords: any[] = isLevel3 ? YCT3_WORDS : isLevel2 ? YCT2_WORDS : YCT1_WORDS;
-  const currentLessons: any[] = isLevel3 ? YCT3_LESSONS : isLevel2 ? YCT2_LESSONS : YCT1_LESSONS;
-  const categories: any[] = isLevel3 ? YCT3_CATEGORIES : isLevel2 ? YCT2_CATEGORIES : YCT_CATEGORIES;
+  const allWords: any[] = isLevel5 ? YCT5_WORDS : isLevel4 ? YCT4_WORDS : isLevel3 ? YCT3_WORDS : isLevel2 ? YCT2_WORDS : YCT1_WORDS;
+  const currentLessons: any[] = isLevel5 ? YCT5_LESSONS : isLevel4 ? YCT4_LESSONS : isLevel3 ? YCT3_LESSONS : isLevel2 ? YCT2_LESSONS : YCT1_LESSONS;
+  const categories: any[] = isLevel5 ? YCT5_CATEGORIES : isLevel4 ? YCT4_CATEGORIES : isLevel3 ? YCT3_CATEGORIES : isLevel2 ? YCT2_CATEGORIES : YCT_CATEGORIES;
 
   // View mode: 'lessons' (default as requested) or 'categories'
   const [viewMode, setViewMode] = useState<"lessons" | "categories">("lessons");
@@ -289,7 +437,9 @@ export const YctHubPage: React.FC = () => {
   const [selectedLesson, setSelectedLesson] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const getProgressForLevel = useCallback((lvl: 1 | 2 | 3) => {
+  const getProgressForLevel = useCallback((lvl: 1 | 2 | 3 | 4 | 5) => {
+    if (lvl === 5) return getYct5Progress();
+    if (lvl === 4) return getYct4Progress();
     if (lvl === 3) return getYct3Progress();
     if (lvl === 2) return getYct2Progress();
     return getYctProgress();
@@ -387,16 +537,18 @@ export const YctHubPage: React.FC = () => {
     }
     if (selectedCategory === "all") return allWords;
     return allWords.filter((w) => w.category === selectedCategory);
-  }, [allWords, isLevel3, isLevel2, viewMode, selectedLesson, selectedCategory]);
+  }, [allWords, isLevel5, isLevel4, isLevel3, isLevel2, viewMode, selectedLesson, selectedCategory]);
 
   const currentFcWord = flashcardWords[Math.min(fcIndex, Math.max(0, flashcardWords.length - 1))];
 
   // Helper to get stroke word
   const getStrokeWord = useCallback((w: any): VocabularyWord => {
+    if (isLevel5) return toVocabularyWord5(w);
+    if (isLevel4) return toVocabularyWord4(w);
     if (isLevel3) return toVocabularyWord3(w);
     if (isLevel2) return toVocabularyWord2(w);
     return toVocabularyWord(w);
-  }, [isLevel3, isLevel2]);
+  }, [isLevel5, isLevel4, isLevel3, isLevel2]);
 
   // Convert for Word Match Modal
   const matchWords = useMemo(() => {
@@ -406,7 +558,13 @@ export const YctHubPage: React.FC = () => {
 
   // Handle Mark Learned Word
   const handleToggleLearned = (wordId: string) => {
-    if (isLevel3) {
+    if (isLevel5) {
+      const updated = toggleLearnedWord5(wordId);
+      setProgress(updated);
+    } else if (isLevel4) {
+      const updated = toggleLearnedWord4(wordId);
+      setProgress(updated);
+    } else if (isLevel3) {
       const updated = toggleLearnedWord3(wordId);
       setProgress(updated);
     } else if (isLevel2) {
@@ -422,7 +580,17 @@ export const YctHubPage: React.FC = () => {
   // Start new quiz
   const startQuiz = useCallback(() => {
     let questions: any[];
-    if (isLevel3) {
+    if (isLevel5) {
+      questions = generateYct5Quiz(10, {
+        category: selectedCategory === "all" ? undefined : (selectedCategory as Yct5CategoryId),
+        lessonNumber: viewMode === "lessons" && typeof selectedLesson === "number" && selectedLesson > 0 ? selectedLesson : undefined,
+      });
+    } else if (isLevel4) {
+      questions = generateYct4Quiz(10, {
+        category: selectedCategory === "all" ? undefined : (selectedCategory as Yct4CategoryId),
+        lessonNumber: viewMode === "lessons" && typeof selectedLesson === "number" && selectedLesson > 0 ? selectedLesson : undefined,
+      });
+    } else if (isLevel3) {
       questions = generateYct3Quiz(10, {
         category: selectedCategory === "all" ? undefined : (selectedCategory as Yct3CategoryId),
         lessonNumber: viewMode === "lessons" && typeof selectedLesson === "number" && selectedLesson > 0 ? selectedLesson : undefined,
@@ -443,7 +611,7 @@ export const YctHubPage: React.FC = () => {
     setScore(0);
     setQuizFinished(false);
     setEarnedXp(null);
-  }, [isLevel3, isLevel2, selectedCategory, viewMode, selectedLesson]);
+  }, [isLevel5, isLevel4, isLevel3, isLevel2, selectedCategory, viewMode, selectedLesson]);
 
   useEffect(() => {
     if (activeTab === "quiz" && quizQuestions.length === 0) {
@@ -474,7 +642,15 @@ export const YctHubPage: React.FC = () => {
       setIsAnswerChecked(false);
     } else {
       const finalScore = score;
-      if (isLevel3) {
+      if (isLevel5) {
+        const { progress: updated, earnedXp: xp } = recordQuizCompletion5(finalScore, quizQuestions.length);
+        setProgress(updated);
+        setEarnedXp(xp);
+      } else if (isLevel4) {
+        const { progress: updated, earnedXp: xp } = recordQuizCompletion4(finalScore, quizQuestions.length);
+        setProgress(updated);
+        setEarnedXp(xp);
+      } else if (isLevel3) {
         const { progress: updated, earnedXp: xp } = recordQuizCompletion3(finalScore, quizQuestions.length);
         setProgress(updated);
         setEarnedXp(xp);
@@ -500,7 +676,7 @@ export const YctHubPage: React.FC = () => {
 
   // Emoji helper
   const getEmoji = (word: any) => {
-    return isLevel3 ? getWordEmoji3(word) : isLevel2 ? getWordEmoji2(word) : getWordEmoji(word);
+    return isLevel5 ? getWordEmoji5(word) : isLevel4 ? getWordEmoji4(word) : isLevel3 ? getWordEmoji3(word) : isLevel2 ? getWordEmoji2(word) : getWordEmoji(word);
   };
 
   // Helper to render a Word Card
@@ -620,13 +796,17 @@ export const YctHubPage: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen pb-28 sm:pb-32 font-sans ${isLevel3 ? "bg-[#F0F9FF] selection:bg-sky-200 selection:text-sky-900" : isLevel2 ? "bg-[#F7FDF9] selection:bg-emerald-200 selection:text-emerald-900" : "bg-[#FFFDF5] selection:bg-amber-200 selection:text-amber-900"}`}>
+    <div className={`min-h-screen pb-28 sm:pb-32 font-sans ${isLevel5 ? "bg-[#FFF5F7] selection:bg-rose-200 selection:text-rose-900" : isLevel4 ? "bg-[#FAF5FF] selection:bg-purple-200 selection:text-purple-900" : isLevel3 ? "bg-[#F0F9FF] selection:bg-sky-200 selection:text-sky-900" : isLevel2 ? "bg-[#F7FDF9] selection:bg-emerald-200 selection:text-emerald-900" : "bg-[#FFFDF5] selection:bg-amber-200 selection:text-amber-900"}`}>
       
       {/* ========================================================
           1. HEADER KHU VƯỜN HOẠT HÌNH CỦA BÉ
       ======================================================== */}
       <header className={`relative overflow-hidden border-b-4 pt-4 pb-8 sm:pt-6 sm:pb-10 shadow-sm ${
-        isLevel3
+        isLevel5
+          ? "border-rose-300 bg-gradient-to-b from-rose-200 via-pink-100 to-[#FFF5F7]"
+          : isLevel4
+          ? "border-purple-300 bg-gradient-to-b from-purple-200 via-violet-100 to-[#FAF5FF]"
+          : isLevel3
           ? "border-sky-300 bg-gradient-to-b from-sky-200 via-blue-100 to-[#F0F9FF]"
           : isLevel2
           ? "border-emerald-300 bg-gradient-to-b from-emerald-200 via-teal-100 to-[#F7FDF9]"
@@ -635,7 +815,7 @@ export const YctHubPage: React.FC = () => {
         {/* Floating Cartoon Clouds / Bubbles */}
         <div className="pointer-events-none absolute top-4 left-6 h-20 w-36 rounded-full bg-white/60 blur-xs" />
         <div className="pointer-events-none absolute top-12 right-10 h-24 w-44 rounded-full bg-white/70 blur-xs" />
-        <div className={`pointer-events-none absolute -bottom-10 right-1/3 h-32 w-52 rounded-full blur-md ${isLevel3 ? "bg-sky-200/40" : isLevel2 ? "bg-emerald-200/40" : "bg-amber-200/40"}`} />
+        <div className={`pointer-events-none absolute -bottom-10 right-1/3 h-32 w-52 rounded-full blur-md ${isLevel5 ? "bg-rose-200/40" : isLevel4 ? "bg-purple-200/40" : isLevel3 ? "bg-sky-200/40" : isLevel2 ? "bg-emerald-200/40" : "bg-amber-200/40"}`} />
 
         <div className="relative z-10 mx-auto max-w-6xl px-3 sm:px-6">
           
@@ -686,6 +866,28 @@ export const YctHubPage: React.FC = () => {
                   <span className="sm:hidden">YCT 3</span>
                   <span className="hidden sm:inline">YCT 3 (335 từ)</span>
                 </Link>
+                <Link
+                  to="/yct/4"
+                  className={`rounded-xl px-2.5 sm:px-3 py-1 text-xs font-black transition-all ${
+                    levelNum === 4
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <span className="sm:hidden">YCT 4</span>
+                  <span className="hidden sm:inline">YCT 4 (657 từ)</span>
+                </Link>
+                <Link
+                  to="/yct/5"
+                  className={`rounded-xl px-2.5 sm:px-3 py-1 text-xs font-black transition-all ${
+                    levelNum === 5
+                      ? "bg-rose-600 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <span className="sm:hidden">YCT 5</span>
+                  <span className="hidden sm:inline">YCT 5 (161 từ)</span>
+                </Link>
               </div>
             </div>
 
@@ -695,8 +897,8 @@ export const YctHubPage: React.FC = () => {
                 <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-amber-400 text-amber-500 animate-spin-slow" />
                 <span>{levelXp} <span className="hidden xs:inline">XP</span></span>
               </div>
-              <div className={`inline-flex items-center gap-1 sm:gap-1.5 rounded-2xl border-2 ${isLevel3 ? "border-sky-300 bg-sky-100/90 text-sky-900 shadow-[0_3px_0_#7dd3fc]" : isLevel2 ? "border-emerald-300 bg-emerald-100/90 text-emerald-900 shadow-[0_3px_0_#86efac]" : "border-amber-300 bg-amber-100/90 text-amber-900 shadow-[0_3px_0_#fde047]"} px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs font-black`}>
-                <Trophy className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isLevel3 ? "text-sky-600" : isLevel2 ? "text-emerald-600" : "text-amber-600"}`} />
+              <div className={`inline-flex items-center gap-1 sm:gap-1.5 rounded-2xl border-2 ${isLevel5 ? "border-rose-300 bg-rose-100/90 text-rose-900 shadow-[0_3px_0_#fda4af]" : isLevel4 ? "border-purple-300 bg-purple-100/90 text-purple-900 shadow-[0_3px_0_#d8b4fe]" : isLevel3 ? "border-sky-300 bg-sky-100/90 text-sky-900 shadow-[0_3px_0_#7dd3fc]" : isLevel2 ? "border-emerald-300 bg-emerald-100/90 text-emerald-900 shadow-[0_3px_0_#86efac]" : "border-amber-300 bg-amber-100/90 text-amber-900 shadow-[0_3px_0_#fde047]"} px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs font-black`}>
+                <Trophy className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isLevel5 ? "text-rose-600" : isLevel4 ? "text-purple-600" : isLevel3 ? "text-sky-600" : isLevel2 ? "text-emerald-600" : "text-amber-600"}`} />
                 <span>{progress.learnedWordIds.length}/{allWords.length} Từ</span>
               </div>
             </div>
@@ -704,7 +906,11 @@ export const YctHubPage: React.FC = () => {
 
           {/* Main Hero Card */}
           <div className={`mt-4 sm:mt-6 flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 rounded-3xl sm:rounded-[36px] border-3 sm:border-4 p-4 sm:p-6 md:p-8 text-white ${
-            isLevel3
+            isLevel5
+              ? "border-rose-300 bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 shadow-[0_10px_0_#be123c]"
+              : isLevel4
+              ? "border-purple-300 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 shadow-[0_10px_0_#6b21a8]"
+              : isLevel3
               ? "border-sky-300 bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-600 shadow-[0_10px_0_#0369a1]"
               : isLevel2
               ? "border-emerald-300 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 shadow-[0_10px_0_#047857]"
@@ -714,7 +920,7 @@ export const YctHubPage: React.FC = () => {
             {/* Left Content */}
             <div className="flex-1 text-center md:text-left w-full">
               <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border-2 border-white/40 bg-white/20 px-3 sm:px-3.5 py-1 text-[11px] sm:text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
-                <span>{isLevel3 ? "🚀 Chinh Phục Ngôn Ngữ · 少儿汉语 3" : isLevel2 ? "🌿 Vườn Hoa Khám Phá · 少儿汉语 2" : "🎈 Vườn Hoa Thiếu Nhi · 少儿汉语 1"}</span>
+                <span>{isLevel5 ? "🚀 Đột Phá Đỉnh Cao · 少儿汉语 5" : isLevel4 ? "🚀 Bứt Phá Nâng Cao · 少儿汉语 4" : isLevel3 ? "🚀 Chinh Phục Ngôn Ngữ · 少儿汉语 3" : isLevel2 ? "🌿 Vườn Hoa Khám Phá · 少儿汉语 2" : "🎈 Vườn Hoa Thiếu Nhi · 少儿汉语 1"}</span>
               </div>
 
               <h1 className="mt-2 sm:mt-3 font-display text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
@@ -722,7 +928,11 @@ export const YctHubPage: React.FC = () => {
               </h1>
 
               <p className="mt-2 sm:mt-2.5 max-w-xl text-xs sm:text-sm font-semibold leading-relaxed text-white/90">
-                {isLevel3
+                {isLevel5
+                  ? `Chào mừng các bạn nhỏ! Khám phá 14 bài học tiếng Trung chuẩn YCT 5 với ${allWords.length} từ vựng nâng cao, lật thẻ flashcard và thử tài đố vui nhận sao thưởng nhé!`
+                  : isLevel4
+                  ? `Chào mừng các bạn nhỏ! Khám phá 11 bài học tiếng Trung chuẩn YCT 4 và 32 chủ đề toàn diện với ${allWords.length} từ vựng, lật thẻ flashcard và thử tài đố vui nhận sao thưởng nhé!`
+                  : isLevel3
                   ? "Chào mừng các bạn nhỏ! Khám phá 11 bài học tiếng Trung chuẩn YCT 3 và 20 chủ đề toàn diện với 335 từ vựng, lật thẻ flashcard và thử tài đố vui nhận sao thưởng nhé!"
                   : isLevel2
                   ? "Chào mừng các bạn nhỏ! Khám phá 10 bài học tiếng Trung chuẩn YCT 2 với 154 từ vựng hoạt hình, lật thẻ flashcard và thử tài đố vui nhận sao thưởng nhé!"
@@ -754,12 +964,12 @@ export const YctHubPage: React.FC = () => {
             {/* Right Mascot Card with Speech Bubble */}
             <div className="relative shrink-0 flex flex-col items-center">
               <div className="relative mb-2 rounded-2xl border-2 border-slate-200 bg-white px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-black text-slate-800 shadow-md max-w-xs text-center">
-                <span>{isLevel3 ? "Cùng học YCT 3 nhận thật nhiều sao nhé! 🌟" : isLevel2 ? "Bé chọn bài học bên dưới để bắt đầu nhé! 🚀" : "Bé đã sẵn sàng cùng Pipi chưa nào? 🐾"}</span>
+                <span>{isLevel5 ? "Cùng học YCT 5 nhận thật nhiều sao nhé! 🌟" : isLevel4 ? "Cùng học YCT 4 nhận thật nhiều sao nhé! 🌟" : isLevel3 ? "Cùng học YCT 3 nhận thật nhiều sao nhé! 🌟" : isLevel2 ? "Bé chọn bài học bên dưới để bắt đầu nhé! 🚀" : "Bé đã sẵn sàng cùng Pipi chưa nào? 🐾"}</span>
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 border-x-6 border-x-transparent border-t-8 border-t-white" />
               </div>
 
-              <div className={`flex h-20 w-20 sm:h-28 sm:w-28 md:h-36 md:w-36 items-center justify-center rounded-2xl sm:rounded-3xl border-3 sm:border-4 border-white shadow-xl text-4xl sm:text-6xl md:text-7xl select-none hover:rotate-6 transition-transform ${isLevel3 ? "bg-sky-100" : isLevel2 ? "bg-emerald-100" : "bg-amber-100"}`}>
-                {isLevel3 ? "🦁" : isLevel2 ? "🐯" : "🐼"}
+              <div className={`flex h-20 w-20 sm:h-28 sm:w-28 md:h-36 md:w-36 items-center justify-center rounded-2xl sm:rounded-3xl border-3 sm:border-4 border-white shadow-xl text-4xl sm:text-6xl md:text-7xl select-none hover:rotate-6 transition-transform ${isLevel5 ? "bg-rose-100" : isLevel4 ? "bg-purple-100" : isLevel3 ? "bg-sky-100" : isLevel2 ? "bg-emerald-100" : "bg-amber-100"}`}>
+                {isLevel5 ? "🦊" : isLevel4 ? "🦄" : isLevel3 ? "🦁" : isLevel2 ? "🐯" : "🐼"}
               </div>
             </div>
 
@@ -858,9 +1068,9 @@ export const YctHubPage: React.FC = () => {
           <div className="space-y-8">
             
             {/* Thanh điều hướng chế độ chia bài */}
-            <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b ${isLevel3 ? "border-sky-100" : isLevel2 ? "border-emerald-100" : "border-amber-100"} pb-4`}>
+            <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b ${isLevel5 ? "border-rose-100" : isLevel4 ? "border-purple-100" : isLevel3 ? "border-sky-100" : isLevel2 ? "border-emerald-100" : "border-amber-100"} pb-4`}>
                 {/* 2 nút lớn: Bài học vs Chủ đề */}
-                <div className={`grid grid-cols-2 sm:flex items-center gap-1.5 rounded-2xl border-2 ${isLevel3 ? "border-sky-200" : isLevel2 ? "border-emerald-200" : "border-amber-200"} bg-white p-1.5 shadow-xs w-full sm:w-auto`}>
+                <div className={`grid grid-cols-2 sm:flex items-center gap-1.5 rounded-2xl border-2 ${isLevel5 ? "border-rose-200" : isLevel4 ? "border-purple-200" : isLevel3 ? "border-sky-200" : isLevel2 ? "border-emerald-200" : "border-amber-200"} bg-white p-1.5 shadow-xs w-full sm:w-auto`}>
                   <button
                     type="button"
                     onClick={() => {
@@ -1384,7 +1594,7 @@ export const YctHubPage: React.FC = () => {
           <div className="mx-auto max-w-xl space-y-6">
             
             {/* Top Toolbar: Chọn bài học để lật thẻ */}
-            <div className={`flex items-center justify-between gap-3 bg-white p-3 rounded-2xl border ${isLevel3 ? "border-sky-200" : isLevel2 ? "border-emerald-200" : "border-amber-200"} text-xs font-bold`}>
+            <div className={`flex items-center justify-between gap-3 bg-white p-3 rounded-2xl border ${isLevel5 ? "border-rose-200" : isLevel4 ? "border-purple-200" : isLevel3 ? "border-sky-200" : isLevel2 ? "border-emerald-200" : "border-amber-200"} text-xs font-bold`}>
               <span className="text-slate-600 shrink-0">Lọc thẻ theo:</span>
               <select
                 value={selectedLesson}
@@ -1394,7 +1604,7 @@ export const YctHubPage: React.FC = () => {
                   setFcIndex(0);
                   setFcFlipped(false);
                 }}
-                className={`rounded-xl border ${isLevel3 ? "border-sky-300 bg-sky-50/50 text-sky-900" : isLevel2 ? "border-emerald-300 bg-emerald-50/50 text-emerald-900" : "border-amber-300 bg-amber-50/50 text-amber-900"} px-3 py-1.5 text-xs font-black focus:outline-none`}
+                className={`rounded-xl border ${isLevel5 ? "border-rose-300 bg-rose-50/50 text-rose-900" : isLevel4 ? "border-purple-300 bg-purple-50/50 text-purple-900" : isLevel3 ? "border-sky-300 bg-sky-50/50 text-sky-900" : isLevel2 ? "border-emerald-300 bg-emerald-50/50 text-emerald-900" : "border-amber-300 bg-amber-50/50 text-amber-900"} px-3 py-1.5 text-xs font-black focus:outline-none`}
               >
                 <option value="all">Toàn bộ {currentLessons.length} bài học ({allWords.length} từ)</option>
                 {currentLessons.map((l: any) => (
@@ -1730,7 +1940,11 @@ export const YctHubPage: React.FC = () => {
                     key={res.level}
                     className={`flex flex-col justify-between rounded-[32px] border-3 bg-white p-6 ${
                       isCurrentLevel
-                        ? isLevel3
+                        ? isLevel5
+                          ? "border-rose-400 shadow-[0_8px_0_#fda4af] ring-2 ring-rose-200"
+                          : isLevel4
+                          ? "border-purple-400 shadow-[0_8px_0_#d8b4fe] ring-2 ring-purple-200"
+                          : isLevel3
                           ? "border-sky-400 shadow-[0_8px_0_#7dd3fc] ring-2 ring-sky-200"
                           : isLevel2
                           ? "border-emerald-400 shadow-[0_8px_0_#6ee7b7] ring-2 ring-emerald-200"
@@ -1752,7 +1966,11 @@ export const YctHubPage: React.FC = () => {
                         <div className="flex items-center justify-between gap-2">
                           <span className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1 text-xs font-black ${
                             isCurrentLevel
-                              ? isLevel3
+                              ? isLevel5
+                                ? "border-rose-300 bg-rose-100 text-rose-900"
+                                : isLevel4
+                                ? "border-purple-300 bg-purple-100 text-purple-900"
+                                : isLevel3
                                 ? "border-sky-300 bg-sky-100 text-sky-900"
                                 : isLevel2
                                 ? "border-emerald-300 bg-emerald-100 text-emerald-900"
@@ -1784,7 +2002,7 @@ export const YctHubPage: React.FC = () => {
                         href={res.textbookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center gap-2 rounded-2xl border-2 ${isLevel3 ? "border-sky-400 bg-sky-500 hover:bg-sky-600 shadow-[0_3px_0_#0369a1]" : isLevel2 ? "border-emerald-400 bg-emerald-500 hover:bg-emerald-600 shadow-[0_3px_0_#047857]" : "border-amber-400 bg-amber-500 hover:bg-amber-600 shadow-[0_3px_0_#b45309]"} text-white px-3 sm:px-4 py-2.5 sm:py-3 text-xs font-black transition active:translate-y-0.5 active:shadow-none`}
+                        className={`inline-flex items-center justify-center gap-2 rounded-2xl border-2 ${isLevel5 ? "border-rose-400 bg-rose-600 hover:bg-rose-700 shadow-[0_3px_0_#e11d48]" : isLevel4 ? "border-purple-400 bg-purple-600 hover:bg-purple-700 shadow-[0_3px_0_#7e22ce]" : isLevel3 ? "border-sky-400 bg-sky-500 hover:bg-sky-600 shadow-[0_3px_0_#0369a1]" : isLevel2 ? "border-emerald-400 bg-emerald-500 hover:bg-emerald-600 shadow-[0_3px_0_#047857]" : "border-amber-400 bg-amber-500 hover:bg-amber-600 shadow-[0_3px_0_#b45309]"} text-white px-3 sm:px-4 py-2.5 sm:py-3 text-xs font-black transition active:translate-y-0.5 active:shadow-none`}
                       >
                         <Download size={16} className="shrink-0" />
                         <span className="truncate">Sách Bài Học ({res.sizeMbTextbook}MB)</span>
@@ -1838,7 +2056,23 @@ export const YctHubPage: React.FC = () => {
               "yct",
               Math.min(100, Math.max(0, stats.points)),
             );
-            if (isLevel3) {
+            if (isLevel5) {
+              const current = getYct5Progress();
+              const updated = {
+                ...current,
+                xp: current.xp + earnedXp,
+              };
+              saveYct5Progress(updated);
+              setProgress(updated);
+            } else if (isLevel4) {
+              const current = getYct4Progress();
+              const updated = {
+                ...current,
+                xp: current.xp + earnedXp,
+              };
+              saveYct4Progress(updated);
+              setProgress(updated);
+            } else if (isLevel3) {
               const current = getYct3Progress();
               const updated = {
                 ...current,

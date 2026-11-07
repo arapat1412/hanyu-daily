@@ -196,6 +196,19 @@ export const YCT_PDF_RESOURCES: YctPdfResource[] = [
     sizeMbWorkbook: 12.2,
     wordsCount: 600,
   },
+  {
+    level: 5,
+    titleVi: "Giáo trình Chuẩn YCT Cấp 5",
+    titleZh: "YCT 标准教程 5",
+    desc: "Mở rộng 161 từ vựng nâng cao qua 14 bài học SGK, tăng cường phản xạ đọc hiểu đoạn văn thiếu nhi và làm bước đệm chuyển tiếp sang HSK.",
+    textbookUrl:
+      "https://drive.google.com/uc?export=download&id=1caMjV9SogFRzbY8wcxK4znvonSdiek_d",
+    workbookUrl:
+      "https://drive.google.com/uc?export=download&id=1kc7Y0jCieM2jKOHb9HDHv66tPy7LwMj7",
+    sizeMbTextbook: 15.5,
+    sizeMbWorkbook: 12.8,
+    wordsCount: 161,
+  },
 ];
 
 export function toVocabularyWord(word: YctWord): VocabularyWord {

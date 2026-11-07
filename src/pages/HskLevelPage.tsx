@@ -28,6 +28,7 @@ import { HanziStrokeModal } from "../components/HanziStrokeModal";
 import { PracticeSession } from "../components/PracticeSession";
 import { HskGrammarView } from "../components/HskGrammarView";
 import { HskReviewView } from "../components/HskReviewView";
+import { Hsk1SyllabusSections } from "../components/Hsk1SyllabusSections";
 import type { VocabularyWord } from "../types";
 
 export function HskLevelPage() {
@@ -534,7 +535,9 @@ function LevelContent({ data, tab }: { data: HskData; tab: string }) {
                 ))}
             </div>
           </details>
-          {(["topic", "task"] as const).map((kind) => (
+          {data.code === "hsk1" ? (
+            <Hsk1SyllabusSections query={query} />
+          ) : (["topic", "task"] as const).map((kind) => (
             <details
               key={kind}
               className="mb-4 rounded-2xl border border-line bg-white p-5"
