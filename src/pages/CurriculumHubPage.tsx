@@ -18,6 +18,7 @@ import { YCT2_WORDS } from '../data/yct2Data';
 import { YCT3_WORDS } from '../data/yct3Data';
 import { YCT4_WORDS } from '../data/yct4Data';
 import { YCT5_WORDS } from '../data/yct5Data';
+import { YCT6_WORDS } from '../data/yct6Data';
 
 export const CurriculumHubPage: React.FC = () => {
   return (
@@ -320,7 +321,7 @@ export const CurriculumHubPage: React.FC = () => {
               <div className="mt-4 space-y-2">
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>YCT 1 đến 5 sẵn sàng học ngay ({YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length + YCT4_WORDS.length + YCT5_WORDS.length} từ vựng)</span>
+                  <span>Trọn bộ 6 cấp độ YCT 1 đến 6 sẵn sàng học ngay ({YCT1_WORDS.length + YCT2_WORDS.length + YCT3_WORDS.length + YCT4_WORDS.length + YCT5_WORDS.length + YCT6_WORDS.length} từ vựng)</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -328,7 +329,7 @@ export const CurriculumHubPage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Trọn bộ PDF Sách bài học & Bài tập YCT 1 đến 5</span>
+                  <span>Trọn bộ PDF Sách bài học & Bài tập YCT 1 đến 6</span>
                 </div>
               </div>
             </div>

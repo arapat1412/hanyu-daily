@@ -209,6 +209,19 @@ export const YCT_PDF_RESOURCES: YctPdfResource[] = [
     sizeMbWorkbook: 12.8,
     wordsCount: 161,
   },
+  {
+    level: 6,
+    titleVi: "Giáo trình Chuẩn YCT Cấp 6",
+    titleZh: "YCT 标准教程 6",
+    desc: "Hoàn thiện hệ thống ngữ pháp và 187 từ vựng nâng cao qua 14 bài học SGK, tự tin làm chủ giao tiếp và làm bài thi thiếu nhi quốc tế xuất sắc.",
+    textbookUrl:
+      "https://drive.google.com/uc?export=download&id=1caMjV9SogFRzbY8wcxK4znvonSdiek_d",
+    workbookUrl:
+      "https://drive.google.com/uc?export=download&id=1kc7Y0jCieM2jKOHb9HDHv66tPy7LwMj7",
+    sizeMbTextbook: 16.2,
+    sizeMbWorkbook: 13.5,
+    wordsCount: 187,
+  },
 ];
 
 export function toVocabularyWord(word: YctWord): VocabularyWord {
